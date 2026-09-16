@@ -1,1 +1,21 @@
-# louis
+# YPP Africa Prep 2026
+
+Plateforme indépendante de préparation à l'évaluation en ligne du Young Professionals Program (YPP) de la Banque africaine de développement.
+
+## Fonctionnalités
+- Tableau de bord et Readiness Score local
+- 4 domaines : connaissance BAD, développement africain, SJT, raisonnement
+- Entraînement adaptatif ciblant les domaines faibles
+- Simulateur chronométré de 45 minutes
+- Français / anglais pour les questions
+- Progression sauvegardée localement dans le navigateur
+- Fiches BAD : stratégie 2024–2033, High 5, Four Cardinal Points, NAFAD
+
+## Utilisation
+Ouvrir `index.html` dans un navigateur ou publier le dépôt avec GitHub Pages.
+
+## Important
+Projet indépendant, non affilié à la Banque africaine de développement. Toutes les questions sont originales et destinées exclusivement à la préparation. Pendant l'évaluation officielle, le candidat doit respecter les règles d'intégrité communiquées par la BAD, notamment l'interdiction d'assistance externe ou d'outils IA lorsque celle-ci s'applique.
+
+## Sources
+Pour les faits institutionnels, privilégier les publications officielles de la Banque africaine de développement : stratégie décennale 2024–2033, High 5, Annual Meetings et publications 2026.

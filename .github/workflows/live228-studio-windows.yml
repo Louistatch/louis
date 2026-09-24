@@ -1,0 +1,41 @@
+name: Build LIVE228 Studio Windows
+
+on:
+  push:
+    branches:
+      - live228-live-studio
+    paths:
+      - 'live228-live-studio/**'
+      - '.github/workflows/live228-studio-windows.yml'
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: live228-live-studio
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: live228-live-studio/package.json
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build portable EXE
+        run: npm run dist
+
+      - name: Upload portable EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: LIVE228-Clash-Studio-Windows
+          path: live228-live-studio/dist/LIVE228-Clash-Studio-v0.6-portable.exe
+          if-no-files-found: error

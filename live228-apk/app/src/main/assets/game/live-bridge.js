@@ -109,6 +109,8 @@
     const username = status.username ? `@${status.username}` : '';
     const labelMap = {
       idle: 'Prêt',
+      prepared: 'TikTok Mobile Gaming',
+      waiting: 'Recherche du LIVE',
       connecting: 'Connexion…',
       connected: `Connecté ${username}`.trim(),
       reconnecting: 'Reconnexion…',
@@ -122,8 +124,10 @@
       badge.textContent = status.state === 'connected' ? '● LIVE' : '●';
     }
     if (statusText) statusText.textContent = label;
-    if (connectBtn) connectBtn.disabled = status.state === 'connecting';
+    if (connectBtn) connectBtn.disabled = ['connecting'].includes(status.state);
     if (disconnectBtn) disconnectBtn.disabled = !['connected', 'connecting', 'reconnecting', 'error', 'ended', 'disconnected'].includes(status.state);
+    const broadcastStates = ['waiting','connecting','connected','reconnecting'];
+    document.documentElement.classList.toggle('obs-mode', broadcastStates.includes(status.state));
     window.Live228?.setLiveConnected?.(status.state === 'connected');
     if (status.lastError) showBridgeMessage(status.lastError, true);
   }
@@ -169,7 +173,18 @@
   $('connectTikTok')?.addEventListener('click', connectFromUI);
   $('disconnectTikTok')?.addEventListener('click', disconnectFromUI);
   $('openTikTok')?.addEventListener('click', () => {
-    try { window.AndroidLive?.openTikTok?.(); } catch (_) {}
+    const username = $('tiktokUsername')?.value?.trim();
+    if (!username) {
+      showBridgeMessage('Entre ton @username TikTok avant d’ouvrir TikTok.', true);
+      return;
+    }
+    try {
+      if (typeof window.AndroidLive?.prepareMobileLive === 'function') {
+        window.AndroidLive.prepareMobileLive(username);
+      } else {
+        window.AndroidLive?.openTikTok?.();
+      }
+    } catch (_) {}
   });
   $('tiktokUsername')?.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') connectFromUI();
@@ -208,7 +223,7 @@
 
   if (bridgeAvailable) {
     setStatus({ state: 'idle' });
-    showBridgeMessage('APK autonome prêt. Démarre ton LIVE TikTok, puis connecte ton @username ici.');
+    showBridgeMessage('Mode Mobile Gaming prêt. Ouvre TikTok avec le bouton 1, démarre le partage d’écran, puis reviens dans LIVE228 via Applications récentes.');
   } else {
     setStatus({ state: 'error' });
     showBridgeMessage('Pont Android introuvable.', true);

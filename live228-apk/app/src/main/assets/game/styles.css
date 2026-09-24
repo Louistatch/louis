@@ -173,3 +173,63 @@ html.obs-mode .control-panel { display:none !important; }
 }
 
 .native-live-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+
+
+/* v0.5 — Android Picture-in-Picture */
+html.pip-mode body {
+  margin:0;
+  background:#000;
+  overflow:hidden;
+}
+html.pip-mode .app-shell {
+  display:block;
+  width:100vw;
+  height:100vh;
+  padding:0;
+  margin:0;
+}
+html.pip-mode .live-stage {
+  position:relative;
+  top:0;
+  width:100vw;
+  height:100vh;
+  max-height:none;
+  aspect-ratio:auto;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
+html.pip-mode .control-panel {
+  display:none !important;
+}
+html.pip-mode .topbar {
+  padding:10px 12px 6px;
+}
+html.pip-mode .brand {
+  font-size:16px;
+}
+html.pip-mode .subtitle,
+html.pip-mode .round-label {
+  display:none;
+}
+html.pip-mode .scoreboard {
+  padding:0 10px 7px;
+}
+html.pip-mode .team-card {
+  padding:7px 8px;
+}
+html.pip-mode .team-score {
+  font-size:26px;
+}
+html.pip-mode .bottom-panel {
+  padding:7px 9px 9px;
+}
+html.pip-mode .leaderboard {
+  display:none;
+}
+html.pip-mode .stat-strip {
+  grid-template-columns:repeat(3,1fr);
+}
+html.pip-mode .stat-strip > div:nth-child(n+4) {
+  display:none;
+}

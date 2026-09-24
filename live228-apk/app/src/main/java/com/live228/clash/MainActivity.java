@@ -2,11 +2,17 @@ package com.live228.clash;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.PictureInPictureParams;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Rational;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
@@ -16,8 +22,10 @@ import android.webkit.WebViewClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 
 import io.github.jwdeveloper.tiktok.TikTokLive;
@@ -28,10 +36,18 @@ public class MainActivity extends Activity {
     private static final String GAME_URL = "file:///android_asset/game/index.html";
 
     private final Object clientLock = new Object();
-    private final ExecutorService liveExecutor = Executors.newSingleThreadExecutor();
+    private final ScheduledExecutorService liveExecutor = Executors.newSingleThreadScheduledExecutor();
+    private final AtomicBoolean retryScheduled = new AtomicBoolean(false);
+    private final AtomicBoolean connectAttemptRunning = new AtomicBoolean(false);
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private WebView webView;
     private LiveClient liveClient;
+
+    private volatile boolean smartMode = false;
+    private volatile boolean connected = false;
+    private volatile boolean manualStop = false;
+    private volatile int retryCount = 0;
     private String activeUsername = "";
 
     @Override
@@ -67,21 +83,31 @@ public class MainActivity extends Activity {
     public final class AndroidLiveBridge {
         @JavascriptInterface
         public void connect(String username) {
-            connectTikTok(username);
+            startSmartLive(username);
+        }
+
+        @JavascriptInterface
+        public void startSmartLive(String username) {
+            MainActivity.this.startSmartLive(username);
         }
 
         @JavascriptInterface
         public void disconnect() {
-            disconnectTikTok();
+            stopSmartLive();
         }
 
         @JavascriptInterface
         public void openTikTok() {
             runOnUiThread(MainActivity.this::openTikTok);
         }
+
+        @JavascriptInterface
+        public boolean isPipSupported() {
+            return supportsPip();
+        }
     }
 
-    private void connectTikTok(String rawUsername) {
+    private void startSmartLive(String rawUsername) {
         final String username = rawUsername == null
                 ? ""
                 : rawUsername.trim().replaceFirst("^@", "");
@@ -91,93 +117,263 @@ public class MainActivity extends Activity {
             return;
         }
 
-        disconnectTikTok();
+        stopConnectionOnly();
+
         activeUsername = username;
-        emitStatus("connecting", username, "Connexion directe au LIVE TikTok…", null);
+        smartMode = true;
+        manualStop = false;
+        connected = false;
+        retryCount = 0;
 
-        liveExecutor.execute(() -> {
-            try {
-                LiveClientBuilder builder = TikTokLive.newClient(username);
+        getSharedPreferences("live228", MODE_PRIVATE)
+                .edit()
+                .putString("username", username)
+                .apply();
 
-                builder.configure(settings -> {
-                    settings.setClientLanguage("fr");
-                    settings.setPrintToConsole(false);
-                    settings.setLogLevel(Level.WARNING);
-                    settings.setRetryOnConnectionFailure(false);
-                });
+        emitStatus(
+                "launching",
+                username,
+                supportsPip()
+                        ? "LIVE228 passe en mini-fenêtre puis ouvre TikTok. Démarre ton LIVE : la détection est automatique."
+                        : "Picture-in-Picture non disponible sur ce téléphone. Ouverture de TikTok en mode compatibilité.",
+                null
+        );
 
-                builder.onConnecting((client, event) ->
-                        emitStatus("connecting", username, "TikTok répond, ouverture du flux LIVE…", null));
+        scheduleConnect(0);
+        enterPipAndOpenTikTok();
+    }
 
-                builder.onConnected((client, event) -> {
-                    synchronized (clientLock) {
-                        liveClient = client;
-                    }
-                    Integer viewers = null;
-                    try {
-                        viewers = client.getRoomInfo().getViewersCount();
-                    } catch (Throwable ignored) {
-                    }
-                    emitStatus("connected", username, "LIVE connecté. Les interactions alimentent le jeu.", viewers);
-                });
-
-                builder.onRoomInfo((client, event) -> {
-                    int viewers = event.getRoomInfo().getViewersCount();
-                    emitStatus("connected", username, null, viewers);
-                });
-
-                builder.onJoin((client, event) ->
-                        emitUserEvent("member", event.getUser().getName(), null, 0, null, 0, 1));
-
-                builder.onComment((client, event) ->
-                        emitUserEvent("comment", event.getUser().getName(), event.getText(), 0, null, 0, 1));
-
-                builder.onLike((client, event) ->
-                        emitUserEvent("like", event.getUser().getName(), null, event.getLikes(), null, 0, 1));
-
-                builder.onFollow((client, event) ->
-                        emitUserEvent("follow", event.getUser().getName(), null, 0, null, 0, 1));
-
-                builder.onShare((client, event) ->
-                        emitUserEvent("share", event.getUser().getName(), null, 0, null, 0, 1));
-
-                builder.onGift((client, event) -> {
-                    String giftName = event.getGift() == null ? "gift" : event.getGift().getName();
-                    int diamonds = event.getGift() == null ? 0 : event.getGift().getDiamondCost();
-                    int repeat = Math.max(1, event.getCombo());
-                    emitUserEvent("gift", event.getUser().getName(), null, 0, giftName, diamonds, repeat);
-                });
-
-                builder.onReconnecting((client, event) ->
-                        emitStatus("reconnecting", username, "Reconnexion au LIVE…", null));
-
-                builder.onLiveEnded((client, event) ->
-                        emitStatus("ended", username, "Le LIVE TikTok est terminé.", 0));
-
-                builder.onDisconnected((client, event) ->
-                        emitStatus("disconnected", username, "Connexion TikTok fermée.", null));
-
-                builder.onError((client, event) -> {
-                    Throwable ex = event.getException();
-                    String message = ex == null ? "Erreur TikTok LIVE." : readableError(ex);
-                    emitStatus("error", username, message, null);
-                });
-
-                LiveClient client = builder.build();
-                synchronized (clientLock) {
-                    liveClient = client;
-                }
-                client.connect();
-            } catch (Throwable ex) {
-                synchronized (clientLock) {
-                    liveClient = null;
-                }
-                emitStatus("error", username, readableError(ex), null);
+    private void enterPipAndOpenTikTok() {
+        runOnUiThread(() -> {
+            if (webView != null) {
+                webView.evaluateJavascript(
+                        "document.documentElement.classList.add('pip-mode');",
+                        null
+                );
             }
+
+            if (supportsPip()) {
+                try {
+                    PictureInPictureParams.Builder builder = new PictureInPictureParams.Builder()
+                            .setAspectRatio(new Rational(9, 16));
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        builder.setSeamlessResizeEnabled(false);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        builder.setTitle("LIVE228 Clash");
+                        builder.setSubtitle("TikTok LIVE interactif");
+                    }
+
+                    setPictureInPictureParams(builder.build());
+                    enterPictureInPictureMode(builder.build());
+                } catch (Throwable ignored) {
+                }
+            }
+
+            mainHandler.postDelayed(this::openTikTok, 350);
         });
     }
 
-    private void disconnectTikTok() {
+    private boolean supportsPip() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+                && getPackageManager().hasSystemFeature("android.software.picture_in_picture");
+    }
+
+    @Override
+    public void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        if (!smartMode || !supportsPip() || isInPictureInPictureMode()) return;
+
+        try {
+            PictureInPictureParams.Builder builder = new PictureInPictureParams.Builder()
+                    .setAspectRatio(new Rational(9, 16));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                builder.setSeamlessResizeEnabled(false);
+            }
+            enterPictureInPictureMode(builder.build());
+        } catch (Throwable ignored) {
+        }
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode, Configuration newConfig) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig);
+
+        if (webView != null) {
+            String script = isInPictureInPictureMode
+                    ? "document.documentElement.classList.add('pip-mode');"
+                    : "document.documentElement.classList.remove('pip-mode');";
+            webView.evaluateJavascript(script, null);
+        }
+    }
+
+    private void scheduleConnect(long delaySeconds) {
+        if (!smartMode || manualStop || connected) return;
+        if (!retryScheduled.compareAndSet(false, true)) return;
+
+        liveExecutor.schedule(() -> {
+            retryScheduled.set(false);
+            attemptConnect();
+        }, Math.max(0, delaySeconds), TimeUnit.SECONDS);
+    }
+
+    private void attemptConnect() {
+        if (!smartMode || manualStop || connected) return;
+        if (!connectAttemptRunning.compareAndSet(false, true)) return;
+
+        retryCount++;
+        emitStatus(
+                "waiting",
+                activeUsername,
+                "Recherche du LIVE @" + activeUsername + "… essai " + retryCount
+                        + ". Tu peux rester dans TikTok.",
+                null
+        );
+
+        try {
+            LiveClientBuilder builder = TikTokLive.newClient(activeUsername);
+
+            builder.configure(settings -> {
+                settings.setClientLanguage("fr");
+                settings.setPrintToConsole(false);
+                settings.setLogLevel(Level.WARNING);
+                settings.setRetryOnConnectionFailure(false);
+            });
+
+            builder.onConnecting((client, event) ->
+                    emitStatus("connecting", activeUsername, "TikTok répond, ouverture du flux LIVE…", null));
+
+            builder.onConnected((client, event) -> {
+                synchronized (clientLock) {
+                    liveClient = client;
+                }
+
+                connected = true;
+                connectAttemptRunning.set(false);
+                retryCount = 0;
+
+                Integer viewers = null;
+                try {
+                    viewers = client.getRoomInfo().getViewersCount();
+                } catch (Throwable ignored) {
+                }
+
+                emitStatus(
+                        "connected",
+                        activeUsername,
+                        "LIVE connecté. Likes, commentaires et cadeaux alimentent maintenant le jeu.",
+                        viewers
+                );
+            });
+
+            builder.onRoomInfo((client, event) ->
+                    emitStatus("connected", activeUsername, null, event.getRoomInfo().getViewersCount()));
+
+            builder.onJoin((client, event) ->
+                    emitUserEvent("member", event.getUser().getName(), null, 0, null, 0, 1));
+
+            builder.onComment((client, event) ->
+                    emitUserEvent("comment", event.getUser().getName(), event.getText(), 0, null, 0, 1));
+
+            builder.onLike((client, event) ->
+                    emitUserEvent("like", event.getUser().getName(), null, event.getLikes(), null, 0, 1));
+
+            builder.onFollow((client, event) ->
+                    emitUserEvent("follow", event.getUser().getName(), null, 0, null, 0, 1));
+
+            builder.onShare((client, event) ->
+                    emitUserEvent("share", event.getUser().getName(), null, 0, null, 0, 1));
+
+            builder.onGift((client, event) -> {
+                String giftName = event.getGift() == null ? "gift" : event.getGift().getName();
+                int diamonds = event.getGift() == null ? 0 : event.getGift().getDiamondCost();
+                int repeat = Math.max(1, event.getCombo());
+                emitUserEvent("gift", event.getUser().getName(), null, 0, giftName, diamonds, repeat);
+            });
+
+            builder.onLiveEnded((client, event) -> {
+                connected = false;
+                connectAttemptRunning.set(false);
+                emitStatus("ended", activeUsername, "Le LIVE TikTok est terminé.", 0);
+            });
+
+            builder.onDisconnected((client, event) -> {
+                connected = false;
+                connectAttemptRunning.set(false);
+
+                if (!manualStop && smartMode) {
+                    emitStatus(
+                            "reconnecting",
+                            activeUsername,
+                            "Connexion perdue. Reconnexion automatique…",
+                            null
+                    );
+                    scheduleConnect(5);
+                }
+            });
+
+            builder.onError((client, event) -> {
+                if (!connected) {
+                    connectAttemptRunning.set(false);
+                    emitStatus(
+                            "waiting",
+                            activeUsername,
+                            readableError(event.getException()),
+                            null
+                    );
+                    scheduleConnect(nextRetryDelay());
+                }
+            });
+
+            LiveClient client = builder.build();
+            synchronized (clientLock) {
+                liveClient = client;
+            }
+            client.connect();
+
+        } catch (Throwable ex) {
+            connected = false;
+            connectAttemptRunning.set(false);
+            safeDisconnectClient();
+
+            emitStatus(
+                    "waiting",
+                    activeUsername,
+                    readableError(ex),
+                    null
+            );
+            scheduleConnect(nextRetryDelay());
+        }
+    }
+
+    private long nextRetryDelay() {
+        if (retryCount <= 4) return 4;
+        if (retryCount <= 10) return 7;
+        return 12;
+    }
+
+    private void stopSmartLive() {
+        smartMode = false;
+        manualStop = true;
+        connected = false;
+        retryScheduled.set(false);
+        connectAttemptRunning.set(false);
+        stopConnectionOnly();
+
+        emitStatus(
+                "disconnected",
+                activeUsername,
+                "LIVE228 arrêté.",
+                null
+        );
+    }
+
+    private void stopConnectionOnly() {
+        safeDisconnectClient();
+    }
+
+    private void safeDisconnectClient() {
         LiveClient current;
         synchronized (clientLock) {
             current = liveClient;
@@ -185,16 +381,10 @@ public class MainActivity extends Activity {
         }
 
         if (current != null) {
-            liveExecutor.execute(() -> {
-                try {
-                    current.disconnect();
-                } catch (Throwable ignored) {
-                }
-            });
-        }
-
-        if (!activeUsername.isEmpty()) {
-            emitStatus("disconnected", activeUsername, "Connexion TikTok arrêtée.", null);
+            try {
+                current.disconnect();
+            } catch (Throwable ignored) {
+            }
         }
     }
 
@@ -249,12 +439,22 @@ public class MainActivity extends Activity {
 
     private void callJs(String function, String jsonString) {
         if (webView == null) return;
+
         final String script = "window." + function + " && window." + function + "("
                 + JSONObject.quote(jsonString) + ");";
-        runOnUiThread(() -> webView.evaluateJavascript(script, null));
+
+        runOnUiThread(() -> {
+            if (webView != null) {
+                webView.evaluateJavascript(script, null);
+            }
+        });
     }
 
     private String readableError(Throwable ex) {
+        if (ex == null) {
+            return "En attente du LIVE TikTok…";
+        }
+
         Throwable root = ex;
         while (root.getCause() != null && root.getCause() != root) {
             root = root.getCause();
@@ -266,11 +466,14 @@ public class MainActivity extends Activity {
         }
 
         String lower = message.toLowerCase();
-        if (lower.contains("offline") || lower.contains("not found")) {
-            return "TikTok ne détecte pas @" + activeUsername
-                    + " comme LIVE. Démarre d'abord le LIVE, attends quelques secondes, puis réessaie.";
+        if (lower.contains("offline")
+                || lower.contains("not found")
+                || lower.contains("unknown host")) {
+            return "@" + activeUsername
+                    + " n'est pas encore détecté en LIVE. Reste dans TikTok : LIVE228 réessaie automatiquement.";
         }
-        return message;
+
+        return "TikTok LIVE : " + message;
     }
 
     private void openTikTok() {
@@ -281,6 +484,7 @@ public class MainActivity extends Activity {
 
         try {
             if (launch != null) {
+                launch.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(launch);
             } else {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.tiktok.com/")));
@@ -292,17 +496,26 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        disconnectTikTok();
+        smartMode = false;
+        manualStop = true;
+        connected = false;
+        safeDisconnectClient();
         liveExecutor.shutdownNow();
+
         if (webView != null) {
             webView.destroy();
             webView = null;
         }
+
         super.onDestroy();
     }
 
     @Override
     public void onBackPressed() {
+        if (isInPictureInPictureMode()) {
+            return;
+        }
+
         if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {

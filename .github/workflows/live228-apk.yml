@@ -1,9 +1,9 @@
-name: Build LIVE228 APK
+name: Build LIVE228 Standalone APK
 
 on:
   push:
     branches:
-      - live228-apk
+      - live228-v03-standalone
     paths:
       - 'live228-apk/**'
       - '.github/workflows/live228-apk.yml'
@@ -39,15 +39,15 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Build debug APK
+      - name: Build standalone debug APK
         run: gradle assembleDebug --stacktrace
 
       - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/LIVE228-Clash-v0.2.apk
+        run: cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/LIVE228-Clash-v0.3-standalone.apk
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: LIVE228-Clash-APK
-          path: live228-apk/app/build/outputs/apk/debug/LIVE228-Clash-v0.2.apk
+          name: LIVE228-Clash-v0.3-standalone
+          path: live228-apk/app/build/outputs/apk/debug/LIVE228-Clash-v0.3-standalone.apk
           if-no-files-found: error

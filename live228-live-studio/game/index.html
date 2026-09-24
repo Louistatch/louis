@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#07111f" />
+  <title>LIVE228 Clash Studio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="live-stage" aria-label="LIVE228 Clash">
+      <header class="topbar">
+        <div class="brand-wrap">
+          <div class="live-pill"><span class="dot"></span> LIVE</div>
+          <div>
+            <div class="brand">LIVE228 <span>CLASH</span></div>
+            <div class="subtitle">Togo • round de 2:28</div>
+          </div>
+        </div>
+        <div class="timer-wrap">
+          <span class="round-label">ROUND</span>
+          <strong id="timer">02:28</strong>
+        </div>
+      </header>
+
+      <section class="scoreboard">
+        <div class="team-card left">
+          <div class="team-name" id="teamAName">MARITIME</div>
+          <div class="team-score" id="teamAScore">0</div>
+          <div class="energy"><span id="energyA"></span></div>
+          <div class="energy-label"><span id="energyAText">0</span>% énergie</div>
+        </div>
+
+        <div class="versus">VS</div>
+
+        <div class="team-card right">
+          <div class="team-name" id="teamBName">KARA</div>
+          <div class="team-score" id="teamBScore">0</div>
+          <div class="energy"><span id="energyB"></span></div>
+          <div class="energy-label"><span id="energyBText">0</span>% énergie</div>
+        </div>
+      </section>
+
+      <section class="field-wrap">
+        <canvas id="game" width="720" height="1040" aria-label="Terrain de jeu"></canvas>
+        <div class="event-feed" id="eventFeed" aria-live="polite"></div>
+        <div class="special-banner" id="specialBanner"></div>
+        <div class="round-overlay hidden" id="roundOverlay">
+          <div class="overlay-card">
+            <div class="overlay-kicker">FIN DU ROUND</div>
+            <h2 id="roundResult">ÉGALITÉ</h2>
+            <p id="roundSummary"></p>
+            <button id="restartRound" class="primary-btn">Nouveau round 2:28</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-panel">
+        <div class="stat-strip">
+          <div><strong id="viewersTotal">0</strong><span>viewers</span></div>
+          <div><strong id="livePlayers">0</strong><span>joueurs</span></div>
+          <div><strong id="likesTotal">0</strong><span>likes</span></div>
+          <div><strong id="giftsTotal">0</strong><span>cadeaux</span></div>
+          <div><strong id="sharesTotal">0</strong><span>partages</span></div>
+          <div><strong id="commentsTotal">0</strong><span>commentaires</span></div>
+        </div>
+
+        <div class="leaderboard">
+          <div class="section-title">🔥 Top contributeurs</div>
+          <ol id="leaderboardList"></ol>
+        </div>
+      </section>
+    </section>
+
+    <aside class="control-panel">
+      <div class="panel-head">
+        <div>
+          <h1>LIVE228 Control</h1>
+          <p>Version Windows optimisée pour TikTok LIVE Studio.</p>
+        </div>
+        <button id="fullscreenBtn" class="ghost-btn">Plein écran</button>
+      </div>
+
+      <section class="live-connect-card">
+        <div class="connection-row">
+          <div>
+            <span id="bridgeStatus" class="status-dot" data-state="idle">●</span>
+            <strong id="bridgeStatusText">Non connecté</strong>
+          </div>
+          <span class="mini-label">TikTok LIVE</span>
+        </div>
+        <label>
+          Compte qui diffuse
+          <div class="connect-input-row">
+            <input id="tiktokUsername" placeholder="@toncompte" autocomplete="off" spellcheck="false" />
+            <button id="connectTikTok" class="primary-btn compact">🔴 Connecter au LIVE</button>
+          </div>
+        </label>
+        <div class="native-live-actions"><button id="disconnectTikTok" class="ghost-btn disconnect-btn" disabled>Déconnecter</button><button id="studioMode" class="ghost-btn">Mode Studio (F1)</button></div>
+        <p id="bridgeMessage" class="bridge-message">1) Lance TikTok LIVE Studio. 2) Démarre ton LIVE. 3) Connecte ton @username ici. 4) Dans LIVE Studio, ajoute cette fenêtre comme source.</p>
+      </section>
+
+      <div class="simulation-title">
+        <div>
+          <div class="section-title">🧪 Simulateur</div>
+          <p>Permet de tester les pouvoirs sans être en LIVE.</p>
+        </div>
+      </div>
+
+      <div class="control-grid">
+        <label>
+          Pseudo
+          <input id="username" value="Louis" maxlength="18" />
+        </label>
+        <label>
+          Équipe
+          <select id="regionSelect"></select>
+        </label>
+      </div>
+
+      <div class="action-grid">
+        <button data-action="join" class="action-btn join">👤 Rejoindre</button>
+        <button data-action="like" class="action-btn like">❤️ +10 likes</button>
+        <button data-action="comment" class="action-btn comment">💬 Commenter</button>
+        <button data-action="follow" class="action-btn follow">➕ Follow</button>
+        <button data-action="share" class="action-btn share">↗️ Partage</button>
+        <button data-action="rose" class="action-btn gift">🌹 Rose</button>
+        <button data-action="star" class="action-btn gift premium">⭐ Super cadeau</button>
+      </div>
+
+      <div class="team-picker">
+        <div class="section-title">Changer l'affiche</div>
+        <div class="control-grid">
+          <label>
+            Équipe A
+            <select id="teamASelect"></select>
+          </label>
+          <label>
+            Équipe B
+            <select id="teamBSelect"></select>
+          </label>
+        </div>
+        <button id="applyMatchup" class="primary-btn">Appliquer et relancer</button>
+      </div>
+
+      <div class="dev-note">
+        <strong>LIVE228 Studio — interaction temps réel</strong>
+        <p>Un spectateur est affecté automatiquement à l'une des deux équipes. Il peut aussi écrire le nom d'une région du match pour la choisir. Likes = énergie, commentaire = boost, follow = bouclier, partage = boost d'équipe, petit cadeau = super tir, cadeau important = POWER MODE.</p>
+        <p class="obs-hint"><strong>Capture recommandée :</strong> dans LIVE Studio, ajoute une source « Capture de fenêtre » et choisis « LIVE228 Clash Studio ». Appuie sur F1 pour masquer les contrôles et n’afficher que le terrain.</p>
+      </div>
+    </aside>
+  </main>
+
+  <script src="game.js"></script>
+  <script src="studio-bridge.js"></script>
+</body>
+</html>

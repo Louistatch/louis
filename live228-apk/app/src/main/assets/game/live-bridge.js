@@ -109,6 +109,8 @@
     const username = status.username ? `@${status.username}` : '';
     const labelMap = {
       idle: 'Prêt',
+      launching: 'Ouverture TikTok…',
+      waiting: 'En attente du LIVE',
       connecting: 'Connexion…',
       connected: `Connecté ${username}`.trim(),
       reconnecting: 'Reconnexion…',
@@ -122,7 +124,7 @@
       badge.textContent = status.state === 'connected' ? '● LIVE' : '●';
     }
     if (statusText) statusText.textContent = label;
-    if (connectBtn) connectBtn.disabled = status.state === 'connecting';
+    if (connectBtn) connectBtn.disabled = ['launching','connecting'].includes(status.state);
     if (disconnectBtn) disconnectBtn.disabled = !['connected', 'connecting', 'reconnecting', 'error', 'ended', 'disconnected'].includes(status.state);
     window.Live228?.setLiveConnected?.(status.state === 'connected');
     if (status.lastError) showBridgeMessage(status.lastError, true);
@@ -145,10 +147,11 @@
       showBridgeMessage('Pont Android indisponible. Réinstalle l’APK autonome.', true);
       return;
     }
-    showBridgeMessage('Connexion directe à TikTok LIVE…');
-    setStatus({ state: 'connecting', username: username.replace(/^@/, '') });
+    showBridgeMessage('LIVE228 passe en mini-fenêtre Android puis ouvre TikTok…');
+    setStatus({ state: 'launching', username: username.replace(/^@/, '') });
     try {
-      window.AndroidLive.connect(username);
+      if (typeof window.AndroidLive.startSmartLive === 'function') window.AndroidLive.startSmartLive(username);
+      else window.AndroidLive.connect(username);
     } catch (err) {
       showBridgeMessage(err?.message || String(err), true);
       setStatus({ state: 'error', lastError: String(err) });
@@ -208,7 +211,7 @@
 
   if (bridgeAvailable) {
     setStatus({ state: 'idle' });
-    showBridgeMessage('APK autonome prêt. Démarre ton LIVE TikTok, puis connecte ton @username ici.');
+    showBridgeMessage('Entre ton @TikTok puis touche « Lancer avec TikTok ». LIVE228 restera en mini-fenêtre et réessaiera automatiquement jusqu’à détecter le LIVE.');
   } else {
     setStatus({ state: 'error' });
     showBridgeMessage('Pont Android introuvable.', true);

@@ -1,0 +1,40 @@
+{
+  "name": "live228-clash-studio",
+  "version": "0.6.0",
+  "description": "LIVE228 Clash - TikTok LIVE Studio interactive game",
+  "type": "module",
+  "main": "main.mjs",
+  "author": "Louis Tatchida",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win portable"
+  },
+  "dependencies": {
+    "tiktok-live-connector": "2.5.0"
+  },
+  "devDependencies": {
+    "electron": "37.3.1",
+    "electron-builder": "26.0.12"
+  },
+  "build": {
+    "appId": "com.live228.clash.studio",
+    "productName": "LIVE228 Clash Studio",
+    "asar": true,
+    "files": [
+      "main.mjs",
+      "preload.mjs",
+      "game/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        }
+      ],
+      "artifactName": "LIVE228-Clash-Studio-v0.6-portable.exe"
+    }
+  }
+}

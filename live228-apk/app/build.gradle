@@ -41,6 +41,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.jwdeveloper.TikTok-Live-Java:Client:1.11.18-Release'
+    implementation 'com.github.jwdeveloper.TikTok-Live-Java:Client:1.11.0-Release'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
 }

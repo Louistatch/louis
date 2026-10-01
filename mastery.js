@@ -4443,657 +4443,897 @@ const MASTERY_QUESTIONS=[
   {
     "id": "mastery-afdb-0",
     "d": "afdb",
-    "fr": "Un pays à faible revenu éligible cherche un financement à conditions très favorables pour un service essentiel. Quel guichet faut-il examiner en premier ?",
+    "fr": "Un État à faible revenu, éligible au FAD, veut financer un service public sans recettes commerciales suffisantes. Il cherche des conditions concessionnelles et sollicite une analyse de son endettement. Quelle proposition correspond le mieux à ce besoin ?",
     "o": [
-      "Le Fonds africain de développement, selon l’éligibilité et les conditions applicables.",
-      "Le guichet non souverain destiné uniquement aux entreprises privées rentables.",
-      "Une émission obligataire nationale comme produit automatique de la BAD.",
-      "Le mécanisme de plaintes indépendant comme source de prêt concessionnel."
+      "Examiner un financement FAD adapté à la situation du pays et à la soutenabilité.",
+      "Structurer une garantie pour un emprunteur privé exploitant le service à tarif commercial.",
+      "Retenir un prêt ordinaire en devises, puis compenser son coût par une subvention publique.",
+      "Mobiliser des fonds propres dans une entreprise de projet dont les usagers assurent la rentabilité."
     ],
     "a": 0,
-    "x": "Le FAD est le guichet concessionnel du Groupe ; l’éligibilité et les règles de financement doivent être vérifiées.",
+    "x": "Le FAD est le guichet concessionnel ; éligibilité et besoin ne dispensent pas de l’analyse de soutenabilité ni ne garantissent un don.",
     "lv": 4,
     "family": "mastery-afdb-0",
     "trap": "institution",
-    "source": "adf"
+    "source": "adf",
+    "why": [
+      "Le FAD est le guichet concessionnel ; éligibilité et besoin ne dispensent pas de l’analyse de soutenabilité ni ne garantissent un don.",
+      "Une garantie privée peut être utile dans un autre montage, mais aucun exploitant commercial viable n’est posé ici.",
+      "Ce montage crée une obligation ordinaire et une charge de subvention sans répondre directement au besoin concessionnel.",
+      "La rentabilité tirée des usagers n’est pas établie et contredit le problème de recettes du cas."
+    ]
   },
   {
     "id": "mastery-afdb-1",
     "d": "afdb",
-    "fr": "Pour évaluer la réussite de Mission 300, quelle distinction est indispensable ?",
+    "fr": "Le suivi d’un projet contribuant à Mission 300 constate des raccordements achevés. Les ménages raccordés subissent encore de longues coupures et limitent leur consommation à cause du prix. Quelle conclusion convient au rapport ?",
     "o": [
-      "Entre financements approuvés, raccordements réalisés et qualité effective du service.",
-      "Entre nombre de réunions, nombre de discours et quantité de communiqués.",
-      "Entre tous les projets énergétiques et les seuls projets agricoles du portefeuille.",
-      "Entre les capitales financées et les capitales ne disposant pas de bureau BAD."
+      "Les raccordements sont réalisés ; la qualité et l’usage effectif du service restent à apprécier.",
+      "L’accès est démontré ; le suivi devrait maintenant porter sur l’extension géographique du réseau.",
+      "La cible de service est atteinte ; la fiabilité relève ensuite des seuls opérateurs de distribution.",
+      "Le résultat devrait être évalué au niveau des coûts du projet plutôt qu’au niveau des ménages."
     ],
     "a": 0,
-    "x": "Une cible d’accès ne se confond ni avec une approbation financière ni avec un service fiable réellement utilisé.",
+    "x": "Un produit réalisé ne suffit pas à établir un accès fiable, abordable et utile. Le rapport doit conserver ces dimensions distinctes.",
     "lv": 4,
     "family": "mastery-afdb-1",
     "trap": "institution",
-    "source": "mission"
+    "source": "mission",
+    "why": [
+      "Un produit réalisé ne suffit pas à établir un accès fiable, abordable et utile. Le rapport doit conserver ces dimensions distinctes.",
+      "L’extension est pertinente, mais ne remplace pas la mesure de la qualité pour les ménages déjà raccordés.",
+      "La responsabilité opérationnelle d’un distributeur ne rend pas sa performance extérieure au résultat du projet.",
+      "Les coûts mesurent une dimension d’efficience ; ils ne répondent pas au problème de service décrit."
+    ]
   },
   {
     "id": "mastery-afdb-2",
     "d": "afdb",
-    "fr": "Une chaîne de transformation agricole équipée en énergie et ouverte aux marchés voisins se rattache le mieux à :",
+    "fr": "Une unité de transformation agricole reçoit de l’électricité fiable et vend désormais une partie de sa production dans un pays voisin. Quel cadre de suivi traduit le mieux sa contribution aux High 5 ?",
     "o": [
-      "Un seul High 5, les autres devant être exclus du suivi.",
-      "Plusieurs High 5, avec des indicateurs propres à chaque contribution.",
-      "La seule priorité de qualité de vie, sans dimension productive.",
-      "Un objectif financier hors du champ des priorités opérationnelles."
+      "Classer l’ensemble sous Industrialiser l’Afrique et utiliser la production comme indicateur commun.",
+      "Relier agriculture, énergie, transformation et intégration à des effets distincts et vérifiables.",
+      "Répartir les emplois déclarés entre les quatre priorités pour mesurer quatre contributions.",
+      "Classer les équipements par priorité et agréger leurs coûts pour mesurer les effets du projet."
     ],
     "a": 1,
-    "x": "Les High 5 peuvent se compléter ; transformation, énergie, agriculture et intégration méritent des liens explicites.",
+    "x": "Un même projet peut contribuer à plusieurs priorités, avec une chaîne de résultats pour chacune et sans quadrupler les bénéficiaires.",
     "lv": 4,
     "family": "mastery-afdb-2",
     "trap": "institution",
-    "source": "strategy"
+    "source": "strategy",
+    "why": [
+      "Une priorité principale peut être utile, mais une mesure unique masque les contributions d’accès à l’énergie et d’échanges.",
+      "Un même projet peut contribuer à plusieurs priorités, avec une chaîne de résultats pour chacune et sans quadrupler les bénéficiaires.",
+      "Réutiliser les mêmes emplois ne fournit pas quatre effets distincts et crée un risque de double comptage.",
+      "Les dépenses d’équipement ne mesurent pas à elles seules les effets de service, de revenu ou d’intégration."
+    ]
   },
   {
     "id": "mastery-afdb-3",
     "d": "afdb",
-    "fr": "Comment articuler la Stratégie décennale, les High 5 et les quatre points cardinaux ?",
+    "fr": "Une note BAD rapproche les High 5, la Stratégie décennale 2024–2033 et les quatre points cardinaux. Elle présente « reconstruire la souveraineté financière » comme un sixième High 5. Quelle révision est la plus exacte ?",
     "o": [
-      "Considérer les trois cadres comme des listes strictement identiques.",
-      "Remplacer les High 5 par tout nouveau discours présidentiel.",
-      "Distinguer horizon stratégique, priorités opérationnelles et orientation présidentielle.",
-      "Réserver la Stratégie décennale aux seules opérations du secteur privé."
+      "Rattacher cet axe à Intégrer l’Afrique et le retirer des points cardinaux.",
+      "Renommer les High 5 en six priorités pour y intégrer la nouvelle orientation présidentielle.",
+      "Rattacher cet axe aux points cardinaux et expliquer son articulation avec les High 5.",
+      "Présenter les points cardinaux comme les quatre composantes qui remplacent la stratégie décennale."
     ],
     "a": 2,
-    "x": "Ces cadres ont des fonctions distinctes et complémentaires.",
+    "x": "Le communiqué KOAFEC rattache la souveraineté financière aux points cardinaux. Cadre présidentiel, High 5 et stratégie ne sont pas des listes interchangeables.",
     "lv": 4,
     "family": "mastery-afdb-3",
     "trap": "institution",
-    "source": "strategy"
+    "source": "koafec",
+    "why": [
+      "Des liens avec l’intégration existent, mais ne changent pas le cadre auquel appartient l’intitulé.",
+      "Une orientation présidentielle complémentaire ne permet pas de créer un nouveau High 5.",
+      "Le communiqué KOAFEC rattache la souveraineté financière aux points cardinaux. Cadre présidentiel, High 5 et stratégie ne sont pas des listes interchangeables.",
+      "Le communiqué ne présente pas les points cardinaux comme une substitution à la stratégie décennale."
+    ]
   },
   {
     "id": "mastery-afdb-4",
     "d": "afdb",
-    "fr": "Un projet est financé sans garantie souveraine. Quel élément faut-il examiner pour comprendre cette qualification ?",
+    "fr": "Dans un montage fictif, une société privée emprunte directement ; son État ne garantit pas le prêt. Une agence publique supervise les engagements environnementaux. Sur quoi repose la qualification non souveraine du financement ?",
     "o": [
-      "Le pays dans lequel est situé le siège de l’entreprise.",
-      "Le fait que l’opération ait un objectif de développement.",
-      "Le type de devise dans laquelle le prêt est présenté.",
-      "La nature de l’emprunteur et l’absence de garantie souveraine."
+      "La supervision publique transfère le risque de crédit à l’État qui contrôle le projet.",
+      "La finalité environnementale du financement détermine sa qualification non souveraine.",
+      "Les engagements de la société envers une agence publique rendent le financement souverain.",
+      "L’emprunteur est la société et aucune garantie souveraine n’est fournie."
     ],
     "a": 3,
-    "x": "La qualification repose sur la structure de l’opération, pas sur sa localisation ou sa finalité seule.",
+    "x": "Il faut distinguer la structure de crédit de la supervision ou de la finalité de développement.",
     "lv": 4,
     "family": "mastery-afdb-4",
-    "trap": "institution"
+    "trap": "institution",
+    "why": [
+      "Une supervision n’est pas une garantie de remboursement ; aucun transfert de ce type n’est posé.",
+      "La finalité du projet n’établit pas l’identité de l’emprunteur ni la couverture du risque de crédit.",
+      "Des obligations réglementaires envers une agence ne constituent pas, en elles-mêmes, une garantie souveraine.",
+      "Il faut distinguer la structure de crédit de la supervision ou de la finalité de développement."
+    ]
   },
   {
     "id": "mastery-afdb-5",
     "d": "afdb",
-    "fr": "Une garantie bancaire BAD vise principalement, selon sa structure, à :",
+    "fr": "Une garantie fictive couvre le défaut de paiement d’un acheteur public, mais laisse au prêteur les risques de construction et de change. Quel examen le prêteur doit-il conserver ?",
     "o": [
-      "Répartir ou atténuer des risques définis pour faciliter le financement.",
-      "Transformer tout financement en don sans obligation de remboursement.",
-      "Garantir à elle seule l’impact socioéconomique du projet.",
-      "Remplacer l’évaluation des risques et les conditions d’éligibilité."
+      "Analyser les risques résiduels et vérifier les conditions de mise en jeu de la garantie.",
+      "Analyser la signature du garant et substituer cette analyse à celle du projet.",
+      "Analyser le risque de change après la construction, quand le montant final sera connu.",
+      "Analyser les coûts de construction et traiter le risque de change dans la couverture de la garantie."
     ],
     "a": 0,
-    "x": "La portée d’une garantie dépend des risques couverts ; elle ne supprime pas tous les risques.",
+    "x": "La garantie a un périmètre défini ; risques non couverts et conditions de paiement restent essentiels.",
     "lv": 4,
     "family": "mastery-afdb-5",
-    "trap": "institution"
+    "trap": "institution",
+    "why": [
+      "La garantie a un périmètre défini ; risques non couverts et conditions de paiement restent essentiels.",
+      "La qualité du garant n’établit pas la capacité du projet à gérer les risques non garantis.",
+      "Attendre la fin de la construction laisse un risque de change matériel hors de la décision de prêt.",
+      "Le cas précise que le risque de change n’est pas couvert : il faut l’analyser séparément."
+    ]
   },
   {
     "id": "mastery-afdb-6",
     "d": "afdb",
-    "fr": "Pourquoi l’additionnalité compte-t-elle dans une intervention de développement ?",
+    "fr": "Un projet dispose déjà d’offres commerciales suffisantes aux mêmes conditions. La BAD envisage néanmoins une intervention, justifiée par un appui technique à la gouvernance. Quel élément renforcerait le dossier d’additionnalité ?",
     "o": [
-      "Elle décrit uniquement la différence entre coût prévu et coût final.",
-      "Elle examine ce que l’intervention apporte au-delà de ce qui se ferait autrement.",
-      "Elle correspond au nombre de bailleurs présents au comité de pilotage.",
-      "Elle mesure uniquement la taille nominale du financement accordé."
+      "Montrer que le montant BAD accroît la taille totale du tour de financement.",
+      "Montrer le changement apporté par cet appui par rapport au scénario sans intervention.",
+      "Montrer que la présence BAD réduit le nombre de prêteurs à coordonner.",
+      "Montrer que le projet poursuit une priorité sectorielle du pays bénéficiaire."
     ],
     "a": 1,
-    "x": "L’additionnalité financière ou non financière doit être examinée par rapport à un scénario sans intervention.",
+    "x": "L’additionnalité peut être non financière, mais il faut établir un apport qui ne se produirait pas de la même façon sans intervention.",
     "lv": 4,
     "family": "mastery-afdb-6",
-    "trap": "institution"
+    "trap": "institution",
+    "why": [
+      "Un montant plus élevé ne démontre pas un besoin financier additionnel si les offres existantes suffisent.",
+      "L’additionnalité peut être non financière, mais il faut établir un apport qui ne se produirait pas de la même façon sans intervention.",
+      "Une simplification peut être utile, mais le cas demande de justifier l’apport technique annoncé.",
+      "L’alignement stratégique est important ; il ne démontre pas à lui seul l’additionnalité."
+    ]
   },
   {
     "id": "mastery-afdb-7",
     "d": "afdb",
-    "fr": "Quel suivi distingue le mieux produit et effet d’une intervention énergétique ?",
+    "fr": "Le cadre de résultats d’un projet énergétique compte des kilomètres de réseau et des branchements. Le comité demande un indicateur d’effet plutôt qu’un indicateur supplémentaire de produit. Quel ajout répond le mieux à la demande ?",
     "o": [
-      "Compter les ateliers, puis les participants présents aux ateliers.",
-      "Compter les engagements, puis les conventions signées.",
-      "Compter les raccordements, puis l’amélioration du service effectivement utilisé.",
-      "Compter les missions, puis les documents produits."
+      "Le nombre de branchements réceptionnés conformément au cahier des charges.",
+      "La capacité nominale des transformateurs installés dans les zones ciblées.",
+      "La continuité du service effectivement reçu par les ménages raccordés.",
+      "Le nombre d’interventions de maintenance réalisées sur le réseau neuf."
     ],
     "a": 2,
-    "x": "Un produit matériel réalisé et le changement de service chez les usagers relèvent de niveaux différents.",
+    "x": "La continuité du service décrit un changement pour les usagers ; les autres choix décrivent des installations ou des activités.",
     "lv": 4,
     "family": "mastery-afdb-7",
     "trap": "institution",
-    "source": "mission"
+    "source": "mission",
+    "why": [
+      "La réception est importante pour la qualité du produit, mais demeure un jalon de réalisation.",
+      "La capacité installée ne décrit pas le service réellement fourni aux ménages.",
+      "La continuité du service décrit un changement pour les usagers ; les autres choix décrivent des installations ou des activités.",
+      "La maintenance est une activité ; son volume n’établit pas la continuité obtenue."
+    ]
   },
   {
     "id": "mastery-afdb-8",
     "d": "afdb",
-    "fr": "Le programme AFAWA cible une contrainte majeure liée à :",
+    "fr": "Une note sur le programme BAD–AXIAN annoncé en septembre 2026 inclut le Togo parmi les trois pays du volet de services financiers. Quelle correction correspond au communiqué ?",
     "o": [
-      "La coordination des élections des gouverneurs de la Banque.",
-      "Le partage des recettes douanières entre pays membres.",
-      "La comptabilisation des transferts entre fonds souverains.",
-      "L’accès au financement des entreprises dirigées par des femmes."
+      "Le Togo appartient au volet financier ; le Sénégal relève du volet formation distinct.",
+      "Le Togo appartient aux deux volets ; les Comores relèvent de la formation distincte.",
+      "Le Togo ne figure dans aucun volet ; les Comores appartiennent au volet financier.",
+      "Le Togo appartient au volet formation, distinct du volet financier à trois pays."
     ],
     "a": 3,
-    "x": "AFAWA vise à réduire les obstacles au financement de l’entrepreneuriat féminin.",
+    "x": "Les trois pays du volet financier sont Madagascar, la Tanzanie et le Sénégal. La formation couvre cinq pays, dont le Togo et les Comores.",
     "lv": 4,
     "family": "mastery-afdb-8",
     "trap": "institution",
-    "source": "afawa2026"
+    "source": "afawa2026",
+    "why": [
+      "Le Sénégal est bien dans le volet financier ; le Togo ne l’est pas dans cette annonce.",
+      "L’annonce ne place pas le Togo dans le volet financier à trois pays.",
+      "Le Togo et les Comores figurent dans le volet formation.",
+      "Les trois pays du volet financier sont Madagascar, la Tanzanie et le Sénégal. La formation couvre cinq pays, dont le Togo et les Comores."
+    ]
   },
   {
     "id": "mastery-afdb-9",
     "d": "afdb",
-    "fr": "Un programme de réformes budgétaires et réglementaires vise des changements institutionnels. Quelle lecture est la plus juste ?",
+    "fr": "Un programme fictif appuie une réforme budgétaire. Les textes requis ont été adoptés, mais plusieurs administrations n’appliquent pas encore la procédure. Quel jugement sur la performance est le plus défendable ?",
     "o": [
-      "Le financement peut appuyer des réformes, sans se limiter à l’achat d’ouvrages.",
-      "Tout financement de développement doit acheter un équipement physique.",
-      "Le résultat est acquis dès l’adoption du programme de réforme.",
-      "La qualité des services ne dépend pas de la mise en œuvre des réformes."
+      "Distinguer l’adoption des textes de leur mise en œuvre et des effets sur la gestion publique.",
+      "Retenir l’adoption comme effet institutionnel et suivre l’application dans le prochain programme.",
+      "Retenir l’exécution des dépenses financées comme indicateur suffisant de l’effet des réformes.",
+      "Retenir la conformité juridique des textes comme mesure de l’amélioration des services publics."
     ],
     "a": 0,
-    "x": "Les instruments et effets des réformes diffèrent de ceux d’un chantier physique.",
+    "x": "Une réforme comporte plusieurs étapes ; un acte juridique n’établit pas son application ni ses effets.",
     "lv": 4,
     "family": "mastery-afdb-9",
     "trap": "institution",
-    "source": "seychelles"
+    "source": "seychelles",
+    "why": [
+      "Une réforme comporte plusieurs étapes ; un acte juridique n’établit pas son application ni ses effets.",
+      "L’adoption est un jalon utile, mais reporter le suivi d’application laisse l’effet actuel non établi.",
+      "La dépense est une donnée financière ; elle ne démontre pas un changement des pratiques.",
+      "La conformité des textes ne suffit pas à montrer la qualité effective des services."
+    ]
   },
   {
     "id": "mastery-afdb-10",
     "d": "afdb",
-    "fr": "L’approbation d’une opération par le Conseil permet surtout d’affirmer que :",
+    "fr": "Une opération fictive a été approuvée. L’accord de financement n’est pas signé et aucun décaissement n’est enregistré. Quelle phrase peut figurer sans extrapolation dans une note de suivi ?",
     "o": [
-      "L’ensemble des bénéfices prévus est déjà observé.",
-      "Une étape décisionnelle a été franchie, distincte du décaissement et des résultats.",
-      "Tous les risques et toutes les conditions de mise en œuvre sont levés.",
-      "Le coût final et la date d’achèvement ne pourront plus changer."
+      "Le financement est mobilisé ; la signature formalisera un engagement déjà décaissé.",
+      "L’approbation est acquise ; le passage à la mobilisation effective des fonds reste à suivre.",
+      "Le projet est en phase d’exécution ; les résultats restent à confirmer lors de la réception.",
+      "Les conditions d’entrée en vigueur sont remplies ; le calendrier de paiement reste ouvert."
     ],
     "a": 1,
-    "x": "Approbation, entrée en vigueur, décaissement et résultats ne sont pas équivalents.",
+    "x": "L’approbation, la signature, l’entrée en vigueur, le décaissement et les résultats sont des statuts distincts.",
     "lv": 4,
     "family": "mastery-afdb-10",
-    "trap": "institution"
+    "trap": "institution",
+    "why": [
+      "Le cas dit qu’aucun décaissement n’est enregistré ; mobilisation effective et approbation ne se confondent pas.",
+      "L’approbation, la signature, l’entrée en vigueur, le décaissement et les résultats sont des statuts distincts.",
+      "Le passage à l’exécution physique n’est pas indiqué par les faits fournis.",
+      "Aucune information ne permet de déclarer les conditions d’entrée en vigueur remplies."
+    ]
   },
   {
     "id": "mastery-afdb-11",
     "d": "afdb",
-    "fr": "Pourquoi examiner les risques climatiques dans un projet routier ?",
+    "fr": "Deux tracés routiers ont un coût initial proche. Le tracé court traverse une zone d’inondation récurrente ; le second allonge le trajet mais préserve mieux le service pendant les crues. Quelle comparaison éclaire le choix le plus directement ?",
     "o": [
-      "Pour traiter le climat uniquement dans un projet portant le label vert.",
-      "Pour remplacer l’analyse économique par une certification générale.",
-      "Pour considérer exposition, durabilité du service et choix techniques adaptés.",
-      "Pour conclure qu’une route est forcément une mesure d’atténuation."
+      "Les coûts initiaux et le gain de temps mesuré pendant la saison sèche.",
+      "Les émissions de construction et l’obtention d’un label environnemental pour chaque tracé.",
+      "Les coûts sur la durée de vie et la continuité du service dans plusieurs scénarios climatiques.",
+      "Les besoins de réparation des ouvrages existants et le trafic actuel sur le tracé court."
     ],
     "a": 2,
-    "x": "Le climat est transversal : aléas physiques et choix de conception affectent la pérennité.",
+    "x": "Le risque climatique décrit concerne la pérennité du service ; il faut intégrer entretien, interruptions et scénarios.",
     "lv": 4,
     "family": "mastery-afdb-11",
     "trap": "institution",
-    "source": "strategy"
+    "source": "strategy",
+    "why": [
+      "Cette comparaison ignore précisément le risque d’interruption qui distingue les deux tracés.",
+      "Les émissions sont pertinentes pour l’atténuation, mais ne répondent pas au risque d’inondation posé.",
+      "Le risque climatique décrit concerne la pérennité du service ; il faut intégrer entretien, interruptions et scénarios.",
+      "Ces données peuvent aider, mais ne comparent pas la résilience des deux nouveaux tracés."
+    ]
   },
   {
     "id": "mastery-afdb-12",
     "d": "afdb",
-    "fr": "Les engagements FAD-17 sur 2026–2028 doivent être compris comme :",
+    "fr": "Une présentation décrit les ressources mobilisées pour FAD-17, cycle 2026–2028, comme des fonds déjà reçus par tous les bénéficiaires des projets. Quelle rectification est nécessaire ?",
     "o": [
-      "Une mesure des seuls fonds déjà versés à chaque bénéficiaire.",
-      "Un résultat de développement déjà atteint dans tous les pays.",
-      "Une extension automatique de toute opération privée sans condition.",
-      "Un cycle de ressources concessionnelles, distinct des décaissements projet par projet."
+      "Séparer les ressources FAD des ressources BAD, puis maintenir l’équivalence avec les dépenses des projets.",
+      "Séparer les engagements des donateurs africains de ceux des autres donateurs pour estimer les résultats atteints.",
+      "Séparer le financement en prêts du financement en dons pour établir le montant déjà reçu par les usagers.",
+      "Séparer les ressources du cycle de reconstitution des décaissements effectifs de chaque opération."
     ],
     "a": 3,
-    "x": "La reconstitution et le cycle de ressources ne prouvent pas la réalisation des dépenses ou effets.",
+    "x": "Une reconstitution mobilise des ressources pour un cycle ; elle ne prouve ni décaissements projet par projet ni réception par les usagers.",
     "lv": 4,
     "family": "mastery-afdb-12",
     "trap": "institution",
-    "source": "adf17"
+    "source": "adf17",
+    "why": [
+      "Distinguer les guichets ne corrige pas la confusion entre ressources et dépenses réalisées.",
+      "L’origine des contributions ne démontre pas la mise en œuvre ni les résultats.",
+      "La nature de l’instrument ne permet pas, sans données de décaissement, de connaître les montants reçus.",
+      "Une reconstitution mobilise des ressources pour un cycle ; elle ne prouve ni décaissements projet par projet ni réception par les usagers."
+    ]
   },
   {
     "id": "mastery-afdb-13",
     "d": "afdb",
-    "fr": "Une interconnexion énergétique apporte une contribution directe à :",
+    "fr": "Une ligne électrique relie deux pays. Les postes sont installés, mais les échanges restent limités par l’absence d’accord opérationnel sur les transactions. Quelle intervention complète le plus directement les deux High 5 concernés ?",
     "o": [
-      "Éclairer et alimenter l’Afrique et Intégrer l’Afrique.",
-      "Nourrir l’Afrique et uniquement la gouvernance monétaire.",
-      "Industrialiser l’Afrique et uniquement la santé publique.",
-      "Améliorer la qualité de vie sans aucun lien à l’intégration."
+      "Finaliser les règles d’échange pour transformer la connexion physique en service énergétique régional.",
+      "Accroître la production nationale pour utiliser davantage les postes déjà installés.",
+      "Subventionner les raccordements domestiques pour accroître la demande des ménages.",
+      "Former les usagers industriels pour développer l’utilisation productive de l’électricité."
     ],
     "a": 0,
-    "x": "Une interconnexion soutient l’énergie et les échanges de services entre pays.",
+    "x": "Le goulot posé est institutionnel et transfrontalier : énergie et intégration exigent ici des règles d’échange opérationnelles.",
     "lv": 4,
     "family": "mastery-afdb-13",
     "trap": "institution",
-    "source": "strategy"
+    "source": "strategy",
+    "why": [
+      "Le goulot posé est institutionnel et transfrontalier : énergie et intégration exigent ici des règles d’échange opérationnelles.",
+      "Davantage de production ne résout pas directement l’absence d’accord sur les transactions.",
+      "Des raccordements peuvent améliorer l’accès domestique, mais le blocage décrit porte sur les échanges entre pays.",
+      "L’usage productif est pertinent ; il ne lève pas la contrainte de transaction régionale."
+    ]
   },
   {
     "id": "mastery-afdb-14",
     "d": "afdb",
-    "fr": "Dans une approche de fragilité, quel diagnostic est le plus utile pour la pérennité d’un investissement ?",
+    "fr": "Un projet en zone fragile dispose d’un site sécurisé. Les communes voisines contestent toutefois la distribution des emplois et le mécanisme local de médiation fonctionne mal. Quelle priorité de diagnostic répond au risque restant ?",
     "o": [
-      "Le volume du financement seul suffit à classer la résilience.",
-      "Les risques de conflit, capacités institutionnelles et moyens de subsistance interagissent.",
-      "La sécurité physique du chantier suffit à représenter tous les risques.",
-      "Une lettre d’intention prouve que les tensions locales ont disparu."
+      "Revoir le périmètre de sécurité du site et la coordination des patrouilles.",
+      "Analyser l’accès aux bénéfices et les capacités locales de prévention et de traitement des tensions.",
+      "Augmenter l’enveloppe des emplois sans revoir les règles de recrutement.",
+      "Accélérer les travaux pour raccourcir la durée d’exposition du chantier."
     ],
     "a": 1,
-    "x": "Une approche de résilience examine les interactions plutôt qu’un indicateur isolé.",
+    "x": "La fragilité ne se réduit pas à la sécurité physique : distribution des bénéfices et institutions locales affectent la pérennité.",
     "lv": 4,
     "family": "mastery-afdb-14",
     "trap": "institution",
-    "source": "unPeace"
+    "source": "unPeace",
+    "why": [
+      "La sécurité du site est déjà traitée ; les contestations et la médiation sont les risques décrits.",
+      "La fragilité ne se réduit pas à la sécurité physique : distribution des bénéfices et institutions locales affectent la pérennité.",
+      "Un volume accru peut maintenir les mêmes exclusions si les règles d’accès restent inchangées.",
+      "La rapidité ne résout pas directement les tensions sur l’accès aux emplois."
+    ]
   },
   {
     "id": "mastery-afdb-15",
     "d": "afdb",
-    "fr": "Une initiative numérique associant la BAD et ses partenaires doit être évaluée au regard de :",
+    "fr": "Dans un pilote fictif lié à un hub d’IA, le modèle fonctionne en laboratoire. Les agents locaux disposent de connexions instables et les responsabilités sur les données ne sont pas clarifiées. Quelle étape réduit le mieux le risque avant extension ?",
     "o": [
-      "La présence d’un outil IA, indépendamment des capacités d’usage.",
-      "La seule visibilité internationale du lancement.",
-      "L’accès, les compétences, la gouvernance et les effets sur les usagers.",
-      "La taille des documents de présentation remis au comité."
+      "Augmenter la précision du modèle sur le même jeu de données du laboratoire.",
+      "Acquérir davantage de licences afin de réduire le coût unitaire du déploiement.",
+      "Tester l’usage en conditions locales et clarifier accès, compétences et gouvernance des données.",
+      "Transférer la maintenance du modèle au fournisseur et étendre le pilote aux autres sites."
     ],
     "a": 2,
-    "x": "Électricité, connectivité, capacités et gouvernance conditionnent les effets.",
+    "x": "Une performance technique isolée ne démontre pas une capacité d’usage responsable et fiable dans le contexte de déploiement.",
     "lv": 4,
     "family": "mastery-afdb-15",
     "trap": "institution",
-    "source": "aihub"
+    "source": "aihub",
+    "why": [
+      "Une meilleure précision en laboratoire ne résout pas les contraintes d’accès ni les responsabilités sur les données.",
+      "Un coût unitaire réduit ne démontre pas la faisabilité ni l’utilité sur les sites.",
+      "Une performance technique isolée ne démontre pas une capacité d’usage responsable et fiable dans le contexte de déploiement.",
+      "Un contrat de maintenance ne suffit pas à clarifier toutes les responsabilités ni à tester l’usage local."
+    ]
   },
   {
     "id": "mastery-afdb-16",
     "d": "afdb",
-    "fr": "Quel élément appartient à la fonction de gouvernance d’un Conseil plutôt qu’à la gestion quotidienne d’un projet ?",
+    "fr": "Une note attribue au Conseil la réception de chaque équipement livré dans une opération, tandis que l’équipe du projet prend les décisions stratégiques de financement. Quelle redistribution des responsabilités est la plus cohérente ?",
     "o": [
-      "Effectuer chaque visite de terrain à la place de l’équipe.",
-      "Renseigner chaque formulaire individuel de bénéficiaire.",
-      "Installer les équipements de chaque prestataire.",
-      "Examiner et approuver des orientations ou opérations selon ses compétences."
+      "Confier au Conseil les seuls équipements de grande valeur et maintenir les décisions dans l’équipe.",
+      "Confier au Conseil les réceptions contestées et à l’équipe les orientations jugées urgentes.",
+      "Confier les deux fonctions à un comité mixte pour limiter les échanges entre niveaux.",
+      "Distinguer la gouvernance des orientations et opérations de leur exécution quotidienne."
     ],
     "a": 3,
-    "x": "Une instance de gouvernance supervise et décide selon son mandat ; la gestion quotidienne est distincte.",
+    "x": "La gouvernance supervise et décide selon ses compétences ; la réception courante relève de la mise en œuvre, dans les règles applicables.",
     "lv": 4,
     "family": "mastery-afdb-16",
-    "trap": "institution"
+    "trap": "institution",
+    "why": [
+      "Un seuil de valeur ne justifie pas cette inversion des fonctions de gouvernance et d’exécution.",
+      "La contestation ou l’urgence appelle une voie adaptée, pas un transfert général de mandat.",
+      "Un comité mixte n’efface pas les compétences et responsabilités de chaque niveau.",
+      "La gouvernance supervise et décide selon ses compétences ; la réception courante relève de la mise en œuvre, dans les règles applicables."
+    ]
   },
   {
     "id": "mastery-afdb-17",
     "d": "afdb",
-    "fr": "Le Bureau de l’éthique s’intéresse à un conflit potentiel parce que :",
+    "fr": "Une évaluatrice a quitté une entreprise soumissionnaire il y a plusieurs années. Elle estime n’avoir plus d’intérêt financier et propose de noter les offres avant de demander un avis éthique. Quel point doit être traité d’abord ?",
     "o": [
-      "L’apparence d’impartialité et les risques futurs doivent aussi être gérés.",
-      "Seule une fraude déjà jugée peut affecter une décision.",
-      "Une déclaration orale élimine toujours tout conflit.",
-      "Toute relation antérieure entraîne automatiquement une sanction."
+      "Évaluer et gérer le lien déclaré avant participation, y compris son effet sur l’impartialité perçue.",
+      "Vérifier son absence actuelle de parts puis considérer sa participation comme réglée.",
+      "Comparer ses notes aux autres évaluateurs après dépouillement pour repérer un biais.",
+      "Lui confier les critères techniques puisque le lien financier est déclaré comme terminé."
     ],
     "a": 0,
-    "x": "Les conflits réels, perçus ou potentiels nécessitent un traitement conforme aux règles.",
+    "x": "Un conflit potentiel ou perçu peut exister sans intérêt financier actuel. Le traitement doit précéder la participation concernée.",
     "lv": 4,
     "family": "mastery-afdb-17",
     "trap": "institution",
-    "source": "ethics"
+    "source": "ethics",
+    "why": [
+      "Un conflit potentiel ou perçu peut exister sans intérêt financier actuel. Le traitement doit précéder la participation concernée.",
+      "Les parts ne sont qu’un élément de l’analyse ; absence de parts n’équivaut pas à gestion complète du lien.",
+      "Une comparaison tardive ne prévient pas le risque sur l’évaluation ni sa perception.",
+      "Un lien peut affecter une appréciation technique autant qu’une appréciation financière."
+    ]
   },
   {
     "id": "mastery-afdb-18",
     "d": "afdb",
-    "fr": "Pourquoi la mobilisation des ressources domestiques compte-t-elle pour le développement africain ?",
+    "fr": "Un État souhaite mobiliser davantage de ressources domestiques. Les déclarations fiscales augmentent, mais le recouvrement progresse peu et les entreprises évoquent des obligations complexes. Quel chantier complète le plus directement l’élargissement de la base ?",
     "o": [
-      "Elle consiste uniquement à remplacer tout partenaire extérieur.",
-      "Elle diversifie les ressources et peut réduire la dépendance à des flux externes.",
-      "Elle rend inutile l’examen de la soutenabilité des investissements.",
-      "Elle garantit une hausse immédiate du revenu de chaque ménage."
+      "Augmenter les taux affichés sur les contribuables déjà enregistrés pour obtenir davantage de recettes.",
+      "Améliorer l’administration et la conformité en examinant coûts de formalisation et recouvrement.",
+      "Accroître les emprunts extérieurs afin de financer les besoins pendant la formalisation.",
+      "Réorienter les transferts de diaspora vers la consommation pour élargir la demande taxable."
     ],
     "a": 1,
-    "x": "Diversification et capacité institutionnelle aident à financer durablement les priorités.",
+    "x": "Le décalage entre déclarations et recettes appelle un diagnostic des capacités, de la conformité et des obstacles à la formalisation.",
     "lv": 4,
     "family": "mastery-afdb-18",
     "trap": "institution",
-    "source": "mali2026"
+    "source": "mali2026",
+    "why": [
+      "Des taux plus élevés ne traitent pas directement les obstacles de conformité et peuvent en accroître le coût.",
+      "Le décalage entre déclarations et recettes appelle un diagnostic des capacités, de la conformité et des obstacles à la formalisation.",
+      "L’emprunt extérieur peut apporter des fonds, mais ne complète pas directement le recouvrement domestique décrit.",
+      "Un effet de demande éventuel ne résout pas le goulot administratif posé."
+    ]
   },
   {
     "id": "mastery-afdb-19",
     "d": "afdb",
-    "fr": "Le financement de plusieurs infrastructures régionales doit être apprécié selon :",
+    "fr": "Deux infrastructures régionales complémentaires sont achevées, mais des horaires et procédures incompatibles limitent leur utilisation conjointe. Quel indicateur révèle le mieux leur contribution effective à l’intégration ?",
     "o": [
-      "Le montant cumulé seul, qui représente directement l’impact.",
-      "La similarité des logos utilisés par les partenaires.",
-      "Les complémentarités, risques et résultats de service à l’échelle régionale.",
-      "Le nombre de pays cité dans l’annonce, sans mise en œuvre."
+      "La proportion des dépenses d’investissement consacrées à chacune des infrastructures.",
+      "La hausse du nombre de partenariats institutionnels signés pour la phase d’investissement.",
+      "La réduction des délais et frictions sur le trajet utilisant les deux infrastructures.",
+      "La capacité technique installée dans chaque infrastructure avant leur mise en service."
     ],
     "a": 2,
-    "x": "Les réseaux peuvent se compléter ; l’intégration exige aussi coordination et fonctionnement.",
+    "x": "L’intégration se mesure ici par le fonctionnement du service de bout en bout, et pas seulement par les installations.",
     "lv": 4,
     "family": "mastery-afdb-19",
     "trap": "institution",
-    "source": "regional2026"
+    "source": "regional2026",
+    "why": [
+      "La répartition des dépenses renseigne le financement, pas l’interopérabilité effective.",
+      "Des accords signés peuvent être des jalons, sans montrer que les horaires et procédures fonctionnent ensemble.",
+      "L’intégration se mesure ici par le fonctionnement du service de bout en bout, et pas seulement par les installations.",
+      "La capacité de chaque élément ne démontre pas la performance de leur combinaison."
+    ]
   },
   {
     "id": "mastery-africa-0",
     "d": "africa",
-    "fr": "Un pays exportateur voit sa dette en devises augmenter en monnaie locale après dépréciation. Quel canal faut-il examiner ?",
+    "fr": "Le principal en devises d’une dette reste inchangé. Après une dépréciation, son équivalent en monnaie locale augmente ; aucune nouvelle émission ni capitalisation d’intérêts n’a eu lieu. Quel mécanisme explique directement cette variation ?",
     "o": [
-      "L’effet de valorisation de la dette externe.",
-      "Une baisse obligatoire du stock nominal en devises.",
-      "Une amélioration automatique de la soutenabilité.",
-      "La seule variation du nombre de créanciers."
+      "La revalorisation en monnaie locale du principal libellé en devises.",
+      "L’accroissement du principal en devises à la suite du coût de refinancement.",
+      "L’accumulation d’intérêts échus incorporés dans le montant nominal du prêt.",
+      "La conversion d’un déficit primaire en nouveaux engagements envers les prêteurs."
     ],
     "a": 0,
-    "x": "La dépréciation renchérit en monnaie locale les engagements libellés en devises, toutes choses égales par ailleurs.",
+    "x": "À montant en devises inchangé, une dépréciation accroît sa contre-valeur en monnaie locale.",
     "lv": 4,
     "family": "mastery-africa-0",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "À montant en devises inchangé, une dépréciation accroît sa contre-valeur en monnaie locale.",
+      "Le cas exclut une augmentation du principal en devises et une nouvelle émission.",
+      "Le cas exclut la capitalisation d’intérêts ; ce canal ne correspond pas aux faits.",
+      "Aucun nouvel engagement n’est décrit : le changement posé est un effet de conversion."
+    ]
   },
   {
     "id": "mastery-africa-1",
     "d": "africa",
-    "fr": "Une hausse du PIB réel coexiste avec une baisse du PIB réel par habitant. Quel mécanisme est compatible avec ce constat ?",
+    "fr": "Entre deux années comparables, le PIB réel augmente mais le PIB réel par habitant diminue. Les séries utilisent le même périmètre statistique. Quelle explication est compatible avec ces deux faits ?",
     "o": [
-      "La population a nécessairement diminué.",
-      "La population a augmenté plus vite que la production réelle.",
-      "Tous les ménages ont nécessairement perdu le même revenu.",
-      "La répartition des revenus est nécessairement devenue plus égale."
+      "La hausse du niveau général des prix a dépassé celle de la production réelle.",
+      "La population a augmenté plus rapidement que le PIB réel.",
+      "La part du revenu détenue par les ménages aisés a augmenté.",
+      "Le taux de change s’est déprécié davantage que la croissance réelle."
     ],
     "a": 1,
-    "x": "La croissance par habitant dépend aussi de la population ; elle ne décrit pas à elle seule la distribution.",
+    "x": "Le PIB réel par habitant rapporte la production réelle à la population ; leur croissance relative explique cette divergence.",
     "lv": 4,
     "family": "mastery-africa-1",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Le caractère réel retire l’effet des prix ; l’inflation n’explique pas à elle seule la divergence posée.",
+      "Le PIB réel par habitant rapporte la production réelle à la population ; leur croissance relative explique cette divergence.",
+      "Une répartition plus inégale ne change pas, à elle seule, le quotient PIB réel/population.",
+      "Une variation de change n’établit pas cette divergence dans des séries réelles de périmètre inchangé."
+    ]
   },
   {
     "id": "mastery-africa-2",
     "d": "africa",
-    "fr": "Un projet accroît le rendement mais réduit l’accès des ménages vulnérables à l’eau. Quelle analyse est la plus complète ?",
+    "fr": "Un projet d’irrigation améliore le rendement moyen. Les ménages en aval perdent une partie de leur accès à l’eau et ne figurent pas dans l’enquête auprès des producteurs bénéficiaires. Quel complément d’évaluation répond à cette limite ?",
     "o": [
-      "Conclure à la réussite sur le rendement uniquement.",
-      "Conclure à l’échec sur la dépense d’équipement uniquement.",
-      "Examiner production, répartition des bénéfices et conséquences sur l’accès à l’eau.",
-      "Remplacer les indicateurs de résultat par le nombre de formations."
+      "Désagréger le rendement entre les cultures des producteurs déjà enquêtés.",
+      "Comparer le rendement moyen au rendement national des mêmes cultures.",
+      "Inclure les ménages en aval et mesurer les effets distributifs et l’accès à l’eau.",
+      "Mesurer la satisfaction des producteurs et le coût d’entretien du périmètre."
     ],
     "a": 2,
-    "x": "Un gain productif doit être confronté à ses effets distributifs et environnementaux.",
+    "x": "Il faut intégrer un groupe affecté mais absent du dispositif, ainsi que l’effet négatif qui n’est pas mesuré.",
     "lv": 4,
     "family": "mastery-africa-2",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "La désagrégation est utile, mais reste dans la population bénéficiaire et ignore les ménages en aval.",
+      "Un benchmark de rendement n’évalue pas la perte d’accès à l’eau des ménages exclus.",
+      "Il faut intégrer un groupe affecté mais absent du dispositif, ainsi que l’effet négatif qui n’est pas mesuré.",
+      "Satisfaction des bénéficiaires et maintenance ne remplacent pas l’évaluation des effets sur les non-bénéficiaires."
+    ]
   },
   {
     "id": "mastery-africa-3",
     "d": "africa",
-    "fr": "Une route transfrontalière est achevée mais le commerce reste faible. Quelle hypothèse doit être examinée ?",
+    "fr": "Une route transfrontalière est achevée et le temps de conduite baisse. Le temps total de transport reste élevé, surtout à la frontière, malgré un trafic modéré. Quelle enquête est la plus directement justifiée ?",
     "o": [
-      "L’infrastructure physique prouve que les échanges ont déjà augmenté.",
-      "Les opérateurs n’ont plus besoin d’accès au financement.",
-      "Les contrôles douaniers sont nécessairement sans rôle.",
-      "Des obstacles réglementaires, logistiques ou de paiement persistent."
+      "Examiner la nécessité d’élargir les voies sur le tronçon routier déjà achevé.",
+      "Examiner une réduction du prix des véhicules pour augmenter le nombre de transporteurs.",
+      "Examiner la création d’un entrepôt de production supplémentaire près des fermes.",
+      "Examiner les formalités, contrôles et modalités de traitement au passage frontalier."
     ],
     "a": 3,
-    "x": "La connectivité physique ne supprime pas toutes les barrières aux échanges.",
+    "x": "Le retard localisé à la frontière justifie d’abord un diagnostic des frictions de passage.",
     "lv": 4,
     "family": "mastery-africa-3",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Le temps de conduite a baissé et le trafic est modéré : un défaut de capacité routière n’est pas le goulot posé.",
+      "Davantage de transporteurs ne traite pas directement le temps d’attente à la frontière.",
+      "Un entrepôt peut aider la logistique, mais ne traite pas directement le blocage observé au passage.",
+      "Le retard localisé à la frontière justifie d’abord un diagnostic des frictions de passage."
+    ]
   },
   {
     "id": "mastery-africa-4",
     "d": "africa",
-    "fr": "Une dépense d’adaptation climatique est surtout conçue pour :",
+    "fr": "Une station de pompage remplace du diesel par du solaire ; une réserve d’eau est aussi créée pour maintenir le service pendant les sécheresses. Comment qualifier ces deux composantes climatiques ?",
     "o": [
-      "Réduire la vulnérabilité aux effets du changement climatique.",
-      "Réduire uniquement les émissions directes d’un véhicule.",
-      "Réduire uniquement les dépenses de suivi du projet.",
-      "Créer automatiquement un droit à un crédit carbone."
+      "Le solaire peut contribuer à l’atténuation ; la réserve vise l’adaptation au choc de sécheresse.",
+      "Le solaire relève de l’adaptation ; la réserve relève de l’atténuation par stockage d’eau.",
+      "Les deux relèvent de l’atténuation puisqu’elles réduisent les effets du changement climatique.",
+      "Les deux relèvent de l’adaptation puisque leur objectif commun est le service d’eau."
     ],
     "a": 0,
-    "x": "L’adaptation répond à l’exposition et à la vulnérabilité ; l’atténuation traite les émissions.",
+    "x": "La substitution au diesel peut réduire les émissions ; la réserve réduit la vulnérabilité du service aux sécheresses. Une analyse de l’eau reste nécessaire.",
     "lv": 4,
     "family": "mastery-africa-4",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "La substitution au diesel peut réduire les émissions ; la réserve réduit la vulnérabilité du service aux sécheresses. Une analyse de l’eau reste nécessaire.",
+      "Le stockage d’eau n’est pas, par cette seule fonction, une réduction des émissions.",
+      "Réduire la vulnérabilité aux effets et réduire les émissions sont deux mécanismes distincts.",
+      "Un objectif de service commun n’efface pas la contribution de la substitution énergétique à l’atténuation."
+    ]
   },
   {
     "id": "mastery-africa-5",
     "d": "africa",
-    "fr": "Un pays consacre plus de ressources à l’éducation sans amélioration des acquis. Quel diagnostic examiner ?",
+    "fr": "Les crédits d’éducation augmentent. Des audits constatent toutefois des achats livrés après l’année scolaire et des enseignants absents. Les acquis stagnent. Quelle analyse complète le mieux le suivi budgétaire ?",
     "o": [
-      "La dépense suffit à établir la qualité des apprentissages.",
-      "L’allocation, l’exécution et la qualité de l’enseignement.",
-      "Le volume des réunions remplace les mesures d’apprentissage.",
-      "Le montant de l’aide extérieure explique à lui seul chaque résultat."
+      "Comparer les crédits votés au budget d’éducation des pays voisins.",
+      "Relier exécution effective, disponibilité des intrants et qualité de l’enseignement aux acquis.",
+      "Mesurer les intentions de dépenses des établissements pour l’année suivante.",
+      "Comparer le volume des manuels commandés au nombre d’élèves inscrits."
     ],
     "a": 1,
-    "x": "La chaîne ressources → activités → acquis dépend de capacité, ciblage et qualité de mise en œuvre.",
+    "x": "Le cas signale une rupture entre ressources, mise à disposition et enseignement ; le suivi doit examiner cette chaîne.",
     "lv": 4,
     "family": "mastery-africa-5",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Un benchmark des crédits ne vérifie pas les retards de livraison ni la présence en classe.",
+      "Le cas signale une rupture entre ressources, mise à disposition et enseignement ; le suivi doit examiner cette chaîne.",
+      "Les intentions futures n’expliquent pas les difficultés d’exécution actuelles.",
+      "Une commande ne prouve pas une livraison utilisable à temps ni la qualité de l’enseignement."
+    ]
   },
   {
     "id": "mastery-africa-6",
     "d": "africa",
-    "fr": "Une banque offre un produit de crédit agricole mais les agricultrices ne l’utilisent pas. Quelle question est la plus utile ?",
+    "fr": "Des agricultrices connaissent le crédit proposé et expriment un besoin de financement. Leur revenu est saisonnier, mais les échéances sont mensuelles dès le versement. Peu d’entre elles signent. Quel examen est prioritaire ?",
     "o": [
-      "Le produit existe-t-il dans un dépliant national ?",
-      "Combien de conférences ont présenté son lancement ?",
-      "Conditions, garanties, accessibilité et besoins sont-ils adaptés aux usagères ?",
-      "Le prêteur utilise-t-il le même slogan que ses concurrents ?"
+      "Renforcer la campagne d’information dans les mêmes villages avant la prochaine saison.",
+      "Réduire la durée d’instruction des dossiers sans modifier les échéances du crédit.",
+      "Tester l’adéquation du calendrier de remboursement aux flux de trésorerie des exploitantes.",
+      "Élargir le nombre de guichets afin de rapprocher l’offre des exploitations."
     ],
     "a": 2,
-    "x": "L’offre formelle ne prouve pas l’usage : coût, garanties, information et contraintes sociales peuvent compter.",
+    "x": "Le cas fournit un obstacle de conception du produit : des remboursements avant les revenus peuvent limiter l’adoption.",
     "lv": 4,
     "family": "mastery-africa-6",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "L’offre est connue ; une information supplémentaire ne traite pas directement le décalage de flux.",
+      "Une instruction plus rapide ne rend pas le calendrier de remboursement compatible avec les revenus.",
+      "Le cas fournit un obstacle de conception du produit : des remboursements avant les revenus peuvent limiter l’adoption.",
+      "La proximité peut être utile, mais aucune contrainte géographique n’est décrite ici."
+    ]
   },
   {
     "id": "mastery-africa-7",
     "d": "africa",
-    "fr": "Le financement mixte est pertinent si les ressources concessionnelles :",
+    "fr": "Des investisseurs proposent déjà de financer intégralement un projet aux conditions prévues. Un financement concessionnel est demandé, sans changement attendu de risque, de service ni de participation privée. Que faut-il établir avant de justifier ce soutien catalytique ?",
     "o": [
-      "Compensent durablement toute entreprise peu rentable sans examen.",
-      "Éliminent tout besoin d’analyse financière par les investisseurs.",
-      "Se substituent systématiquement à des capitaux privés disponibles.",
-      "Mobilisent des capitaux additionnels face à un obstacle identifié."
+      "Le gain de rentabilité des investisseurs par rapport à leur offre commerciale actuelle.",
+      "Le montant de la concession permettant d’accélérer la signature des offres existantes.",
+      "La répartition de la concession entre investisseurs selon leurs contributions respectives.",
+      "L’obstacle qu’il lèverait et l’apport additionnel par rapport au financement déjà disponible."
     ],
     "a": 3,
-    "x": "La justification est catalytique et contextuelle ; éviter de subventionner inutilement un investissement qui se ferait déjà.",
+    "x": "La concession doit avoir une justification liée à un obstacle et à un apport additionnel, plutôt qu’être une subvention sans effet démontré.",
     "lv": 4,
     "family": "mastery-africa-7",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Une meilleure rentabilité privée ne prouve pas que des capitaux ou un service additionnels sont mobilisés.",
+      "Une signature accélérée peut être utile, mais doit être reliée à une contrainte et un effet additionnel démontrés.",
+      "La distribution d’un soutien ne justifie pas l’existence de ce soutien.",
+      "La concession doit avoir une justification liée à un obstacle et à un apport additionnel, plutôt qu’être une subvention sans effet démontré."
+    ]
   },
   {
     "id": "mastery-africa-8",
     "d": "africa",
-    "fr": "Un projet agricole obtient de bons résultats malgré une sécheresse légère. Peut-on conclure à sa résilience face à une sécheresse extrême ?",
+    "fr": "Un dispositif agricole maintient ses résultats pendant une sécheresse légère. Son stockage et ses réserves n’ont pas été testés face à une saison entière sans pluie. Quelle conclusion sur la résilience est soutenue ?",
     "o": [
-      "Non, il faut tester exposition, seuils et capacité d’adaptation à des chocs plus sévères.",
-      "Oui, toute sécheresse fournit une validation complète.",
-      "Oui, si le budget prévu a été totalement dépensé.",
-      "Non, une résistance à un choc ne donne aucune information utile."
+      "La résistance au choc observé est documentée ; la résistance à un choc plus sévère reste à tester.",
+      "La résistance à une saison sèche est établie si le dispositif a consommé toutes ses réserves.",
+      "La résistance aux chocs sévères peut être estimée par la seule moyenne des résultats annuels.",
+      "La résistance est comparable à celle des projets voisins ayant le même budget d’équipement."
     ],
     "a": 0,
-    "x": "Une observation apporte de l’information sans garantir la robustesse à toutes les intensités de choc.",
+    "x": "Une observation sous un choc léger fournit de l’information, mais ne démontre pas la performance au-delà du choc testé.",
     "lv": 4,
     "family": "mastery-africa-8",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Une observation sous un choc léger fournit de l’information, mais ne démontre pas la performance au-delà du choc testé.",
+      "L’épuisement des réserves ne prouve pas leur suffisance pour une période plus longue.",
+      "Une moyenne peut masquer l’intensité et la durée du choc ainsi que les seuils de défaillance.",
+      "Un budget semblable ne démontre pas des capacités, une exposition ou une performance comparables."
+    ]
   },
   {
     "id": "mastery-africa-9",
     "d": "africa",
-    "fr": "Un mécanisme d’assurance indicielle verse selon un indice. Quel risque spécifique pour les assurés faut-il examiner ?",
+    "fr": "Une assurance verse une indemnité si la pluie mesurée par une station passe sous un seuil. Une exploitation subit une perte grave, mais la station enregistre une pluie supérieure au seuil. Quel problème spécifique est illustré ?",
     "o": [
-      "Le simple fait que l’assurance implique une prime.",
-      "Un écart entre pertes individuelles et déclenchement de l’indice.",
-      "Une identité parfaite de rendement entre toutes les exploitations.",
-      "Le nombre de signatures figurant au contrat uniquement."
+      "Un risque de crédit lié à l’incapacité de l’assureur à verser une indemnité due.",
+      "Un risque de base entre le déclencheur indiciel et la perte effectivement subie.",
+      "Un aléa moral provoqué par une réduction de l’effort de production après souscription.",
+      "Une sélection adverse liée à la souscription des seules exploitations à risque élevé."
     ],
     "a": 1,
-    "x": "Le risque de base désigne un décalage entre indice et perte réellement subie.",
+    "x": "L’indice ne reflète pas nécessairement la perte individuelle ; une perte peut survenir sans déclenchement contractuel.",
     "lv": 4,
     "family": "mastery-africa-9",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Le cas ne dit pas qu’une indemnité due ne peut être payée ; le seuil n’est pas franchi.",
+      "L’indice ne reflète pas nécessairement la perte individuelle ; une perte peut survenir sans déclenchement contractuel.",
+      "Aucun changement de comportement après souscription n’est décrit.",
+      "Aucune information sur le profil des souscripteurs ne permet ce diagnostic."
+    ]
   },
   {
     "id": "mastery-africa-10",
     "d": "africa",
-    "fr": "Une politique de transformation locale doit être évaluée notamment par :",
+    "fr": "Une usine transforme localement une matière première. Elle utilise des équipements importés, peu de fournisseurs locaux et des contrats temporaires. Quel examen éclaire le mieux sa contribution à la transformation structurelle ?",
     "o": [
-      "Le tonnage exporté brut comme seul indicateur.",
-      "Le nombre de panneaux installés dans les zones industrielles.",
-      "Compétitivité, emplois, valeur ajoutée et accès aux marchés.",
-      "Le nombre de visiteurs reçus pendant l’inauguration."
+      "Le volume brut traité et la part de ce volume portant une marque nationale.",
+      "La progression des dépenses d’équipement par rapport au coût initialement prévu.",
+      "Les liens productifs locaux, les compétences, la valeur ajoutée et la pérennité des emplois.",
+      "Le nombre de contrats signés et leur répartition entre les phases de construction."
     ],
     "a": 2,
-    "x": "La valeur ajoutée et la viabilité productive dépendent aussi des capacités, coûts et débouchés.",
+    "x": "La transformation locale ne suffit pas à établir des liens productifs, un apprentissage ou des emplois durables ; il faut examiner ces effets.",
     "lv": 4,
     "family": "mastery-africa-10",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Un volume et une marque ne démontrent pas l’étendue des liens locaux ni les compétences créées.",
+      "Une dépense d’équipement renseigne l’investissement, pas la qualité des effets structurels.",
+      "La transformation locale ne suffit pas à établir des liens productifs, un apprentissage ou des emplois durables ; il faut examiner ces effets.",
+      "Les contrats de construction ne décrivent pas les emplois et capacités de la phase d’exploitation."
+    ]
   },
   {
     "id": "mastery-africa-11",
     "d": "africa",
-    "fr": "Les recettes issues d’une seule matière première financent l’essentiel du budget. Quelle vulnérabilité domine ?",
+    "fr": "Les recettes publiques dépendent surtout d’une matière première dont le cours chute. Un fonds de stabilisation amortit le choc pendant quelques mois. Quel risque de moyen terme reste à traiter ?",
     "o": [
-      "Une diversification automatiquement suffisante des recettes.",
-      "Une indépendance garantie à l’égard des cours mondiaux.",
-      "Une baisse systématique des besoins de trésorerie.",
-      "Une sensibilité aux cours et aux volumes de cette matière première."
+      "Le calendrier de versement du fonds, indépendamment de la structure des recettes.",
+      "La hausse de la demande intérieure liée à l’utilisation temporaire du fonds.",
+      "Le coût d’administration du fonds par rapport aux dépenses de fonctionnement.",
+      "La concentration des recettes et leur exposition persistante à un choc sectoriel."
     ],
     "a": 3,
-    "x": "La concentration expose recettes publiques et devises à des chocs sectoriels.",
+    "x": "Une réserve de stabilisation peut amortir un choc, mais ne diversifie pas par elle-même les sources de recettes.",
     "lv": 4,
     "family": "mastery-africa-11",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Le calendrier compte pour la liquidité ; il ne résout pas la vulnérabilité structurelle de moyen terme.",
+      "L’effet de demande n’élimine pas la dépendance budgétaire au cours d’une matière première.",
+      "Le coût administratif peut compter, mais n’est pas le risque structurel mis en évidence.",
+      "Une réserve de stabilisation peut amortir un choc, mais ne diversifie pas par elle-même les sources de recettes."
+    ]
   },
   {
     "id": "mastery-africa-12",
     "d": "africa",
-    "fr": "Une amélioration moyenne du revenu masque une dégradation chez les ménages les plus pauvres. Quelle mesure complémentaire aiderait ?",
+    "fr": "Le revenu moyen des bénéficiaires augmente. Les ménages initialement les plus pauvres connaissent une baisse, tandis que quelques grands producteurs gagnent beaucoup. Quelle conclusion faut-il retenir ?",
     "o": [
-      "Une analyse de distribution et des groupes bénéficiaires.",
-      "Le montant global dépensé uniquement.",
-      "La date de publication de l’annonce uniquement.",
-      "Le nombre total de prestataires uniquement."
+      "Le gain moyen coexiste avec une détérioration pour un groupe ; l’inclusion n’est pas démontrée par la moyenne.",
+      "Le gain moyen établit une amélioration de l’inclusion si le nombre total de bénéficiaires reste stable.",
+      "La baisse chez les plus pauvres peut être compensée dans l’évaluation par le gain des grands producteurs.",
+      "Le groupe des plus pauvres devrait être exclu du calcul pour comparer les producteurs à capacité similaire."
     ],
     "a": 0,
-    "x": "Une moyenne ne permet pas d’apprécier les effets sur chaque groupe.",
+    "x": "La moyenne et la distribution répondent à des questions différentes ; un résultat agrégé positif peut masquer un effet distributif négatif.",
     "lv": 4,
     "family": "mastery-africa-12",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "La moyenne et la distribution répondent à des questions différentes ; un résultat agrégé positif peut masquer un effet distributif négatif.",
+      "Un effectif stable ne prouve pas une répartition inclusive des gains.",
+      "Une compensation arithmétique n’établit pas une compensation effectivement reçue par les ménages affectés.",
+      "Exclure le groupe affecté masquerait la question d’inclusion au lieu de l’évaluer."
+    ]
   },
   {
     "id": "mastery-africa-13",
     "d": "africa",
-    "fr": "Une consultation recueille uniquement les avis des usagers connectés. Quel risque faut-il examiner ?",
+    "fr": "Une consultation en ligne compte de nombreuses réponses. Le réseau couvre surtout les centres urbains, tandis que le projet vise aussi des zones rurales peu connectées. Quelle mesure réduit le plus directement le risque de généralisation ?",
     "o": [
-      "Une couverture certaine de tous les publics concernés.",
-      "Une sous-représentation des publics moins connectés.",
-      "Une mesure directe des opinions des non-répondants.",
-      "Une impossibilité de toute conclusion même limitée aux répondants."
+      "Prolonger le formulaire en ligne pour accroître le nombre de réponses du même canal.",
+      "Recueillir aussi les avis des publics mal couverts par un mode de consultation accessible.",
+      "Pondérer chaque réponse par le temps passé sur le formulaire pour privilégier les avis détaillés.",
+      "Sélectionner au hasard des réponses déjà reçues afin de constituer un échantillon plus petit."
     ],
     "a": 1,
-    "x": "Le biais de couverture affecte la généralisation, sans rendre inutile toute information sur les participants.",
+    "x": "Il faut traiter la couverture de la population visée, et pas seulement la taille des réponses disponibles.",
     "lv": 4,
     "family": "mastery-africa-13",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Un effectif plus grand dans le même canal peut conserver le biais de couverture.",
+      "Il faut traiter la couverture de la population visée, et pas seulement la taille des réponses disponibles.",
+      "Le temps de réponse n’informe pas la représentation des populations absentes.",
+      "Un tirage au hasard parmi les répondants ne crée pas de représentation des non-couverts."
+    ]
   },
   {
     "id": "mastery-africa-14",
     "d": "africa",
-    "fr": "Une subvention énergétique générale bénéficie davantage aux gros consommateurs. Quel arbitrage examiner ?",
+    "fr": "Une subvention énergétique générale coûte cher et bénéficie davantage aux gros consommateurs. Un registre social existe, mais exclut certains ménages vulnérables et les transferts arrivent parfois tard. Quelle analyse convient avant une réforme ?",
     "o": [
-      "Le maintien sans analyse car tous les ménages consomment.",
-      "La suppression immédiate sans examiner les ménages exposés.",
-      "Le ciblage, les effets budgétaires et les mesures de protection.",
-      "La seule modification du nom budgétaire de la subvention."
+      "Remplacer la subvention par un transfert ciblé en utilisant le registre sans correction préalable.",
+      "Maintenir la subvention jusqu’à ce que le registre couvre tous les ménages sans exception.",
+      "Comparer les options en intégrant ciblage réel, couverture, calendrier et effets sur les ménages exposés.",
+      "Réduire le montant de la subvention uniformément et évaluer ensuite les pertes de couverture."
     ],
     "a": 2,
-    "x": "Efficacité, incidence distributive et protection des vulnérables doivent être examinées ensemble.",
+    "x": "Un ciblage théoriquement meilleur peut échouer par exclusions ou retards ; la comparaison doit intégrer mise en œuvre et protection.",
     "lv": 4,
     "family": "mastery-africa-14",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Le registre présente déjà des exclusions ; un transfert mal ciblé peut ne pas protéger les ménages exposés.",
+      "Attendre une perfection du registre ignore les options de correction et les coûts du maintien.",
+      "Un ciblage théoriquement meilleur peut échouer par exclusions ou retards ; la comparaison doit intégrer mise en œuvre et protection.",
+      "Une réduction préalable sans évaluer l’exposition et les protections traite les risques après leur réalisation."
+    ]
   },
   {
     "id": "mastery-africa-15",
     "d": "africa",
-    "fr": "Un programme annonce des emplois créés. Quelle information précise mieux leur contribution au développement ?",
+    "fr": "Un rapport compte des emplois sur un chantier puis des emplois dans l’exploitation. Certaines personnes figurent dans les deux listes ; plusieurs emplois ont remplacé une activité existante. Quel contrôle améliore l’interprétation du bilan ?",
     "o": [
-      "Le nombre de communiqués ayant repris cette annonce.",
-      "La présence d’une application pour enregistrer les inscriptions.",
-      "Le budget de cérémonie de lancement uniquement.",
-      "La durée, la qualité, l’accessibilité et l’additionnalité des emplois."
+      "Additionner les contrats des deux phases et conserver le total comme nombre de personnes employées.",
+      "Retenir les emplois d’exploitation comme créations nettes dès lors que leur durée est plus longue.",
+      "Compter les personnes une seule fois sans examiner leurs activités antérieures ni les durées.",
+      "Distinguer personnes, périodes, qualité des emplois et créations nettes liées au projet."
     ],
     "a": 3,
-    "x": "Un décompte brut peut mêler emplois temporaires, précaires ou déplacés depuis d’autres activités.",
+    "x": "Le bilan doit éviter doubles comptes et confusion entre contrats, personnes et emplois nets additionnels.",
     "lv": 4,
     "family": "mastery-africa-15",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Une même personne peut signer plusieurs contrats ; leur somme n’est pas un nombre de personnes uniques.",
+      "Une durée plus longue n’établit pas l’additionnalité ni l’absence de substitution à une autre activité.",
+      "La déduplication est nécessaire mais ne suffit pas à établir durée, qualité et création nette.",
+      "Le bilan doit éviter doubles comptes et confusion entre contrats, personnes et emplois nets additionnels."
+    ]
   },
   {
     "id": "mastery-africa-16",
     "d": "africa",
-    "fr": "Une dette finance une infrastructure utile mais les recettes attendues sont incertaines. Quel examen est nécessaire ?",
+    "fr": "Une infrastructure a une utilité sociale élevée. Ses recettes en monnaie locale sont incertaines, sa dette est en devises et ses dépenses d’entretien sont peu documentées. Quel examen est déterminant avant de conclure à sa soutenabilité financière ?",
     "o": [
-      "Soutenabilité, scénarios de revenus et risques de service de la dette.",
-      "Utilité sociale seule, sans analyse de remboursement.",
-      "Taille du chantier seule, sans analyse de maintenance.",
-      "Statut du bailleur seul, sans examen des risques."
+      "Tester revenus, change, entretien et obligations de dette dans des scénarios défavorables.",
+      "Valoriser les bénéfices sociaux pour les comparer au principal de la dette à sa date de signature.",
+      "Comparer le taux du prêt à celui d’opérations similaires financées par le même bailleur.",
+      "Étaler la maturité du prêt pour aligner le premier remboursement sur l’ouverture de l’ouvrage."
     ],
     "a": 0,
-    "x": "La valeur sociale ne suffit pas à établir la capacité financière de supporter la dette.",
+    "x": "La valeur sociale ne remplace pas les flux disponibles pour entretien et remboursement, ni l’analyse du risque de change.",
     "lv": 4,
     "family": "mastery-africa-16",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "La valeur sociale ne remplace pas les flux disponibles pour entretien et remboursement, ni l’analyse du risque de change.",
+      "Une analyse socioéconomique est utile, mais ne démontre pas la liquidité permettant de payer les échéances.",
+      "Un taux comparable ne prouve pas la capacité du projet à rembourser dans son contexte.",
+      "Un calendrier adapté peut aider, mais ne remplace pas le test des revenus, du change et de l’entretien."
+    ]
   },
   {
     "id": "mastery-africa-17",
     "d": "africa",
-    "fr": "Un crédit agricole est utilisé en partie pour un besoin urgent du ménage. Quelle conclusion doit être évitée sans analyse ?",
+    "fr": "Un emprunteur agricole déclare avoir utilisé une partie du crédit pour une urgence familiale. L’équipe ne dispose pas encore du contrat ni des justificatifs. Quelle conclusion est défendable à ce stade ?",
     "o": [
-      "Le besoin de comprendre les flux et le calendrier du ménage.",
-      "L’affirmation que tout usage hors production prouve automatiquement une fraude.",
-      "Le besoin d’examiner contrat, capacité de remboursement et effets.",
-      "La distinction entre objet initial et usage effectif du crédit."
+      "L’usage constitue un détournement intentionnel dès lors qu’il concerne une dépense familiale.",
+      "L’usage déclaré diffère de la destination initiale ; conformité et intention restent à établir.",
+      "L’usage est conforme au crédit agricole dès lors que le remboursement demeure possible.",
+      "L’usage n’a pas d’effet sur le projet si l’emprunteur promet de remettre les fonds avant la récolte."
     ],
     "a": 1,
-    "x": "Il faut établir les faits, obligations et contraintes avant de conclure à une faute intentionnelle.",
+    "x": "Il faut distinguer fait déclaré, obligation contractuelle et intention ; les éléments nécessaires à une qualification ne sont pas encore disponibles.",
     "lv": 4,
     "family": "mastery-africa-17",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Une qualification intentionnelle exige davantage que la seule nature familiale de la dépense.",
+      "Il faut distinguer fait déclaré, obligation contractuelle et intention ; les éléments nécessaires à une qualification ne sont pas encore disponibles.",
+      "La capacité de remboursement ne détermine pas à elle seule la conformité à la destination contractuelle.",
+      "Une promesse ne prouve pas l’absence d’effet sur les intrants, la production ou le remboursement."
+    ]
   },
   {
     "id": "mastery-africa-18",
     "d": "africa",
-    "fr": "Pour attribuer un changement de revenus à un projet, quelle approche renforce l’analyse ?",
+    "fr": "Le revenu des producteurs participants augmente après un appui. Pendant la même période, le prix de vente augmente aussi dans les zones sans appui. Quel dispositif renforce le plus l’analyse de l’effet du projet ?",
     "o": [
-      "Comparer uniquement le revenu après projet à l’objectif annoncé.",
-      "Comparer uniquement la dépense finale au budget.",
-      "Examiner un contrefactuel crédible et les autres facteurs de changement.",
-      "Remplacer les données par des avis de satisfaction uniquement."
+      "Comparer le revenu final à la cible du projet et mesurer le taux d’atteinte de cette cible.",
+      "Interroger les participants sur la part du changement qu’ils attribuent à l’appui reçu.",
+      "Comparer les évolutions avec un groupe pertinent et examiner la sélection des participants et les autres facteurs.",
+      "Comparer les participants les plus assidus à ceux qui ont suivi moins de formations."
     ],
     "a": 2,
-    "x": "Une évolution dans le temps n’isole pas l’effet du projet sans comparaison et analyse des facteurs.",
+    "x": "Une comparaison crédible aide à isoler l’effet, tout en exigeant un examen des différences initiales et de sélection.",
     "lv": 4,
     "family": "mastery-africa-18",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "L’atteinte d’une cible ne distingue pas le rôle du projet de celui des prix de vente.",
+      "Les perceptions sont utiles mais ne suffisent pas à isoler une causalité du choc de prix commun.",
+      "Une comparaison crédible aide à isoler l’effet, tout en exigeant un examen des différences initiales et de sélection.",
+      "L’assiduité peut dépendre de caractéristiques qui affectent aussi le revenu ; la différence ne démontre pas l’effet de l’appui."
+    ]
   },
   {
     "id": "mastery-africa-19",
     "d": "africa",
-    "fr": "Une coordination régionale sur l’énergie vise notamment à :",
+    "fr": "Deux réseaux énergétiques ont des capacités techniques compatibles. Les échanges ne se matérialisent pas car les opérateurs n’ont pas de règles communes de règlement et de responsabilité en cas d’incident. Quelle intervention répond au goulot identifié ?",
     "o": [
-      "Supprimer toutes les responsabilités nationales de service.",
-      "Prouver que toute interconnexion est rentable avant analyse.",
-      "Remplacer tout investissement de réseau par des réunions.",
-      "Associer infrastructures, règles d’échange et capacités de fonctionnement."
+      "Accroître les capacités installées pour disposer d’une réserve technique supplémentaire.",
+      "Unifier les tarifs de détail des ménages avant toute transaction entre les deux réseaux.",
+      "Remplacer les compteurs des usagers afin de mieux connaître la consommation domestique.",
+      "Convenir des modalités opérationnelles et financières nécessaires aux échanges entre opérateurs."
     ],
     "a": 3,
-    "x": "L’intégration requiert coordination institutionnelle et opérationnelle en plus des ouvrages.",
+    "x": "La compatibilité physique est posée ; le blocage concerne les règles de transaction et de responsabilité.",
     "lv": 4,
     "family": "mastery-africa-19",
-    "trap": "development"
+    "trap": "development",
+    "why": [
+      "Une réserve peut être utile, mais ne règle pas les obligations de paiement ni les responsabilités.",
+      "L’unification des tarifs de détail n’est pas une condition posée pour régler les transactions entre opérateurs.",
+      "Une meilleure mesure domestique ne traite pas directement les règles inter-opérateurs manquantes.",
+      "La compatibilité physique est posée ; le blocage concerne les règles de transaction et de responsabilité."
+    ]
   }
 ];
 QUESTIONS.push(...MASTERY_QUESTIONS);

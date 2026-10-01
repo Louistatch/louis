@@ -22,3 +22,5 @@ Site statique, sans dépendance : servir la racine ou ouvrir index.html. GitHub 
 Validation : `node tests/core.cjs` et `node --check app.js`. Tests du format, score, garde de correction, échéances après rechargement, questions obligatoires, progression sans retour, sprints, données persistantes et vues. Le DOM simulé ne prouve pas le rendu visuel.
 
 Pendant l’épreuve officielle, respecter l’interdiction d’IA, de ressources externes et d’assistance. Utilisation de cette plateforme uniquement pour la préparation.
+
+Vérification navigateur sur la version publiée : configuration 50/50, sélection sans correction, progression sans retour et conservation de la question/du chronomètre après rechargement.

@@ -23,7 +23,7 @@ Validation : `node tests/core.cjs` et `node --check app.js`. Tests du format, sc
 
 Pendant l’épreuve officielle, respecter l’interdiction d’IA, de ressources externes et d’assistance. Utilisation de cette plateforme uniquement pour la préparation.
 
-La version précédente publiée a été vérifiée dans un navigateur : configuration 50/50, sélection sans correction, progression sans retour et conservation de la question/du chronomètre après rechargement. Pour cette nouvelle version, les tests automatisés passent ; la vérification visuelle sur ordinateur et mobile reste à effectuer, l’aperçu local étant bloqué dans l’environnement de travail.
+Cette version publiée a été vérifiée dans un navigateur sur ordinateur : laboratoire Vrai/Faux/Impossible, phrases de preuve et deux scénarios, préparation obligatoire, 50 questions sans retour ni correction immédiate, conservation de la réponse et du chronomètre après rechargement, soumission sans affichage du score, questionnaire fictif et confirmation avant le bilan. Le rendu mobile et l’accès réel à la caméra restent à vérifier. Aucun problème propre au site n’a été relevé dans les journaux consultés.
 
 ## Renforcement du niveau
 168 nouveaux items (difficulté estimée éditorialement), dont 72 verbaux sur 24 passages. Le coach demande des phrases de preuve, fournit des indices facultatifs et explique les trois réponses. Matrice des confusions et ateliers par piège. Tests exigeants 50/50 et surentraînement 50/35 ; les 35 minutes ne sont pas officielles.

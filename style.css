@@ -47,3 +47,12 @@ body.assessment-focus .qtop{font-size:13px}body.assessment-focus .quiz h2{font-s
 body.assessment-focus footer{font-size:11px}.option,.proof-option{cursor:pointer}
 button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #b98522;outline-offset:3px}
 @media(max-width:700px){.flow-steps{grid-template-columns:repeat(2,minmax(0,1fr))}.worlds .method-grid{grid-template-columns:1fr}.protocol-bar{flex-direction:column}.flow-panel{padding:22px}body.assessment-focus main{padding:0 16px 35px}body.assessment-focus header{height:auto;min-height:95px}body.assessment-focus header h1{font-size:22px}.lab-metrics{gap:20px}}
+
+/* Desktop sidebar: keep every navigation item reachable on short screens */
+@media(min-width:901px){
+ aside{overflow:hidden}
+ aside nav{min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;padding-right:6px;padding-bottom:12px;scrollbar-width:thin;scrollbar-color:#44627f transparent}
+ aside nav::-webkit-scrollbar{width:7px}
+ aside nav::-webkit-scrollbar-thumb{background:#44627f;border-radius:10px}
+ .aside-foot{flex:0 0 auto}
+}

@@ -30,7 +30,7 @@ function startErrors(){const qs=QUESTIONS.filter(q=>state.items[q.id]&&!state.it
 function startOverconfidence(){const qs=QUESTIONS.filter(q=>state.items[q.id]&&!state.items[q.id].ok&&state.items[q.id].conf==='high');if(!qs.length){app.innerHTML='<div class="panel"><h2>Aucune erreur à forte confiance</h2><p>En entraînement libre, indique ton niveau de confiance après avoir choisi une réponse. Les erreurs sûres de toi apparaîtront ici.</p>'+actions()+'</div>';return}startQuiz(prioritize(qs).slice(0,20),false,'Fausses certitudes')}
 function startVerbalSprint(){const qs=verbalSet(9);startQuiz(qs,false,'Sprint verbal',{strict:true,durationMs:480000,kind:'sprint'})}
 function startSjtSprint(){const qs=prioritize(QUESTIONS.filter(q=>q.d==='sjt')).slice(0,12);startQuiz(qs,false,'Sprint SJT',{strict:true,durationMs:600000,kind:'sprint'})}
-function startCurrentAfrica(){const qs=currentAfricaPool();startQuiz(shuffle(qs).slice(0,Math.min(12,qs.length)),false,'Actualité Afrique · 30 jours',{strict:true,kind:'current-africa'})})}
+function startCurrentAfrica(){const qs=currentAfricaPool();startQuiz(shuffle(qs).slice(0,Math.min(12,qs.length)),false,'Actualité Afrique · 30 jours',{strict:true,kind:'current-africa'})}
 function startSpeedSprint(){const qs=shuffle(Object.keys(DOMAINS).flatMap(d=>shuffle(QUESTIONS.filter(q=>q.d===d)).slice(0,3)));startQuiz(qs,false,'Sprint mixte',{strict:true,durationMs:600000,kind:'sprint'})}
 function currentAffairsPool(){return QUESTIONS.filter(q=>q.current)}
 function currentAfricaPool(){return QUESTIONS.filter(q=>q.current&&q.id.indexOf('africa-news-')===0)}

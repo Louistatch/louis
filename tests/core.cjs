@@ -2,8 +2,8 @@ const vm=require('node:vm'),fs=require('node:fs'),assert=require('node:assert/st
 const root=path.join(__dirname,'..');
 function setup(store={}){const elements=new Map(),get=s=>{if(!elements.has(s))elements.set(s,{innerHTML:'',textContent:'',value:'40',focus(){}});return elements.get(s)};const c={console,Date,Math,JSON,Set,Number,String,Object,Array,confirm:()=>true,alert:()=>{},setInterval:()=>1,clearInterval:()=>{},setTimeout:()=>{},localStorage:{getItem:k=>store[k]??null,setItem:(k,v)=>store[k]=v},document:{querySelector:get,querySelectorAll:()=>[]},window:{scrollTo(){}},Blob,URL};vm.createContext(c);for(const f of ['questions.js','content.js','bryq.js','mastery.js','expert-bank.js','coaching.js','simulation.js','app.js'])vm.runInContext(fs.readFileSync(path.join(root,f),'utf8'),c);return {run:s=>vm.runInContext(s,c),store,get}}
 let t=setup();
-assert.equal(t.run('QUESTIONS.length'),486);
-assert.equal(t.run('new Set(QUESTIONS.map(q=>q.id)).size'),486);
+assert.equal(t.run('QUESTIONS.length'),496);
+assert.equal(t.run('new Set(QUESTIONS.map(q=>q.id)).size'),496);
 assert.equal(t.run('QUESTIONS.every(q=>DOMAINS[q.d] && q.o.length>=3 && q.o.length<=4 && Number.isInteger(q.a) && q.a>=0 && q.a<q.o.length && q.fr && q.x)'),true);
 
 assert.equal(t.run('QUESTIONS.filter(q=>q.kind==="verbal").length'),141);
@@ -19,7 +19,7 @@ t.run('startSpeedSprint()');assert.equal(t.run('session.qs.length'),12);assert.e
 t.run('startPractice("sjt");selectOpt(session.qs[0].a);checkAnswer();selectOpt((session.qs[0].a+1)%4)');assert.equal(t.run('session.answers[0]===session.qs[0].a'),true);t.run('finish(true)');
 for(const v of ['learn','news','practice','exam','verbal','lab','immersive','research','progress','plan','dashboard']){t.run(`showView('${v}')`);assert.ok(t.get('#app').innerHTML.length>100)}
 assert.doesNotThrow(()=>setup({'ypp-prep-v2':'broken json','ypp-session-v2':'broken json'}));
-console.log('PASS: 486-question integrity; domain sampling; 3/4-option formats; verbal sprint; SJT sprint; mixed sprint; confidence capture; balanced selections; immutable checked answers; persistent session/deadline; expiry; omitted-answer scoring; no duplicate history; all views; corrupt JSON fallback. DOM layout not covered.');
+console.log('PASS: 496-question integrity; domain sampling; 3/4-option formats; verbal sprint; SJT sprint; mixed sprint; confidence capture; balanced selections; immutable checked answers; persistent session/deadline; expiry; omitted-answer scoring; no duplicate history; all views; corrupt JSON fallback. DOM layout not covered.');
 
 t=setup();t.run('startExam()');assert.equal(t.run('session.qs.length'),50);assert.equal(t.run('session.deadline-session.start'),3000000);assert.equal(t.run('new Set(session.qs.map(q=>q.id)).size'),50);t.run('finish(false)');assert.notEqual(t.run('session'),null);t.run('selectOpt(session.qs[0].a);checkAnswer()');assert.equal(t.run('Object.keys(session.checked).length'),0);t.run('session.qs.forEach((q,i)=>session.answers[i]=q.a);finish(false)');assert.equal(t.run('state.history[0].correct'),50);
 t.run('startQuiz(examQuestions(),true,"Forward",{strict:true,forward:true,durationMs:3000000});jump(1)');assert.equal(t.run('session.i'),0);t.run('selectOpt(0);move(1);jump(0)');assert.equal(t.run('session.i'),1);t.run('abandon()');assert.equal(t.run('state.history[0].status'),'abandoned');

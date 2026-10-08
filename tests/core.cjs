@@ -103,4 +103,9 @@ t=setup();t.get('#labItemSeconds').value='30';t.run('startPressureDrill()');asse
 t.run('session.start=Date.now()-95000;session.deadline=session.start+360000;session.entered=session.start;session.itemDeadline=session.start+30000;saveSession()');
 t=setup(t.store);assert.equal(t.run('session.i'),3);assert.ok(t.run('session.times[0]>=30000'));assert.ok(t.run('session.times[1]>=30000'));assert.ok(t.run('session.times[2]>=30000'));
 t.run('session.deadline=Date.now()-1;tick()');assert.equal(t.run('state.history[0].status'),'expired');
+
+assert(vm.runInContext("QUESTIONS.filter(q=>q.current).length"),22,"current-affairs pool");
+assert(vm.runInContext("QUESTIONS.filter(q=>q.current&&q.id.indexOf('africa-news-')===0).length"),12,"Africa current-affairs pool");
+assert(vm.runInContext("QUESTIONS.filter(q=>q.current).every(q=>q.source&&SOURCES[q.source])"),true,"every current-affairs question has a valid source");
+assert(vm.runInContext("NEWS.every(n=>n.source&&SOURCES[n.source])"),true,"every news card has a valid source");
 console.log('PASS: 108 expert cases, 48 balanced verbal keys, two counter-scenarios, exhaustive logical models, unique family sampling, immersive completion and reload, mock nationality guard, persistent pace and skipped item timeouts.');

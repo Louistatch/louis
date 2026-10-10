@@ -48,6 +48,7 @@ test('older version two saves without a journal still load with an empty history
   const original = new Simulation();
   original.act('contract', { location: 'market' });
   const oldSave = original.snapshot();
+  oldSave.version = 2;
   delete oldSave.events;
   const restored = new Simulation();
   restored.event('A previous session');

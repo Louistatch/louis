@@ -1,0 +1,13 @@
+{
+  "method": "Node CPU wall time of 1000 fixed 250ms steps per sample, 40 samples, after 1000 warmup steps; fresh eight-resident trading scenario each sample",
+  "node": "v24.19.0",
+  "residents": 8,
+  "economyHz": 4,
+  "samples": 40,
+  "ticksPerSample": 1000,
+  "medianMsPerStep": 0.0019859149999999913,
+  "p95MsPerStep": 0.0037637169999999998,
+  "minimumMsPerStep": 0.0008815850000000011,
+  "maximumMsPerStep": 0.004634277000000001,
+  "limits": "No renderer; excludes save validation, UI, WebGL, GPU, physical Android and desktop frame rates"
+}

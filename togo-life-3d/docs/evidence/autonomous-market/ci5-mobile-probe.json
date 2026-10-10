@@ -1,0 +1,593 @@
+{
+  "engine": "chromium",
+  "status": "failed",
+  "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+  "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+  "transport": "offline-file",
+  "emulation": {
+    "portrait": {
+      "width": 390,
+      "height": 844
+    },
+    "landscape": {
+      "width": 844,
+      "height": 390
+    },
+    "deviceScaleFactor": 1.5,
+    "hasTouch": true,
+    "isMobile": true,
+    "physicalAndroidValidated": false
+  },
+  "checks": [
+    {
+      "name": "portrait real WebGL avatar preview visible",
+      "pass": true,
+      "evidence": {
+        "visible": true,
+        "width": 177,
+        "height": 213,
+        "hasWebGL": true
+      }
+    },
+    {
+      "name": "start touch closes onboarding",
+      "pass": true
+    },
+    {
+      "name": "portrait commands visible and inside viewport",
+      "pass": true,
+      "evidence": [
+        {
+          "id": "neighborhoodBtn",
+          "x": 16,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "lifeBtn",
+          "x": 105.5,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "businessBtn",
+          "x": 195,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "pauseBtn",
+          "x": 284.5,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "interactBtn",
+          "x": 181.5,
+          "y": 609,
+          "width": 105,
+          "height": 48,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "runBtn",
+          "x": 296,
+          "y": 678,
+          "width": 72,
+          "height": 72,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "cameraBtn",
+          "x": 269,
+          "y": 205,
+          "width": 109,
+          "height": 48,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "mapBtn",
+          "x": 269,
+          "y": 76,
+          "width": 109,
+          "height": 112,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "objectiveBtn",
+          "x": 12,
+          "y": 186,
+          "width": 252,
+          "height": 66.484375,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "joystick",
+          "x": 22,
+          "y": 662,
+          "width": 98,
+          "height": 98,
+          "visible": true,
+          "inViewport": true
+        }
+      ]
+    },
+    {
+      "name": "portrait commands have 48px touch targets",
+      "pass": true,
+      "evidence": [
+        {
+          "id": "neighborhoodBtn",
+          "x": 16,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "lifeBtn",
+          "x": 105.5,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "businessBtn",
+          "x": 195,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "pauseBtn",
+          "x": 284.5,
+          "y": 776,
+          "width": 89.5,
+          "height": 54,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "interactBtn",
+          "x": 181.5,
+          "y": 609,
+          "width": 105,
+          "height": 48,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "runBtn",
+          "x": 296,
+          "y": 678,
+          "width": 72,
+          "height": 72,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "cameraBtn",
+          "x": 269,
+          "y": 205,
+          "width": 109,
+          "height": 48,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "mapBtn",
+          "x": 269,
+          "y": 76,
+          "width": 109,
+          "height": 112,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "objectiveBtn",
+          "x": 12,
+          "y": 186,
+          "width": 252,
+          "height": 66.484375,
+          "visible": true,
+          "inViewport": true
+        },
+        {
+          "id": "joystick",
+          "x": 22,
+          "y": 662,
+          "width": 98,
+          "height": 98,
+          "visible": true,
+          "inViewport": true
+        }
+      ]
+    },
+    {
+      "name": "portrait dock contains every button and label",
+      "pass": true,
+      "evidence": [
+        {
+          "id": "neighborhoodBtn",
+          "insideDock": true,
+          "contentFits": true
+        },
+        {
+          "id": "lifeBtn",
+          "insideDock": true,
+          "contentFits": true
+        },
+        {
+          "id": "businessBtn",
+          "insideDock": true,
+          "contentFits": true
+        },
+        {
+          "id": "pauseBtn",
+          "insideDock": true,
+          "contentFits": true
+        }
+      ]
+    },
+    {
+      "name": "portrait has no horizontal overflow",
+      "pass": true,
+      "evidence": {
+        "viewport": 390,
+        "document": 390,
+        "body": 390
+      }
+    },
+    {
+      "name": "portrait joystick and run button are separate from dock",
+      "pass": true,
+      "evidence": [
+        {
+          "id": "joystick",
+          "overlap": false
+        },
+        {
+          "id": "runBtn",
+          "overlap": false
+        }
+      ]
+    },
+    {
+      "name": "real joystick touch changes world position",
+      "pass": true,
+      "evidence": {
+        "before": {
+          "x": -7,
+          "z": 12,
+          "speed": 0,
+          "animation": "Idle"
+        },
+        "during": {
+          "x": -7.4951371078070474,
+          "z": 9.557411962537683,
+          "speed": 1.7493003578796746,
+          "animation": "Walk"
+        },
+        "distanceMetres": 2.4922674568114753
+      }
+    },
+    {
+      "name": "touchCancel brakes to Idle",
+      "pass": true,
+      "evidence": {
+        "x": -7.6241181251530765,
+        "z": 8.921128627958957,
+        "speed": 0.002226218797280277,
+        "animation": "Idle"
+      }
+    },
+    {
+      "name": "avatar remains stopped after cancellation",
+      "pass": true,
+      "evidence": {
+        "stopped": {
+          "x": -7.6241181251530765,
+          "z": 8.921128627958957,
+          "speed": 0.002226218797280277,
+          "animation": "Idle"
+        },
+        "after": {
+          "x": -7.624142242040523,
+          "z": 8.921009655618082,
+          "speed": 3.3556480514940955e-07,
+          "animation": "Idle"
+        }
+      }
+    },
+    {
+      "name": "camera drag uses an unobstructed world area",
+      "pass": true,
+      "evidence": {
+        "x": 195,
+        "y": 371.36,
+        "endX": 265,
+        "free": true
+      }
+    },
+    {
+      "name": "CDP touch drag changes real camera yaw",
+      "pass": true,
+      "evidence": {
+        "before": {
+          "yaw": 0.2,
+          "pitch": 0.38,
+          "overview": false
+        },
+        "after": {
+          "yaw": -0.21999999999999997,
+          "pitch": 0.38,
+          "overview": false
+        },
+        "deltaYaw": 0.42
+      }
+    }
+  ],
+  "checkpoints": [
+    {
+      "stage": "launch bundled Chromium",
+      "elapsedSeconds": 0.248
+    },
+    {
+      "stage": "navigate real offline game in portrait",
+      "elapsedSeconds": 0.353
+    },
+    {
+      "stage": "wait for real animated avatar preview",
+      "elapsedSeconds": 0.366
+    },
+    {
+      "stage": "portrait real WebGL avatar preview visible",
+      "elapsedSeconds": 1.237
+    },
+    {
+      "stage": "capture mobile-probe-portrait-start.png",
+      "elapsedSeconds": 1.237
+    },
+    {
+      "stage": "capture completed mobile-probe-portrait-start.png",
+      "elapsedSeconds": 3.397
+    },
+    {
+      "stage": "enter game through actual start button touch",
+      "elapsedSeconds": 3.398
+    },
+    {
+      "stage": "start touch closes onboarding",
+      "elapsedSeconds": 3.81
+    },
+    {
+      "stage": "portrait commands visible and inside viewport",
+      "elapsedSeconds": 4.521
+    },
+    {
+      "stage": "portrait commands have 48px touch targets",
+      "elapsedSeconds": 4.522
+    },
+    {
+      "stage": "portrait dock contains every button and label",
+      "elapsedSeconds": 4.524
+    },
+    {
+      "stage": "portrait has no horizontal overflow",
+      "elapsedSeconds": 4.526
+    },
+    {
+      "stage": "portrait joystick and run button are separate from dock",
+      "elapsedSeconds": 4.527
+    },
+    {
+      "stage": "capture mobile-probe-portrait-active.png",
+      "elapsedSeconds": 4.528
+    },
+    {
+      "stage": "capture completed mobile-probe-portrait-active.png",
+      "elapsedSeconds": 8.901
+    },
+    {
+      "stage": "CDP touch joystick movement and cancellation",
+      "elapsedSeconds": 8.902
+    },
+    {
+      "stage": "real joystick touch changes world position",
+      "elapsedSeconds": 11.006
+    },
+    {
+      "stage": "touchCancel brakes to Idle",
+      "elapsedSeconds": 11.507
+    },
+    {
+      "stage": "avatar remains stopped after cancellation",
+      "elapsedSeconds": 12.222
+    },
+    {
+      "stage": "optional real touch camera drag",
+      "elapsedSeconds": 12.223
+    },
+    {
+      "stage": "camera drag uses an unobstructed world area",
+      "elapsedSeconds": 12.239
+    },
+    {
+      "stage": "CDP touch drag changes real camera yaw",
+      "elapsedSeconds": 13.283
+    },
+    {
+      "stage": "real touch Commerce dismissal after scrolling",
+      "elapsedSeconds": 13.286
+    },
+    {
+      "stage": "probe interrupted by failure",
+      "elapsedSeconds": 16.663
+    },
+    {
+      "stage": "failed",
+      "elapsedSeconds": 16.664
+    }
+  ],
+  "captures": [
+    "mobile-probe-portrait-start.png",
+    "mobile-probe-portrait-active.png"
+  ],
+  "captureAttempts": [
+    {
+      "file": "mobile-probe-portrait-start.png",
+      "timeoutMs": 30000,
+      "status": "pass",
+      "seconds": 2.159
+    },
+    {
+      "file": "mobile-probe-portrait-active.png",
+      "timeoutMs": 30000,
+      "status": "pass",
+      "seconds": 4.372
+    }
+  ],
+  "errors": [
+    "Locator.scroll_into_view_if_needed: Element is not attached to the DOM\nCall log:\n  - attempting scroll into view action\n    - waiting for element to be stable\n"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [],
+  "browserEvents": [],
+  "cameraGesture": {
+    "status": "pass",
+    "before": {
+      "yaw": 0.2,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "after": {
+      "yaw": -0.21999999999999997,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "deltaYaw": 0.42
+  },
+  "performanceMethod": "Game's rolling mean of up to 180 active requestAnimationFrame intervals (0 < interval < 2 seconds), read after 10 seconds with no open dialog. Bundled Chromium uses ANGLE/SwiftShader in CI; this is not a physical Android result.",
+  "entryBytes": 1948461,
+  "entrySha256": "d7cd43a23c6c2d68fe495875f1c1fcc707e6685f33a1111be7d7798d88bb5571",
+  "stage": "failed",
+  "version": "151.0.7922.34",
+  "onboardingSeconds": 0.877,
+  "controlLayouts": {
+    "portrait": [
+      {
+        "id": "neighborhoodBtn",
+        "x": 16,
+        "y": 776,
+        "width": 89.5,
+        "height": 54,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "lifeBtn",
+        "x": 105.5,
+        "y": 776,
+        "width": 89.5,
+        "height": 54,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "businessBtn",
+        "x": 195,
+        "y": 776,
+        "width": 89.5,
+        "height": 54,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "pauseBtn",
+        "x": 284.5,
+        "y": 776,
+        "width": 89.5,
+        "height": 54,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "interactBtn",
+        "x": 181.5,
+        "y": 609,
+        "width": 105,
+        "height": 48,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "runBtn",
+        "x": 296,
+        "y": 678,
+        "width": 72,
+        "height": 72,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "cameraBtn",
+        "x": 269,
+        "y": 205,
+        "width": 109,
+        "height": 48,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "mapBtn",
+        "x": 269,
+        "y": 76,
+        "width": 109,
+        "height": 112,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "objectiveBtn",
+        "x": 12,
+        "y": 186,
+        "width": 252,
+        "height": 66.484375,
+        "visible": true,
+        "inViewport": true
+      },
+      {
+        "id": "joystick",
+        "x": 22,
+        "y": 662,
+        "width": 98,
+        "height": 98,
+        "visible": true,
+        "inViewport": true
+      }
+    ]
+  },
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/louis/louis/togo-life-3d/scripts/mobile_probe.py\", line 247, in <module>\n    last_client.scroll_into_view_if_needed()\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 19985, in scroll_into_view_if_needed\n    self._sync(\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_locator.py\", line 617, in scroll_into_view_if_needed\n    return await self._with_element(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_locator.py\", line 118, in _with_element\n    return await task(\n           ^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_element_handle.py\", line 112, in scroll_into_view_if_needed\n    await self._channel.send(\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Locator.scroll_into_view_if_needed: Element is not attached to the DOM\nCall log:\n  - attempting scroll into view action\n    - waiting for element to be stable\n\n"
+}

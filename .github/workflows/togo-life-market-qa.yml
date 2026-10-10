@@ -1,0 +1,86 @@
+name: TOGO LIFE autonomous market QA
+on:
+  push:
+    branches: [feat/togo-life-autonomous-market]
+    paths: ['togo-life-3d/src/**', 'togo-life-3d/assets/**', 'togo-life-3d/vendor/**', 'togo-life-3d/scripts/**', 'togo-life-3d/tests/**', 'togo-life-3d/index.html', 'togo-life-3d/life.css', 'togo-life-3d/package*.json', '.github/workflows/togo-life-market-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: togo-life-market-${{ github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 22
+    env:
+      TOGO_PREVIEW_URL: https://togo-life-preview.vercel.app
+      TOGO_SOURCE_SHA: ${{ github.sha }}
+    defaults:
+      run:
+        working-directory: togo-life-3d
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Logic tests and static build
+        run: |
+          npm test
+          npm run build
+          node scripts/society_profile.mjs
+      - name: Install pinned browser tooling
+        run: |
+          python3 -m pip install playwright==1.62.0
+          python3 -m playwright install --with-deps chromium
+      - name: Existing real browser regression
+        run: timeout 360s python3 -u scripts/ci_browser.py --transport offline
+      - name: Archive regression evidence before independent probes
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-market-regression-evidence
+          path: |
+            togo-life-3d/artifacts/browser-results.json
+            togo-life-3d/artifacts/*.png
+          retention-days: 7
+      - name: Android layout and real touch controls
+        if: ${{ !cancelled() }}
+        run: timeout 180s python3 -u scripts/mobile_probe.py
+      - name: Archive touch evidence before market probes
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-market-touch-evidence
+          path: |
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/mobile-probe-*.png
+          retention-days: 7
+      - name: Full autonomous market through real player inputs
+        if: ${{ !cancelled() }}
+        run: timeout 450s python3 -u scripts/society_browser.py --entry-file dist/TOGO_LIFE_MONTAGNE.html --output-dir artifacts/society --client-timeout 90
+      - name: Public preview delivery hash
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: python3 scripts/public_preview.py
+      - name: Public HTTPS autonomous market
+        if: ${{ !cancelled() }}
+        continue-on-error: true
+        run: timeout 450s python3 -u scripts/society_browser.py --url "$TOGO_PREVIEW_URL" --output-dir artifacts/society-live --client-timeout 90
+      - name: Archive actual test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-autonomous-market-evidence
+          path: |
+            togo-life-3d/artifacts/browser-results.json
+            togo-life-3d/artifacts/server-preflight.json
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/public-preview.json
+            togo-life-3d/artifacts/society-profile.json
+            togo-life-3d/artifacts/*.png
+            togo-life-3d/artifacts/society/
+            togo-life-3d/artifacts/society-live/
+          retention-days: 7

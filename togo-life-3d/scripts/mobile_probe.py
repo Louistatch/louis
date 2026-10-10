@@ -240,6 +240,60 @@ try:
                 report["cameraGesture"] = {"status": "not_verified", "reason": "Candidate world area is covered by interface elements."}
         cdp.detach()
 
+        checkpoint("real touch Commerce dismissal after scrolling")
+        page.locator("#businessBtn").tap()
+        page.wait_for_selector("#life[open]", timeout=30000)
+        cards_stability = page.locator("#customers").evaluate("""list => new Promise((resolve,reject)=>{
+          const first=list.firstElementChild,last=list.lastElementChild,count=list.children.length;
+          const started=performance.now();let frames=0,stable=!!first&&!!last;
+          const timeout=setTimeout(()=>reject(new Error('Client card observation timed out after 5 seconds')),5000);
+          function observe(now){
+            frames++;stable=stable&&first.isConnected&&last.isConnected
+              &&list.firstElementChild===first&&list.lastElementChild===last&&list.children.length===count;
+            if(now-started>=600&&frames>=2){
+              clearTimeout(timeout);resolve({sameFirstAndLastNodes:stable,count,frames,elapsedMs:now-started,
+                firstText:first?.innerText??null,lastText:last?.innerText??null});
+            }else requestAnimationFrame(observe);
+          }
+          requestAnimationFrame(observe);
+        })""")
+        check("portrait paused Commerce retains client card nodes across HUD updates",
+            cards_stability["sameFirstAndLastNodes"] and cards_stability["count"] == 7
+            and cards_stability["frames"] >= 2 and cards_stability["elapsedMs"] >= 600,
+            cards_stability)
+        last_client = page.locator("#customers > li").last
+        last_client.scroll_into_view_if_needed()
+        dismissal = page.locator("#life").evaluate("""dialog => {
+          const header=dialog.querySelector(':scope > .dialog-heading');
+          const close=header.querySelector('[data-close="life"]');
+          const last=dialog.querySelector('#customers > li:last-child');
+          const d=dialog.getBoundingClientRect(),h=header.getBoundingClientRect();
+          const c=close.getBoundingClientRect(),l=last.getBoundingClientRect();
+          const x=c.left+c.width/2,y=c.top+c.height/2,hit=document.elementFromPoint(x,y);
+          const rect=r=>({left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height});
+          return {dialog:rect(d),header:rect(h),close:rect(c),lastCard:rect(l),center:{x,y},
+            insideViewport:c.left>=-1&&c.right<=innerWidth+1&&c.top>=-1&&c.bottom<=innerHeight+1,
+            insideDialog:c.left>=d.left-1&&c.right<=d.right+1&&c.top>=d.top-1&&c.bottom<=d.bottom+1,
+            centerTargetsClose:!!hit&&(hit===close||close.contains(hit)),
+            centerHit:hit?{tag:hit.tagName,id:hit.id}:null,
+            lastCardVisible:l.width>0&&l.height>0&&l.left>=-1&&l.right<=innerWidth+1
+              &&l.top>=Math.max(0,d.top,h.bottom)-1&&l.bottom<=Math.min(innerHeight,d.bottom)+1};
+        }""")
+        close_accessible = check("portrait Commerce close remains visible and unobstructed after scrolling",
+            dismissal["close"]["width"] >= 47.9 and dismissal["close"]["height"] >= 47.9
+            and dismissal["insideViewport"] and dismissal["insideDialog"]
+            and dismissal["centerTargetsClose"], dismissal)
+        check("portrait Commerce shows the final client card below the header",
+            dismissal["lastCardVisible"], dismissal)
+        capture(page, "mobile-probe-commerce-scrolled.png")
+        # Tap the observed coordinates without Playwright scrolling the close
+        # button back into view, which could conceal a failed sticky header.
+        if close_accessible:
+            page.touchscreen.tap(dismissal["center"]["x"], dismissal["center"]["y"])
+            page.wait_for_selector("#life[open]", state="hidden", timeout=5000)
+        check("portrait actual close touch returns from scrolled Commerce to the world",
+            close_accessible and no_dialog(page))
+
         checkpoint("ten-second active performance sample")
         if not no_dialog(page):
             raise AssertionError("Performance sampling requires no open dialog")

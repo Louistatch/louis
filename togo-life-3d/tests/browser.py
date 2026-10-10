@@ -100,7 +100,22 @@ try:
    page.screenshot(path=str(output/'overview.png'));report['captures'].append('overview.png')
    check('overview does not move avatar',same_position(before,state()['player']));page.click('#cameraBtn');check('overview returns to initial camera mode',page.locator('#cameraBtn').get_attribute('aria-pressed')==camera_before)
    initial=state()['player'];page.keyboard.down('w');page.wait_for_timeout(1400);page.keyboard.up('w');moved=state()['player'];check('walk changes position',math.hypot(initial['x']-moved['x'],initial['z']-moved['z'])>1)
-   page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run');page.keyboard.up('w');page.keyboard.up('Shift');page.wait_for_timeout(500);check('progressive stop',state()['player']['speed']<.1)
+   page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run')
+   before_stop=state()['player'];stop_began=time.monotonic();stop_wait_error=None
+   page.keyboard.up('w');page.keyboard.up('Shift')
+   try:page.wait_for_function("window.__THREE_GAME_DIAGNOSTICS__.state.player.speed<0.1 && window.__THREE_GAME_DIAGNOSTICS__.state.player.animation==='Idle'",polling='raf',timeout=5000)
+   except Exception as stop_error:stop_wait_error=str(stop_error)
+   after_stop=state()['player'];coast=math.hypot(after_stop['x']-before_stop['x'],after_stop['z']-before_stop['z'])
+   report['progressiveStop']={'beforeStop':before_stop,'afterStop':after_stop,'wallElapsedSeconds':time.monotonic()-stop_began,'distanceCoastMetres':coast,'waitError':stop_wait_error,'noOpenDialog':page.locator('dialog[open]').count()==0}
+   check('progressive stop',stop_wait_error is None and after_stop['speed']<.1 and after_stop['animation']=='Idle' and coast<=.6 and report['progressiveStop']['noOpenDialog'])
+   stability_frames=page.evaluate("""() => new Promise((resolve,reject)=>{
+    let observed=0;const timeout=setTimeout(()=>reject(new Error('Three real RAF observations timed out')),5000);
+    function observe(){observed++;if(observed===3){clearTimeout(timeout);resolve({frames:observed,timestamp:performance.now()});}else requestAnimationFrame(observe);}
+    requestAnimationFrame(observe);
+   })""")
+   stable_stop=state()['player'];stable_distance=math.hypot(stable_stop['x']-after_stop['x'],stable_stop['z']-after_stop['z'])
+   report['progressiveStop']['stability']={'observedRaf':stability_frames,'player':stable_stop,'distanceMetres':stable_distance}
+   check('avatar remains stationary after braking',stable_stop['speed']<.1 and stable_stop['animation']=='Idle' and stable_distance<.03)
    def walk_to(x,z):
     end=time.monotonic()+40
     while time.monotonic()<end:
@@ -126,7 +141,28 @@ try:
    disabled=page.locator('#choices button:disabled');check('kiosk has disabled unavailable actions',disabled.count()>0)
    check('unavailable commerce actions explain reason',disabled.evaluate_all('bs=>bs.every(b=>{const r=b.querySelector(".reason");return r&&r.textContent.trim()&&getComputedStyle(r).display!=="none"})'))
    page.get_by_role('button',name='Ouvrir mon comptoir').click();page.keyboard.press('e');page.get_by_role('button',name='Déposer mon sac').click();check('physical delivery stocks kiosk',state()['simulation']['stock']==4)
-   page.wait_for_function('window.__THREE_GAME_DIAGNOSTICS__.state.simulation.sales > 0',timeout=60000);check('demand makes sales',state()['simulation']['sales']>0)
+   page.keyboard.press('e');page.wait_for_selector('#action[open]')
+   before_price=state()['simulation'];known_trades=[t['id'] for t in before_price['society']['trades']]
+   report['paidSaleObservation']={'timeoutMs':120000,'beforePrice':before_price['price'],'knownTradeIds':known_trades,'beforeMoney':before_price['money'],'beforeStock':before_price['stock']}
+   page.locator('#choices button[data-action="price"][data-price="450"]').click();page.wait_for_selector('#action[open]',state='hidden')
+   check('on-site action selects an affordable 450 F retail price',state()['simulation']['price']==450)
+   sale_began=time.monotonic()
+   try:
+    sale_handle=page.wait_for_function("""known => {
+     const s=window.__THREE_GAME_DIAGNOSTICS__.state.simulation;
+     return s.society.trades.find(t=>!known.includes(t.id)&&t.venue==='kiosk'&&t.unitPrice===450);
+    }""",arg=known_trades,polling='raf',timeout=120000)
+   finally:report['paidSaleObservation']['elapsedSeconds']=time.monotonic()-sale_began
+   paid_sale=sale_handle.json_value();sale_handle.dispose();after_sale=state()['simulation']
+   buyer=next((a for a in after_sale['society']['agents'] if a['id']==paid_sale['actorId']),None)
+   report['paidSaleObservation'].update({'elapsedSeconds':time.monotonic()-sale_began,'trade':paid_sale,'buyer':buyer,'afterMoney':after_sale['money'],'afterStock':after_sale['stock']})
+   check('demand makes sales',after_sale['sales']>before_price['sales'] and buyer is not None and buyer['memory']['purchases']>0
+    and paid_sale['buyerId']==paid_sale['actorId'] and paid_sale['quantity']>0
+    and paid_sale['total']==paid_sale['quantity']*450
+    and paid_sale['playerMoneyAfter']-paid_sale['playerMoneyBefore']==paid_sale['total']
+    and paid_sale['actorWalletBefore']-paid_sale['actorWalletAfter']==paid_sale['total']
+    and paid_sale['stockBefore']-paid_sale['stockAfter']==paid_sale['quantity']
+    and math.hypot(paid_sale['actorX']+13,paid_sale['actorZ']-25)<=.6)
    page.screenshot(path=str(output/'desktop-active.png'));report['captures'].append('desktop-active.png');check('NPCs reach scheduled destinations',any(p['visits']>0 for p in state()['npcs']))
    before_wall=state()['player'];page.keyboard.down('w');page.wait_for_timeout(2500);page.keyboard.up('w');page.wait_for_timeout(400);wall_pos=state()['player'];check('building collision prevents entry through its wall',wall_pos['z']>=22.8 and wall_pos['z']<before_wall['z']-.5);walk_to(-13,25)
    page.click('#pauseBtn');before=state()['simulation'];page.wait_for_timeout(1000);check('pause freezes economy',state()['simulation']==before);page.get_by_role('button',name='Reprendre',exact=True).click()
@@ -151,6 +187,8 @@ try:
     try:
      report['failurePage']={'url':page.url,'closed':page.is_closed()}
      if not page.is_closed():
+      try:report['failureDiagnostics']=page.evaluate("""() => ({state:window.__THREE_GAME_DIAGNOSTICS__?.state??null,openDialogs:[...document.querySelectorAll('dialog[open]')].map(d=>d.id),focusedElement:document.activeElement?.id??null,visibility:document.visibilityState})""")
+      except Exception as state_error:report['failureDiagnosticsError']=str(state_error)
       page.screenshot(path=str(output/'failure.png'),timeout=10000);report['captures'].append('failure.png')
     except Exception as diagnostic_error:report['failureCaptureError']=str(diagnostic_error)
    raise

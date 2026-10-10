@@ -1,0 +1,109 @@
+{
+  "sourceCommit": "39daf3befc4fdce95134c1c197d8e591fb412da8",
+  "sourceTree": "82bcb3844fb52ca6a93ce36b5af2eb24c32c523d",
+  "runId": 38050314316,
+  "jobId": 114207951424,
+  "conclusion": "success",
+  "artifact": {
+    "id": 11669755000,
+    "bytes": 10560629,
+    "sha256": "0ea7d7a2433c96d63a11594bd2e85487175dacf2761f1f0bcd9c7a504bac35f6"
+  },
+  "build": {
+    "monofileBytes": 1949021,
+    "sha256": "998faadb1a53f2780df6f7bc2dbcc96f81a66cce49ed0c79dea8a9780f2abaea"
+  },
+  "deployment": {
+    "project": "togo-life-preview",
+    "id": "dpl_84QQusHhn3Zfq4zWqrrXwhFRi7v1",
+    "status": "READY",
+    "url": "https://togo-life-preview.vercel.app",
+    "immutableUrl": "https://togo-life-preview-p8rvbpe5p-issodo052-7639s-projects.vercel.app"
+  },
+  "checks": {
+    "node": {
+      "pass": 90,
+      "fail": 0
+    },
+    "generalBrowser": {
+      "pass": 39,
+      "fail": 0
+    },
+    "touch": {
+      "pass": 25,
+      "fail": 0
+    },
+    "autonomousOffline": {
+      "pass": 70,
+      "fail": 0
+    },
+    "autonomousHttps": {
+      "pass": 70,
+      "fail": 0
+    },
+    "originalPngs": {
+      "pass": 9,
+      "fail": 0
+    }
+  },
+  "runtime": {
+    "browser": "Chromium 151.0.7922.34",
+    "playwright": "1.62.0",
+    "node": "v24.21.0",
+    "gpu": "ANGLE/Vulkan SwiftShader software renderer"
+  },
+  "reports": [
+    {
+      "file": "ci6-browser-results.json",
+      "bytes": 48636,
+      "sha256": "b6953e60e4edc98a8e476ee47730f38c847d23fc17998a4a24aead4de7565418"
+    },
+    {
+      "file": "ci6-create-game-assets.json",
+      "bytes": 23915,
+      "sha256": "83168a565dd93de3f3b3b6dc3c9e65df259191f4a26e572a553d97c42c1af809"
+    },
+    {
+      "file": "ci6-mobile-probe.json",
+      "bytes": 26864,
+      "sha256": "50cb179380031a3de9331f76f8c85a981b517176d384af9341a1bb29d8e4687b"
+    },
+    {
+      "file": "ci6-node-log-excerpt.md",
+      "bytes": 597,
+      "sha256": "c4b70d8eb982524d270c306958a462e8c29abe8bb7fdd243ce3b6b21a6b41bd9"
+    },
+    {
+      "file": "ci6-public-preview.json",
+      "bytes": 786,
+      "sha256": "96863545f2d32dcdce1f7cc9a339c67a6ce9afb8b6322606f0cc9a2f84d737b2"
+    },
+    {
+      "file": "ci6-skills-execution.md",
+      "bytes": 5377,
+      "sha256": "2f07beecc85dc9ac136f56d7b312ce17d262429efe1717e053b9cd1f03fba506"
+    },
+    {
+      "file": "ci6-society-live-results.json",
+      "bytes": 616476,
+      "sha256": "825bb2ce87650db62e23fcb6d8e0557897df0c65ec73bea8a757944079ec7ace"
+    },
+    {
+      "file": "ci6-society-profile.json",
+      "bytes": 537,
+      "sha256": "7f0718daa0845a74df68aafc6ef13eeee4e41ae5b8ea8b25522db40c7a071e8d"
+    },
+    {
+      "file": "ci6-society-results.json",
+      "bytes": 616623,
+      "sha256": "2b10511c455c68ba8d8620665b321ac29457d468a89a3a2ff94a71109d371908"
+    }
+  ],
+  "limitations": [
+    "No physical Android or desktop GPU performance validation",
+    "30 FPS Android / 60 FPS desktop targets unvalidated",
+    "No long-session memory or thermal profiling",
+    "Captures are original Chromium screenshots; no conceptual images",
+    "Documentation-only subsequent commits retain tested runtime bytes"
+  ]
+}

@@ -1,0 +1,892 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "name": "avatar preview visible before start",
+      "pass": true
+    },
+    {
+      "name": "start preserves selected avatar appearance",
+      "pass": true
+    },
+    {
+      "name": "NPC routines move during the morning trip",
+      "pass": true
+    },
+    {
+      "name": "local mini-map visible",
+      "pass": true
+    },
+    {
+      "name": "map has local destination controls",
+      "pass": true
+    },
+    {
+      "name": "destination sets orientation without teleport",
+      "pass": true
+    },
+    {
+      "name": "profile panel explains needs",
+      "pass": true
+    },
+    {
+      "name": "commerce panel explains stock and money",
+      "pass": true
+    },
+    {
+      "name": "management never performs remote transactions",
+      "pass": true
+    },
+    {
+      "name": "overview toggle has observable state",
+      "pass": true
+    },
+    {
+      "name": "overview does not move avatar",
+      "pass": true
+    },
+    {
+      "name": "overview returns to initial camera mode",
+      "pass": true
+    },
+    {
+      "name": "walk changes position",
+      "pass": true
+    },
+    {
+      "name": "run state",
+      "pass": true
+    },
+    {
+      "name": "progressive stop",
+      "pass": true
+    },
+    {
+      "name": "avatar remains stationary after braking",
+      "pass": true
+    },
+    {
+      "name": "disabled choices include visible reasons",
+      "pass": true
+    },
+    {
+      "name": "market buy debits 1400 F",
+      "pass": true
+    },
+    {
+      "name": "kiosk has disabled unavailable actions",
+      "pass": true
+    },
+    {
+      "name": "unavailable commerce actions explain reason",
+      "pass": true
+    },
+    {
+      "name": "physical delivery stocks kiosk",
+      "pass": true
+    }
+  ],
+  "captures": [
+    "desktop-start.png",
+    "local-map.png",
+    "life-commerce.png",
+    "overview.png",
+    "failure.png"
+  ],
+  "errors": [
+    "Page.wait_for_function: Timeout 60000ms exceeded."
+  ],
+  "network": [
+    {
+      "event": "response",
+      "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "status": 200,
+      "mime": "text/html",
+      "contentDisposition": null
+    }
+  ],
+  "browserEvents": [],
+  "transport": "offline-file",
+  "headSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+  "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+  "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html",
+  "fixtureRequests": [],
+  "stage": "capture failure",
+  "browserVersion": "151.0.7922.34",
+  "loadSeconds": 3.3936401710000013,
+  "progressiveStop": {
+    "beforeStop": {
+      "x": -8.03432679839606,
+      "z": 6.897505711542298,
+      "speed": 4.499703815402816,
+      "animation": "Run"
+    },
+    "afterStop": {
+      "x": -8.082974200392536,
+      "z": 6.657520543198755,
+      "speed": 0.009761377438487697,
+      "animation": "Idle"
+    },
+    "wallElapsedSeconds": 0.4800448729999971,
+    "distanceCoastMetres": 0.24486618947066824,
+    "waitError": null,
+    "noOpenDialog": true,
+    "stability": {
+      "observedRaf": {
+        "frames": 3,
+        "timestamp": 36325.8
+      },
+      "player": {
+        "x": -8.083079961975034,
+        "z": 6.656998804932412,
+        "speed": 4.593729951926971e-08,
+        "animation": "Idle"
+      },
+      "distanceMetres": 0.0005323498200424662
+    }
+  },
+  "failurePage": {
+    "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+    "closed": false
+  },
+  "failureDiagnostics": {
+    "state": {
+      "player": {
+        "x": -12.453980239600993,
+        "z": 24.769176436252845,
+        "speed": 1.7183503395507394e-267,
+        "animation": "Idle"
+      },
+      "camera": {
+        "yaw": 0.2,
+        "pitch": 0.38,
+        "overview": false
+      },
+      "simulation": {
+        "version": 3,
+        "name": "Kossi",
+        "city": "lome",
+        "money": 4600,
+        "day": 1,
+        "time": 10.225,
+        "energy": 88.73500000000115,
+        "food": 88.79850000000185,
+        "rep": 0,
+        "experience": 0,
+        "carried": 0,
+        "stock": 4,
+        "biz": true,
+        "price": 550,
+        "sales": 0,
+        "revenue": 0,
+        "costs": 10400,
+        "debt": 0,
+        "rentPaid": 1,
+        "home": false,
+        "contract": null,
+        "completed": 0,
+        "conversations": [],
+        "saleClock": 0,
+        "appearance": {
+          "shirt": "#217d7b",
+          "skin": "#936044"
+        },
+        "position": {
+          "x": -12.453980239600993,
+          "z": 24.769176436252845
+        },
+        "lastContractDay": 0,
+        "events": [
+          "4 produits achetés à 350 F : transportez-les au comptoir.",
+          "Votre kiosque est ouvert.",
+          "Stock livré : les habitants peuvent venir acheter."
+        ],
+        "stepRemainder": 0.133334671,
+        "carriedCost": 0,
+        "stockCost": 1400,
+        "goodsCostSold": 0,
+        "society": {
+          "version": 1,
+          "ticks": 267,
+          "accumulator": 0,
+          "startDay": 1,
+          "startTime": 8,
+          "agents": [
+            {
+              "id": "resident-0",
+              "name": "Ama",
+              "job": "fournisseuse",
+              "role": "supplier",
+              "x": -10,
+              "z": 1,
+              "heading": 0,
+              "speed": 0,
+              "state": "sell",
+              "visits": 0,
+              "appearance": {
+                "shirt": "#b9563e",
+                "skin": "#633f2e",
+                "trousers": "#223f45",
+                "scale": 1
+              },
+              "wallet": 0,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 75,
+              "energy": 80,
+              "relationship": 42,
+              "maxPrice": 350,
+              "localPreference": 1,
+              "homeNode": 5,
+              "workNode": 3,
+              "wage": 0,
+              "memory": {
+                "lastChoice": null,
+                "lastReason": "Aucune décision.",
+                "lastPrice": 0,
+                "refusedPrice": 0,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 0,
+                "lastWorkDay": 0
+              },
+              "blackboard": {
+                "goal": null,
+                "status": "Success",
+                "route": [],
+                "routeIndex": 0,
+                "targetNode": 3,
+                "decisionTick": 0,
+                "cooldownUntilTick": 0,
+                "activePath": "Repos",
+                "scores": {
+                  "playerShop": 0,
+                  "competitor": 0,
+                  "work": 0,
+                  "home": 0,
+                  "taxi": 0
+                }
+              }
+            },
+            {
+              "id": "resident-1",
+              "name": "Kodjo",
+              "job": "artisan",
+              "role": "client",
+              "x": -17,
+              "z": -6,
+              "heading": -1.5707963267948966,
+              "speed": 1.1,
+              "state": "work",
+              "visits": 1,
+              "appearance": {
+                "shirt": "#247c7a",
+                "skin": "#936044",
+                "trousers": "#4b4546",
+                "scale": 0.96
+              },
+              "wallet": 1350,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 26.798499999999954,
+              "energy": 75.17350000000151,
+              "relationship": 20,
+              "maxPrice": 450,
+              "localPreference": 0.9,
+              "homeNode": 18,
+              "workNode": 16,
+              "wage": 450,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Le comptoir dépasse mon budget ; je vais travailler.",
+                "lastPrice": 550,
+                "refusedPrice": 550,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 150,
+                "lastWorkDay": 1
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  5,
+                  4,
+                  2,
+                  1,
+                  15,
+                  16
+                ],
+                "routeIndex": 6,
+                "targetNode": 16,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0,
+                  "competitor": 0,
+                  "work": 0.2625,
+                  "home": 0.04003403990624518,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-2",
+              "name": "Abla",
+              "job": "couturière",
+              "role": "client",
+              "x": -9.9375,
+              "z": 25,
+              "heading": -1.5707963267948966,
+              "speed": 1.25,
+              "state": "walk",
+              "visits": 1,
+              "appearance": {
+                "shirt": "#d5ac57",
+                "skin": "#633f2e",
+                "trousers": "#223f45",
+                "scale": 1
+              },
+              "wallet": 3000,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 33.798499999999954,
+              "energy": 71.31600000000138,
+              "relationship": 20,
+              "maxPrice": 700,
+              "localPreference": 0.75,
+              "homeNode": 5,
+              "workNode": 16,
+              "wage": 600,
+              "memory": {
+                "lastChoice": "playerShop",
+                "lastReason": "Le prix et les conditions du comptoir me conviennent.",
+                "lastPrice": 550,
+                "refusedPrice": 0,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 61,
+                "lastWorkDay": 1
+              },
+              "blackboard": {
+                "goal": "playerShop",
+                "status": "Running",
+                "route": [
+                  16,
+                  15,
+                  1,
+                  2,
+                  4,
+                  5,
+                  13,
+                  14
+                ],
+                "routeIndex": 7,
+                "targetNode": 14,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0.27490450672928607,
+                  "competitor": 0.1887151839227681,
+                  "work": 0.1711680000000033,
+                  "home": 0.05346525599999489,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-3",
+              "name": "Sena",
+              "job": "étudiante",
+              "role": "client",
+              "x": 7,
+              "z": -7,
+              "heading": 3.141592653589793,
+              "speed": 1.4,
+              "state": "work",
+              "visits": 1,
+              "appearance": {
+                "shirt": "#dbcdb5",
+                "skin": "#936044",
+                "trousers": "#4b4546",
+                "scale": 0.96
+              },
+              "wallet": 1400,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 43.798499999999954,
+              "energy": 85.01350000000166,
+              "relationship": 20,
+              "maxPrice": 550,
+              "localPreference": 0.65,
+              "homeNode": 18,
+              "workNode": 10,
+              "wage": 300,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Je vais travailler pour préserver mon budget.",
+                "lastPrice": 550,
+                "refusedPrice": 0,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 86,
+                "lastWorkDay": 1
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  8,
+                  9,
+                  10
+                ],
+                "routeIndex": 3,
+                "targetNode": 10,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0.16356352751375025,
+                  "competitor": 0,
+                  "work": 0.26,
+                  "home": 0.014581157906246799,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-4",
+              "name": "Koffi",
+              "job": "chauffeur",
+              "role": "client",
+              "x": 7,
+              "z": 6,
+              "heading": 3.141592653589793,
+              "speed": 1.3,
+              "state": "work",
+              "visits": 1,
+              "appearance": {
+                "shirt": "#b9563e",
+                "skin": "#633f2e",
+                "trousers": "#223f45",
+                "scale": 1
+              },
+              "wallet": 1900,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 28.798499999999954,
+              "energy": 61.14599999999964,
+              "relationship": 20,
+              "maxPrice": 450,
+              "localPreference": 0.95,
+              "homeNode": 8,
+              "workNode": 9,
+              "wage": 500,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Le comptoir dépasse mon budget ; je vais travailler.",
+                "lastPrice": 550,
+                "refusedPrice": 550,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 139,
+                "lastWorkDay": 1
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  13,
+                  5,
+                  6,
+                  7,
+                  8,
+                  9
+                ],
+                "routeIndex": 6,
+                "targetNode": 9,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0,
+                  "competitor": 0,
+                  "work": 0.19161899999999887,
+                  "home": 0.09808071162500184,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-5",
+              "name": "Yawa",
+              "job": "commerçante",
+              "role": "client",
+              "x": -7,
+              "z": 9.499999999999968,
+              "heading": 3.141592653589793,
+              "speed": 1.2,
+              "state": "walk",
+              "visits": 2,
+              "appearance": {
+                "shirt": "#247c7a",
+                "skin": "#936044",
+                "trousers": "#4b4546",
+                "scale": 0.96
+              },
+              "wallet": 2400,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 75.79850000000027,
+              "energy": 67.51600000000124,
+              "relationship": 20,
+              "maxPrice": 1000,
+              "localPreference": 0.35,
+              "homeNode": 5,
+              "workNode": 1,
+              "wage": 700,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Je vais travailler pour préserver mon budget.",
+                "lastPrice": 550,
+                "refusedPrice": 0,
+                "purchases": 1,
+                "lastPurchaseTick": 121,
+                "lastVisitTick": 222,
+                "lastWorkDay": 0
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  5,
+                  4,
+                  2,
+                  1
+                ],
+                "routeIndex": 2,
+                "targetNode": 1,
+                "decisionTick": 263,
+                "cooldownUntilTick": 201,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0.03538292117112429,
+                  "competitor": 0.033160522816574334,
+                  "work": 0.18906720000000346,
+                  "home": 0.06855488743999483,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-6",
+              "name": "Mensah",
+              "job": "technicien",
+              "role": "client",
+              "x": 7,
+              "z": -18,
+              "heading": 0,
+              "speed": 1.35,
+              "state": "work",
+              "visits": 1,
+              "appearance": {
+                "shirt": "#d5ac57",
+                "skin": "#633f2e",
+                "trousers": "#223f45",
+                "scale": 1
+              },
+              "wallet": 2450,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 53.798499999999954,
+              "energy": 68.80100000000185,
+              "relationship": 20,
+              "maxPrice": 800,
+              "localPreference": 0.7,
+              "homeNode": 18,
+              "workNode": 11,
+              "wage": 650,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Je vais travailler pour préserver mon budget.",
+                "lastPrice": 550,
+                "refusedPrice": 0,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 1,
+                "lastWorkDay": 1
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  11
+                ],
+                "routeIndex": 1,
+                "targetNode": 11,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0.13885358968546901,
+                  "competitor": 0.09953930017406269,
+                  "work": 0.19037433333333845,
+                  "home": 0.06323304649999255,
+                  "taxi": 0.025
+                }
+              }
+            },
+            {
+              "id": "resident-7",
+              "name": "Akossiwa",
+              "job": "apprentie",
+              "role": "client",
+              "x": -7,
+              "z": 2.237499999999909,
+              "heading": 3.141592653589793,
+              "speed": 1.15,
+              "state": "walk",
+              "visits": 0,
+              "appearance": {
+                "shirt": "#dbcdb5",
+                "skin": "#936044",
+                "trousers": "#4b4546",
+                "scale": 0.96
+              },
+              "wallet": 800,
+              "inventory": 0,
+              "householdFood": 0,
+              "food": 36.798499999999954,
+              "energy": 80.46600000000124,
+              "relationship": 20,
+              "maxPrice": 600,
+              "localPreference": 0.8,
+              "homeNode": 5,
+              "workNode": 16,
+              "wage": 350,
+              "memory": {
+                "lastChoice": "work",
+                "lastReason": "Je vais travailler pour préserver mon budget.",
+                "lastPrice": 550,
+                "refusedPrice": 0,
+                "purchases": 0,
+                "lastPurchaseTick": 0,
+                "lastVisitTick": 0,
+                "lastWorkDay": 0
+              },
+              "blackboard": {
+                "goal": "work",
+                "status": "Running",
+                "route": [
+                  10,
+                  9,
+                  8,
+                  7,
+                  6,
+                  5,
+                  4,
+                  2,
+                  1,
+                  15,
+                  16
+                ],
+                "routeIndex": 7,
+                "targetNode": 16,
+                "decisionTick": 265,
+                "cooldownUntilTick": 0,
+                "activePath": "Utilité → déplacement → activité",
+                "scores": {
+                  "playerShop": 0.2362697799947921,
+                  "competitor": 0.15414107337125021,
+                  "work": 0.29000000000000004,
+                  "home": 0.02479235849999685,
+                  "taxi": 0.025
+                }
+              }
+            }
+          ],
+          "supplier": {
+            "stock": 68,
+            "wallet": 6400,
+            "trust": 42,
+            "quote": null,
+            "lastDay": 1,
+            "lastDecision": {
+              "kind": "sold",
+              "offeredPrice": 350,
+              "quantity": 4,
+              "unitPrice": 350,
+              "reason": "Commande remise au joueur.",
+              "tick": 68
+            }
+          },
+          "competitor": {
+            "stock": 47,
+            "wallet": 600,
+            "price": 600
+          },
+          "upstream": {
+            "stock": 192,
+            "wallet": 0
+          },
+          "employer": {
+            "wallet": 21500
+          },
+          "ledger": {
+            "consumed": 1,
+            "wages": 2500,
+            "supplierProcurement": 0
+          },
+          "trades": [
+            {
+              "id": "trade-1",
+              "tick": 68,
+              "actorId": "resident-0",
+              "buyerId": "player",
+              "venue": "market",
+              "quantity": 4,
+              "unitPrice": 350,
+              "total": 1400,
+              "actorX": -10,
+              "actorZ": 1,
+              "playerMoneyBefore": 15000,
+              "actorWalletBefore": 5000,
+              "stockBefore": 72,
+              "playerMoneyAfter": 13600,
+              "actorWalletAfter": 6400,
+              "stockAfter": 68,
+              "costBasis": 1400
+            },
+            {
+              "id": "trade-2",
+              "tick": 121,
+              "actorId": "resident-5",
+              "buyerId": "resident-5",
+              "venue": "competitor",
+              "quantity": 1,
+              "unitPrice": 600,
+              "total": 600,
+              "actorX": -15,
+              "actorZ": 0,
+              "playerMoneyBefore": 4600,
+              "actorWalletBefore": 3000,
+              "stockBefore": 48,
+              "playerMoneyAfter": 4600,
+              "actorWalletAfter": 2400,
+              "stockAfter": 47,
+              "costBasis": 0
+            }
+          ],
+          "tradeCounter": 2
+        }
+      },
+      "npcs": [
+        {
+          "id": "resident-0",
+          "state": "sell",
+          "visits": 0,
+          "x": -10,
+          "z": 1,
+          "authoritativePosition": {
+            "x": -10,
+            "z": 1
+          }
+        },
+        {
+          "id": "resident-1",
+          "state": "work",
+          "visits": 1,
+          "x": -17,
+          "z": -6,
+          "authoritativePosition": {
+            "x": -17,
+            "z": -6
+          }
+        },
+        {
+          "id": "resident-2",
+          "state": "walk",
+          "visits": 1,
+          "x": -9.8125,
+          "z": 25,
+          "authoritativePosition": {
+            "x": -9.9375,
+            "z": 25
+          }
+        },
+        {
+          "id": "resident-3",
+          "state": "work",
+          "visits": 1,
+          "x": 7,
+          "z": -7,
+          "authoritativePosition": {
+            "x": 7,
+            "z": -7
+          }
+        },
+        {
+          "id": "resident-4",
+          "state": "work",
+          "visits": 1,
+          "x": 7,
+          "z": 6,
+          "authoritativePosition": {
+            "x": 7,
+            "z": 6
+          }
+        },
+        {
+          "id": "resident-5",
+          "state": "walk",
+          "visits": 2,
+          "x": -7,
+          "z": 9.619999999999969,
+          "authoritativePosition": {
+            "x": -7,
+            "z": 9.499999999999968
+          }
+        },
+        {
+          "id": "resident-6",
+          "state": "work",
+          "visits": 1,
+          "x": 7,
+          "z": -18,
+          "authoritativePosition": {
+            "x": 7,
+            "z": -18
+          }
+        },
+        {
+          "id": "resident-7",
+          "state": "walk",
+          "visits": 0,
+          "x": -7,
+          "z": 2.352499999999909,
+          "authoritativePosition": {
+            "x": -7,
+            "z": 2.237499999999909
+          }
+        }
+      ],
+      "performance": {
+        "fps": 3.033832286380281,
+        "frameMs": 329.6161111111114,
+        "loadedMs": 574.6000000000058
+      },
+      "physics": {
+        "engine": "kinematic-circle-aabb",
+        "timestep": 0.016666666666666666,
+        "colliders": 30
+      },
+      "quality": "balanced"
+    },
+    "openDialogs": [],
+    "focusedElement": "cameraBtn",
+    "visibility": "visible"
+  },
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/louis/louis/togo-life-3d/tests/browser.py\", line 144, in <module>\n    page.wait_for_function('window.__THREE_GAME_DIAGNOSTICS__.state.simulation.sales > 0',timeout=60000);check('demand makes sales',state()['simulation']['sales']>0)\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 12761, in wait_for_function\n    self._sync(\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_page.py\", line 1151, in wait_for_function\n    return await self._main_frame.wait_for_function(**locals_to_params(locals()))\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 940, in wait_for_function\n    await self._channel.send(\"waitForFunction\", self._timeout, params)\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/.local/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 60000ms exceeded.\n"
+}

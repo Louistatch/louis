@@ -110,9 +110,9 @@ test('guidance respects unpaid rent, daily quota and closed shops; milestones us
   assert.equal(goalFor(poor).reward, 0);
   assert.match(goalFor(poor).title, /demain/);
   assert.equal(goalFor({ ...poor, lastContractDay: 0 }).targetId, 'market');
-  assert.deepEqual(getMilestones(createState()).map(m => m.done), [false, false, false, false]);
-  assert.deepEqual(getMilestones(state).map(m => m.done), [true, true, false, false]);
-  assert.deepEqual(getMilestones({ ...state, sales: 5, home: true }).map(m => m.done), [true, true, true, true]);
+  assert.deepEqual(getMilestones(createState()).map(m => m.done), [false, false, false, false, false]);
+  assert.deepEqual(getMilestones(state).map(m => m.done), [true, true, false, false, false]);
+  assert.deepEqual(getMilestones({ ...state, sales: 5, home: true }).map(m => m.done), [true, true, true, true, false]);
 });
 
 test('UI projections do not mutate state or consume resources', () => {

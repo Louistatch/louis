@@ -6,6 +6,8 @@ const SYMBOLS = {
   home: { letter: 'L', label: 'Logement', color: '#405d77' },
   taxi: { letter: 'T', label: 'Taxi', color: '#b79830' },
   studio: { letter: 'A', label: 'Atelier', color: '#705a73' },
+  pharmacy: { letter: 'P', label: 'Pharmacie', color: '#3f7f5a' },
+  cafe: { letter: 'F', label: 'Café', color: '#8a5a3c' },
 };
 
 function geometry(bounds, width, height, padding = PADDING) {

@@ -2,7 +2,7 @@
 
 Nouvelle architecture isolée de BAD/Bryq : Three.js local, avatar humain original glTF à 22 os et clips Idle/Walk/Run, quartier stylisé de Lomé, caméra troisième personne, collisions cinématiques, huit habitants à horaires, taxis et motos, marché, commerce et logement.
 
-**État exact : build et 24 tests Node réussis. La refonte UI est sur une branche dédiée et dans la [PR #6](https://github.com/Louistatch/louis/pull/6). Chromium local reste bloqué ; un workflow GitHub autonome exerce le parcours réel. Voir son rapport avant de considérer le jeu validé. Cette tranche n'est pas une livraison commerciale validée.**
+**État exact : build et 35 tests Node réussis ; parcours v0.3.0 (reprise, colis vers la pharmacie, remise, passage au niveau 4) vérifié dans Chromium headless en rendu logiciel, ordinateur et mobile 390 px, sans erreur console. La cadence réelle sur GPU et Android reste à mesurer. La refonte UI est sur une branche dédiée et dans la [PR #6](https://github.com/Louistatch/louis/pull/6). Le script complet `tests/browser.py` n'a pas été relancé dans cette session. Cette tranche n'est pas une livraison commerciale validée.**
 
 Interface : aperçu animé de l'avatar, mini-plan local, objectifs avec distance, vue quartier, journal et bilan du comptoir. Recherches [Townsmen 5](docs/TOWNSMEN_INTERFACE_RESEARCH.md) et [Lagos Life](docs/LAGOS_INTERFACE_RESEARCH.md), avec niveaux de preuve et limites. La carte et la gestion orientent le joueur ; les transactions exigent de se rendre au lieu.
 
@@ -19,6 +19,14 @@ Ouvrir `http://localhost:8000/dist/`. Aucun téléchargement npm ni API payante 
 `TOGO_LIFE_MONTAGNE.html` contient aussi le jeu, ses modules, CSS et glTF : ouvrir dans un navigateur moderne acceptant les import maps. Ce mode a été généré, mais reste à tester dans un vrai navigateur.
 
 PC : ZQSD/WASD/flèches, Maj courir, E interagir, M plan, J Ma vie, C vue quartier, glisser pour orienter la caméra. Contrôles tactiles implémentés : joystick, course, action et glisser caméra, avec libération/cancel des pointeurs. Les dialogues mettent la simulation en pause.
+
+## Nouveautés v0.3.0
+
+- **Progression par niveaux** : l'expérience vient des ventes (+1) et des livraisons (+4). Niveau 2 *Débrouillard* (12 XP) : sac de 16 produits. Niveau 3 *Commerçant du quartier* (35 XP) : livraisons payées +25 %. Niveau 4 *Figure d'Akoé* (70 XP) : deux livraisons par jour. Les avantages sont appliqués par `src/simulation.js`, pas seulement affichés.
+- **Livraisons variées** : à partir du jour 2, le colis du jour part vers l'atelier (1 200 F), la pharmacie (1 500 F) ou le café Le Palmier (1 800 F). Il faut le remettre au bon lieu ; le jour 1 reste le tutoriel vers l'atelier.
+- **Événements du jour** : journée ordinaire, grand jour de marché, averse ou fête de quartier, tirés de façon déterministe par jour. Ils changent la fréquence des clients, jamais les prix ni l'argent sauvegardé. Ils s'affichent à côté de l'horloge et dans le journal.
+- **Sauvegarde v3** : les sauvegardes v2 sont migrées sans perte (colis atelier en cours, quota du jour). Les valeurs invalides sont toujours rejetées en bloc.
+- **Outillage** : `npm test` fonctionne sous Node 22 comme sous Node 23.6+ (`scripts/test.mjs` choisit le bon drapeau d'isolation).
 
 ## Première vie
 
@@ -43,7 +51,7 @@ Three.js r160 et addons : MIT, licence jointe dans `vendor/LICENSE`. Version fig
 ## Vérification et preuves
 
 ```sh
-node --test --test-isolation=none tests/*.test.mjs
+npm test   # 35 tests Node, Node ≥ 22.7
 python3 tests/browser.py --url http://127.0.0.1:8000/dist/
 ```
 

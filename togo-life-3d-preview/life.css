@@ -14,3 +14,5 @@ dialog{color:inherit;background:var(--panel);border:1px solid #77919390;border-t
 @media(max-width:600px){.restore-goal{left:12px;top:282px;font-size:9px;padding:8px 10px}}
 @media(max-height:600px) and (orientation:landscape){.restore-goal{top:247px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+/* Legibility over bright shop signs: header text sits directly on the 3D scene. */
+.identity strong,.district,.time{text-shadow:0 1px 3px #000d,0 0 8px #0009}

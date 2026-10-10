@@ -1,4 +1,4 @@
-"""Capture actual Chromium compositor frames for ~12 seconds.
+"""Warm up the real compositor stream, then capture ~12 seconds of actual input.
 
 python qa/capture_screencast.py --entry-file dist/TOGO_LIFE_MONTAGNE.html \
   --output-dir artifacts/screencast-proposal
@@ -36,6 +36,10 @@ report = {'status': 'running', 'sourceSha': os.environ.get('TOGO_SOURCE_SHA'),
 keys = ('w', 'a', 's', 'd', 'Shift')
 requested_phase = 'initializing'
 received_origin = 0
+
+
+class InsufficientActualFrames(Exception):
+    """Incomplete visual evidence is partial, never a fabricated successful stream."""
 
 
 def checkpoint(label):
@@ -96,6 +100,7 @@ async def main():
                                'alignedCamera': aligned['camera'], 'spawn': aligned['player']}
             cdp = await context.new_cdp_session(page)
             await cdp.send('Page.enable')
+            first_frames_ready = asyncio.Event()
 
             async def acknowledge(session_id):
                 try:
@@ -115,6 +120,8 @@ async def main():
                     (out / filename).write_bytes(base64.b64decode(params['data'], validate=True))
                     frame['bytes'] = (out / filename).stat().st_size
                     report['frames'].append(frame)
+                    if len(report['frames']) >= 2:
+                        first_frames_ready.set()
                 except Exception as error:
                     report['errors'].append('Frame write: ' + str(error))
                 finally:
@@ -124,12 +131,30 @@ async def main():
 
             cdp.on('Page.screencastFrame', on_frame)
             received_origin = time.monotonic()
-            requested_phase = 'idle'
+            requested_phase = 'warmup'
+            report['warmup'] = {'requiredActualFrames': 2, 'timeoutSeconds': 15,
+                                'beginReceivedSeconds': 0, 'status': 'waiting'}
             await cdp.send('Page.startScreencast', {'format': 'jpeg', 'quality': 75,
                                                   'maxWidth': 960, 'maxHeight': 540,
                                                   'everyNthFrame': 1})
             screencast_active = True
-            checkpoint('record actual compositor frame stream')
+            checkpoint('wait for two actual compositor warmup frames')
+            try:
+                await asyncio.wait_for(first_frames_ready.wait(), timeout=15)
+            except asyncio.TimeoutError:
+                report['warmup'].update(status='partial',
+                    endReceivedSeconds=time.monotonic() - received_origin,
+                    receivedActualFrames=len(report['frames']),
+                    reason='Fewer than two actual JPEG frames arrived before the warmup deadline.')
+                checkpoint('warmup incomplete; input sequence skipped')
+                return
+            report['warmup'].update(status='ready',
+                endReceivedSeconds=time.monotonic() - received_origin,
+                firstFrameReceivedSeconds=report['frames'][0]['receivedSeconds'],
+                receivedActualFrames=len(report['frames']))
+            # Retain every warmup JPEG and its original timestamp. Only the input
+            # sequence starts here; received_origin is deliberately not reset.
+            checkpoint('actual compositor ready; begin complete input sequence')
 
             async def phase(name, duration, direction=None, running=False):
                 global requested_phase
@@ -159,7 +184,7 @@ async def main():
                 checkpoint('actual phase completed: ' + name)
 
             async def sequence():
-                await phase('idle', 1.5)
+                await phase('idle', 2)
                 await phase('walk', 2.5, 'w')
                 await phase('run', 2.5, 'w', running=True)
                 await phase('turn', 2.5, 's')
@@ -184,7 +209,7 @@ try:
     asyncio.run(main())
     frames = report['frames']
     if len(frames) < 2:
-        raise AssertionError('Chromium emitted fewer than two actual frames')
+        raise InsufficientActualFrames('Chromium emitted fewer than two actual frames; no video can be encoded.')
     intervals = [b['receivedSeconds'] - a['receivedSeconds'] for a, b in zip(frames, frames[1:])]
     if not all(math.isfinite(interval) and interval > 0 for interval in intervals):
         raise AssertionError('Actual receipt timestamps are not strictly increasing')
@@ -217,6 +242,10 @@ try:
                       for item in report['phases']) and not report['errors'])
     report['status'] = 'pass' if useful else 'partial'
     report['usefulContinuousEvidence'] = useful
+except InsufficientActualFrames as error:
+    report['status'] = 'partial'
+    report['reason'] = str(error)
+    report['usefulContinuousEvidence'] = False
 except Exception as error:
     report['status'] = 'failed'
     report['error'] = str(error)

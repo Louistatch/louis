@@ -12,7 +12,7 @@ concurrency:
 jobs:
   browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 18
+    timeout-minutes: 22
     env:
       TOGO_PREVIEW_URL: https://togo-life-preview.vercel.app
       TOGO_SOURCE_SHA: ${{ github.sha }}
@@ -36,7 +36,7 @@ jobs:
           python3 -m pip install playwright==1.62.0
           python3 -m playwright install --with-deps chromium
       - name: Existing real browser regression
-        run: timeout 240s python3 -u scripts/ci_browser.py --transport offline
+        run: timeout 360s python3 -u scripts/ci_browser.py --transport offline
       - name: Archive regression evidence before independent probes
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -49,6 +49,15 @@ jobs:
       - name: Android layout and real touch controls
         if: ${{ !cancelled() }}
         run: timeout 180s python3 -u scripts/mobile_probe.py
+      - name: Archive touch evidence before market probes
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-market-touch-evidence
+          path: |
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/mobile-probe-*.png
+          retention-days: 7
       - name: Full autonomous market through real player inputs
         if: ${{ !cancelled() }}
         run: timeout 450s python3 -u scripts/society_browser.py --entry-file dist/TOGO_LIFE_MONTAGNE.html --output-dir artifacts/society --client-timeout 90

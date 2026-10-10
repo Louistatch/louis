@@ -141,7 +141,28 @@ try:
    disabled=page.locator('#choices button:disabled');check('kiosk has disabled unavailable actions',disabled.count()>0)
    check('unavailable commerce actions explain reason',disabled.evaluate_all('bs=>bs.every(b=>{const r=b.querySelector(".reason");return r&&r.textContent.trim()&&getComputedStyle(r).display!=="none"})'))
    page.get_by_role('button',name='Ouvrir mon comptoir').click();page.keyboard.press('e');page.get_by_role('button',name='Déposer mon sac').click();check('physical delivery stocks kiosk',state()['simulation']['stock']==4)
-   page.wait_for_function('window.__THREE_GAME_DIAGNOSTICS__.state.simulation.sales > 0',timeout=60000);check('demand makes sales',state()['simulation']['sales']>0)
+   page.keyboard.press('e');page.wait_for_selector('#action[open]')
+   before_price=state()['simulation'];known_trades=[t['id'] for t in before_price['society']['trades']]
+   report['paidSaleObservation']={'timeoutMs':120000,'beforePrice':before_price['price'],'knownTradeIds':known_trades,'beforeMoney':before_price['money'],'beforeStock':before_price['stock']}
+   page.locator('#choices button[data-action="price"][data-price="450"]').click();page.wait_for_selector('#action[open]',state='hidden')
+   check('on-site action selects an affordable 450 F retail price',state()['simulation']['price']==450)
+   sale_began=time.monotonic()
+   try:
+    sale_handle=page.wait_for_function("""known => {
+     const s=window.__THREE_GAME_DIAGNOSTICS__.state.simulation;
+     return s.society.trades.find(t=>!known.includes(t.id)&&t.venue==='kiosk'&&t.unitPrice===450);
+    }""",arg=known_trades,polling='raf',timeout=120000)
+   finally:report['paidSaleObservation']['elapsedSeconds']=time.monotonic()-sale_began
+   paid_sale=sale_handle.json_value();sale_handle.dispose();after_sale=state()['simulation']
+   buyer=next((a for a in after_sale['society']['agents'] if a['id']==paid_sale['actorId']),None)
+   report['paidSaleObservation'].update({'elapsedSeconds':time.monotonic()-sale_began,'trade':paid_sale,'buyer':buyer,'afterMoney':after_sale['money'],'afterStock':after_sale['stock']})
+   check('demand makes sales',after_sale['sales']>before_price['sales'] and buyer is not None and buyer['memory']['purchases']>0
+    and paid_sale['buyerId']==paid_sale['actorId'] and paid_sale['quantity']>0
+    and paid_sale['total']==paid_sale['quantity']*450
+    and paid_sale['playerMoneyAfter']-paid_sale['playerMoneyBefore']==paid_sale['total']
+    and paid_sale['actorWalletBefore']-paid_sale['actorWalletAfter']==paid_sale['total']
+    and paid_sale['stockBefore']-paid_sale['stockAfter']==paid_sale['quantity']
+    and math.hypot(paid_sale['actorX']+13,paid_sale['actorZ']-25)<=.6)
    page.screenshot(path=str(output/'desktop-active.png'));report['captures'].append('desktop-active.png');check('NPCs reach scheduled destinations',any(p['visits']>0 for p in state()['npcs']))
    before_wall=state()['player'];page.keyboard.down('w');page.wait_for_timeout(2500);page.keyboard.up('w');page.wait_for_timeout(400);wall_pos=state()['player'];check('building collision prevents entry through its wall',wall_pos['z']>=22.8 and wall_pos['z']<before_wall['z']-.5);walk_to(-13,25)
    page.click('#pauseBtn');before=state()['simulation'];page.wait_for_timeout(1000);check('pause freezes economy',state()['simulation']==before);page.get_by_role('button',name='Reprendre',exact=True).click()

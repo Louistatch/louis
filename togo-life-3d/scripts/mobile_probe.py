@@ -243,6 +243,24 @@ try:
         checkpoint("real touch Commerce dismissal after scrolling")
         page.locator("#businessBtn").tap()
         page.wait_for_selector("#life[open]", timeout=30000)
+        cards_stability = page.locator("#customers").evaluate("""list => new Promise((resolve,reject)=>{
+          const first=list.firstElementChild,last=list.lastElementChild,count=list.children.length;
+          const started=performance.now();let frames=0,stable=!!first&&!!last;
+          const timeout=setTimeout(()=>reject(new Error('Client card observation timed out after 5 seconds')),5000);
+          function observe(now){
+            frames++;stable=stable&&first.isConnected&&last.isConnected
+              &&list.firstElementChild===first&&list.lastElementChild===last&&list.children.length===count;
+            if(now-started>=600&&frames>=2){
+              clearTimeout(timeout);resolve({sameFirstAndLastNodes:stable,count,frames,elapsedMs:now-started,
+                firstText:first?.innerText??null,lastText:last?.innerText??null});
+            }else requestAnimationFrame(observe);
+          }
+          requestAnimationFrame(observe);
+        })""")
+        check("portrait paused Commerce retains client card nodes across HUD updates",
+            cards_stability["sameFirstAndLastNodes"] and cards_stability["count"] == 7
+            and cards_stability["frames"] >= 2 and cards_stability["elapsedMs"] >= 600,
+            cards_stability)
         last_client = page.locator("#customers > li").last
         last_client.scroll_into_view_if_needed()
         dismissal = page.locator("#life").evaluate("""dialog => {
@@ -267,6 +285,7 @@ try:
             and dismissal["centerTargetsClose"], dismissal)
         check("portrait Commerce shows the final client card below the header",
             dismissal["lastCardVisible"], dismissal)
+        capture(page, "mobile-probe-commerce-scrolled.png")
         # Tap the observed coordinates without Playwright scrolling the close
         # button back into view, which could conceal a failed sticky header.
         if close_accessible:

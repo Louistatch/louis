@@ -1,0 +1,139 @@
+import * as THREE from '../vendor/three.module.js';
+import {loadCharacter} from './avatar-loader.js';
+import {buildWorld} from './world.js';
+import {Simulation,ECONOMY} from './simulation.js';
+import {move,angleTowards,blocked,cameraDistance} from './controller.js';
+import {createResidents} from './npcs.js';
+import {regions,destinations} from './geography.js';
+import {formatMoney as fmt,goalFor,economyView,actionReason,getMilestones} from './ui-model.js';
+import {drawNeighborhoodMap,hitPlace} from './neighborhood-map.js';
+import {createAvatarPreview} from './avatar-preview.js';
+const $=id=>document.getElementById(id);
+let renderer;try{renderer=new THREE.WebGLRenderer({canvas:$('world'),antialias:true,alpha:false,powerPreference:'high-performance'});}catch{$('fallback').hidden=false;throw new Error('WebGL unavailable; legacy mode linked');}
+renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.15;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();scene.background=new THREE.Color('#accacc');scene.fog=new THREE.Fog('#accacc',45,115);
+const camera=new THREE.PerspectiveCamera(52,1,.12,150);const sun=new THREE.DirectionalLight('#fff0ce',3.2);sun.position.set(-22,40,18);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);sun.shadow.camera.left=-40;sun.shadow.camera.right=40;sun.shadow.camera.top=40;sun.shadow.camera.bottom=-40;sun.shadow.camera.far=100;sun.shadow.normalBias=.035;sun.shadow.bias=-.00015;scene.add(sun);
+const hemi=new THREE.HemisphereLight('#d2e8ed','#b48a5f',2.0);scene.add(hemi);
+const skyU={uTop:{value:new THREE.Color('#5598b7')},uHorizon:{value:new THREE.Color('#cde0db')},uSunDir:{value:sun.position.clone().normalize()}};
+const sky=new THREE.Mesh(new THREE.SphereGeometry(120,24,12),new THREE.ShaderMaterial({side:THREE.BackSide,depthWrite:false,uniforms:skyU,vertexShader:'varying vec3 v;void main(){v=normalize(position);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec3 v;uniform vec3 uTop,uHorizon,uSunDir;void main(){float h=clamp(v.y,0.,1.);vec3 c=mix(uHorizon,uTop,pow(h,.6));float d=max(dot(normalize(v),uSunDir),0.);c+=vec3(.5,.4,.22)*(pow(d,600.)+pow(d,8.)*.2);gl_FragColor=vec4(c,1.);}'}));scene.add(sky);
+const world=buildWorld(scene);
+const sim=new Simulation();let player=await loadCharacter({shirt:'#e8dfc6',skin:'#633f2e'});scene.add(player.group);player.group.position.set(-7,.24,12);let residents=createResidents(scene);
+const markerMat=new THREE.MeshBasicMaterial({color:'#e4b565',transparent:true,opacity:.72,depthWrite:false});const marker=new THREE.Mesh(new THREE.RingGeometry(.6,.68,32),markerMat);marker.rotation.x=-Math.PI/2;marker.position.y=.27;scene.add(marker);
+const parcel=new THREE.Mesh(new THREE.BoxGeometry(.45,.4,.25),new THREE.MeshStandardMaterial({color:'#997b50',roughness:.9}));parcel.position.set(0,1.12,-.19);player.group.add(parcel);
+let active=false,near=null,yaw=.2,pitch=.38,vx=0,vz=0,keys={},joy={x:0,y:0},running=false,drag=null,clock=0,accumulator=0,hudClock=0,saveClock=0,last=performance.now(),frames=[],muted=true,audio=null,lastSale=0,dialogSource=null;
+let selectedTarget=null,overview=false,preview=null;
+const placeLetters={market:'M',kiosk:'C',home:'L',taxi:'T',studio:'A',npc:'H'};
+const saveKey='togo-life:montagne:v2';let saved=null;try{saved=localStorage.getItem(saveKey);}catch{}if(saved){const probe=new Simulation();if(probe.load(saved))$('continueBtn').hidden=false;}
+function save(){sim.state.position={x:player.group.position.x,z:player.group.position.z};try{localStorage.setItem(saveKey,JSON.stringify(sim.snapshot()));}catch{toast('Sauvegarde indisponible : le stockage de ce navigateur est bloqué.');}}
+function toast(msg){$('toast').textContent=msg;$('toast').style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>$('toast').style.display='none',4200);}
+function tone(good=true){if(muted)return;try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume();const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.setValueAtTime(good?520:220,audio.currentTime);o.frequency.exponentialRampToValueAtTime(good?780:150,audio.currentTime+.13);g.gain.setValueAtTime(.06,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.22);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+.23);}catch{}}
+function open(id){resetInput();if(!$(id).open)$(id).showModal();updateHUD();if(id==='map')updateMaps();}function close(id){$(id).close();resetInput();}
+function modal(){return !!document.querySelector('dialog[open]');}
+function resetInput(){keys={};joy.x=joy.y=0;running=false;drag=null;$('stick').style.transform='';}
+for(const b of document.querySelectorAll('[data-close]'))b.onclick=()=>close(b.dataset.close);
+for(const d of document.querySelectorAll('dialog'))d.addEventListener('close',resetInput);
+$('start').addEventListener('cancel',e=>e.preventDefault());$('start').showModal();
+const appearance=()=>({shirt:$('shirt').value,skin:$('skin').value});
+createAvatarPreview($('avatarPreview'),appearance()).then(view=>{
+ if(!$('start').open){view.dispose();return;}preview=view;$('previewStatus').textContent='Personnage animé · aperçu en direct';
+ return view.updateAppearance(appearance());
+}).catch(()=>{$('previewStatus').textContent='Aperçu indisponible. Vous pouvez entrer dans le quartier.';});
+for(const id of ['shirt','skin'])$(id).onchange=async()=>{if(!preview)return;try{await preview.updateAppearance(appearance());}catch{$('previewStatus').textContent='Aperçu indisponible. Le choix est conservé.';}};
+$('start').addEventListener('close',()=>{preview?.dispose();preview=null;});
+let starting=false;
+async function start(continuing=false){if(starting)return;starting=true;$('startBtn').disabled=true;$('continueBtn').disabled=true;try{if(continuing&&!sim.load(saved))return toast('La sauvegarde est invalide.');if(!continuing){sim.state.name=$('name').value.trim().slice(0,24)||'Kossi';sim.state.appearance=appearance();}const nextPlayer=await loadCharacter(sim.state.appearance);scene.remove(player.group);player.group.remove(parcel);player.dispose();player=nextPlayer;scene.add(player.group);player.group.add(parcel);const p=sim.state.position;player.group.position.set(p.x,.24,p.z);if(blocked(p.x,p.z,world.colliders))player.group.position.set(-7,.24,12);lastSale=sim.state.sales;active=true;close('start');save();updateHUD();toast(continuing?'Votre vie de quartier reprend.':'Ama vous attend au marché. Suivez le repère doré sur le plan.');}catch{toast('Le personnage n’a pas pu être chargé. Réessayez.');}finally{starting=false;$('startBtn').disabled=false;$('continueBtn').disabled=false;}}
+$('startBtn').onclick=()=>start();$('continueBtn').onclick=()=>start(true);
+function targetPlace(){return world.places.find(p=>p.id===(selectedTarget||goalFor(sim.state).targetId));}
+function updateHUD(){
+ const s=sim.state,g=goalFor(s),view=economyView(s),target=targetPlace(),put=(id,value)=>$(id).textContent=value;
+ put('money',fmt(s.money));put('stockValue',s.stock+' en stock');put('clock','Jour '+s.day+' · '+String(Math.floor(s.time)).padStart(2,'0')+':'+String(Math.floor(s.time%1*60)).padStart(2,'0'));
+ $('energy').value=s.energy;$('food').value=s.food;put('energyValue',Math.ceil(s.energy));put('foodValue',Math.ceil(s.food));put('inventory',`Sac ${s.carried}/${ECONOMY.capacity} · Rép. ${s.rep}`);
+ put('goal',selectedTarget?'Rejoindre '+target.name:g.title);put('goalText',selectedTarget?'Repère choisi sur le plan. Interagissez une fois sur place.':g.reward?'Livraison · '+fmt(g.reward)+' à destination':g.text);
+ put('goalDistance',target?Math.ceil(Math.hypot(target.x-player.group.position.x,target.z-player.group.position.z))+' m':'—');
+ $('restoreGoalBtn').hidden=!selectedTarget;
+ for(const b of document.querySelectorAll('#localPlaces [data-target]'))b.dataset.active=String(b.dataset.target===target?.id);
+ if(!$('life').open)return;
+ put('playerName',s.name);put('lifeEnergy',Math.ceil(s.energy)+' / 100');put('lifeFood',Math.ceil(s.food)+' / 100');put('lifeRep',s.rep+' / 100');put('lifeBag',s.carried+' / '+ECONOMY.capacity);put('lifeHome',s.home?'Aménagé':'À aménager');put('lifeRent',fmt(s.debt));
+ put('needsAdvice',s.food<15?'Votre satiété est basse : un repas au marché restaure 35 points.':s.energy<15?'Votre énergie est basse : reposez-vous au logement.':'Un repas au marché restaure la satiété. Le repos au logement restaure l’énergie.');
+ put('journalGoal',g.title);put('journalText',g.text);$('journalTarget').dataset.target=g.targetId;
+ $('milestones').replaceChildren(...getMilestones(s).map(m=>{const li=document.createElement('li'),title=document.createElement('strong'),detail=document.createElement('small');li.dataset.done=String(m.done);title.textContent=m.title;detail.textContent=m.detail;li.append(title,detail);return li;}));
+ $('events').replaceChildren(...(s.events.length?[...s.events].reverse():['Votre histoire commence au marché.']).map(text=>{const li=document.createElement('li');li.textContent=text;return li;}));
+ put('businessStatus',!s.biz?'À ouvrir':view.open?'Ouvert · 07 h–21 h':'Fermé · 07 h–21 h');put('lifeStock',s.stock+' produits');put('lifePrice',fmt(s.price));put('lifeMargin',fmt(view.margin));put('lifeDemand',view.demandLabel);put('lifeSales',s.sales);put('lifeRevenue',fmt(s.revenue));put('lifeCosts',fmt(s.costs));put('lifeBalance',fmt(view.cashBalance));
+ put('businessAdvice',!s.biz?'Ouvrez votre comptoir sur place pour 9 000 F. Achetez ensuite votre stock au marché.':view.demand===0?'Ce prix ne trouve aucun client. Rendez-vous au comptoir pour le réduire.':!s.stock?'Le comptoir est vide. Achetez des produits au marché puis transportez-les au comptoir.':!view.open?'Le comptoir est fermé. Les ventes reprendront à 07 h.':'Votre stock est en vente. Les clients arrivent selon le prix pendant que vous explorez.');
+}
+function updateMaps(){
+ const target=targetPlace(),data={bounds:world.bounds,colliders:world.colliders,places:world.places,player:{x:player.group.position.x,z:player.group.position.z,heading:player.group.rotation.y},targetId:target?.id,people:residents.people};
+ for(const id of ['miniMap',...($('map').open?['neighborhoodMap']:[])]){const canvas=$(id),r=canvas.getBoundingClientRect(),dpr=Math.min(devicePixelRatio||1,1.5);if(r.width<1||r.height<1)continue;const w=Math.round(r.width*dpr),h=Math.round(r.height*dpr);if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}drawNeighborhoodMap(canvas,{...data,compact:id==='miniMap'});}
+}
+function selectTarget(id){const p=world.places.find(p=>p.id===id);if(!p)return;selectedTarget=id;for(const d of document.querySelectorAll('dialog[open]'))close(d.id);updateHUD();toast('Repère : '+p.name+'. Rejoignez le lieu pour interagir.');}
+function activateLifeTab(tab){for(const b of document.querySelectorAll('[data-life-tab]')){const on=b.dataset.lifeTab===tab;b.setAttribute('aria-selected',String(on));b.tabIndex=on?0:-1;$('life-'+b.dataset.lifeTab).hidden=!on;}}
+function openLife(tab='profile'){activateLifeTab(tab);open('life');}
+for(const b of document.querySelectorAll('[data-life-tab]')){b.onclick=()=>activateLifeTab(b.dataset.lifeTab);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const buttons=[...document.querySelectorAll('[data-life-tab]')],index=buttons.indexOf(b),next=e.key==='Home'?0:e.key==='End'?buttons.length-1:(index+(e.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length;activateLifeTab(buttons[next].dataset.lifeTab);buttons[next].focus();};}
+for(const p of world.places){const b=document.createElement('button'),letter=document.createElement('span'),label=document.createElement('span');b.dataset.target=p.id;letter.className='place-symbol';letter.textContent=placeLetters[p.id];label.textContent=p.name;b.append(letter,label);b.onclick=()=>selectTarget(p.id);$('localPlaces').append(b);}
+for(const b of document.querySelectorAll('[data-target]:not(#localPlaces [data-target])'))b.onclick=()=>selectTarget(b.dataset.target);
+$('journalTarget').onclick=()=>selectTarget($('journalTarget').dataset.target);
+$('followGoalBtn').onclick=()=>{selectedTarget=null;close('map');updateHUD();toast('Repère : votre objectif actuel.');};
+$('restoreGoalBtn').onclick=()=>{selectedTarget=null;updateHUD();updateMaps();};
+$('neighborhoodMap').onclick=e=>{const p=hitPlace(e.clientX,e.clientY,$('neighborhoodMap'),world.places,world.bounds);if(p)selectTarget(p.id);};
+function nearest(){let best=null,bestD=Infinity;const pos=player.group.position;for(const p of world.places){const d=Math.hypot(pos.x-p.x,pos.z-p.z);if(d<p.radius&&d<bestD){best=p;bestD=d;}}for(const p of residents.people){const d=Math.hypot(pos.x-p.character.group.position.x,pos.z-p.character.group.position.z);if(d<1.6&&d<bestD){best={id:'npc',name:p.name,npc:p};bestD=d;}}return best;}
+function act(type,data={}){const result=sim.act({type,...data},{location:dialogSource?.id,npcId:dialogSource?.npc?.id});tone(result.ok);toast(result.message);if(result.ok){selectedTarget=null;save();close('action');updateHUD();}return result;}
+function choice(text,value,type,data={},detail=''){
+ const reason=actionReason(sim.state,type,data),b=document.createElement('button'),label=document.createElement('span'),amount=document.createElement('span'),description=document.createElement('small');
+ b.className='choice';label.className='choice-label';amount.className='choice-value';label.textContent=text;amount.textContent=value;description.textContent=reason||detail;if(reason)description.className='reason';b.append(label,amount,description);b.disabled=!!reason;b.onclick=()=>act(type,data);$('choices').append(b);return b;
+}
+function summarize(entries){$('actionSummary').replaceChildren(...entries.map(([label,value])=>{const d=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;d.append(dt,dd);return d;}));}
+function interact(){if(!active||modal())return;near=nearest();if(!near)return toast('Approchez-vous du marché, du comptoir ou d’un habitant.');dialogSource=near;$('actionTitle').textContent=near.name;$('actionTag').textContent=near.id==='npc'?near.npc.job:'Quartier Akoé';$('choices').replaceChildren();const s=sim.state,view=economyView(s);
+ const description={market:'Ama prépare les commandes du quartier. Prenez une livraison ou achetez des marchandises à transporter au comptoir.',kiosk:'Le stock livré attire des clients entre 07 h et 21 h. Comparez la marge et la demande avant de fixer votre prix.',studio:s.contract?'L’atelier attend votre colis. Remettez-le ici pour recevoir votre paiement.':'L’atelier de couture reçoit les colis confiés par Ama au marché.',home:'Votre logement se trouve au fond de la cour. Le loyer est de 800 F par jour. L’aménagement améliore la récupération.',taxi:'Les taxis traversent le quartier. Le transport vers une autre ville n’est pas encore disponible.',npc:`${near.name} vous accueille. Prenez le temps de faire connaissance et de découvrir le quartier.`};$('actionText').textContent=description[near.id]||'';
+ summarize([['Budget',fmt(s.money)],['Sac',s.carried+' / '+ECONOMY.capacity],['Réputation',s.rep+' / 100']]);
+ if(near.id==='market'){
+  summarize([['Prix d’achat',fmt(ECONOMY.wholesale)],['Place dans le sac',ECONOMY.capacity-s.carried+' produits'],['Budget',fmt(s.money)]]);
+  choice('Prendre un colis','+1 200 F à destination','contract',{},'Aucun achat · à remettre à l’atelier avant demain soir.');
+  choice('Acheter 4 produits','−1 400 F','buy',{quantity:4},'Quatre places dans le sac. Le stock doit être livré au comptoir.');
+  choice('Acheter 12 produits','−4 200 F','buy',{quantity:12},'Un sac complet. Comparez votre budget avant de l’ouvrir.');
+  choice('Manger au marché','−300 F','meal',{},'Satiété +35, jusqu’à 100.');
+ }
+ if(near.id==='kiosk'){
+  summarize([['Stock',s.stock+' produits'],['Prix actuel',fmt(s.price)],['Demande',view.demandLabel],['Recettes',fmt(s.revenue)]]);
+  choice('Ouvrir mon comptoir','−9 000 F','invest',{},'L’ouverture ne fournit pas de stock.');
+  choice('Déposer mon sac',s.carried+' produits','deposit',{},'Les marchandises passent du sac au stock disponible à la vente.');
+  for(const price of [450,650,850,1100]){const v=economyView({...s,price});choice('Prix '+fmt(price),price===s.price?'Prix actuel':v.demandLabel,'price',{price},'Marge '+fmt(v.margin)+' / produit · demande '+v.demandLabel.toLowerCase()+'.');}
+ }
+ if(near.id==='studio'){
+  summarize([['Colis',s.contract?'À remettre':'Aucun'],['Paiement',s.contract?fmt(s.contract.reward):'—'],['Livraisons',s.completed]]);
+  choice('Remettre le colis','+1 200 F','deliver',{},'Le paiement est effectué à la remise.');
+ }
+ if(near.id==='home'){
+  summarize([['Énergie',Math.ceil(s.energy)+' / 100'],['Loyer dû',fmt(s.debt)],['Logement',s.home?'Aménagé':'À aménager']]);
+  choice('Se reposer','Temps +2 h','rest',{},'Énergie +'+(s.home?'45':'25')+'. La ville avance pendant le repos.');
+  choice('Régler le loyer','−'+fmt(s.debt),'rent',{},'Libère le repos au logement.');
+  choice('Aménager mon logement','−4 000 F','housing',{},'Chaque repos restaurera 45 points au lieu de 25.');
+ }
+ if(near.id==='npc')choice('Discuter','Conseil du quartier','talk',{npcId:near.npc.id},'Un échange local, sans dépense.');
+ if(near.id==='taxi'){const b=document.createElement('button');b.textContent='Consulter le plan du quartier';b.onclick=()=>{close('action');open('map');};$('choices').append(b);}
+ open('action');
+}
+$('interactBtn').onclick=interact;
+$('mapBtn').onclick=$('neighborhoodBtn').onclick=()=>open('map');
+$('lifeBtn').onclick=()=>openLife();$('businessBtn').onclick=()=>openLife('business');$('objectiveBtn').onclick=()=>openLife('goals');
+$('pauseBtn').onclick=()=>{save();open('pause');};
+$('muteBtn').onclick=()=>{muted=!muted;$('muteBtn').textContent='Son : '+(muted?'off':'on');$('muteBtn').setAttribute('aria-pressed',String(!muted));$('muteBtn').setAttribute('aria-label',muted?'Activer le son':'Couper le son');tone();};
+function toggleCamera(){overview=!overview;$('cameraBtn').setAttribute('aria-pressed',String(overview));$('cameraBtn').title=overview?'Passer à la troisième personne':'Passer en vue du quartier';$('cameraLabel').textContent=overview?'Vue personnage':'Vue quartier';}
+$('cameraBtn').onclick=toggleCamera;
+$('resetCameraBtn').onclick=()=>{yaw=.2;pitch=.38;if(overview)toggleCamera();close('pause');};
+for(const [code,name]of Object.entries(regions)){const d=document.createElement('details'),summary=document.createElement('summary'),p=document.createElement('p');summary.textContent=name;p.textContent=destinations.filter(x=>x[1]===code).map(x=>x[0]).join(' · ');d.append(summary,p);$('regions').append(d);}
+$('quality').onchange=()=>{renderer.shadowMap.enabled=$('quality').value==='high';renderer.setPixelRatio($('quality').value==='high'?Math.min(devicePixelRatio,1.5):1);resize();};
+function resize(){const w=innerWidth,h=innerHeight;renderer.setPixelRatio($('quality').value==='low'?1:Math.min(devicePixelRatio,1.5));renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}addEventListener('resize',resize);resize();
+addEventListener('keydown',e=>{if(['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName)||modal())return;const k=e.key.toLowerCase();if(['w','a','s','d','z','q','arrowup','arrowdown','arrowleft','arrowright','shift',' '].includes(k)){e.preventDefault();keys[k]=true;}if(e.repeat)return;if(k==='e')interact();if(k==='m')open('map');if(k==='j')openLife();if(k==='c')toggleCamera();if(k==='escape'){save();open('pause');}});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);addEventListener('blur',()=>{resetInput();if(active&&!modal())open('pause');});document.addEventListener('visibilitychange',()=>{if(document.hidden){if(active)save();resetInput();if(active&&!modal())open('pause');}last=performance.now();});
+const canvas=$('world');canvas.addEventListener('pointerdown',e=>{if(modal())return;drag={id:e.pointerId,x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});canvas.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;yaw-=(e.clientX-drag.x)*.006;pitch=THREE.MathUtils.clamp(pitch+(e.clientY-drag.y)*.004,.12,.9);drag.x=e.clientX;drag.y=e.clientY;});for(const ev of ['pointerup','pointercancel','lostpointercapture'])canvas.addEventListener(ev,()=>drag=null);
+const joystick=$('joystick');let joyId=null;function stickMove(e){const r=joystick.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)/40,y=(e.clientY-r.top-r.height/2)/40,l=Math.max(1,Math.hypot(x,y));joy.x=x/l;joy.y=y/l;$('stick').style.transform=`translate(${joy.x*35}px,${joy.y*35}px)`;}joystick.addEventListener('pointerdown',e=>{if(modal())return;joyId=e.pointerId;joystick.setPointerCapture(e.pointerId);stickMove(e);});joystick.addEventListener('pointermove',e=>{if(e.pointerId===joyId)stickMove(e);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])joystick.addEventListener(ev,()=>{joyId=null;joy.x=joy.y=0;$('stick').style.transform='';});$('runBtn').addEventListener('pointerdown',e=>{running=true;$('runBtn').setPointerCapture(e.pointerId);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])$('runBtn').addEventListener(ev,()=>running=false);
+function shareCard(){close('life');const c=$('shareCard'),ctx=c.getContext('2d'),s=sim.state;ctx.fillStyle='#192c32';ctx.fillRect(0,0,1080,1080);ctx.fillStyle='#79c29e';ctx.fillRect(70,70,940,5);ctx.font='bold 40px Arial';ctx.fillText('TOGO LIFE',80,145);ctx.font='bold 72px Arial';ctx.fillStyle='#f1f5f1';ctx.fillText('Une vie à Lomé.',80,315);ctx.font='30px Arial';ctx.fillStyle='#b4c4c5';ctx.fillText('Mon quartier. Mes décisions. Mon histoire.',80,390);ctx.font='bold 60px Arial';ctx.fillStyle='#f2cc78';ctx.fillText(s.sales+' produits vendus',80,570);ctx.fillText(s.completed+' livraisons réussies',80,670);ctx.font='36px Arial';ctx.fillStyle='#f1f5f1';ctx.fillText(s.biz?'Mon premier commerce est ouvert.':'Mon aventure vient de commencer.',80,790);ctx.fillText('Jour '+s.day+' · Réputation '+s.rep,80,850);ctx.font='22px Arial';ctx.fillStyle='#b4c4c5';ctx.fillText('Simulation solo · monnaie virtuelle · aucun argent réel',80,970);const url=location.origin+location.pathname;$('whatsapp').href='https://wa.me/?text='+encodeURIComponent('TOGO LIFE : '+s.sales+' produits vendus et '+s.completed+' livraisons à Lomé. '+url);open('share');}
+$('shareBtn').onclick=shareCard;$('downloadCard').onclick=()=>{$('shareCard').toBlob(blob=>{if(!blob)return;const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='togo-life-mon-quartier.png';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);});};$('nativeShare').onclick=async()=>{try{const blob=await new Promise(r=>$('shareCard').toBlob(r));const f=new File([blob],'togo-life.png',{type:'image/png'});if(navigator.canShare?.({files:[f]}))await navigator.share({files:[f],title:'TOGO LIFE',text:'Une vie à Lomé.'});else toast('Téléchargez la carte pour la publier sur Facebook ou TikTok.');}catch(e){if(e.name!=='AbortError')toast('Le partage est indisponible. Téléchargez la carte.');}};
+let sunlightClock=0;function lighting(dt){sunlightClock+=dt;if(sunlightClock<1)return;sunlightClock=0;const t=sim.state.time,daylight=Math.max(.08,Math.sin((t-6)/12*Math.PI));sun.intensity=daylight*3.2;hemi.intensity=.35+daylight*1.65;skyU.uTop.value.set(daylight>.3?'#5598b7':'#102738');skyU.uHorizon.value.set(daylight>.3?'#cde0db':'#344f59');scene.fog.color.copy(skyU.uHorizon.value);sun.position.set(-25,8+daylight*34,25*Math.cos((t-6)/12*Math.PI));skyU.uSunDir.value.copy(sun.position).normalize();}
+function step(dt){if(!active||modal()){vx*=.8;vz*=.8;player.update(dt,0);return;}const ix=(keys.d||keys.arrowright?1:0)-(keys.a||keys.q||keys.arrowleft?1:0)+joy.x,iz=(keys.s||keys.arrowdown?1:0)-(keys.w||keys.z||keys.arrowup?1:0)+joy.y;const len=Math.max(1,Math.hypot(ix,iz)),speed=(keys.shift||running?4.5:2.1)*(sim.state.energy<15||sim.state.food<15?.65:1);const tx=(ix/len*Math.cos(yaw)+iz/len*Math.sin(yaw))*speed,tz=(-ix/len*Math.sin(yaw)+iz/len*Math.cos(yaw))*speed;const smooth=1-Math.exp(-dt*(ix||iz?12:16));vx+=(tx-vx)*smooth;vz+=(tz-vz)*smooth;const oldX=player.group.position.x,oldZ=player.group.position.z;move(player.group.position,vx,vz,dt,world.colliders,world.bounds);const actual=Math.hypot(player.group.position.x-oldX,player.group.position.z-oldZ)/dt;if(actual>.07)player.group.rotation.y=angleTowards(player.group.rotation.y,Math.atan2(vx,vz),dt);player.update(dt,actual);if(actual>3)sim.state.energy=Math.max(0,sim.state.energy-dt*.05);sim.tick(dt);if(sim.state.food<5)sim.state.energy=Math.max(0,sim.state.energy-dt*.08);residents.update(dt,sim.state.time);world.traffic.update(dt);lighting(dt);clock+=dt;saveClock+=dt;if(saveClock>8){saveClock=0;save();}if(sim.state.sales>lastSale){lastSale=sim.state.sales;toast('Un client a acheté au comptoir : +'+fmt(sim.state.price));tone();}parcel.visible=sim.state.carried>0||!!sim.state.contract;}
+const desired=new THREE.Vector3(),focus=new THREE.Vector3();camera.position.set(-5,4.5,19);
+function cameraUpdate(dt){const p=player.group.position;focus.set(p.x,overview?.5:1.2,p.z);const distance=overview?32:innerWidth<600?7.6:7,tilt=overview?1.05:pitch;desired.set(p.x+Math.sin(yaw)*distance*Math.cos(tilt),1.4+Math.sin(tilt)*distance,p.z+Math.cos(yaw)*distance*Math.cos(tilt));if(!overview){const hit=cameraDistance(focus,desired,world.colliders);if(hit<.96)desired.lerp(focus,1-hit);}camera.position.lerp(desired,1-Math.exp(-dt*7));camera.lookAt(focus);}
+let metrics={fps:0,frameMs:0,loadedMs:0};metrics.loadedMs=performance.now();
+function frame(now){const raw=(now-last)/1000;last=now;const dt=Math.min(.1,Math.max(0,raw));accumulator+=dt;while(accumulator>=1/60){step(1/60);accumulator-=1/60;}cameraUpdate(dt);near=nearest();$('nearText').textContent=near?near.name:'Explorez le quartier';$('nearSymbol').textContent=placeLetters[near?.id]||'L';$('interactLabel').textContent=({market:'Marché',kiosk:'Gérer',studio:'Livrer',home:'Entrer',taxi:'Plan',npc:'Discuter'})[near?.id]||'Interagir';$('interactBtn').disabled=!near||!active;const target=targetPlace();marker.visible=active&&!modal()&&!!target;if(target){marker.position.x=target.x;marker.position.z=target.z;}marker.scale.setScalar(1+Math.sin(now*.003)*.06);renderer.render(scene,camera);if(preview)preview.render(dt);hudClock+=dt;if(hudClock>.25){hudClock=0;updateHUD();updateMaps();}if(raw>0&&raw<2){frames.push(raw);if(frames.length>180)frames.shift();metrics.frameMs=frames.reduce((a,b)=>a+b,0)/frames.length*1000;metrics.fps=1000/metrics.frameMs;}requestAnimationFrame(frame);}
+// Diagnostics are enabled explicitly for QA; no state mutation hooks in normal play.
+if(new URLSearchParams(location.search).has('qa')){window.__THREE_GAME_DIAGNOSTICS__={renderer:renderer.info,get state(){return {player:{x:player.group.position.x,z:player.group.position.z,speed:Math.hypot(vx,vz),animation:player.animationState},simulation:sim.snapshot(),npcs:residents.people.map(p=>({id:p.id,state:p.state,visits:p.visits,x:p.character.group.position.x,z:p.character.group.position.z})),performance:{...metrics},physics:{engine:'kinematic-circle-aabb',timestep:1/60,colliders:world.colliders.length},quality:$('quality').value};}};}
+canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();resetInput();active=false;toast('Contexte graphique perdu. Rechargez pour reprendre votre sauvegarde.');save();});requestAnimationFrame(frame);

@@ -100,7 +100,22 @@ try:
    page.screenshot(path=str(output/'overview.png'));report['captures'].append('overview.png')
    check('overview does not move avatar',same_position(before,state()['player']));page.click('#cameraBtn');check('overview returns to initial camera mode',page.locator('#cameraBtn').get_attribute('aria-pressed')==camera_before)
    initial=state()['player'];page.keyboard.down('w');page.wait_for_timeout(1400);page.keyboard.up('w');moved=state()['player'];check('walk changes position',math.hypot(initial['x']-moved['x'],initial['z']-moved['z'])>1)
-   page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run');page.keyboard.up('w');page.keyboard.up('Shift');page.wait_for_timeout(500);check('progressive stop',state()['player']['speed']<.1)
+   page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run')
+   before_stop=state()['player'];stop_began=time.monotonic();stop_wait_error=None
+   page.keyboard.up('w');page.keyboard.up('Shift')
+   try:page.wait_for_function("window.__THREE_GAME_DIAGNOSTICS__.state.player.speed<0.1 && window.__THREE_GAME_DIAGNOSTICS__.state.player.animation==='Idle'",polling='raf',timeout=5000)
+   except Exception as stop_error:stop_wait_error=str(stop_error)
+   after_stop=state()['player'];coast=math.hypot(after_stop['x']-before_stop['x'],after_stop['z']-before_stop['z'])
+   report['progressiveStop']={'beforeStop':before_stop,'afterStop':after_stop,'wallElapsedSeconds':time.monotonic()-stop_began,'distanceCoastMetres':coast,'waitError':stop_wait_error,'noOpenDialog':page.locator('dialog[open]').count()==0}
+   check('progressive stop',stop_wait_error is None and after_stop['speed']<.1 and after_stop['animation']=='Idle' and coast<=.6 and report['progressiveStop']['noOpenDialog'])
+   stability_frames=page.evaluate("""() => new Promise((resolve,reject)=>{
+    let observed=0;const timeout=setTimeout(()=>reject(new Error('Three real RAF observations timed out')),5000);
+    function observe(){observed++;if(observed===3){clearTimeout(timeout);resolve({frames:observed,timestamp:performance.now()});}else requestAnimationFrame(observe);}
+    requestAnimationFrame(observe);
+   })""")
+   stable_stop=state()['player'];stable_distance=math.hypot(stable_stop['x']-after_stop['x'],stable_stop['z']-after_stop['z'])
+   report['progressiveStop']['stability']={'observedRaf':stability_frames,'player':stable_stop,'distanceMetres':stable_distance}
+   check('avatar remains stationary after braking',stable_stop['speed']<.1 and stable_stop['animation']=='Idle' and stable_distance<.03)
    def walk_to(x,z):
     end=time.monotonic()+40
     while time.monotonic()<end:
@@ -151,6 +166,8 @@ try:
     try:
      report['failurePage']={'url':page.url,'closed':page.is_closed()}
      if not page.is_closed():
+      try:report['failureDiagnostics']=page.evaluate("""() => ({state:window.__THREE_GAME_DIAGNOSTICS__?.state??null,openDialogs:[...document.querySelectorAll('dialog[open]')].map(d=>d.id),focusedElement:document.activeElement?.id??null,visibility:document.visibilityState})""")
+      except Exception as state_error:report['failureDiagnosticsError']=str(state_error)
       page.screenshot(path=str(output/'failure.png'),timeout=10000);report['captures'].append('failure.png')
     except Exception as diagnostic_error:report['failureCaptureError']=str(diagnostic_error)
    raise

@@ -37,9 +37,20 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - name: Existing real browser regression
         run: timeout 240s python3 -u scripts/ci_browser.py --transport offline
+      - name: Archive regression evidence before independent probes
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-market-regression-evidence
+          path: |
+            togo-life-3d/artifacts/browser-results.json
+            togo-life-3d/artifacts/*.png
+          retention-days: 7
       - name: Android layout and real touch controls
+        if: ${{ !cancelled() }}
         run: timeout 180s python3 -u scripts/mobile_probe.py
       - name: Full autonomous market through real player inputs
+        if: ${{ !cancelled() }}
         run: timeout 450s python3 -u scripts/society_browser.py --entry-file dist/TOGO_LIFE_MONTAGNE.html --output-dir artifacts/society --client-timeout 90
       - name: Public preview delivery hash
         if: ${{ !cancelled() }}

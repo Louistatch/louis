@@ -118,6 +118,15 @@ def control_layout(page, orientation):
     report.setdefault("controlLayouts", {})[orientation] = layout
     check(orientation + " commands visible and inside viewport", all(c["visible"] and c["inViewport"] for c in layout), layout)
     check(orientation + " commands have 48px touch targets", all(c["width"] >= 47.9 and c["height"] >= 47.9 for c in layout), layout)
+    dock_contents = page.evaluate("""() => {
+      const dock=document.querySelector('.game-dock').getBoundingClientRect();
+      return [...document.querySelectorAll('.game-dock button')].map(b=>{
+        const r=b.getBoundingClientRect();
+        return {id:b.id,insideDock:r.left>=dock.left-1&&r.right<=dock.right+1,
+          contentFits:b.scrollWidth<=b.clientWidth+1};
+      });
+    }""")
+    check(orientation + " dock contains every button and label", all(c['insideDock'] and c['contentFits'] for c in dock_contents), dock_contents)
     overflow = page.evaluate("""() => ({viewport:innerWidth,
       document:document.documentElement.scrollWidth, body:document.body.scrollWidth})""")
     check(orientation + " has no horizontal overflow", overflow["document"] <= overflow["viewport"] + 1 and overflow["body"] <= overflow["viewport"] + 1, overflow)

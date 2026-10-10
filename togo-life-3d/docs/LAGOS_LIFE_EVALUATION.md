@@ -1,6 +1,8 @@
 # Test Lagos Life — décision critique
 
-Évaluation de livraison, 10 octobre 2026. Aucun comparatif graphique ou test utilisateur ne peut être déduit des captures marketing. L'équipe n'a pas pu lancer Chromium dans ce bac à sable. Une note sur 10 sans scène observée serait inventée : les critères visuels et d'engagement restent donc **non évaluables**. Le seuil commercial est non atteint et la PR doit rester en brouillon.
+Évaluation historique initiale, 10 octobre 2026, avant les runs navigateur CI. La revue actualisée et les dix notes fondées sur les captures réelles figurent dans [INTERFACE_VALIDATION_REPORT.md](INTERFACE_VALIDATION_REPORT.md).
+
+État à cette première évaluation : Aucun comparatif graphique ou test utilisateur ne peut être déduit des captures marketing. L'équipe n'a pas pu lancer Chromium dans ce bac à sable. Une note sur 10 sans scène observée serait inventée : les critères visuels et d'engagement restent donc **non évaluables**. Le seuil commercial est non atteint et la PR doit rester en brouillon.
 
 | Critère | Note /10 | Preuve et limite |
 |---|---:|---|

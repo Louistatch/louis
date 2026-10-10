@@ -2,9 +2,9 @@ name: TOGO LIFE browser QA
 on:
   push:
     branches: [feat/togo-life-interface-jeu]
-    paths: ['togo-life-3d/**', '.github/workflows/togo-life-ui-qa.yml']
+    paths: ['togo-life-3d/src/**', 'togo-life-3d/assets/**', 'togo-life-3d/vendor/**', 'togo-life-3d/scripts/**', 'togo-life-3d/tests/**', 'togo-life-3d/index.html', 'togo-life-3d/life.css', 'togo-life-3d/*.html', 'togo-life-3d/package*.json', '.github/workflows/togo-life-ui-qa.yml']
   pull_request:
-    paths: ['togo-life-3d/**', '.github/workflows/togo-life-ui-qa.yml']
+    paths: ['togo-life-3d/src/**', 'togo-life-3d/assets/**', 'togo-life-3d/vendor/**', 'togo-life-3d/scripts/**', 'togo-life-3d/tests/**', 'togo-life-3d/index.html', 'togo-life-3d/life.css', 'togo-life-3d/*.html', 'togo-life-3d/package*.json', '.github/workflows/togo-life-ui-qa.yml']
   workflow_dispatch:
 permissions:
   contents: read

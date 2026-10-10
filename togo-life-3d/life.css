@@ -12,7 +12,17 @@ dialog{color:inherit;background:var(--panel);border:1px solid #77919390;border-t
 @media(pointer:coarse){#joystick{position:fixed;display:block;left:22px;bottom:calc(84px + var(--safe));width:98px;height:98px;border:1px solid #dbe8e88c;border-radius:50%;background:#192c327a;touch-action:none}#stick{position:absolute;top:29px;left:29px;width:38px;height:38px;background:#dce9e5b0;border:1px solid #e8f1e9;border-radius:50%;pointer-events:none}#runBtn{display:flex;position:fixed;right:22px;bottom:calc(94px + var(--safe));width:72px;height:72px;border-radius:50%;background:#192c32bd;flex-direction:column;font-size:9px;gap:5px;padding:9px;touch-action:none}#hint{display:none}}
 @media(max-height:600px) and (orientation:landscape){.character-dialog[open]{grid-template-columns:230px 1fr}.character-stage{display:flex;padding:14px;border-bottom:0;border-right:1px solid var(--line)}.character-stage canvas{width:160px;height:200px;margin:0}.character-stage p{font-size:16px}.character-form{padding:18px}.character-form p{margin:8px 0 12px}.objective{top:169px}.radar-frame canvas{height:100px}.camera-control{top:240px}#context{bottom:95px}.game-dock{bottom:8px}.world-note{display:none}#hint{display:none}#joystick{bottom:12px}#runBtn{bottom:16px}.game-dock{width:340px}#status{top:85px}}
 @media(max-width:600px){.restore-goal{left:12px;top:282px;font-size:9px;padding:8px 10px}}
-@media(max-height:600px) and (orientation:landscape){.restore-goal{top:247px}}
+@media(max-height:600px) and (orientation:landscape){
+ .game-header{top:max(10px,env(safe-area-inset-top));left:14px;right:14px;gap:10px}
+ .identity strong{font-size:15px}.district{font-size:9px}.wallet{min-width:132px;padding:7px 9px}.wallet strong{font-size:18px}.wallet small{font-size:8px}.time{font-size:10px;padding:7px 9px}
+ #status{top:70px;left:14px;width:220px;padding:6px 8px;gap:5px 12px}.need{width:94px}.need label,.bag-status{font-size:9px}
+ .objective{top:132px;left:14px;width:220px;padding:7px;gap:7px;min-height:48px}.mission-symbol{display:none}.mission-copy strong{font-size:11px}.mission-copy>span{font-size:9px}.distance{font-size:10px}.restore-goal{top:185px;left:14px}
+ #radar{top:70px;right:14px;width:116px}.radar-frame canvas{height:80px}.radar-caption{font-size:9px;padding:5px 7px}
+ .camera-control{top:180px;right:14px;width:116px;min-width:116px;padding:7px;font-size:9px;gap:5px}.camera-control .icon{width:18px}
+ #context{left:auto;right:14px;bottom:100px;transform:none;padding:0;border:0;background:transparent;box-shadow:none;max-width:116px}#context .place-symbol,#nearText,#interactBtn kbd{display:none}#interactBtn{width:116px;min-width:116px;padding:8px;font-size:11px}
+ .game-dock{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:360px;max-width:calc(100% - 260px);padding:3px;bottom:8px}.game-dock button{min-width:0;min-height:54px;padding:5px 3px;flex-direction:column;gap:3px;font-size:10px}.game-dock button .icon{width:20px;height:20px}
+ #toast{top:190px;bottom:auto;left:14px;transform:none;max-width:220px;padding:7px 9px;font-size:10px}
+}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
 @media(min-width:901px){#hint{font-size:12px;background:#192c32df;padding:5px 10px;border-radius:4px;bottom:94px}.wallet small{font-size:10px}}

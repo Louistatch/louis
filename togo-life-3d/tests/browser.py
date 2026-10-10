@@ -2,13 +2,34 @@
 No screenshots or performance claims exist until this script succeeds.
 python tests/browser.py --url http://127.0.0.1:8000/dist/
 """
-import argparse,json,time,math,traceback
+import argparse,json,time,math,traceback,mimetypes,os
+from urllib.parse import urlsplit,unquote
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);parser.add_argument('--static-root',default=None,help='Serve real built assets through an explicit Playwright fixture');args=parser.parse_args()
 output=Path(args.output_dir).resolve() if args.output_dir else Path(__file__).resolve().parents[1]/'artifacts';output.mkdir(parents=True,exist_ok=True)
 report={'status':'running','checks':[],'captures':[],'errors':[], 'network':[], 'browserEvents':[]}
+report['transport']='playwright-static-fixture' if args.static_root else 'http'
+report['headSha']=os.environ.get('GITHUB_SHA')
+fixture_root=Path(args.static_root).resolve() if args.static_root else None
+if fixture_root:args.url='http://togo-life.test/'
+report['entryUrl']=args.url
+report['fixtureRequests']=[]
 page=None
+def install_transport(context):
+ if fixture_root is None:return
+ def serve(route):
+  request_path=unquote(urlsplit(route.request.url).path).lstrip('/') or 'index.html'
+  asset=(fixture_root/request_path).resolve()
+  if not asset.is_relative_to(fixture_root):
+   route.fulfill(status=403,body='Outside asset fixture');return
+  if asset.is_dir():asset=asset/'index.html'
+  if not asset.is_file():
+   report['fixtureRequests'].append({'path':request_path,'status':404});route.fulfill(status=404,body='Asset not found');return
+  mime={'.js':'text/javascript','.css':'text/css','.html':'text/html','.gltf':'model/gltf+json','.glb':'model/gltf-binary'}.get(asset.suffix,mimetypes.guess_type(str(asset))[0] or 'application/octet-stream')
+  report['fixtureRequests'].append({'path':request_path,'status':200,'mime':mime,'bytes':asset.stat().st_size})
+  route.fulfill(status=200,path=str(asset),content_type=mime)
+ context.route('http://togo-life.test/**',serve)
 def observe_page(page):
  page.on('requestfailed',lambda request:report['network'].append({'event':'requestfailed','url':request.url,'failure':request.failure}))
  page.on('response',lambda response:report['network'].append({'event':'response','url':response.url,'status':response.status,'mime':response.headers.get('content-type'),'contentDisposition':response.headers.get('content-disposition')}) if response.request.is_navigation_request() or response.status>=400 else None)
@@ -31,6 +52,7 @@ try:
    browser=p.chromium.launch(executable_path=browser_path,headless=True,args=['--no-sandbox','--disable-crashpad-for-testing','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
    browser.on('disconnected',lambda:report['browserEvents'].append('browser disconnected'))
    context=browser.new_context(viewport={'width':1440,'height':900},record_video_dir=str(output/'motion'))
+   install_transport(context)
    page=context.new_page();observe_page(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
    start=time.monotonic();goto_game(page);report['loadSeconds']=time.monotonic()-start
    preview=page.locator('#start canvas, #start [data-avatar-preview]').first
@@ -89,14 +111,17 @@ try:
    report['desktop']=state();report['renderer']=page.evaluate('({calls:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.calls,triangles:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.triangles,memory:window.__THREE_GAME_DIAGNOSTICS__.renderer.memory})')
    saved=state()['simulation'];page.reload(wait_until='domcontentloaded',timeout=60000);page.wait_for_selector('#start[open]',timeout=60000);page.click('#continueBtn');page.wait_for_selector('#start[open]',state='hidden');check('save restores appearance',state()['simulation']['appearance']==saved['appearance']);check('save restores business',state()['simulation']['biz']==True)
    check('no console/page errors',not errors);report['errors']=errors;context.close()
-   mobile=browser.new_context(viewport={'width':390,'height':844},device_scale_factor=1.5,is_mobile=True,has_touch=True);page=mobile.new_page();observe_page(page);goto_game(page);page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(600);initial=state()['player']
+   mobile=browser.new_context(viewport={'width':390,'height':844},device_scale_factor=1.5,is_mobile=True,has_touch=True);install_transport(mobile);page=mobile.new_page();observe_page(page);goto_game(page);page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(600);initial=state()['player']
    sizes=page.locator('nav button, #interactBtn, #runBtn').evaluate_all('bs=>bs.filter(b=>b.getBoundingClientRect().width).map(b=>({id:b.id,w:b.getBoundingClientRect().width,h:b.getBoundingClientRect().height}))')
    report['mobileControlSizes']=sizes;check('mobile controls have 48px touch targets',all(b['w']>=48 and b['h']>=48 for b in sizes))
    check('center of world remains unobstructed by HUD',page.evaluate('()=>{const x=innerWidth/2,y=innerHeight*.48;return ![...document.querySelectorAll("header,nav,#objectiveBtn,#radar,#cameraBtn,#status,#context,#joystick,#runBtn")].some(e=>{const r=e.getBoundingClientRect();return r.width&&x>r.left&&x<r.right&&y>r.top&&y<r.bottom})}'))
    joy=page.locator('#joystick').bounding_box();check('mobile joystick has 48px target',joy is not None and joy['width']>=48 and joy['height']>=48)
    touch=mobile.new_cdp_session(page);touch.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':joy['x']+joy['width']/2,'y':joy['y']+18,'id':7}]});page.wait_for_timeout(1200);touch.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});page.wait_for_timeout(500)
    check('mobile joystick changes position',math.hypot(initial['x']-state()['player']['x'],initial['z']-state()['player']['z'])>.5);check('pointercancel stops movement',state()['player']['speed']<.1);check('responsive width',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
-   page.screenshot(path=str(output/'mobile-active.png'));report['captures'].append('mobile-active.png');report['mobile']=state();check('no mobile console/page errors',not report['errors']);report['status']='pass';mobile.close();browser.close()
+   page.screenshot(path=str(output/'mobile-active.png'));report['captures'].append('mobile-active.png');report['mobile']=state();check('no mobile console/page errors',not report['errors']);page.set_viewport_size({'width':844,'height':390});page.wait_for_timeout(400)
+   check('landscape joystick and run visible',page.locator('#joystick').is_visible() and page.locator('#runBtn').is_visible())
+   check('landscape controls do not overlap dock',page.evaluate('()=>{const dock=document.querySelector("nav").getBoundingClientRect();return ["joystick","runBtn"].every(id=>{const r=document.getElementById(id).getBoundingClientRect();return !(r.left<dock.right&&r.right>dock.left&&r.top<dock.bottom&&r.bottom>dock.top)})}'))
+   page.screenshot(path=str(output/'mobile-landscape.png'));report['captures'].append('mobile-landscape.png');report['status']='pass';mobile.close();browser.close()
   except Exception:
    if page is not None:
     try:

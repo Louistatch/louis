@@ -1,0 +1,411 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-10",
+  "sourceSha": "f5d80c1dbb0ce31900c575b73df0bea0611f2bea",
+  "artifactLabel": "autonomous-market CI3",
+  "inputDirectory": "/tmp/togo-market-ci3",
+  "instructionsRead": "AGENTS.md and installed create-game-assets scripts",
+  "scope": "Actual original create-game-assets scripts applied to genuine CI3 browser screenshots. Raster checks do not supersede failed gameplay regression.",
+  "tooling": {
+    "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+    "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+    "license": "Apache-2.0",
+    "licensePath": ".agents/skills/LICENSE.gamedev-skills",
+    "licenseGitBlobSha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+    "licenseHashVerified": true,
+    "assetReportScriptGitBlobSha": "6eb94d625ee1574356019181dc6168855343f9dd",
+    "contactSheetScriptGitBlobSha": "87a656c9dd69791a2aad0a3fd689abbbee670753",
+    "scriptHashesVerified": true,
+    "pillowVersion": "12.3.0",
+    "dependencyInstallation": false
+  },
+  "inputs": [
+    {
+      "path": "desktop-start.png",
+      "bytes": 606183,
+      "sha256": "4a2c53ac0f9b52488bec0f2670f47e82025dc029b1ff638bb542a5a6e016dc54"
+    },
+    {
+      "path": "failure.png",
+      "bytes": 791926,
+      "sha256": "54c0e8eefc58caa865715b78b2494e6855b77e69f36e1a6e8c6e8e0ce41c3c1d"
+    },
+    {
+      "path": "life-commerce.png",
+      "bytes": 590084,
+      "sha256": "7c9b5e2fe790750313e9917cd8faf7c5105fe1019233f6df0d4e70d2e19eeda2"
+    },
+    {
+      "path": "local-map.png",
+      "bytes": 533608,
+      "sha256": "f72d256d09311464d878cfbc3485d8e661ce3a12dde0f6a70e5c04d8c998ab36"
+    },
+    {
+      "path": "overview.png",
+      "bytes": 970845,
+      "sha256": "4897995a1783cc5ca526bb78bb032871526c7915822ad07485b438b0887763e4"
+    },
+    {
+      "path": "society-live/autonomous-kiosk-sale.png",
+      "bytes": 486268,
+      "sha256": "1d297dcc51164bb3f1a85af0e45dee7599403aca483fc7078bc58d6534fe3cb7"
+    },
+    {
+      "path": "society-live/autonomous-market-active.png",
+      "bytes": 675760,
+      "sha256": "ff7da2dd21d65ea30cd89e389cf9f00868d50bda697b996805581b95429bda26"
+    },
+    {
+      "path": "society-live/autonomous-price-refusal.png",
+      "bytes": 496652,
+      "sha256": "2e619d87ad58322a8022ac21c0f2c15bb9e712c783297526190e054f589e1bcb"
+    },
+    {
+      "path": "society-live/autonomous-restored-decisions.png",
+      "bytes": 488235,
+      "sha256": "ba17e572740f9ccf067863fedde1adcf26082601d51b6e1cd677b07035de86a2"
+    },
+    {
+      "path": "society-live/market-counteroffer.png",
+      "bytes": 234201,
+      "sha256": "31d44ca06493fdbcae5386a70d79e4b4d38352376dbf3743fed697b0f6129b6c"
+    }
+  ],
+  "expectedDimensions": {
+    "width": 1440,
+    "height": 900,
+    "unit": "physical pixels",
+    "derivation": "Both browser contexts configured viewport1440x900 and default deviceScaleFactor1; no mobile captures were reached in failed regression."
+  },
+  "assetReport": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      ".agents/skills/create-game-assets/scripts/asset_report.py",
+      "/tmp/togo-market-ci3/desktop-start.png",
+      "/tmp/togo-market-ci3/failure.png",
+      "/tmp/togo-market-ci3/life-commerce.png",
+      "/tmp/togo-market-ci3/local-map.png",
+      "/tmp/togo-market-ci3/overview.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-kiosk-sale.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-market-active.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-price-refusal.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-restored-decisions.png",
+      "/tmp/togo-market-ci3/society-live/market-counteroffer.png",
+      "--expect-size",
+      "1440x900",
+      "--json"
+    ],
+    "exitCode": 0,
+    "stderr": "",
+    "result": {
+      "ok": true,
+      "assets": [
+        {
+          "path": "/tmp/togo-market-ci3/desktop-start.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 606183,
+          "color_count": 21877,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/failure.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 791926,
+          "color_count": 51486,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/life-commerce.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 590084,
+          "color_count": 15046,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/local-map.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 533608,
+          "color_count": 15994,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/overview.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 970845,
+          "color_count": 45815,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/society-live/autonomous-kiosk-sale.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 486268,
+          "color_count": 14557,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/society-live/autonomous-market-active.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 675760,
+          "color_count": 35244,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/society-live/autonomous-price-refusal.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 496652,
+          "color_count": 13380,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/society-live/autonomous-restored-decisions.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 488235,
+          "color_count": 13139,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        },
+        {
+          "path": "/tmp/togo-market-ci3/society-live/market-counteroffer.png",
+          "format": "PNG",
+          "mode": "RGB",
+          "width": 1440,
+          "height": 900,
+          "bytes": 234201,
+          "color_count": 8422,
+          "has_alpha": false,
+          "alpha_min": 255,
+          "alpha_max": 255,
+          "transparent_pixels": 0,
+          "content_bounds": [
+            0,
+            0,
+            1440,
+            900
+          ],
+          "problems": []
+        }
+      ]
+    }
+  },
+  "contactSheet": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      ".agents/skills/create-game-assets/scripts/build_preview_sheet.py",
+      "/tmp/togo-market-ci3/society-live/autonomous-kiosk-sale.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-market-active.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-price-refusal.png",
+      "/tmp/togo-market-ci3/society-live/autonomous-restored-decisions.png",
+      "/tmp/togo-market-ci3/society-live/market-counteroffer.png",
+      "--out",
+      "/tmp/togo-market-ci3-contact-sheet.jpg",
+      "--columns",
+      "3",
+      "--cell-size",
+      "320"
+    ],
+    "exitCode": 0,
+    "stdout": "Wrote /tmp/togo-market-ci3-contact-sheet.jpg (5 assets, 3 columns)\n",
+    "stderr": "",
+    "output": "/tmp/togo-market-ci3-contact-sheet.jpg",
+    "dimensions": [
+      1032,
+      736
+    ],
+    "sha256": "5ca8483202cc5a48e966ff6107904703d9f52fd1015a553f68dbbe05afa017f1",
+    "inputCount": 5,
+    "committed": false,
+    "visuallyInspected": true
+  },
+  "browserEvidence": {
+    "autonomousSociety": {
+      "status": "pass",
+      "checks": 66,
+      "passed": 66,
+      "errors": [],
+      "sourceSha": "f5d80c1dbb0ce31900c575b73df0bea0611f2bea",
+      "entryUrl": "https://togo-life-preview.vercel.app?qa=1",
+      "transport": "actual-http",
+      "browserVersion": "151.0.7922.34",
+      "elapsedSeconds": 201.618
+    },
+    "regression": {
+      "status": "failed",
+      "checks": 15,
+      "passed": 14,
+      "failed": [
+        "progressive stop"
+      ],
+      "errors": [
+        "progressive stop"
+      ],
+      "sourceSha": "f5d80c1dbb0ce31900c575b73df0bea0611f2bea",
+      "transport": "offline-file",
+      "stage": "capture failure"
+    },
+    "httpProbe": {
+      "expectedSha256": "ef3e140b594218f253adebcc959c11fd902d6bf5b5a2a8523dfaba4f02eb1cc8",
+      "browserValidated": false,
+      "preview": {
+        "url": "https://togo-life-preview.vercel.app",
+        "status": 200,
+        "mime": "text/html; charset=utf-8",
+        "bytes": 1947762,
+        "sha256": "ef3e140b594218f253adebcc959c11fd902d6bf5b5a2a8523dfaba4f02eb1cc8",
+        "matchesBuild": true
+      }
+    }
+  },
+  "rights": {
+    "gameCaptures": "Original TOGO LIFE authored-game screenshots, project MIT. No external reference images were copied or used as generated assets.",
+    "conceptImages": false,
+    "copiedInputPngCount": 0
+  },
+  "limits": [
+    "All checked screenshots are desktop1440x900; no Android hardware or new mobile capture is validated here.",
+    "A readable PNG and correct dimensions do not prove animation, topology, frame rate or commercial visual quality.",
+    "The contact sheet is a derived QA view, not an additional real-browser screenshot.",
+    "CI3 gameplay regression remained failed even though autonomous HTTPS scenario passed."
+  ],
+  "ciRun": {
+    "url": "https://github.com/Louistatch/louis/actions/runs/38029106766",
+    "runId": 38029106766,
+    "artifactId": 11660968321,
+    "artifactZipSha256": "5ec63222cf765273fc5463ece18dcbf10f11344d42eff6725600e2839fd24ec3",
+    "versionLabel": "CI3",
+    "artifactHashSource": "Parent verified downloaded artifact ZIP; screenshot hashes calculated independently by this audit."
+  },
+  "visualInspection": {
+    "nativeScaleOpened": [
+      "society-live/market-counteroffer.png",
+      "society-live/autonomous-kiosk-sale.png",
+      "society-live/autonomous-price-refusal.png",
+      "society-live/autonomous-restored-decisions.png",
+      "society-live/autonomous-market-active.png"
+    ],
+    "observations": [
+      "Counteroffer text identifies four products at315F,1260F total and60seconds reservation; no advance reward is announced.",
+      "Sale capture shows one sale450F,11stock,135F merchandise profit and2670F player money; matches315F purchase cost and12780F cumulative expenses.",
+      "Price-refusal capture shows seven individually named resident decision cards with remembered1100F refusals and a competing-shop destination.",
+      "Restored decisions are visibly listed after reload; browser JSON, not still image alone, is the persistence proof.",
+      "Active-world capture shows the player, real shop facade, sidewalk and road; the small HUD leaves most of the active scene visible.",
+      "Menus and text remain readable in1440x900; the world style and character faces remain simplified, and still frames do not establish professional animation."
+    ],
+    "approval": "Raster/readability check only; no commercial-quality or animation approval."
+  }
+}

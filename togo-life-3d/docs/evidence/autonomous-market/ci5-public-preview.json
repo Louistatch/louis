@@ -1,0 +1,22 @@
+{
+  "expectedSha256": "d7cd43a23c6c2d68fe495875f1c1fcc707e6685f33a1111be7d7798d88bb5571",
+  "checks": [
+    {
+      "url": "https://togo-life-preview.vercel.app",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 1948461,
+      "sha256": "d7cd43a23c6c2d68fe495875f1c1fcc707e6685f33a1111be7d7798d88bb5571",
+      "matchesBuild": true
+    },
+    {
+      "url": "https://raw.githack.com/Louistatch/louis/01a79b84c7139c1e81e835d02942327a0ca4354a/togo-life-3d/TOGO_LIFE_MONTAGNE.html",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    {
+      "url": "https://rawcdn.githack.com/Louistatch/louis/01a79b84c7139c1e81e835d02942327a0ca4354a/togo-life-3d/TOGO_LIFE_MONTAGNE.html",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  ],
+  "browserValidated": false
+}

@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-10",
+  "kind": "actual-browser-screenshot-gallery",
+  "sourceCommit": "39daf3befc4fdce95134c1c197d8e591fb412da8",
+  "repository": "Louistatch/louis",
+  "gameDirectory": "togo-life-3d/",
+  "publicGameUrl": "https://togo-life-preview.vercel.app",
+  "gameSha256": "998faadb1a53f2780df6f7bc2dbcc96f81a66cce49ed0c79dea8a9780f2abaea",
+  "ci": {
+    "runId": 38050314316,
+    "runUrl": "https://github.com/Louistatch/louis/actions/runs/38050314316",
+    "versionLabel": "CI6",
+    "artifactId": 11669755000,
+    "artifactZipSha256": "0ea7d7a2433c96d63a11594bd2e85487175dacf2761f1f0bcd9c7a504bac35f6"
+  },
+  "contexts": {
+    "desktop-https": {
+      "entryUrl": "https://togo-life-preview.vercel.app?qa=1",
+      "transport": "actual-http",
+      "browser": "Chromium 151.0.7922.34",
+      "cssViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "deviceScaleFactor": 1,
+      "physicalPixels": {
+        "width": 1440,
+        "height": 900
+      },
+      "gpu": "ANGLE/SwiftShader software renderer"
+    },
+    "mobile-portrait-emulation": {
+      "transport": "offline-file",
+      "browser": "Chromium",
+      "cssViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "deviceScaleFactor": 1.5,
+      "physicalPixels": {
+        "width": 585,
+        "height": 1266
+      },
+      "hasTouch": true,
+      "isMobile": true,
+      "gpu": "ANGLE/SwiftShader software renderer",
+      "physicalAndroidValidated": false
+    },
+    "mobile-landscape-emulation": {
+      "transport": "offline-file",
+      "browser": "Chromium",
+      "cssViewport": {
+        "width": 844,
+        "height": 390
+      },
+      "deviceScaleFactor": 1.5,
+      "physicalPixels": {
+        "width": 1266,
+        "height": 585
+      },
+      "hasTouch": true,
+      "isMobile": true,
+      "gpu": "ANGLE/SwiftShader software renderer",
+      "physicalAndroidValidated": false
+    }
+  },
+  "captures": [
+    {
+      "file": "mobile-onboarding.png",
+      "sourceArtifactPath": "mobile-probe-portrait-start.png",
+      "sha256": "eb604cb6cd47d8a296b79e288ce74200839e900a8c338e46ff63ecd41778a81a",
+      "bytes": 168152,
+      "width": 585,
+      "height": 1266,
+      "format": "PNG",
+      "context": "mobile-portrait-emulation",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "mobile-portrait.png",
+      "sourceArtifactPath": "mobile-probe-portrait-active.png",
+      "sha256": "850143c2397dcc0efa001fa34933b1eaa22cf5bcdf0804fa2c2e07e0adc8d9da",
+      "bytes": 259846,
+      "width": 585,
+      "height": 1266,
+      "format": "PNG",
+      "context": "mobile-portrait-emulation",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "mobile-landscape.png",
+      "sourceArtifactPath": "mobile-probe-landscape-active.png",
+      "sha256": "2737dcc0e480338421722ad04c3d4ce110170a2fac54ac72a03fc15c088aaa8d",
+      "bytes": 489523,
+      "width": 1266,
+      "height": 585,
+      "format": "PNG",
+      "context": "mobile-landscape-emulation",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "mobile-commerce.png",
+      "sourceArtifactPath": "mobile-probe-commerce-scrolled.png",
+      "sha256": "1bdf507c33ea18bb16c40d85117c32c214c558fc92dfebb310a0e6084e5a13d8",
+      "bytes": 151115,
+      "width": 585,
+      "height": 1266,
+      "format": "PNG",
+      "context": "mobile-portrait-emulation",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "autonomous-kiosk-sale.png",
+      "sourceArtifactPath": "society-live/autonomous-kiosk-sale.png",
+      "sha256": "284ef2b0baf7315a87e1bfd1b53acb769140181622ad2ee838c5de7a0b102d26",
+      "bytes": 494701,
+      "width": 1440,
+      "height": 900,
+      "format": "PNG",
+      "context": "desktop-https",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "autonomous-market-active.png",
+      "sourceArtifactPath": "society-live/autonomous-market-active.png",
+      "sha256": "8e2ed968ee974ccec69f0a540743cb2a8ea1d9e26710a21e9eed383df41655a0",
+      "bytes": 681561,
+      "width": 1440,
+      "height": 900,
+      "format": "PNG",
+      "context": "desktop-https",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "autonomous-price-refusal.png",
+      "sourceArtifactPath": "society-live/autonomous-price-refusal.png",
+      "sha256": "84044fc8f1c566865ba71808f8124a28ca2e8f87bae3ba02bea922fee02f05fc",
+      "bytes": 499724,
+      "width": 1440,
+      "height": 900,
+      "format": "PNG",
+      "context": "desktop-https",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "autonomous-restored-decisions.png",
+      "sourceArtifactPath": "society-live/autonomous-restored-decisions.png",
+      "sha256": "b754889529bfc07a05f32446f2aabbce33269b157f946fb115a4461f98baf34f",
+      "bytes": 495627,
+      "width": 1440,
+      "height": 900,
+      "format": "PNG",
+      "context": "desktop-https",
+      "matchesOriginalArtifact": true
+    },
+    {
+      "file": "market-counteroffer.png",
+      "sourceArtifactPath": "society-live/market-counteroffer.png",
+      "sha256": "f0b4ec9e2833968a4bb0227b47cb10f680d2aca37f71eca350cc18a3904cc301",
+      "bytes": 242933,
+      "width": 1440,
+      "height": 900,
+      "format": "PNG",
+      "context": "desktop-https",
+      "matchesOriginalArtifact": true
+    }
+  ],
+  "verification": {
+    "pngOriginalsByteMatched": true,
+    "pngsChecked": 9,
+    "rasterAuditReport": "../../evidence/autonomous-market/ci6-create-game-assets.json",
+    "skillsExecutionReport": "../../evidence/autonomous-market/ci6-skills-execution.md",
+    "browserResults": {
+      "regressionPass": 39,
+      "touchPass": 25,
+      "autonomousOfflinePass": 70,
+      "autonomousHttpsPass": 70
+    }
+  },
+  "rights": {
+    "content": "TOGO LIFE original game screenshots",
+    "projectLicense": "MIT",
+    "licensePath": "../../../LICENSE",
+    "conceptImages": false,
+    "thirdPartyReferenceImagesIncluded": false,
+    "editsToOriginalPngs": false
+  },
+  "limits": [
+    "Mobile screenshots are emulations; no physical Android device validated.",
+    "Software rendering does not establish 30/60 FPS hardware targets or professional animation.",
+    "The playable quarter is a stylized interpretation of Lomé, not surveyed OSM geometry."
+  ]
+}

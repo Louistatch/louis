@@ -1,0 +1,98 @@
+{
+  "status": "failed",
+  "checks": [
+    {
+      "name": "avatar preview visible before start",
+      "pass": true
+    },
+    {
+      "name": "start preserves selected avatar appearance",
+      "pass": true
+    },
+    {
+      "name": "NPC routines move during the morning trip",
+      "pass": true
+    },
+    {
+      "name": "local mini-map visible",
+      "pass": true
+    },
+    {
+      "name": "map has local destination controls",
+      "pass": true
+    },
+    {
+      "name": "destination sets orientation without teleport",
+      "pass": true
+    },
+    {
+      "name": "profile panel explains needs",
+      "pass": true
+    },
+    {
+      "name": "commerce panel explains stock and money",
+      "pass": true
+    },
+    {
+      "name": "management never performs remote transactions",
+      "pass": true
+    },
+    {
+      "name": "overview toggle has observable state",
+      "pass": true
+    },
+    {
+      "name": "overview does not move avatar",
+      "pass": true
+    },
+    {
+      "name": "overview returns to initial camera mode",
+      "pass": true
+    },
+    {
+      "name": "walk changes position",
+      "pass": true
+    },
+    {
+      "name": "run state",
+      "pass": true
+    },
+    {
+      "name": "progressive stop",
+      "pass": false
+    }
+  ],
+  "captures": [
+    "desktop-start.png",
+    "local-map.png",
+    "life-commerce.png",
+    "overview.png",
+    "failure.png"
+  ],
+  "errors": [
+    "progressive stop"
+  ],
+  "network": [
+    {
+      "event": "response",
+      "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "status": 200,
+      "mime": "text/html",
+      "contentDisposition": null
+    }
+  ],
+  "browserEvents": [],
+  "transport": "offline-file",
+  "headSha": "f5d80c1dbb0ce31900c575b73df0bea0611f2bea",
+  "sourceSha": "f5d80c1dbb0ce31900c575b73df0bea0611f2bea",
+  "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html",
+  "fixtureRequests": [],
+  "stage": "capture failure",
+  "browserVersion": "151.0.7922.34",
+  "loadSeconds": 3.646996012999992,
+  "failurePage": {
+    "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+    "closed": false
+  },
+  "traceback": "Traceback (most recent call last):\n  File \"/home/runner/work/louis/louis/togo-life-3d/tests/browser.py\", line 103, in <module>\n    page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run');page.keyboard.up('w');page.keyboard.up('Shift');page.wait_for_timeout(500);check('progressive stop',state()['player']['speed']<.1)\n                                                                                                                                                                                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/louis/louis/togo-life-3d/tests/browser.py\", line 58, in check\n    if not condition:raise AssertionError(name)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: progressive stop\n"
+}

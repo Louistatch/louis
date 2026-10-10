@@ -1,0 +1,400 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-10",
+  "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+  "artifactLabel": "autonomous-market CI5",
+  "ciRun": {
+    "url": "https://github.com/Louistatch/louis/actions/runs/38049623991",
+    "runId": 38049623991,
+    "artifactId": 11669595980,
+    "artifactZipSha256": "7708ed7a30f788e49f66354a89fb3d26cdab7cbe10c2c6605d0840b3cdaefc99",
+    "versionLabel": "CI5",
+    "artifactHashSource": "Parent verified downloaded ZIP; selected PNG hashes independently calculated by this audit."
+  },
+  "inputDirectory": "/tmp/togo-market-ci5",
+  "instructionsRead": "AGENTS.md and create-game-assets/SKILL.md; original asset-report and contact-sheet scripts previously audited and exact hashes rechecked.",
+  "scope": "Two original upstream raster QA runs on five live HTTPS screenshots and two emulated portrait screenshots; not a global gameplay validation.",
+  "tooling": {
+    "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+    "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+    "license": "Apache-2.0",
+    "licensePath": ".agents/skills/LICENSE.gamedev-skills",
+    "licenseGitBlobSha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+    "licenseHashVerified": true,
+    "assetReportScriptGitBlobSha": "6eb94d625ee1574356019181dc6168855343f9dd",
+    "contactSheetScriptGitBlobSha": "87a656c9dd69791a2aad0a3fd689abbbee670753",
+    "scriptHashesVerified": true,
+    "pillowVersion": "12.3.0",
+    "dependencyInstallation": false
+  },
+  "inputs": [
+    {
+      "path": "society-live/autonomous-kiosk-sale.png",
+      "bytes": 494718,
+      "sha256": "45611509fa937dd9ab657f346d87d05a6b3e5643b017ef5e8d30a95dfdc479ce"
+    },
+    {
+      "path": "society-live/autonomous-market-active.png",
+      "bytes": 668304,
+      "sha256": "3dcc66be47c01d04ce79c6e0233a8d152985dea2292fd226d7d87e8b9c467b78"
+    },
+    {
+      "path": "society-live/autonomous-price-refusal.png",
+      "bytes": 496063,
+      "sha256": "950fc061374239c13d26c800f94e703ce5bab73d75cce8b3765b85abfe19f5a1"
+    },
+    {
+      "path": "society-live/autonomous-restored-decisions.png",
+      "bytes": 489933,
+      "sha256": "35b7a54dd8b9a6ad10573619ae381f1963819acefbaa314b20e3923eff480cf4"
+    },
+    {
+      "path": "society-live/market-counteroffer.png",
+      "bytes": 248280,
+      "sha256": "2338b8cd2881da488bc1541d2cda20aaa1a934a68397928b45ce8e26d6afb9dc"
+    },
+    {
+      "path": "mobile-probe-portrait-start.png",
+      "bytes": 170449,
+      "sha256": "dc4488bd57aaec02a8becd8283931aba3b3991eb26e1cc459a77eee56d61c4d3"
+    },
+    {
+      "path": "mobile-probe-portrait-active.png",
+      "bytes": 259751,
+      "sha256": "4807eeb9658be85d3bbfd58b4f89a4bf0cad4319a1e80116135b26d4b84d23b4"
+    }
+  ],
+  "expectedDimensions": {
+    "desktop": {
+      "width": 1440,
+      "height": 900,
+      "deviceScaleFactor": 1
+    },
+    "mobilePortrait": {
+      "cssViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "physicalPixels": {
+        "width": 585,
+        "height": 1266
+      },
+      "deviceScaleFactor": 1.5,
+      "physicalAndroidValidated": false
+    },
+    "derivation": "Runner desktop viewport1440x900/defaultDPR1; mobile-probe raw emulation declares390x844/DPR1.5. No source image resizing performed."
+  },
+  "assetReports": [
+    {
+      "group": "society-live",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        ".agents/skills/create-game-assets/scripts/asset_report.py",
+        "/tmp/togo-market-ci5/society-live/autonomous-kiosk-sale.png",
+        "/tmp/togo-market-ci5/society-live/autonomous-market-active.png",
+        "/tmp/togo-market-ci5/society-live/autonomous-price-refusal.png",
+        "/tmp/togo-market-ci5/society-live/autonomous-restored-decisions.png",
+        "/tmp/togo-market-ci5/society-live/market-counteroffer.png",
+        "--expect-size",
+        "1440x900",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "ok": true,
+        "assets": [
+          {
+            "path": "/tmp/togo-market-ci5/society-live/autonomous-kiosk-sale.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1440,
+            "height": 900,
+            "bytes": 494718,
+            "color_count": 15237,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              1440,
+              900
+            ],
+            "problems": []
+          },
+          {
+            "path": "/tmp/togo-market-ci5/society-live/autonomous-market-active.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1440,
+            "height": 900,
+            "bytes": 668304,
+            "color_count": 34686,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              1440,
+              900
+            ],
+            "problems": []
+          },
+          {
+            "path": "/tmp/togo-market-ci5/society-live/autonomous-price-refusal.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1440,
+            "height": 900,
+            "bytes": 496063,
+            "color_count": 13611,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              1440,
+              900
+            ],
+            "problems": []
+          },
+          {
+            "path": "/tmp/togo-market-ci5/society-live/autonomous-restored-decisions.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1440,
+            "height": 900,
+            "bytes": 489933,
+            "color_count": 13533,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              1440,
+              900
+            ],
+            "problems": []
+          },
+          {
+            "path": "/tmp/togo-market-ci5/society-live/market-counteroffer.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 1440,
+            "height": 900,
+            "bytes": 248280,
+            "color_count": 10620,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              1440,
+              900
+            ],
+            "problems": []
+          }
+        ]
+      }
+    },
+    {
+      "group": "mobile-portrait",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        ".agents/skills/create-game-assets/scripts/asset_report.py",
+        "/tmp/togo-market-ci5/mobile-probe-portrait-start.png",
+        "/tmp/togo-market-ci5/mobile-probe-portrait-active.png",
+        "--expect-size",
+        "585x1266",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stderr": "",
+      "result": {
+        "ok": true,
+        "assets": [
+          {
+            "path": "/tmp/togo-market-ci5/mobile-probe-portrait-start.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 585,
+            "height": 1266,
+            "bytes": 170449,
+            "color_count": 13672,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              585,
+              1266
+            ],
+            "problems": []
+          },
+          {
+            "path": "/tmp/togo-market-ci5/mobile-probe-portrait-active.png",
+            "format": "PNG",
+            "mode": "RGB",
+            "width": 585,
+            "height": 1266,
+            "bytes": 259751,
+            "color_count": 29790,
+            "has_alpha": false,
+            "alpha_min": 255,
+            "alpha_max": 255,
+            "transparent_pixels": 0,
+            "content_bounds": [
+              0,
+              0,
+              585,
+              1266
+            ],
+            "problems": []
+          }
+        ]
+      }
+    }
+  ],
+  "contactSheet": {
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      ".agents/skills/create-game-assets/scripts/build_preview_sheet.py",
+      "/tmp/togo-market-ci5/society-live/autonomous-kiosk-sale.png",
+      "/tmp/togo-market-ci5/society-live/autonomous-market-active.png",
+      "/tmp/togo-market-ci5/society-live/autonomous-price-refusal.png",
+      "/tmp/togo-market-ci5/society-live/autonomous-restored-decisions.png",
+      "/tmp/togo-market-ci5/society-live/market-counteroffer.png",
+      "--out",
+      "/tmp/togo-market-ci5-contact-sheet.jpg",
+      "--columns",
+      "3",
+      "--cell-size",
+      "320"
+    ],
+    "exitCode": 0,
+    "stdout": "Wrote /tmp/togo-market-ci5-contact-sheet.jpg (5 assets, 3 columns)\n",
+    "stderr": "",
+    "output": "/tmp/togo-market-ci5-contact-sheet.jpg",
+    "dimensions": [
+      1032,
+      736
+    ],
+    "sha256": "784d86e86e7da642f4883772c9e1be885c904fae41ed306d3174d588391edf22",
+    "inputCount": 5,
+    "committed": false,
+    "visuallyInspected": true
+  },
+  "browserEvidence": {
+    "offlineSociety": {
+      "status": "pass",
+      "checks": 70,
+      "passed": 70,
+      "failed": [],
+      "errors": [],
+      "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+      "transport": "offline-file",
+      "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "browserVersion": "151.0.7922.34",
+      "stage": "completed"
+    },
+    "httpsSociety": {
+      "status": "pass",
+      "checks": 70,
+      "passed": 70,
+      "failed": [],
+      "errors": [],
+      "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+      "transport": "actual-http",
+      "entryUrl": "https://togo-life-preview.vercel.app?qa=1",
+      "browserVersion": "151.0.7922.34",
+      "stage": "completed"
+    },
+    "regression": {
+      "status": "failed",
+      "checks": 21,
+      "passed": 21,
+      "failed": [],
+      "errors": [
+        "Page.wait_for_function: Timeout 60000ms exceeded."
+      ],
+      "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+      "transport": "offline-file",
+      "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html",
+      "browserVersion": "151.0.7922.34",
+      "stage": "capture failure"
+    },
+    "mobileProbe": {
+      "status": "failed",
+      "checks": 12,
+      "passed": 12,
+      "failed": [],
+      "errors": [
+        "Locator.scroll_into_view_if_needed: Element is not attached to the DOM\nCall log:\n  - attempting scroll into view action\n    - waiting for element to be stable\n"
+      ],
+      "sourceSha": "01a79b84c7139c1e81e835d02942327a0ca4354a",
+      "transport": "offline-file",
+      "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "browserVersion": null,
+      "stage": "failed"
+    },
+    "httpProbe": {
+      "expectedSha256": "d7cd43a23c6c2d68fe495875f1c1fcc707e6685f33a1111be7d7798d88bb5571",
+      "browserValidated": false,
+      "preview": {
+        "url": "https://togo-life-preview.vercel.app",
+        "status": 200,
+        "mime": "text/html; charset=utf-8",
+        "bytes": 1948461,
+        "sha256": "d7cd43a23c6c2d68fe495875f1c1fcc707e6685f33a1111be7d7798d88bb5571",
+        "matchesBuild": true
+      }
+    }
+  },
+  "rights": {
+    "gameCaptures": "Original TOGO LIFE authored-game screenshots under project MIT; no external concept/reference image or new runtime asset introduced.",
+    "copiedInputPngCount": 0
+  },
+  "limits": [
+    "Raster validity and dimensions do not prove animation, topology, frame rate or professional visual quality.",
+    "The mobile probe stopped after12checks because a DOM element detached; portrait captures do not establish full tactile/landscape coverage.",
+    "The regression run timed out after21successful checks; it is failed, not globally passed.",
+    "Both autonomous70-check runs passed, but do not supersede interrupted regression/mobile flows.",
+    "The contact sheet is a QA derivative, not an additional browser screenshot.",
+    "CI6 planned fixes and later evidence are outside this CI5 archive."
+  ],
+  "visualInspection": {
+    "nativeScaleOpened": [
+      "society-live/autonomous-kiosk-sale.png",
+      "society-live/autonomous-market-active.png",
+      "society-live/autonomous-price-refusal.png",
+      "society-live/autonomous-restored-decisions.png",
+      "society-live/market-counteroffer.png",
+      "mobile-probe-portrait-start.png",
+      "mobile-probe-portrait-active.png"
+    ],
+    "observations": [
+      "HTTPS counteroffer shows315F per product,1260F total for four products and a finite60second reservation.",
+      "HTTPS sale capture shows eleven stocked products,450F revenue,135F merchandise profit and2670F player balance.",
+      "Desktop decision cards visibly distinguish each household wallet from its per-product ceiling and remember the refused1100F price.",
+      "The close button and Ma vie à Lomé header remain visible at the top of the desktop scrolled Commerce panel in CI5.",
+      "Restored-decision cards and their ceilings/refusal text remain readable after reload; JSON scenario assertions establish the actual persistence.",
+      "Active HTTPS scene shows avatar and shop facade with the interaction control below the character.",
+      "Portrait onboarding fits within390x844CSS with the real 3D avatar preview, personalization fields and start button visible.",
+      "Portrait active capture fits controls within screen: joystick/run are separated from the bottom dock; dense topHUD and a temporary welcome toast reduce the unobstructed scene area.",
+      "Characters and faces remain simplified/stylized; still captures cannot validate professional motion, frame rate or physical Android performance."
+    ],
+    "approval": "Raster integrity, native-scale readability and observed layout only; no global gameplay or commercial-quality approval."
+  }
+}

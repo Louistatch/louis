@@ -1,0 +1,481 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "name": "avatar preview visible before start",
+      "pass": true
+    },
+    {
+      "name": "start preserves selected avatar appearance",
+      "pass": true
+    },
+    {
+      "name": "NPC routines move during the morning trip",
+      "pass": true
+    },
+    {
+      "name": "local mini-map visible",
+      "pass": true
+    },
+    {
+      "name": "map has local destination controls",
+      "pass": true
+    },
+    {
+      "name": "destination sets orientation without teleport",
+      "pass": true
+    },
+    {
+      "name": "profile panel explains needs",
+      "pass": true
+    },
+    {
+      "name": "commerce panel explains stock and money",
+      "pass": true
+    },
+    {
+      "name": "management never performs remote transactions",
+      "pass": true
+    },
+    {
+      "name": "overview toggle has observable state",
+      "pass": true
+    },
+    {
+      "name": "overview does not move avatar",
+      "pass": true
+    },
+    {
+      "name": "overview returns to initial camera mode",
+      "pass": true
+    },
+    {
+      "name": "walk changes position",
+      "pass": true
+    },
+    {
+      "name": "run state",
+      "pass": true
+    },
+    {
+      "name": "progressive stop",
+      "pass": true
+    },
+    {
+      "name": "disabled choices include visible reasons",
+      "pass": true
+    },
+    {
+      "name": "market buy debits 1400 F",
+      "pass": true
+    },
+    {
+      "name": "kiosk has disabled unavailable actions",
+      "pass": true
+    },
+    {
+      "name": "unavailable commerce actions explain reason",
+      "pass": true
+    },
+    {
+      "name": "physical delivery stocks kiosk",
+      "pass": true
+    },
+    {
+      "name": "demand makes sales",
+      "pass": true
+    },
+    {
+      "name": "NPCs reach scheduled destinations",
+      "pass": true
+    },
+    {
+      "name": "building collision prevents entry through its wall",
+      "pass": true
+    },
+    {
+      "name": "pause freezes economy",
+      "pass": true
+    },
+    {
+      "name": "share excludes personal name",
+      "pass": true
+    },
+    {
+      "name": "save restores appearance",
+      "pass": true
+    },
+    {
+      "name": "save restores business",
+      "pass": true
+    },
+    {
+      "name": "no console/page errors",
+      "pass": true
+    },
+    {
+      "name": "mobile controls have 48px touch targets",
+      "pass": true
+    },
+    {
+      "name": "center of world remains unobstructed by HUD",
+      "pass": true
+    },
+    {
+      "name": "mobile joystick has 48px target",
+      "pass": true
+    },
+    {
+      "name": "mobile joystick changes position",
+      "pass": true
+    },
+    {
+      "name": "pointercancel stops movement",
+      "pass": true
+    },
+    {
+      "name": "responsive width",
+      "pass": true
+    },
+    {
+      "name": "no mobile console/page errors",
+      "pass": true
+    },
+    {
+      "name": "landscape joystick and run visible",
+      "pass": true
+    },
+    {
+      "name": "landscape controls do not overlap dock",
+      "pass": true
+    }
+  ],
+  "captures": [
+    "desktop-start.png",
+    "local-map.png",
+    "life-commerce.png",
+    "overview.png",
+    "desktop-active.png",
+    "share-card.png",
+    "mobile-active.png",
+    "mobile-landscape.png"
+  ],
+  "errors": [],
+  "network": [
+    {
+      "event": "response",
+      "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "status": 200,
+      "mime": "text/html",
+      "contentDisposition": null
+    },
+    {
+      "event": "response",
+      "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "status": 200,
+      "mime": "text/html",
+      "contentDisposition": null
+    },
+    {
+      "event": "response",
+      "url": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+      "status": 200,
+      "mime": "text/html",
+      "contentDisposition": null
+    }
+  ],
+  "browserEvents": [
+    "page closed",
+    "page closed",
+    "browser disconnected"
+  ],
+  "transport": "offline-file",
+  "headSha": "27d22e9bc55217f1c3e533dc76f0b47c4b167b60",
+  "sourceSha": "27d22e9bc55217f1c3e533dc76f0b47c4b167b60",
+  "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html",
+  "fixtureRequests": [],
+  "stage": "landscape controls do not overlap dock",
+  "browserVersion": "151.0.7922.34",
+  "loadSeconds": 0.7727243509999937,
+  "desktop": {
+    "player": {
+      "x": -12.89864894347842,
+      "z": 24.81655380524612,
+      "speed": 3.491259232378092e-98,
+      "animation": "Idle"
+    },
+    "camera": {
+      "yaw": 0.2,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "simulation": {
+      "version": 2,
+      "name": "Kossi",
+      "city": "lome",
+      "money": 5150,
+      "day": 1,
+      "time": 9.90222222222252,
+      "energy": 88.8001666666483,
+      "food": 88.97280000001456,
+      "rep": 0,
+      "experience": 1,
+      "carried": 0,
+      "stock": 3,
+      "biz": true,
+      "price": 550,
+      "sales": 1,
+      "revenue": 550,
+      "costs": 10400,
+      "debt": 0,
+      "rentPaid": 1,
+      "home": false,
+      "contract": null,
+      "completed": 0,
+      "conversations": [],
+      "saleClock": 4.4833333333336745,
+      "appearance": {
+        "shirt": "#217d7b",
+        "skin": "#936044"
+      },
+      "position": {
+        "x": -12.89864894347842,
+        "z": 24.81655380524612
+      },
+      "lastContractDay": 0,
+      "events": [
+        "Marchandises achetées : transportez-les au kiosque.",
+        "Votre kiosque est ouvert.",
+        "Stock livré : les clients achètent pendant votre exploration."
+      ]
+    },
+    "npcs": [
+      {
+        "id": "resident-0",
+        "state": "buy",
+        "visits": 1,
+        "x": -10.779272616622846,
+        "z": 0.42640970851594
+      },
+      {
+        "id": "resident-1",
+        "state": "walk",
+        "visits": 1,
+        "x": -10.401970256477437,
+        "z": 1.0054173609726675
+      },
+      {
+        "id": "resident-2",
+        "state": "walk",
+        "visits": 1,
+        "x": -6.75475273951531,
+        "z": -0.4928717058010024
+      },
+      {
+        "id": "resident-3",
+        "state": "walk",
+        "visits": 1,
+        "x": -7.384036460136314,
+        "z": 4.930170783891719
+      },
+      {
+        "id": "resident-4",
+        "state": "work",
+        "visits": 2,
+        "x": -7.887141469758683,
+        "z": -6.563464198922035
+      },
+      {
+        "id": "resident-5",
+        "state": "walk",
+        "visits": 1,
+        "x": -7.320382232602037,
+        "z": 17.403401498603472
+      },
+      {
+        "id": "resident-6",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.697207947524054,
+        "z": -5.5683175850051985
+      },
+      {
+        "id": "resident-7",
+        "state": "walk",
+        "visits": 0,
+        "x": 6.6799017529515785,
+        "z": 7.091733762580676
+      }
+    ],
+    "performance": {
+      "fps": 6.040531969515454,
+      "frameMs": 165.54833333333318,
+      "loadedMs": 399.20000000001164
+    },
+    "physics": {
+      "engine": "kinematic-circle-aabb",
+      "timestep": 0.016666666666666666,
+      "colliders": 30
+    },
+    "quality": "balanced"
+  },
+  "performanceMethod": "Rolling mean of up to 180 active requestAnimationFrame intervals (0<dt<2s), software CI renderer; mobile is an emulated viewport, not physical Android.",
+  "renderer": {
+    "calls": 52,
+    "triangles": 89258,
+    "memory": {
+      "geometries": 27,
+      "textures": 23
+    }
+  },
+  "mobileControlSizes": [
+    {
+      "id": "interactBtn",
+      "w": 105,
+      "h": 48
+    },
+    {
+      "id": "neighborhoodBtn",
+      "w": 89.5,
+      "h": 54
+    },
+    {
+      "id": "lifeBtn",
+      "w": 89.5,
+      "h": 54
+    },
+    {
+      "id": "businessBtn",
+      "w": 89.5,
+      "h": 54
+    },
+    {
+      "id": "pauseBtn",
+      "w": 89.5,
+      "h": 54
+    },
+    {
+      "id": "runBtn",
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "mobile": {
+    "player": {
+      "x": -7.435183984023579,
+      "z": 9.853170007436761,
+      "speed": 1.0873950382845474e-89,
+      "animation": "Idle"
+    },
+    "camera": {
+      "yaw": 0.2,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "simulation": {
+      "version": 2,
+      "name": "Kossi",
+      "city": "lome",
+      "money": 15000,
+      "day": 1,
+      "time": 8.49333333333341,
+      "energy": 89.85199999999509,
+      "food": 89.73360000000378,
+      "rep": 0,
+      "experience": 0,
+      "carried": 0,
+      "stock": 0,
+      "biz": false,
+      "price": 550,
+      "sales": 0,
+      "revenue": 0,
+      "costs": 0,
+      "debt": 0,
+      "rentPaid": 1,
+      "home": false,
+      "contract": null,
+      "completed": 0,
+      "conversations": [],
+      "saleClock": 0,
+      "appearance": {
+        "shirt": "#e8dfc6",
+        "skin": "#633f2e"
+      },
+      "position": {
+        "x": -7.435183984023579,
+        "z": 9.853170007436761
+      },
+      "lastContractDay": 0,
+      "events": []
+    },
+    "npcs": [
+      {
+        "id": "resident-0",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.680364290718983,
+        "z": -3.46700549059
+      },
+      {
+        "id": "resident-1",
+        "state": "buy",
+        "visits": 1,
+        "x": -10.234495102793689,
+        "z": 0.6260913492517879
+      },
+      {
+        "id": "resident-2",
+        "state": "buy",
+        "visits": 1,
+        "x": -10.004164547441945,
+        "z": 1.2017195581511337
+      },
+      {
+        "id": "resident-3",
+        "state": "buy",
+        "visits": 1,
+        "x": -10.034513216860336,
+        "z": 0.0392291465710909
+      },
+      {
+        "id": "resident-4",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.663266177459116,
+        "z": 6.251059992556087
+      },
+      {
+        "id": "resident-5",
+        "state": "walk",
+        "visits": 0,
+        "x": -7.2405622810485175,
+        "z": 10.371096433162615
+      },
+      {
+        "id": "resident-6",
+        "state": "walk",
+        "visits": 0,
+        "x": -1.2977243447513602,
+        "z": 28.96772259234318
+      },
+      {
+        "id": "resident-7",
+        "state": "walk",
+        "visits": 0,
+        "x": 6.680440169976652,
+        "z": 9.751357094318065
+      }
+    ],
+    "performance": {
+      "fps": 10.423860216034512,
+      "frameMs": 95.93374999999992,
+      "loadedMs": 292.1000000000349
+    },
+    "physics": {
+      "engine": "kinematic-circle-aabb",
+      "timestep": 0.016666666666666666,
+      "colliders": 30
+    },
+    "quality": "balanced"
+  }
+}

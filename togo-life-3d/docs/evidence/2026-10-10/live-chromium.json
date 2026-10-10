@@ -1,0 +1,254 @@
+{
+  "engine": "chromium",
+  "status": "pass",
+  "errors": [],
+  "captures": [
+    "live-chromium-start.png",
+    "live-chromium-active.png",
+    "live-chromium-overview.png",
+    "live-chromium-commerce.png"
+  ],
+  "sourceSha": "6740be8f053944bf027c4497c96786e13d0dc762",
+  "transport": "https",
+  "stage": "pass",
+  "version": "151.0.7922.34",
+  "controlPassed": true,
+  "entryUrl": "https://togo-life-preview.vercel.app?qa=1",
+  "onboardingSeconds": 3.7884998189999806,
+  "activeState": {
+    "player": {
+      "x": -7,
+      "z": 12,
+      "speed": 0,
+      "animation": "Idle"
+    },
+    "camera": {
+      "yaw": 0.2,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "simulation": {
+      "version": 2,
+      "name": "Kossi",
+      "city": "lome",
+      "money": 15000,
+      "day": 1,
+      "time": 8.11611111111113,
+      "energy": 89.96516666666551,
+      "food": 89.93730000000089,
+      "rep": 0,
+      "experience": 0,
+      "carried": 0,
+      "stock": 0,
+      "biz": false,
+      "price": 550,
+      "sales": 0,
+      "revenue": 0,
+      "costs": 0,
+      "debt": 0,
+      "rentPaid": 1,
+      "home": false,
+      "contract": null,
+      "completed": 0,
+      "conversations": [],
+      "saleClock": 0,
+      "appearance": {
+        "shirt": "#e8dfc6",
+        "skin": "#633f2e"
+      },
+      "position": {
+        "x": -7,
+        "z": 12
+      },
+      "lastContractDay": 0,
+      "events": []
+    },
+    "npcs": [
+      {
+        "id": "resident-0",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.7411927098314415,
+        "z": -14.766767017060495
+      },
+      {
+        "id": "resident-1",
+        "state": "walk",
+        "visits": 0,
+        "x": -7.272259825830037,
+        "z": -3.243571037332753
+      },
+      {
+        "id": "resident-2",
+        "state": "buy",
+        "visits": 1,
+        "x": -9.572018311953645,
+        "z": 0.7837711530850917
+      },
+      {
+        "id": "resident-3",
+        "state": "buy",
+        "visits": 1,
+        "x": -9.924679190443928,
+        "z": 0.2833641281974287
+      },
+      {
+        "id": "resident-4",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.739264665091149,
+        "z": 19.243459066690164
+      },
+      {
+        "id": "resident-5",
+        "state": "walk",
+        "visits": 0,
+        "x": -7.296424711769275,
+        "z": 24.73206199246094
+      },
+      {
+        "id": "resident-6",
+        "state": "walk",
+        "visits": 0,
+        "x": 7.280032165622847,
+        "z": 26.23299608157898
+      },
+      {
+        "id": "resident-7",
+        "state": "walk",
+        "visits": 0,
+        "x": 6.743992930931185,
+        "z": -3.2434233567245734
+      }
+    ],
+    "performance": {
+      "fps": 4.304553696046334,
+      "frameMs": 232.31212121212116,
+      "loadedMs": 674.2999999999884
+    },
+    "physics": {
+      "engine": "kinematic-circle-aabb",
+      "timestep": 0.016666666666666666,
+      "colliders": 30
+    },
+    "quality": "balanced"
+  },
+  "state": {
+    "player": {
+      "x": -7,
+      "z": 12,
+      "speed": 0,
+      "animation": "Idle"
+    },
+    "camera": {
+      "yaw": 0.2,
+      "pitch": 0.38,
+      "overview": true
+    },
+    "simulation": {
+      "version": 2,
+      "name": "Kossi",
+      "city": "lome",
+      "money": 15000,
+      "day": 1,
+      "time": 8.268888888888931,
+      "energy": 89.91933333333066,
+      "food": 89.85480000000206,
+      "rep": 0,
+      "experience": 0,
+      "carried": 0,
+      "stock": 0,
+      "biz": false,
+      "price": 550,
+      "sales": 0,
+      "revenue": 0,
+      "costs": 0,
+      "debt": 0,
+      "rentPaid": 1,
+      "home": false,
+      "contract": null,
+      "completed": 0,
+      "conversations": [],
+      "saleClock": 0,
+      "appearance": {
+        "shirt": "#e8dfc6",
+        "skin": "#633f2e"
+      },
+      "position": {
+        "x": -7,
+        "z": 12
+      },
+      "lastContractDay": 0,
+      "events": []
+    },
+    "npcs": [
+      {
+        "id": "resident-0",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.705082719472126,
+        "z": -10.183575932996764
+      },
+      {
+        "id": "resident-1",
+        "state": "walk",
+        "visits": 0,
+        "x": -8.407245287692815,
+        "z": 0.818472747132467
+      },
+      {
+        "id": "resident-2",
+        "state": "buy",
+        "visits": 1,
+        "x": -9.56976884940033,
+        "z": 0.7869630207760445
+      },
+      {
+        "id": "resident-3",
+        "state": "buy",
+        "visits": 1,
+        "x": -9.926928652997244,
+        "z": 0.28017226050647615
+      },
+      {
+        "id": "resident-4",
+        "state": "walk",
+        "visits": 0,
+        "x": -6.696141108458731,
+        "z": 13.972802144954425
+      },
+      {
+        "id": "resident-5",
+        "state": "walk",
+        "visits": 0,
+        "x": -7.31928621087156,
+        "z": 18.79554786093363
+      },
+      {
+        "id": "resident-6",
+        "state": "walk",
+        "visits": 0,
+        "x": 5.43548791376349,
+        "z": 28.927343642838387
+      },
+      {
+        "id": "resident-7",
+        "state": "walk",
+        "visits": 0,
+        "x": 6.707503420758108,
+        "z": 2.027283668279302
+      }
+    ],
+    "performance": {
+      "fps": 0,
+      "frameMs": 0,
+      "loadedMs": 674.2999999999884
+    },
+    "physics": {
+      "engine": "kinematic-circle-aabb",
+      "timestep": 0.016666666666666666,
+      "colliders": 30
+    },
+    "quality": "balanced"
+  }
+}

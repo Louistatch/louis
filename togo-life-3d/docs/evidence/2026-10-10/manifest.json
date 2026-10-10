@@ -1,0 +1,127 @@
+{
+  "date": "2026-10-10",
+  "gameEntrySha256": "6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe",
+  "gameEntryBytes": 1876887,
+  "files": [
+    {
+      "path": "docs/evidence/2026-10-10/actual-compositor-motion.webm",
+      "bytes": 654021,
+      "sha256": "f1703f562be40a3f4d02ae0bce997147646e6ccb982778a2694df16f8a8978f2"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/browser-results.json",
+      "bytes": 10588,
+      "sha256": "312cac12def044128a3ab4ada3db7788058866e61b3a0d855563f0485543b35d"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/budget-review.json",
+      "bytes": 3149,
+      "sha256": "b8386f9eaa82f6a4ac5909521bc6dfe6f5994eb1f4f2fe73b96ebd14938bd51d"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/budget-self-checks.json",
+      "bytes": 485,
+      "sha256": "4c851fd77ddb1d9624d4f709d36cd086538fafe57d28ec045d8033ef62fd462e"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/ci11/browser-results.json",
+      "bytes": 10577,
+      "sha256": "87641c4f0340801b0067022cc0ee13a482c833af99b0a7d5d9b0c791f923707b"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/ci11/live-chromium.json",
+      "bytes": 5442,
+      "sha256": "a2e3d6a10fbd1532a969599fc335db70613a59e716568a5777d499ab9a78808c"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/ci11/mobile-probe.json",
+      "bytes": 22937,
+      "sha256": "ca2ce98a10babba0d12d11dac553919862120e984627c5afc9075cb07769d9aa"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/ci11/public-preview.json",
+      "bytes": 786,
+      "sha256": "ec176bf4793f42838041d5384af70610385140ae777819c902fd640d0a063b5d"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/director-check.txt",
+      "bytes": 345,
+      "sha256": "5a00c5f2bde06c8e22169b5ecb9716fe603489e9e6fcc16b2d2ef6334c418bce"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/director-manifest.json",
+      "bytes": 313,
+      "sha256": "cd074b37c334f22b3fe60540879be1890b18b417febb0c483d25cddac8d21b08"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/live-chromium.json",
+      "bytes": 5446,
+      "sha256": "4303a655b13ff9a83dfbefe9f787d1d65d4a22d317bb98a0b7132daf5212ba91"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/mobile-probe.json",
+      "bytes": 22936,
+      "sha256": "c0909a0fe5ef1f8b36c6124ac68972ce469aafc99bf3630e1a78eca28fd5d19c"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/motion-results.json",
+      "bytes": 41687,
+      "sha256": "9f23d90586d01f8988b8ceb4e9a99c484c6638288d3afef14c0e62c995c31085"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/original-inspector.json",
+      "bytes": 9370,
+      "sha256": "69f8b518d9d690a26406a95bb77b5ab0156c1a3f60d12e30dc6608eb86c1ed14"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/performance-profiles.json",
+      "bytes": 16400,
+      "sha256": "7abd6eb2107aad8d14f51769bc732d0894afb6219f282a0d4f7cfcdd930cbc50"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/public-preview.json",
+      "bytes": 786,
+      "sha256": "074ea73362638083b1717b4b8e49f65b16fb0ae50e7e9ddb018422a9aaa98875"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/screencast-results.json",
+      "bytes": 27191,
+      "sha256": "12cf04467c385138be750cdd634dc90d702c2e13fe7e25947962e1711db19207"
+    },
+    {
+      "path": "docs/evidence/2026-10-10/skills-install-validation.json",
+      "bytes": 854,
+      "sha256": "a4f6e7220d46bddead741ec8465d053f46f5ebb1cab4d8819f50123acec5a858"
+    },
+    {
+      "path": "docs/captures/2026-10-10/commerce.png",
+      "bytes": 610229,
+      "sha256": "e24e81a77af91697d9c27b46be1acfd29b75a1ebab8bdecb2ee9741df2008c49"
+    },
+    {
+      "path": "docs/captures/2026-10-10/desktop-https.png",
+      "bytes": 916667,
+      "sha256": "033a1d4312710ba97001f29de85b1ee92045bb0ed64906c82ae6381c6b764dde"
+    },
+    {
+      "path": "docs/captures/2026-10-10/mobile-landscape.png",
+      "bytes": 487685,
+      "sha256": "b2d895dde987435b7666f476dd987db75d9af34533657487bc6338f4b345c091"
+    },
+    {
+      "path": "docs/captures/2026-10-10/mobile-portrait.png",
+      "bytes": 295908,
+      "sha256": "179d4c2bd25b9844ecef883ce58259cce89271ad65a478b34e5c54f7abef34e1"
+    },
+    {
+      "path": "docs/captures/2026-10-10/onboarding-inspector.png",
+      "bytes": 416782,
+      "sha256": "2c19612d3059e265c12bddfb42d12c827e27c6fd320737f183f8ba1d91ad4f78"
+    },
+    {
+      "path": "docs/captures/2026-10-10/overview-https.png",
+      "bytes": 927025,
+      "sha256": "34d9243d90461e2ab9ec388b7d14e14bcf0a7f1a20ac290e9f26d474c5646dc8"
+    }
+  ]
+}

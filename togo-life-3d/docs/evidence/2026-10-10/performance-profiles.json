@@ -1,0 +1,646 @@
+{
+  "status": "pass",
+  "engine": "chromium",
+  "transport": "offline-file",
+  "launchFlags": [
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--use-gl=angle",
+    "--use-angle=swiftshader",
+    "--enable-unsafe-swiftshader"
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "sampleSeconds": 10,
+  "profiles": {
+    "balanced": {
+      "state": {
+        "player": {
+          "x": -7,
+          "z": 12,
+          "speed": 0,
+          "animation": "Idle"
+        },
+        "camera": {
+          "yaw": 0.2,
+          "pitch": 0.38,
+          "overview": false
+        },
+        "simulation": {
+          "version": 2,
+          "name": "Kossi",
+          "city": "lome",
+          "money": 15000,
+          "day": 1,
+          "time": 8.198333333333364,
+          "energy": 89.94049999999802,
+          "food": 89.89290000000152,
+          "rep": 0,
+          "experience": 0,
+          "carried": 0,
+          "stock": 0,
+          "biz": false,
+          "price": 550,
+          "sales": 0,
+          "revenue": 0,
+          "costs": 0,
+          "debt": 0,
+          "rentPaid": 1,
+          "home": false,
+          "contract": null,
+          "completed": 0,
+          "conversations": [],
+          "saleClock": 0,
+          "appearance": {
+            "shirt": "#e8dfc6",
+            "skin": "#633f2e"
+          },
+          "position": {
+            "x": -7,
+            "z": 12
+          },
+          "lastContractDay": 0,
+          "events": []
+        },
+        "npcs": [
+          {
+            "id": "resident-0",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.721758969565347,
+            "z": -12.300176906364378
+          },
+          {
+            "id": "resident-1",
+            "state": "walk",
+            "visits": 0,
+            "x": -7.3041703065588095,
+            "z": -0.40708386144115877
+          },
+          {
+            "id": "resident-2",
+            "state": "buy",
+            "visits": 1,
+            "x": -9.56976884978048,
+            "z": 0.7869630202366052
+          },
+          {
+            "id": "resident-3",
+            "state": "buy",
+            "visits": 1,
+            "x": -9.926928652617093,
+            "z": 0.2801722610459154
+          },
+          {
+            "id": "resident-4",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.716056350976247,
+            "z": 16.40688734153784
+          },
+          {
+            "id": "resident-5",
+            "state": "walk",
+            "visits": 0,
+            "x": -7.318997181968944,
+            "z": 21.54721451242096
+          },
+          {
+            "id": "resident-6",
+            "state": "walk",
+            "visits": 0,
+            "x": 7.315658078915813,
+            "z": 28.699405463402123
+          },
+          {
+            "id": "resident-7",
+            "state": "walk",
+            "visits": 0,
+            "x": 6.724354940001675,
+            "z": -0.40682466690430413
+          }
+        ],
+        "performance": {
+          "fps": 4.623163030434182,
+          "frameMs": 216.30212765957455,
+          "loadedMs": 476.5
+        },
+        "physics": {
+          "engine": "kinematic-circle-aabb",
+          "timestep": 0.016666666666666666,
+          "colliders": 30
+        },
+        "quality": "balanced"
+      },
+      "renderer": {
+        "calls": 58,
+        "triangles": 89752,
+        "memory": {
+          "geometries": 21,
+          "textures": 18
+        }
+      },
+      "framebuffer": {
+        "width": 1280,
+        "height": 800,
+        "drawingBufferWidth": 1280,
+        "drawingBufferHeight": 800,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "devicePixelRatio": 1
+      },
+      "gpu": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "maskedVendor": "WebKit",
+        "maskedRenderer": "WebKit WebGL",
+        "debugExtensionAvailable": true
+      },
+      "openDialogs": [],
+      "visibility": "visible",
+      "sampleWallSeconds": 10.9,
+      "beforePlayer": {
+        "x": -7,
+        "z": 12,
+        "speed": 0,
+        "animation": "Idle"
+      }
+    },
+    "low": {
+      "state": {
+        "player": {
+          "x": -7,
+          "z": 12,
+          "speed": 0,
+          "animation": "Idle"
+        },
+        "camera": {
+          "yaw": 0.2,
+          "pitch": 0.38,
+          "overview": false
+        },
+        "simulation": {
+          "version": 2,
+          "name": "Kossi",
+          "city": "lome",
+          "money": 15000,
+          "day": 1,
+          "time": 8.478333333333408,
+          "energy": 89.85649999999524,
+          "food": 89.74170000000366,
+          "rep": 0,
+          "experience": 0,
+          "carried": 0,
+          "stock": 0,
+          "biz": false,
+          "price": 550,
+          "sales": 0,
+          "revenue": 0,
+          "costs": 0,
+          "debt": 0,
+          "rentPaid": 1,
+          "home": false,
+          "contract": null,
+          "completed": 0,
+          "conversations": [],
+          "saleClock": 0,
+          "appearance": {
+            "shirt": "#e8dfc6",
+            "skin": "#633f2e"
+          },
+          "position": {
+            "x": -7,
+            "z": 12
+          },
+          "lastContractDay": 0,
+          "events": []
+        },
+        "npcs": [
+          {
+            "id": "resident-0",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.6804009888657365,
+            "z": -3.9170054890936075
+          },
+          {
+            "id": "resident-1",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.234495101969765,
+            "z": 0.6260913492666286
+          },
+          {
+            "id": "resident-2",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.00416454788965,
+            "z": 1.2017195570322554
+          },
+          {
+            "id": "resident-3",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.034513217236556,
+            "z": 0.03922914767512838
+          },
+          {
+            "id": "resident-4",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.468333331237791,
+            "z": 12.000000085906366
+          },
+          {
+            "id": "resident-5",
+            "state": "walk",
+            "visits": 0,
+            "x": -7.4995411553268445,
+            "z": 12.004267743649521
+          },
+          {
+            "id": "resident-6",
+            "state": "walk",
+            "visits": 0,
+            "x": -0.8477324363852689,
+            "z": 28.9650239991832
+          },
+          {
+            "id": "resident-7",
+            "state": "walk",
+            "visits": 0,
+            "x": 6.680457363281984,
+            "z": 9.233857094603668
+          }
+        ],
+        "performance": {
+          "fps": 3.8192490150357803,
+          "frameMs": 261.8315789473684,
+          "loadedMs": 476.5
+        },
+        "physics": {
+          "engine": "kinematic-circle-aabb",
+          "timestep": 0.016666666666666666,
+          "colliders": 30
+        },
+        "quality": "low"
+      },
+      "renderer": {
+        "calls": 51,
+        "triangles": 89256,
+        "memory": {
+          "geometries": 21,
+          "textures": 17
+        }
+      },
+      "framebuffer": {
+        "width": 960,
+        "height": 600,
+        "drawingBufferWidth": 960,
+        "drawingBufferHeight": 600,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "devicePixelRatio": 1
+      },
+      "gpu": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "maskedVendor": "WebKit",
+        "maskedRenderer": "WebKit WebGL",
+        "debugExtensionAvailable": true
+      },
+      "openDialogs": [],
+      "visibility": "visible",
+      "sampleWallSeconds": 10.501,
+      "beforePlayer": {
+        "x": -7,
+        "z": 12,
+        "speed": 0,
+        "animation": "Idle"
+      }
+    },
+    "high": {
+      "state": {
+        "player": {
+          "x": -7,
+          "z": 12,
+          "speed": 0,
+          "animation": "Idle"
+        },
+        "camera": {
+          "yaw": 0.2,
+          "pitch": 0.38,
+          "overview": false
+        },
+        "simulation": {
+          "version": 2,
+          "name": "Kossi",
+          "city": "lome",
+          "money": 15000,
+          "day": 1,
+          "time": 8.752777777777895,
+          "energy": 89.77416666665917,
+          "food": 89.59350000000576,
+          "rep": 0,
+          "experience": 0,
+          "carried": 0,
+          "stock": 0,
+          "biz": false,
+          "price": 550,
+          "sales": 0,
+          "revenue": 0,
+          "costs": 0,
+          "debt": 0,
+          "rentPaid": 1,
+          "home": false,
+          "contract": null,
+          "completed": 0,
+          "conversations": [],
+          "saleClock": 0,
+          "appearance": {
+            "shirt": "#e8dfc6",
+            "skin": "#633f2e"
+          },
+          "position": {
+            "x": -7,
+            "z": 12
+          },
+          "lastContractDay": 0,
+          "events": []
+        },
+        "npcs": [
+          {
+            "id": "resident-0",
+            "state": "walk",
+            "visits": 0,
+            "x": -9.895256315871727,
+            "z": 0.6824780974327217
+          },
+          {
+            "id": "resident-1",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.372883091848454,
+            "z": 0.6022051193789276
+          },
+          {
+            "id": "resident-2",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.027486671446168,
+            "z": 1.2528927221163046
+          },
+          {
+            "id": "resident-3",
+            "state": "buy",
+            "visits": 1,
+            "x": -10.034513216782612,
+            "z": 0.03922914634298141
+          },
+          {
+            "id": "resident-4",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.468333333333332,
+            "z": 12.000000000000028
+          },
+          {
+            "id": "resident-5",
+            "state": "walk",
+            "visits": 0,
+            "x": -7.496666666666675,
+            "z": 12.000000000000021
+          },
+          {
+            "id": "resident-6",
+            "state": "walk",
+            "visits": 0,
+            "x": -6.621951597563546,
+            "z": 26.516411038198893
+          },
+          {
+            "id": "resident-7",
+            "state": "walk",
+            "visits": 0,
+            "x": 6.6801427894732575,
+            "z": 18.702190422711283
+          }
+        ],
+        "performance": {
+          "fps": 3.829950210647261,
+          "frameMs": 261.1,
+          "loadedMs": 476.5
+        },
+        "physics": {
+          "engine": "kinematic-circle-aabb",
+          "timestep": 0.016666666666666666,
+          "colliders": 30
+        },
+        "quality": "high"
+      },
+      "renderer": {
+        "calls": 51,
+        "triangles": 89256,
+        "memory": {
+          "geometries": 21,
+          "textures": 18
+        }
+      },
+      "framebuffer": {
+        "width": 1440,
+        "height": 900,
+        "drawingBufferWidth": 1440,
+        "drawingBufferHeight": 900,
+        "cssWidth": 1440,
+        "cssHeight": 900,
+        "devicePixelRatio": 1
+      },
+      "gpu": {
+        "vendor": "Google Inc. (Google)",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "maskedVendor": "WebKit",
+        "maskedRenderer": "WebKit WebGL",
+        "debugExtensionAvailable": true
+      },
+      "openDialogs": [],
+      "visibility": "visible",
+      "sampleWallSeconds": 10.905,
+      "beforePlayer": {
+        "x": -7,
+        "z": 12,
+        "speed": 0,
+        "animation": "Idle"
+      }
+    }
+  },
+  "errors": [],
+  "performanceMethod": "Product diagnostic rolling mean of up to 180 active RAF intervals; each profile runs for 10 wall-clock seconds after resuming. No FPS inferred from draw calls.",
+  "limitations": [
+    "Software Chromium renderer; not physical Android or hardware GPU validation.",
+    "Sequential samples have evolving NPC and traffic positions; camera and player remain fixed.",
+    "Renderer.info counts are latest render-pass counters, not GPU timings or guaranteed total multipass calls."
+  ],
+  "entryUrl": "file:///home/runner/work/louis/louis/togo-life-3d/dist/TOGO_LIFE_MONTAGNE.html?qa=1",
+  "entryBytes": 1876887,
+  "entrySha256": "6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe",
+  "sourceSha": "6740be8f053944bf027c4497c96786e13d0dc762",
+  "sourceDirty": false,
+  "stage": "complete",
+  "elapsedSeconds": 49.059,
+  "version": "151.0.7922.34",
+  "onboardingSeconds": 2.983,
+  "initialPlayer": {
+    "x": -7,
+    "z": 12,
+    "speed": 0,
+    "animation": "Idle"
+  },
+  "restored": {
+    "state": {
+      "player": {
+        "x": -7,
+        "z": 12,
+        "speed": 0,
+        "animation": "Idle"
+      },
+      "camera": {
+        "yaw": 0.2,
+        "pitch": 0.38,
+        "overview": false
+      },
+      "simulation": {
+        "version": 2,
+        "name": "Kossi",
+        "city": "lome",
+        "money": 15000,
+        "day": 1,
+        "time": 8.77888888888901,
+        "energy": 89.76633333332558,
+        "food": 89.57940000000596,
+        "rep": 0,
+        "experience": 0,
+        "carried": 0,
+        "stock": 0,
+        "biz": false,
+        "price": 550,
+        "sales": 0,
+        "revenue": 0,
+        "costs": 0,
+        "debt": 0,
+        "rentPaid": 1,
+        "home": false,
+        "contract": null,
+        "completed": 0,
+        "conversations": [],
+        "saleClock": 0,
+        "appearance": {
+          "shirt": "#e8dfc6",
+          "skin": "#633f2e"
+        },
+        "position": {
+          "x": -7,
+          "z": 12
+        },
+        "lastContractDay": 0,
+        "events": []
+      },
+      "npcs": [
+        {
+          "id": "resident-0",
+          "state": "walk",
+          "visits": 0,
+          "x": -10.31181522343236,
+          "z": 0.7144579412654254
+        },
+        {
+          "id": "resident-1",
+          "state": "buy",
+          "visits": 1,
+          "x": -10.737160602432397,
+          "z": 0.49986980892758126
+        },
+        {
+          "id": "resident-2",
+          "state": "buy",
+          "visits": 1,
+          "x": -10.028920842696541,
+          "z": 1.2865274435734828
+        },
+        {
+          "id": "resident-3",
+          "state": "buy",
+          "visits": 1,
+          "x": -10.034513216782612,
+          "z": 0.03922914634298141
+        },
+        {
+          "id": "resident-4",
+          "state": "walk",
+          "visits": 0,
+          "x": -6.468333333333332,
+          "z": 12.000000000000028
+        },
+        {
+          "id": "resident-5",
+          "state": "walk",
+          "visits": 0,
+          "x": -7.496666666666675,
+          "z": 12.000000000000021
+        },
+        {
+          "id": "resident-6",
+          "state": "walk",
+          "visits": 0,
+          "x": -6.634880988831821,
+          "z": 25.73318441585232
+        },
+        {
+          "id": "resident-7",
+          "state": "walk",
+          "visits": 0,
+          "x": 6.680112860386179,
+          "z": 19.603023755547373
+        }
+      ],
+      "performance": {
+        "fps": 0,
+        "frameMs": 0,
+        "loadedMs": 476.5
+      },
+      "physics": {
+        "engine": "kinematic-circle-aabb",
+        "timestep": 0.016666666666666666,
+        "colliders": 30
+      },
+      "quality": "balanced"
+    },
+    "renderer": {
+      "calls": 51,
+      "triangles": 89256,
+      "memory": {
+        "geometries": 21,
+        "textures": 18
+      }
+    },
+    "framebuffer": {
+      "width": 1280,
+      "height": 800,
+      "drawingBufferWidth": 1280,
+      "drawingBufferHeight": 800,
+      "cssWidth": 1440,
+      "cssHeight": 900,
+      "devicePixelRatio": 1
+    },
+    "gpu": {
+      "vendor": "Google Inc. (Google)",
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "maskedVendor": "WebKit",
+      "maskedRenderer": "WebKit WebGL",
+      "debugExtensionAvailable": true
+    },
+    "openDialogs": [],
+    "visibility": "visible"
+  }
+}

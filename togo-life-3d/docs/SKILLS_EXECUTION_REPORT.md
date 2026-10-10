@@ -251,3 +251,44 @@ Firefox : échec WebGL. Les étapes `continue-on-error` ne sont jamais comptées
 ### Skill d’hébergement effectivement appliqué
 
 `vercel:deployments-cicd` fourni par le connecteur Vercel, source cloud `c8/deployments-cicd`, instructions lues le 10 octobre ; aucune origine GitHub ou licence open source inventée. Installation : skill préinstallé, chargé via `skills.read`. Actions : création du projet isolé `togo-life-preview`, déploiement de `index.html` contenant exclusivement le monofichier du jeu, contrôle READY puis preuve HTTPS en CI. Fichier produit : build du jeu hébergé ; aucun fichier BAD/Bryq modifié. Le target technique Vercel est `production` dans ce nouveau projet exclusivement consacré à l’aperçu, car l’API a rejeté `preview` ; ce n’est pas une fusion GitHub sur main. Authentification publique désactivée pour rendre le jeu accessible. Aucune clé, fonction serveur, API payante ou message envoyé à un tiers.
+
+
+## Validation finale CI9 / CI11 et scripts originaux exécutés
+
+10 octobre 2026. Contenu du jeu `6740be8f053944bf027c4497c96786e13d0dc762`, SHA-256 monofichier `6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe`. Les commits QA ultérieurs jusqu’à `27d22e9bc55217f1c3e533dc76f0b47c4b167b60` ne changent pas ces octets.
+
+[CI11 navigateur](https://github.com/Louistatch/louis/actions/runs/38025435352) : 31 tests Node, 37 assertions navigateur et 21 assertions tactiles PASS ; JSON bruts dans [evidence/2026-10-10/ci11](evidence/2026-10-10/ci11). HTTP/hash public identique et probe HTTPS réel PASS. Les corrections de dock/ombres ont été jugées sur les captures CI9 réellement inspectées. Firefox reste échec WebGL, pas une validation.
+
+[CI9 audit de skills](https://github.com/Louistatch/louis/actions/runs/38024687518) a **réellement exécuté** les deux scripts installés du pack principal :
+
+```sh
+node .claude/skills/threejs-qa-release/scripts/inspect-threejs-canvas.mjs \
+  --url https://togo-life-preview.vercel.app?qa=1 \
+  --out artifacts/original-inspector --run-id ci-38024687518 --wait 1000
+python3 .claude/skills/threejs-game-director/scripts/check_evidence.py . \
+  --manifest artifacts/director-manifest.json
+```
+
+Résultats : inspector desktop result.ok true, canvas d’accueil non vide, PNG réel, zéro erreur console/page ; director PASS quatre artifacts présents. Rapports originaux [inspector](evidence/2026-10-10/original-inspector.json), [manifest](evidence/2026-10-10/director-manifest.json), [sortie](evidence/2026-10-10/director-check.txt). **Limites :** accueil, pas parcours actif ; compteurs budget nuls dans l’inspector, aucune certification premium ou FPS déduite. Les noms de chemins d’origine sont conservés après archivage ; le checker a tourné dans le layout CI. Dépendances de test temporaires @playwright/test 1.62.0 Apache-2.0 et pngjs 7.0.0 MIT, ajoutées sans scripts npm, sans lock modifié ni dépendance runtime.
+
+Les instructions performance/QA ont aussi guidé scripts/performance_profiles.py : trois profils réellement sélectionnés via l’UI et dix secondes actives chacun. [Rapport](evidence/2026-10-10/performance-profiles.json) : balanced 4,62 FPS, low 3,82, high 3,83 en SwiftShader ; aucun gain du mode low affirmé. Compteurs connus, timings CPU/GPU absents. [CI11 motion](https://github.com/Louistatch/louis/actions/runs/38025435266) exécute qa/capture_screencast.py et FFmpeg : 24 JPEG réels et WebM VFR, états réels indépendants. PASS de couverture, **pas validation de fluidité** : décalage images/diagnostics et 1,76 image reçue/s. [Limites et mesures complètes](INTERFACE_VALIDATION_REPORT.md).
+
+Mise à jour hébergement : le dernier déploiement du projet isolé sert le monofichier dans index.html **et les trois fichiers de secours conservés** legacy.html/game.js/style.css. L’alias public correspond au build vérifié, source 6740be8f ; aucune modification ou mise en production de BAD/Bryq.
+
+## Cinq skills Codex demandés — gamedev-skills
+
+Origine commune : [gamedev-skills/awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills). Licence **Apache-2.0** jointe à `.agents/skills/LICENSE.gamedev-skills`. Commit commun **0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd** (9 octobre 2026). Installation limitée au jeu, Codex, pas globale.
+
+Commande demandée réellement tentée avec confirmation non interactive, npm ignore-scripts, cache dans /workspace/research, DISABLE_TELEMETRY/DO_NOT_TRACK : `npx skills add gamedev-skills/awesome-gamedev-agent-skills -a codex --skill ai-behavior-trees-utility-ai --skill game-ai --skill procedural-gen --skill dialogue-systems --skill performance-optimization -y`. **Échec EPERM du registre npm avant téléchargement** ; ne pas prétendre que npx a installé le pack. Alternative officielle [copie locale](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd/docs/INSTALLATION.md) réellement appliquée via GitHub à commit épinglé. 17 fichiers licence/skills/références byte-identiques aux blobs d’origine. Aucun script exécutable dans ces cinq dossiers ; scripts du CLI et validateur inspectés, aucune permission système ajoutée. Version CLI lue sur GitHub : 1.7.2 ; **pas téléchargée/exécutée**.
+
+| Skill | Rôle / action effective | Fichiers produits | Tests / résultat | Limite |
+|---|---|---|---|---|
+| ai-behavior-trees-utility-ai | SKILL.md et références utility/best-practices lus, audit horaires/routines de src/npcs.js, mémoire/Running/hystérésis examinés | Dossier complet installé, GAMEDEV_SKILLS_APPLICATION.md | Validateur amont sur SKILL.md/références PASS | Aucun runtime BT/Utility ajouté |
+| game-ai | Instructions/pathfinding lus, revue graphe 12 waypoints/11 liens, recherche lors changement de but et steering | Dossier complet, rapport d’application | Validateur PASS ; navigateur constate PNJ atteignant destinations | Pas navmesh, obstacles dynamiques ou crowd robuste |
+| procedural-gen | Instructions/noise lus, revue seed 37/texture bornée, séparation contenu et rendu | Dossier complet, rapport d’application | Validateur PASS ; tests spawn/parcours déjà passants | Pas nouvelle ville générée ni noise terrain |
+| dialogue-systems | Instructions/runner lus, revue option talk/persistance/anti-farming, choix graph minimal sans langage à venir | Dossier complet, rapport d’application | Validateur PASS ; checks anti-farming existants | Pas dialogue branché, Ink/Yarn ou localisation livrés |
+| performance-optimization | Instructions/profiling-budgets lus, revue mesures, code d’analyse budget réel avec données manquantes distinctes | Dossier complet ; .agents/skills-tools/evaluate_render_budget.py ; budget-review.json | Analyse exécutée, cinq checks de fiabilité PASS | Goulot CPU/GPU inconnu ; pas gain FPS ni hardware validé |
+
+Validateur amont standard-library installé à .agents/skills-tools/validate-skills.py, fonctions originales validate_file/validate_unique_names effectivement exécutées sur les cinq dossiers : **5 PASS**, références/noms valides. Les checks de catalogue/router/plugins globaux du dépôt source ne sont pas applicables à ce sous-ensemble et n’ont pas été exécutés. [Résultat](evidence/2026-10-10/skills-install-validation.json), [provenance](../.agents/gamedev-skills-source.json), [revue détaillée](GAMEDEV_SKILLS_APPLICATION.md).
+
+Au total, **21 skills open source installés** (16 historiques Claude + cinq Codex) ; leurs niveaux d’application diffèrent et sont décrits ci-dessus. Blender reste installé/instructions seulement, sans Blender exécuté. Le skill cloud Vercel est compté séparément, sans licence GitHub inventée. Aucun sous-agent indisponible n’est présenté comme ayant produit une nouvelle revue ; la dernière revue de flux vidéo et l’application de ce nouveau pack ont été réalisées par le directeur.

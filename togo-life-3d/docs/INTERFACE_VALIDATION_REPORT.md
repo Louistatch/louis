@@ -1,62 +1,94 @@
-# Validation intermédiaire vérifiée — CI8
+# Validation réelle de TOGO LIFE — 10 octobre 2026
 
-Date : 10 octobre 2026. [Run GitHub Actions 38023920158](https://github.com/Louistatch/louis/actions/runs/38023920158). Code source validé : `b1db3bbb75741522642dfc963b8d98eddfe371a4` ; SHA d’exécution du rapport principal : `c275bd113bf84ffc4f35bfd9807e3740177ac5dd`. Les corrections CSS/ombres préparées après ce lot ne sont **pas** validées par ces résultats.
+[Jouer](https://togo-life-preview.vercel.app) · [Captures réelles](captures/README.md) · [Preuves brutes](evidence/2026-10-10/README.md)
 
-Rapports JSON effectivement lus : `qa-ui-8/full/browser-results.json`, `public-preview.json`, `live-chromium.json`, `motion/motion-results.json`, et `qa-ui-8/mobile/mobile-probe.json`, sous `/workspace/research/`. Captures PC du probe, quatre captures HTTPS `live-chromium-*` et trois captures mobiles réellement inspectées avec `view_image`. Aucun visuel conceptuel n’est utilisé comme preuve.
+La tranche solo est jouable et vérifiée sur Chromium. Les objectifs de performance matérielle et la qualité d’un simulateur commercial fini restent non validés.
 
-## Résultats et portée
+## Versions et procédures
 
-| Validation | Résultat constaté | Portée exacte |
+Dernier parcours complet : [CI11, run 38025435352](https://github.com/Louistatch/louis/actions/runs/38025435352), source `27d22e9bc55217f1c3e533dc76f0b47c4b167b60`. Première validation des corrections visuelles finales : [CI9, run 38024690133](https://github.com/Louistatch/louis/actions/runs/38024690133), source `6740be8f053944bf027c4497c96786e13d0dc762`. Le contenu du jeu est identique ; seules les procédures QA ont changé ensuite.
+
+Monofichier public : **1 876 887 octets**, SHA-256 `6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe`. HTTP en CI11 confirme ce hash ; Chromium HTTPS rend réellement ce fichier et entre dans le jeu.
+
+Environnement : Ubuntu GitHub Actions, Playwright Python 1.62.0, Chromium 151.0.7922.34, ANGLE/Vulkan **SwiftShader logiciel**, sans GPU matériel ni téléphone physique. Inputs clavier/boutons/touch CDP réels, diagnostics en lecture seule. Aucun setter de position ni téléportation ne remplace le trajet économique.
+
+## Résultats fonctionnels
+
+| Vérification | Résultat | Preuve et portée |
 |---|---|---|
-| Parcours complet Chromium | **37 assertions réussies**, zéro erreur JS rapportée | Monofichier réel via `file://`, personnalisations, marche/course/arrêt, achat 1 400 F, trajet physique et dépôt au kiosque, ventes, façade bloquante, PNJ, pause, reprise apparence/commerce, partage, contrôles mobiles et paysage. Aucun hook de mutation de position utilisé. |
-| Probe tactile indépendant | **19 assertions réussies**, pas 20 | Viewports 390×844 et 844×390, DPR 1,5, CDP touch ; commandes visibles dans viewport, cibles ≥48 px, joystick et caméra, annulation, absence de débordement horizontal. Le JSON contient exactement 19 checks. |
-| Aperçu public HTTPS | **Pass**, quatre captures réelles et zéro erreur rapportée | [togo-life-preview.vercel.app](https://togo-life-preview.vercel.app), accueil, entrée monde, vue quartier et commerce. Cela complète la validation monofichier ; ce probe HTTPS ne rejoue pas les 37 assertions économiques. |
-| Identité du fichier public | **HTTP 200**, MIME HTML, **1 874 536 octets**, hash exact | SHA-256 `52cb89c1cc2d7c0e82ba326f38f2cd91c15c1fe73239a686dba8759f283f09ab`, identique au build attendu. Les deux miroirs githack testés retournent 403. |
-| Séquence locomotion | **Partial**, vidéo et frames réelles | Les inputs walk/run/turn/stop sont présents, mais animations observées seulement Idle et Walk. La frame input run est Idle. Aucune frame Run : ne pas dire que la vidéo valide une séquence complète. |
-| Firefox | **Échec WebGL** | Document neutre rendu, puis jeu 3D indisponible. Un job continue-on-error ne transforme pas ce résultat en réussite Firefox. |
+| Logique Node | **31 tests réussis** | Étape Logic tests and static build, CI9 et CI11 : économie, collisions, skin, carte et UI. |
+| Parcours Chromium | **37 assertions**, zéro erreur JS rapportée | [JSON CI11](evidence/2026-10-10/ci11/browser-results.json) : personnalisation, marche/course/arrêt, caméra, PNJ, façade bloquante, achat/transport/dépôt/ventes, pause, reprise et partage. |
+| Tactile indépendant | **21 assertions** | [JSON CI11](evidence/2026-10-10/ci11/mobile-probe.json) : 390×844 et 844×390, cibles ≥48 px, boutons/labels dans dock, absence de débordement, joystick, touchCancel et caméra. |
+| Aperçu HTTPS | **Pass**, quatre captures, aucune erreur rapportée | [JSON CI11](evidence/2026-10-10/ci11/live-chromium.json) : accueil, monde, quartier, commerce. Ce probe ne rejoue pas les 37 assertions économiques. |
+| Identité du build public | **HTTP 200**, HTML, hash exact | [JSON CI11](evidence/2026-10-10/ci11/public-preview.json). Miroirs githack 403 ; lien livré Vercel. |
+| Inspector original QA | **Canvas non vide**, zéro erreur console/page | [Audit CI9](https://github.com/Louistatch/louis/actions/runs/38024687518), [JSON](evidence/2026-10-10/original-inspector.json), [PNG](captures/2026-10-10/onboarding-inspector.png). Capture d’accueil, pas validation du gameplay actif. |
+| Checker original director | **Quatre artifacts reconnus** | [Sortie originale](evidence/2026-10-10/director-check.txt) : présence des preuves, pas score graphique premium. |
+| Firefox | **Échec WebGL en CI** | Un job tolérant cet échec n’est pas une validation Firefox ; autres environnements à tester. |
 
-`public-preview.json` indique `browserValidated:false` parce qu’il documente le contrôle HTTP/hash, pas un navigateur. Le succès navigateur public provient séparément de `live-chromium.json`. Le hash identique relie la preuve publique au fichier validé, sans transformer les deux procédures en un unique test.
+Trajet constaté : achat de quatre produits pour 1 400 F, déplacement physique jusqu’au comptoir, investissement 9 000 F, dépôt et vente à 550 F. État final CI11 : **5 150 F, trois produits en stock, une vente**. Prix/demandes différents également testés en logique. Transactions éloignées refusées ; rechargement conservant apparence/commerce.
 
-Le tactile indépendant mesure un déplacement réel de **2,3756 m**, un arrêt Idle après touchCancel et une variation de yaw de **0,42 rad** après glissement. Cela valide les handlers et leur effet sur le monde émulé. Aucun téléphone Android physique n’a été testé.
+Le probe tactile observe déplacement, arrêt après annulation et **0,42 rad** de rotation caméra après glissement dans le monde. Ces handlers fonctionnent en émulation ; aucun Android physique n’est certifié.
 
-La vidéo motion utilise des captures du jeu et des durées monotoniques pour un encodage VFR, sans interpolation de fluidité. Sa durée consignée est **28,887 s** ; les cinq frames ne prouvent pas des animations professionnelles en continu. Le check `run state` des 37 assertions réussit séparément : le défaut de couverture vidéo ne doit ni effacer ce check ni être caché.
+## Locomotion enregistrée
 
-## Performance réellement mesurée
+[Motion fonctionnelle CI9](evidence/2026-10-10/motion-results.json) observe Walk, Run, demi-tour, arrêt Idle et déplacements réels. Sa vidéo de quatre screenshots n’est pas présentée comme preuve de fluidité.
 
-| Échantillon | FPS moyens | Intervalle image moyen |
+[Motion CDP CI11, run 38025435266](https://github.com/Louistatch/louis/actions/runs/38025435266) : **24 JPEG réels sur 13,082 s**, directement reçus de Page.screencastFrame et encodés en [WebM VFR](evidence/2026-10-10/actual-compositor-motion.webm). [Rapport original](evidence/2026-10-10/screencast-results.json). Deux images de réchauffement avant idle/walk/run/turn/stop : 5/4/4/5/4 images dans les fenêtres respectives, états attendus observés séparément, zéro erreur. L’essai CI10 était partiel faute d’images dans les premières phases ; il n’est pas compté comme réussite.
+
+**Limite essentielle :** diagnostics et JPEG présenté ne sont pas synchronisés. Inspection réelle des images 0000, 0007, 0008, 0012, 0014, 0016, 0019 et 0023 : PNJ/taxis se déplacent, puis joueur en pose articulée et décor déplacé ; plusieurs images reçues pendant walk/run montrent encore une pose proche d’Idle, et une image reçue pendant stop montre une pose de déplacement. Les labels d’inputs ne prouvent pas cinq poses correspondantes. PASS concerne la couverture du flux et les états indépendants. **1,76 image reçue/s**, écart maximal **1,492 s** : aucune fluidité professionnelle déduite, aucun remplacement du FPS RAF, aucune interpolation ou image synthétique.
+
+## Performance mesurée
+
+| Échantillon actif | FPS | Intervalle moyen |
 |---|---:|---:|
-| Parcours PC complet, actif | 3,90 | 256,13 ms |
-| Viewport mobile du parcours complet | 5,37 | 186,37 ms |
-| Probe mobile indépendant, actif | 5,59 | 178,78 ms |
-| HTTPS, état actif | 4,24 | 236,02 ms |
+| CI11 parcours PC | 6,04 | 165,55 ms |
+| CI11 mobile du parcours | 10,42 | 95,93 ms |
+| CI11 mobile indépendant après 10 s | 10,49 | 95,37 ms |
+| CI11 HTTPS, échantillon court | 7,19 | 139,13 ms |
+| CI9 parcours PC, même contenu | 4,16 | 240,64 ms |
+| CI9 mobile indépendant, même contenu | 6,25 | 159,99 ms |
 
-Méthode : moyenne glissante jusqu’à 180 intervalles requestAnimationFrame actifs, `0 < dt < 2 s`, rendu logiciel headless sur runner CI. Le FPS zéro dans l’état final du probe HTTPS correspond au panneau ouvert, pas à une mesure de gameplay actif. Ces valeurs sont faibles et interdisent d’annoncer les cibles PC60/Android30 atteintes. Elles ne prédisent pas directement une machine avec GPU matériel ou un Android réel.
+Moyenne glissante de jusqu’à 180 intervalles RAF actifs, 0 < dt < 2 s. Variations entre runs **non attribuées à une optimisation** : même contenu, charge du runner/échantillons variables. Panneaux ouverts exclus. Cibles PC60/Android30 non validées.
 
-Le rapport complet consigne 52 draw calls, 89 258 triangles, 27 géométries et 23 textures. Ce sont des compteurs instantanés ; pas une démonstration d’absence de fuite mémoire. Chargement complet offline mesuré 3,578 s ; accueil HTTPS 3,627 s, dans leurs procédures respectives. Aucun percentile, réseau mobile ou budget de téléchargement n’a été validé.
+[Profils CI9](evidence/2026-10-10/performance-profiles.json) : vrais boutons de qualité, caméra/joueur fixes, dix secondes actives par profil.
 
-## Jugement des pixels
+| Profil | Framebuffer | FPS | Intervalle | Calls / triangles / textures |
+|---|---|---:|---:|---|
+| Équilibré | 1280×800 | 4,62 | 216,30 ms | 58 / 89 752 / 18 |
+| Économe | 960×600 | 3,82 | 261,83 ms | 51 / 89 256 / 17 |
+| Élevé | 1440×900 | 3,83 | 261,10 ms | 51 / 89 256 / 18 |
 
-L’accueil PC et portrait mobile montre l’avatar continu, le formulaire et le CTA entier sans débordement visible. Les boutons tactiles, joystick et course sont distincts du dock. Le commerce non ouvert affiche d’abord le coût 9 000 F et « Repérer mon comptoir », avec paramètres non actifs masqués. Le joueur est identifiable en vue élevée grâce au repère VOUS. Les captures actuelles ne montrent plus le chevauchement initial joueur/PNJ au spawn.
+Ces échantillons séquentiels avec PNJ évoluant ne prouvent pas un classement ni un gain du mode économe. Le [nouvel analyseur performance-optimization](evidence/2026-10-10/budget-review.json) vérifie les compteurs connus sous 150 calls/300 000 triangles/40 textures. Goulot CPU/GPU **inconnu**, timings séparés absents. Champs budget nuls de l’inspector original non comptés comme mesures.
 
-Défauts observés : le texte Menu dépasse le fond du dock en paysage ; le contexte recouvre la zone des pieds du joueur dans cette orientation, où le cumul HUD/objectif/plan laisse une fenêtre de jeu étroite. Une notification temporaire occupe une grande surface en portrait. Les ombres présentent des marches, bandes et carrés visibles au sol et sur les vêtements. Visage, matières textiles et bâtiments restent simples ; la qualité visuelle n’est pas celle d’un simulateur commercial fini. Les corrections de dock/ombres annoncées doivent être jugées sur les **nouvelles** captures et checks, pas créditées à ce lot.
+Parcours CI11 : 52 calls, 89 258 triangles, 27 géométries, 23 textures, compteurs instantanés sans validation de fuite mémoire longue. Chargement dans les procédures CI11 : offline 0,773 s, accueil HTTPS 0,986 s ; aucun percentile ni réseau cellulaire validé.
 
-## Évaluation critique des dix critères
+## Revue des pixels
 
-Notes de revue, datées du 10 octobre 2026, basées sur preuves ci-dessus et fonctionnalités implémentées. Ce ne sont ni des scores joueurs, ni un benchmark joué contre Lagos Life. Les références séparées sont [Townsmen 5](TOWNSMEN_INTERFACE_RESEARCH.md), [interface Lagos Life](LAGOS_INTERFACE_RESEARCH.md) et [recherche produit Lagos Life](LAGOS_LIFE_RESEARCH.md) ; aucune audience, rétention ou supériorité concurrentielle n’est déduite de captures.
+[Six PNG natifs CI9](captures/README.md), même contenu que CI11/public, réellement inspectés, sans retouche ni concept. Dock paysage corrigé : quatre boutons/labels contenus, action à droite libérant les pieds. Les 21 checks tactiles vérifient ces limites. Ombres proches améliorées par cadrage suivant le joueur ; accueil glTF personnalisable, coût 9 000 F clair, repère VOUS en vue élevée.
 
-| Critère demandé | /10 | Justification observable |
+Restent visibles : HUD portrait dense en haut, grande notification temporaire, ombres crénelées à 512 px, visages/textiles et bâtiments simples. Identité togolaise surtout noms/drapeau/marché/motos/taxis, sans reconstitution cartographique ni revue culturelle terrain. Appuis/IK et fluidité sur matériel restent à travailler.
+
+## Évaluation critique
+
+Notes éditoriales, pas scores joueurs ni benchmark joué contre Lagos Life. Références : [Townsmen 5](TOWNSMEN_INTERFACE_RESEARCH.md), [interface Lagos Life](LAGOS_INTERFACE_RESEARCH.md), [recherche produit](LAGOS_LIFE_RESEARCH.md).
+
+| Critère | /10 | Preuve / limite |
 |---|---:|---|
-| Immédiatement captivant | 6 | Entrée sans compte, aperçu et objectif proche, quartier réel visible ; rythme/engagement joueurs non mesurés, FPS logiciel faible. |
-| Reconnaissance du Togo | 4 | Drapeau, Lomé, taxis, motos et marché ; quartier fictif stylisé, enseignes génériques, aucun relevé géographique ou validation culturelle terrain. |
-| Personnage convaincant | 6 | Corps continu et vêtement lisible, personnalisation persistée ; visage et matières sommaires, diversité limitée. |
-| Animations professionnelles | 3 | Idle/Walk/Run et arrêt vérifiés par état et déplacement ; vidéo partielle sans Run, aucune validation experte des appuis/IK ou fluidité matérielle. |
-| Monde vivant | 6 | PNJ marchent et atteignent destinations, taxis circulent ; évitement doux, routines simplifiées, faible densité et social limité. |
-| Profondeur du gameplay | 5 | Achat/transport/stock/prix/demande/coûts réels, sauvegarde et logement ; un quartier et peu de métiers, pas de système national ou carrière riche. |
-| Expérience racontable à un ami | 5 | Achat puis livraison de stock et premières ventes constituent un récit simple ; pas de preuve d’émergence sociale ou de retours joueurs spontanés. |
-| Mérite d’être partagé | 5 | Carte de résultats sans prénom et rendu réel présentable ; intérêt du partage et conversion non testés, visuel encore limité. |
-| Évolution commerciale possible | 5 | Modules communs et activité sans API payante ; performance matérielle, contenu, rétention, backend/multijoueur et économie commerciale non validés. |
-| Supérieur au prototype précédent | 8 | Comparaison inspectée : avatar segmenté remplacé, mini-plan et vue quartier, commerce structuré, tactile et trajet économique testés. Progrès démontré sur ces aspects ; pas une mesure exhaustive de toutes versions historiques. |
+| Immédiatement captivant | 6 | Avatar rapide, objectif proche, monde sans compte ; engagement non mesuré, FPS CI faible. |
+| Reconnaissance du Togo | 4 | Noms, drapeau, taxis/motos/marché ; quartier fictif, enseignes génériques, pas de terrain réel. |
+| Personnage convaincant | 6 | Skin continu, 22 os, personnalisation persistée ; face/matières/diversité limitées. |
+| Animations professionnelles | 4 | États/déplacements et poses articulées observés ; image/état retardés, absence d’IK/mocap ou validation fluide matérielle. |
+| Monde vivant | 6 | Huit PNJ, destinations, taxis observés ; routines/évitement/social simples. |
+| Profondeur du gameplay | 5 | Stock, transport, prix/demande/coûts, sauvegarde ; un quartier, peu de métiers. |
+| Expérience racontable | 5 | Chaîne achat/livraison/vente ; pas de preuve d’émergence sociale ou retours spontanés. |
+| Mérite d’être partagé | 5 | Carte sans prénom, jeu réel capturé ; conversion/attrait non mesurés. |
+| Évolution commerciale | 5 | Modules sans API payante ; contenu, performances, rétention/backend à développer. |
+| Amélioration du prototype | 8 | Skin continu, carte/vue quartier, commerce structuré, parcours/tactile vérifiés ; pas comparaison exhaustive historique. |
 
-## Statut de livraison intermédiaire
+## Livraison et reste à développer
 
-Tranche jouable solo vérifiée sur Chromium : **oui**, avec preuve HTTP publique et parcours métier complet du monofichier. Simulateur commercial prêt : **non**. Multijoueur, autres villes jouables, Android physique, compatibilité 3D Firefox et objectifs de performance : **non validés ou non livrés**. La prochaine validation doit conserver ces preuves historiques, rattacher les nouveaux résultats au nouveau SHA et confirmer les corrections visuelles sans reprendre les anciens scores comme un résultat final.
+Livré : tranche solo Lomé stylisée, avatar articulé, caméra, collisions cinématiques, PNJ, trafic simplifié, marché/comptoir/logement, sauvegarde, clavier/tactile, aperçu HTTPS, captures/vidéo et skills installés. Branche dédiée/PR ; aucun fichier BAD/Bryq modifié par cette refonte, aucune fusion automatique.
+
+Restent : Android physique/GPU PC, profiling CPU/GPU/thermique et longue session/mémoire, Firefox, appuis/IK et finition humaine/architecture, navigation/collisions PNJ/traffic robuste, dialogues branchés, métiers/carrière/véhicules possédés, géographie administrative actuelle/OSM, deuxième ville distincte, chargement progressif des villes, backend/multijoueur/événements. L’annuaire de 40 entrées ne représente pas 40 scènes jouables. Rapier non installé. Le nouveau pack AI/procgen/dialogue est installé et utilisé en audit ; ces fonctionnalités n’ont pas été ajoutées au runtime.
+
+[CI8 historique](INTERFACE_VALIDATION_CI8.md) conserve les défauts avant correction. [Registre des skills](SKILLS_EXECUTION_REPORT.md) : installations, applications, scripts exécutés et limites.

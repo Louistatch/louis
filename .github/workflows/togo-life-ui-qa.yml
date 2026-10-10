@@ -36,6 +36,7 @@ jobs:
         run: |
           python3 -m pip install playwright==1.62.0
           python3 -m playwright install --with-deps chromium firefox
+          sudo apt-get install -y ffmpeg
       - name: Independent Chromium render probe
         continue-on-error: true
         run: timeout 90s python3 -u scripts/visual_probe.py --engine chromium

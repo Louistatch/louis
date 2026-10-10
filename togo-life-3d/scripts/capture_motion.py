@@ -13,22 +13,24 @@ try:
         page=context.new_page();page.set_default_timeout(15000)
         page.goto((game/'dist/TOGO_LIFE_MONTAGNE.html').as_uri()+'?qa=1',wait_until='commit')
         page.wait_for_selector('#start[open]');page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden')
-        started=time.monotonic();phase=None
-        while time.monotonic()-started<7:
-            elapsed=time.monotonic()-started
-            next_phase='walk' if elapsed<2 else 'run' if elapsed<4 else 'turn' if elapsed<5.2 else 'stop'
-            if next_phase!=phase:
-                for key in ['w','a','Shift']:page.keyboard.up(key)
-                if next_phase in ['walk','run']:page.keyboard.down('w')
-                if next_phase=='run':page.keyboard.down('Shift')
-                if next_phase=='turn':page.keyboard.down('a')
-                phase=next_phase
-            index=len(report['frames']);name=f'frame-{index:03d}.png'
-            page.screenshot(path=str(out/name),timeout=10000)
-            state=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
-            report['frames'].append({'file':name,'seconds':time.monotonic()-started,'input':phase,'player':state['player']})
-            (out/'motion-results.json').write_text(json.dumps(report,indent=2))
-            page.wait_for_timeout(80)
+        started=time.monotonic()
+        for phase,duration in [('walk',2),('run',2),('turn',1.2),('stop',1.8)]:
+            for key in ['w','a','Shift']:page.keyboard.up(key)
+            if phase in ['walk','run']:page.keyboard.down('w')
+            if phase=='run':page.keyboard.down('Shift')
+            if phase=='turn':page.keyboard.down('a')
+            phase_started=time.monotonic()
+            while True:
+                index=len(report['frames']);name=f'frame-{index:03d}.png'
+                page.screenshot(path=str(out/name),timeout=10000)
+                state=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
+                report['frames'].append({'file':name,'seconds':time.monotonic()-started,'input':phase,'player':state['player']})
+                (out/'motion-results.json').write_text(json.dumps(report,indent=2))
+                if time.monotonic()-phase_started>=duration:break
+                page.wait_for_timeout(80)
+        report['phaseCoverage']=sorted({f['input'] for f in report['frames']})
+        report['animationCoverage']=sorted({f['player']['animation'] for f in report['frames']})
+        report['completeLocomotion']=set(report['phaseCoverage'])=={'walk','run','turn','stop'} and {'Idle','Walk','Run'}.issubset(report['animationCoverage']) and report['frames'][-1]['player']['speed']<.1
         context.close();browser.close()
     lines=[]
     for i,frame in enumerate(report['frames']):
@@ -39,7 +41,7 @@ try:
     manifest=out/'frames.ffconcat';manifest.write_text('\n'.join(lines)+'\n')
     encoded=subprocess.run(['ffmpeg','-y','-f','concat','-safe','0','-i',str(manifest),'-vf','scale=960:-2','-c:v','libvpx-vp9','-b:v','1M','-fps_mode','vfr',str(out/'locomotion.webm')],capture_output=True,text=True,timeout=20)
     if encoded.returncode:raise RuntimeError(encoded.stderr[-2000:])
-    report['status']='pass'
+    report['status']='pass' if report['completeLocomotion'] else 'partial'
     report['durationSeconds']=report['frames'][-1]['seconds']-report['frames'][0]['seconds']
 except Exception as e:
     report['status']='failed';report['error']=str(e);report['traceback']=traceback.format_exc()

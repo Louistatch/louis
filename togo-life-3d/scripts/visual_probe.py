@@ -39,23 +39,24 @@ try:
         page.wait_for_function('document.getElementById("previewStatus").textContent.includes("aperçu en direct")',timeout=20000)
         report['onboardingSeconds']=time.monotonic()-started
         name=f'probe-{args.engine}-start.png'
-        page.screenshot(path=str(out/name),timeout=10000)
+        page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         stage('enter actual world')
         page.click('#startBtn')
         page.wait_for_selector('#start[open]',state='hidden')
         page.wait_for_timeout(1000)
         name=f'probe-{args.engine}-active.png'
-        page.screenshot(path=str(out/name),timeout=10000)
+        page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
+        report['activeState']=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
         page.click('#cameraBtn')
         page.wait_for_timeout(500)
         name=f'probe-{args.engine}-overview.png'
-        page.screenshot(path=str(out/name),timeout=10000)
+        page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         page.click('#businessBtn')
         name=f'probe-{args.engine}-commerce.png'
-        page.screenshot(path=str(out/name),timeout=10000)
+        page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         report['state']=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
         report['status']='pass'

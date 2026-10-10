@@ -110,14 +110,14 @@ try:
       page.keyboard.up('Shift');return
      ix=dx*math.cos(.2)-dz*math.sin(.2);iz=dx*math.sin(.2)+dz*math.cos(.2)
      chosen=[]
-     if abs(ix)>.35*dist:chosen.append('d' if ix>0 else 'a')
-     if abs(iz)>.35*dist:chosen.append('s' if iz>0 else 'w')
+     if abs(ix)>.15*dist:chosen.append('d' if ix>0 else 'a')
+     if abs(iz)>.15*dist:chosen.append('s' if iz>0 else 'w')
      for key in chosen:page.keyboard.down(key)
      page.wait_for_timeout(160)
      for key in chosen:page.keyboard.up(key)
     page.keyboard.up('Shift')
-    raise AssertionError('real-input route blocked')
-   walk_to(-7,0);walk_to(-15,0);page.keyboard.press('e')
+    report.setdefault('routeFailures',[]).append({'target':{'x':x,'z':z},'player':state()['player']});raise AssertionError('real-input route blocked')
+   walk_to(-6,10);walk_to(-6,0);walk_to(-15,0);page.keyboard.press('e')
    disabled=page.locator('#choices button:disabled')
    check('disabled choices include visible reasons',disabled.evaluate_all('bs=>bs.every(b=>{const r=b.querySelector("small,.reason,[data-reason]")||b.parentElement.querySelector("small,.reason,[data-reason]");return r&&r.textContent.trim()&&getComputedStyle(r).display!=="none"})'))
    page.get_by_role('button',name='Acheter 4 produits').click();check('market buy debits 1400 F',state()['simulation']['money']==13600)

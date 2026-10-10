@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "runId": "ci-38024687518",
+  "captures": [
+    {
+      "mode": "desktop",
+      "state": null,
+      "report": "artifacts/original-inspector/desktop.json"
+    }
+  ],
+  "artifacts": [
+    "artifacts/performance-profiles.json",
+    "artifacts/public-preview.json",
+    "assets/avatar.gltf"
+  ]
+}

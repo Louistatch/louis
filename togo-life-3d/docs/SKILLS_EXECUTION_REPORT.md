@@ -224,3 +224,71 @@ Physics : instructions consultées et choix explicite de collisions cinématique
 Build exécuté : `node scripts/build.mjs` (statique + monofichier). Tests : `node --test --test-isolation=none tests/*.test.mjs` : 14 tests réussis. Les scripts auxiliaires du director/QA ne remplacent pas le Playwright bloqué. Voir `artifacts/final-evidence.md` pour résultats et blocages exacts.
 
 Exécution finale auxiliaire : director `check_evidence.py` sur le rapport : FAIL (inspection canvas absente), fichiers build/browser/avatar reconnus. QA `inspect-threejs-canvas.mjs` : tentative, échec de module Node Playwright manquant ; log conservé. La version Playwright Python est installée mais Chromium reste bloqué. Aucun npx/download non inspecté ni programme payant exécuté pour masquer ces limites.
+
+## Application réelle à la refonte UI (10 octobre 2026)
+
+Skills installés précédemment, versions et licences inchangées. Le skill threejs-game-ui-designer et sa référence ui-patterns.md ont été relus puis appliqués à index.html, life.css et src/main.js : HUD compact, contrôles 48px, plans, fiches contextuelles, création du personnage et menu. frontend-design a été relu et appliqué : direction palette/typo liée au jeu, abandon de l’accroche de présentation, critique et corrections dans docs/INTERFACE_DESIGN.md et docs/INTERFACE_REVIEW.md. Les instructions caméra/animation ont guidé src/avatar-preview.js et la vue quartier. Aucun générateur payant ni asset tiers ajouté.
+
+Trois sous-agents ont produit des modules/tests : src/ui-model.js (six tests), src/neighborhood-map.js (quatre tests), src/avatar-preview.js (syntaxe/import vérifiés). Une revue indépendante a corrigé sélecteurs, events tactiles réels et préparé scripts/ci_browser.py. Total logique à cette révision : 30 tests passants (dont quatre tests du journal persistant et un test de séparation des habitants et un test de normalisation/blend des poids du skin) ; build statique et monofichier réussis. Playwright/webapp-testing est appliqué au parcours réel tests/browser.py. Chromium local est bloqué avant page ; le workflow autonome GitHub doit produire la preuve navigateur avant toute affirmation de validation graphique.
+
+La revue du run Chromium 38020941245 a réellement inspecté quatre captures desktop. Le résultat avatar figurine a été rejeté, puis remplacé par un skin profilé continu avec poids articulés ; scripts/export-avatar.mjs a régénéré le glTF. L’agent environnement a instancié palmiers, motos et taxis, allégé les soumissions d’ombres et corrigé la multiplication des teintes de textures. Le responsable a séparé les PNJ, ajouté un repère joueur et hiérarchisé le commerce fermé. Les instructions de performance, animation et revue QA ont donc produit des modifications vérifiables, pas une affirmation de qualité finale. La mesure de 2,8 FPS SwiftShader appartient à la version avant ces corrections. La nouvelle mesure et le mobile seront consignés après exécution. Firefox a échoué WebGL ; continue-on-error dans le workflow ne constitue pas une validation.
+
+
+## Exécution vérifiée en navigateur — run CI 38023920158
+
+Source `b1db3bbb75741522642dfc963b8d98eddfe371a4`, 10 octobre 2026. Les limites locales historiques ci-dessus ont été contournées par un exécuteur GitHub Actions réel ; elles ne sont pas effacées. [Run et artifacts](https://github.com/Louistatch/louis/actions/runs/38023920158).
+
+| Skills appliqués | Actions réellement exécutées | Résultat / fichiers |
+|---|---|---|
+| director, gameplay-systems, camera, animation, loaders | `npm test`, `npm run build`, puis `scripts/ci_browser.py --transport offline` sur Chromium 151.0.7922.34 ; touches, boutons, transactions et reload réels | 31 tests Node et 37 vérifications navigateur PASS ; `browser-results.json`, huit captures dont achat/vente/partage, sauvegarde conservée |
+| game-ui-designer, frontend-design, webapp-testing | `scripts/mobile_probe.py`, CDP touchStart/touchCancel et glissement caméra ; captures portrait/paysage inspectées par directeur et agent review | 19 vérifications PASS ; mouvement 2,38 m, arrêt Idle, rotation yaw 0,42 rad ; `mobile-probe.json` et trois PNG. Le débordement visuel du dock paysage détecté après les checks est corrigé ensuite, à contre-vérifier |
+| aaa-graphics-builder, lighting, materials, performance, debug-profiler | `scripts/visual_probe.py --engine chromium`, mesure RAF en jeu actif, renderer.info et GPU identifiés | Quatre captures locales PASS ; mobiles 5,59 FPS dans l’échantillon indépendant, PC 3,90 FPS dans le parcours. SwiftShader logiciel : objectifs Android/PC non validés |
+| qa-release, animation | `scripts/capture_motion.py`, screenshots réels et FFmpeg VFR | WebM produit ; preuve PARTIELLE : quatre phases d’entrée mais seulement Idle/Walk observés après les captures. Le parcours fonctionnel observe Run ; cette vidéo ne certifie ni course fluide ni animation professionnelle |
+| webapp-testing, qa-release | `scripts/public_preview.py`, puis `visual_probe.py --engine chromium --prefix live --url https://togo-life-preview.vercel.app` | HTTPS 200, 1 874 536 octets, SHA256 identique au build ; quatre captures HTTPS et entrée en jeu PASS ; zéro erreur dans ces probes |
+
+Firefox : échec WebGL. Les étapes `continue-on-error` ne sont jamais comptées comme validation ; seuls les rapports JSON effectivement passants le sont. Les références visuelles de Townsmen 5 et Lagos Life servent à l’analyse, sans import de leurs assets. Les nouvelles corrections d’ombres et de dock nécessitent un nouveau run.
+
+### Skill d’hébergement effectivement appliqué
+
+`vercel:deployments-cicd` fourni par le connecteur Vercel, source cloud `c8/deployments-cicd`, instructions lues le 10 octobre ; aucune origine GitHub ou licence open source inventée. Installation : skill préinstallé, chargé via `skills.read`. Actions : création du projet isolé `togo-life-preview`, déploiement de `index.html` contenant exclusivement le monofichier du jeu, contrôle READY puis preuve HTTPS en CI. Fichier produit : build du jeu hébergé ; aucun fichier BAD/Bryq modifié. Le target technique Vercel est `production` dans ce nouveau projet exclusivement consacré à l’aperçu, car l’API a rejeté `preview` ; ce n’est pas une fusion GitHub sur main. Authentification publique désactivée pour rendre le jeu accessible. Aucune clé, fonction serveur, API payante ou message envoyé à un tiers.
+
+
+## Validation finale CI9 / CI11 et scripts originaux exécutés
+
+10 octobre 2026. Contenu du jeu `6740be8f053944bf027c4497c96786e13d0dc762`, SHA-256 monofichier `6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe`. Les commits QA ultérieurs jusqu’à `27d22e9bc55217f1c3e533dc76f0b47c4b167b60` ne changent pas ces octets.
+
+[CI11 navigateur](https://github.com/Louistatch/louis/actions/runs/38025435352) : 31 tests Node, 37 assertions navigateur et 21 assertions tactiles PASS ; JSON bruts dans [evidence/2026-10-10/ci11](evidence/2026-10-10/ci11). HTTP/hash public identique et probe HTTPS réel PASS. Les corrections de dock/ombres ont été jugées sur les captures CI9 réellement inspectées. Firefox reste échec WebGL, pas une validation.
+
+[CI9 audit de skills](https://github.com/Louistatch/louis/actions/runs/38024687518) a **réellement exécuté** les deux scripts installés du pack principal :
+
+```sh
+node .claude/skills/threejs-qa-release/scripts/inspect-threejs-canvas.mjs \
+  --url https://togo-life-preview.vercel.app?qa=1 \
+  --out artifacts/original-inspector --run-id ci-38024687518 --wait 1000
+python3 .claude/skills/threejs-game-director/scripts/check_evidence.py . \
+  --manifest artifacts/director-manifest.json
+```
+
+Résultats : inspector desktop result.ok true, canvas d’accueil non vide, PNG réel, zéro erreur console/page ; director PASS quatre artifacts présents. Rapports originaux [inspector](evidence/2026-10-10/original-inspector.json), [manifest](evidence/2026-10-10/director-manifest.json), [sortie](evidence/2026-10-10/director-check.txt). **Limites :** accueil, pas parcours actif ; compteurs budget nuls dans l’inspector, aucune certification premium ou FPS déduite. Les noms de chemins d’origine sont conservés après archivage ; le checker a tourné dans le layout CI. Dépendances de test temporaires @playwright/test 1.62.0 Apache-2.0 et pngjs 7.0.0 MIT, ajoutées sans scripts npm, sans lock modifié ni dépendance runtime.
+
+Les instructions performance/QA ont aussi guidé scripts/performance_profiles.py : trois profils réellement sélectionnés via l’UI et dix secondes actives chacun. [Rapport](evidence/2026-10-10/performance-profiles.json) : balanced 4,62 FPS, low 3,82, high 3,83 en SwiftShader ; aucun gain du mode low affirmé. Compteurs connus, timings CPU/GPU absents. [CI11 motion](https://github.com/Louistatch/louis/actions/runs/38025435266) exécute qa/capture_screencast.py et FFmpeg : 24 JPEG réels et WebM VFR, états réels indépendants. PASS de couverture, **pas validation de fluidité** : décalage images/diagnostics et 1,76 image reçue/s. [Limites et mesures complètes](INTERFACE_VALIDATION_REPORT.md).
+
+Mise à jour hébergement : le dernier déploiement du projet isolé sert le monofichier dans index.html **et les trois fichiers de secours conservés** legacy.html/game.js/style.css. L’alias public correspond au build vérifié, source 6740be8f ; aucune modification ou mise en production de BAD/Bryq.
+
+## Cinq skills Codex demandés — gamedev-skills
+
+Origine commune : [gamedev-skills/awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills). Licence **Apache-2.0** jointe à `.agents/skills/LICENSE.gamedev-skills`. Commit commun **0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd** (9 octobre 2026). Installation limitée au jeu, Codex, pas globale.
+
+Commande demandée réellement tentée avec confirmation non interactive, npm ignore-scripts, cache dans /workspace/research, DISABLE_TELEMETRY/DO_NOT_TRACK : `npx skills add gamedev-skills/awesome-gamedev-agent-skills -a codex --skill ai-behavior-trees-utility-ai --skill game-ai --skill procedural-gen --skill dialogue-systems --skill performance-optimization -y`. **Échec EPERM du registre npm avant téléchargement** ; ne pas prétendre que npx a installé le pack. Alternative officielle [copie locale](https://github.com/gamedev-skills/awesome-gamedev-agent-skills/blob/0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd/docs/INSTALLATION.md) réellement appliquée via GitHub à commit épinglé. 17 fichiers licence/skills/références byte-identiques aux blobs d’origine. Aucun script exécutable dans ces cinq dossiers ; scripts du CLI et validateur inspectés, aucune permission système ajoutée. Version CLI lue sur GitHub : 1.7.2 ; **pas téléchargée/exécutée**.
+
+| Skill | Rôle / action effective | Fichiers produits | Tests / résultat | Limite |
+|---|---|---|---|---|
+| ai-behavior-trees-utility-ai | SKILL.md et références utility/best-practices lus, audit horaires/routines de src/npcs.js, mémoire/Running/hystérésis examinés | Dossier complet installé, GAMEDEV_SKILLS_APPLICATION.md | Validateur amont sur SKILL.md/références PASS | Aucun runtime BT/Utility ajouté |
+| game-ai | Instructions/pathfinding lus, revue graphe 12 waypoints/11 liens, recherche lors changement de but et steering | Dossier complet, rapport d’application | Validateur PASS ; navigateur constate PNJ atteignant destinations | Pas navmesh, obstacles dynamiques ou crowd robuste |
+| procedural-gen | Instructions/noise lus, revue seed 37/texture bornée, séparation contenu et rendu | Dossier complet, rapport d’application | Validateur PASS ; tests spawn/parcours déjà passants | Pas nouvelle ville générée ni noise terrain |
+| dialogue-systems | Instructions/runner lus, revue option talk/persistance/anti-farming, choix graph minimal sans langage à venir | Dossier complet, rapport d’application | Validateur PASS ; checks anti-farming existants | Pas dialogue branché, Ink/Yarn ou localisation livrés |
+| performance-optimization | Instructions/profiling-budgets lus, revue mesures, code d’analyse budget réel avec données manquantes distinctes | Dossier complet ; .agents/skills-tools/evaluate_render_budget.py ; budget-review.json | Analyse exécutée, cinq checks de fiabilité PASS | Goulot CPU/GPU inconnu ; pas gain FPS ni hardware validé |
+
+Validateur amont standard-library installé à .agents/skills-tools/validate-skills.py, fonctions originales validate_file/validate_unique_names effectivement exécutées sur les cinq dossiers : **5 PASS**, références/noms valides. Les checks de catalogue/router/plugins globaux du dépôt source ne sont pas applicables à ce sous-ensemble et n’ont pas été exécutés. [Résultat](evidence/2026-10-10/skills-install-validation.json), [provenance](../.agents/gamedev-skills-source.json), [revue détaillée](GAMEDEV_SKILLS_APPLICATION.md).
+
+Au total, **21 skills open source installés** (16 historiques Claude + cinq Codex) ; leurs niveaux d’application diffèrent et sont décrits ci-dessus. Blender reste installé/instructions seulement, sans Blender exécuté. Le skill cloud Vercel est compté séparément, sans licence GitHub inventée. Aucun sous-agent indisponible n’est présenté comme ayant produit une nouvelle revue ; la dernière revue de flux vidéo et l’application de ce nouveau pack ont été réalisées par le directeur.

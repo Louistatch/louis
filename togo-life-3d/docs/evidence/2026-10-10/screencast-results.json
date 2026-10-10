@@ -1,0 +1,1033 @@
+{
+  "status": "pass",
+  "sourceSha": "27d22e9bc55217f1c3e533dc76f0b47c4b167b60",
+  "method": "Actual Page.screencastFrame JPEG events; VFR intervals from monotonic event receipt times",
+  "stateObservationMethod": "Independent read-only diagnostics during each actual-input phase; not frame-presentation-matched",
+  "frames": [
+    {
+      "file": "frame-0000.jpg",
+      "receivedSeconds": 3.8395537760000025,
+      "requestedInputAtReceipt": "warmup",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607862.473336
+      },
+      "bytes": 65050
+    },
+    {
+      "file": "frame-0001.jpg",
+      "receivedSeconds": 4.429520969999999,
+      "requestedInputAtReceipt": "warmup",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607863.060644
+      },
+      "bytes": 65039
+    },
+    {
+      "file": "frame-0002.jpg",
+      "receivedSeconds": 4.612456179000006,
+      "requestedInputAtReceipt": "idle",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607863.240003
+      },
+      "bytes": 65079
+    },
+    {
+      "file": "frame-0003.jpg",
+      "receivedSeconds": 5.0543303479999935,
+      "requestedInputAtReceipt": "idle",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607863.675743
+      },
+      "bytes": 65012
+    },
+    {
+      "file": "frame-0004.jpg",
+      "receivedSeconds": 5.440243272999993,
+      "requestedInputAtReceipt": "idle",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607864.071587
+      },
+      "bytes": 65116
+    },
+    {
+      "file": "frame-0005.jpg",
+      "receivedSeconds": 5.926881399999999,
+      "requestedInputAtReceipt": "idle",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607864.557111
+      },
+      "bytes": 64880
+    },
+    {
+      "file": "frame-0006.jpg",
+      "receivedSeconds": 6.462870527999996,
+      "requestedInputAtReceipt": "idle",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607865.096114
+      },
+      "bytes": 64744
+    },
+    {
+      "file": "frame-0007.jpg",
+      "receivedSeconds": 6.967067588000006,
+      "requestedInputAtReceipt": "walk",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607865.597343
+      },
+      "bytes": 64490
+    },
+    {
+      "file": "frame-0008.jpg",
+      "receivedSeconds": 7.495405972,
+      "requestedInputAtReceipt": "walk",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607866.129819
+      },
+      "bytes": 64998
+    },
+    {
+      "file": "frame-0009.jpg",
+      "receivedSeconds": 7.997236857000004,
+      "requestedInputAtReceipt": "walk",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607866.628573
+      },
+      "bytes": 60823
+    },
+    {
+      "file": "frame-0010.jpg",
+      "receivedSeconds": 8.539321396000005,
+      "requestedInputAtReceipt": "walk",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607867.173034
+      },
+      "bytes": 60747
+    },
+    {
+      "file": "frame-0011.jpg",
+      "receivedSeconds": 10.031315327000002,
+      "requestedInputAtReceipt": "run",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607868.661045
+      },
+      "bytes": 60711
+    },
+    {
+      "file": "frame-0012.jpg",
+      "receivedSeconds": 10.545267522999993,
+      "requestedInputAtReceipt": "run",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607869.175392
+      },
+      "bytes": 60658
+    },
+    {
+      "file": "frame-0013.jpg",
+      "receivedSeconds": 11.027336091999999,
+      "requestedInputAtReceipt": "run",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607869.651838
+      },
+      "bytes": 60870
+    },
+    {
+      "file": "frame-0014.jpg",
+      "receivedSeconds": 11.531010566000006,
+      "requestedInputAtReceipt": "run",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607870.161412
+      },
+      "bytes": 60973
+    },
+    {
+      "file": "frame-0015.jpg",
+      "receivedSeconds": 12.073314077000006,
+      "requestedInputAtReceipt": "turn",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607870.701903
+      },
+      "bytes": 62193
+    },
+    {
+      "file": "frame-0016.jpg",
+      "receivedSeconds": 12.610864992999993,
+      "requestedInputAtReceipt": "turn",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607871.244959
+      },
+      "bytes": 62600
+    },
+    {
+      "file": "frame-0017.jpg",
+      "receivedSeconds": 13.163427815000006,
+      "requestedInputAtReceipt": "turn",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607871.791726
+      },
+      "bytes": 62610
+    },
+    {
+      "file": "frame-0018.jpg",
+      "receivedSeconds": 13.701427586999998,
+      "requestedInputAtReceipt": "turn",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607872.324146
+      },
+      "bytes": 63477
+    },
+    {
+      "file": "frame-0019.jpg",
+      "receivedSeconds": 14.207906784000002,
+      "requestedInputAtReceipt": "turn",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607872.838626
+      },
+      "bytes": 64417
+    },
+    {
+      "file": "frame-0020.jpg",
+      "receivedSeconds": 14.743473738000006,
+      "requestedInputAtReceipt": "stop",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607873.369371
+      },
+      "bytes": 65264
+    },
+    {
+      "file": "frame-0021.jpg",
+      "receivedSeconds": 16.053984107000005,
+      "requestedInputAtReceipt": "stop",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607874.682117
+      },
+      "bytes": 67146
+    },
+    {
+      "file": "frame-0022.jpg",
+      "receivedSeconds": 16.494462219,
+      "requestedInputAtReceipt": "stop",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607875.123257
+      },
+      "bytes": 69256
+    },
+    {
+      "file": "frame-0023.jpg",
+      "receivedSeconds": 16.921253848000006,
+      "requestedInputAtReceipt": "stop",
+      "sessionId": 1,
+      "metadata": {
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "deviceWidth": 1280,
+        "deviceHeight": 720,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1791607875.544084
+      },
+      "bytes": 69788
+    }
+  ],
+  "phases": [
+    {
+      "input": "idle",
+      "beginReceivedSeconds": 4.455547811000002,
+      "direction": null,
+      "running": false,
+      "observations": [
+        {
+          "receivedSeconds": 4.460866637999999,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 4.669044760999995,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 4.873907864000003,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 5.081326422999993,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 5.2863764150000065,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 5.5024151740000065,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 5.7104588459999945,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 5.930268081999998,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 6.146306938999999,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 6.351800146000002,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        }
+      ],
+      "observedExpectedAnimation": true,
+      "endReceivedSeconds": 6.5527358410000005,
+      "receivedFramesInPhaseWindow": 5
+    },
+    {
+      "input": "walk",
+      "beginReceivedSeconds": 6.569197594000002,
+      "direction": "w",
+      "running": false,
+      "observations": [
+        {
+          "receivedSeconds": 6.580676975000003,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 6.788395612000002,
+          "player": {
+            "x": -7,
+            "z": 12,
+            "speed": 0,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 6.992360645000005,
+          "player": {
+            "x": -7.000000045750432,
+            "z": 11.625212458433179,
+            "speed": 1.9954471564274858,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 7.210244005999996,
+          "player": {
+            "x": -7.000000045750432,
+            "z": 11.625212458433179,
+            "speed": 1.9954471564274858,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 7.414758722000002,
+          "player": {
+            "x": -7.000000045750432,
+            "z": 11.625212458433179,
+            "speed": 1.9954471564274858,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 7.623195929000005,
+          "player": {
+            "x": -7.000000108924425,
+            "z": 11.1076910963709,
+            "speed": 2.094794620429001,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 7.828570056000004,
+          "player": {
+            "x": -7.000000108924425,
+            "z": 11.1076910963709,
+            "speed": 2.094794620429001,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 8.033190621000003,
+          "player": {
+            "x": -7.000000172965889,
+            "z": 10.583063435829203,
+            "speed": 2.0997408394114183,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 8.241536229999994,
+          "player": {
+            "x": -7.000000172965889,
+            "z": 10.583063435829203,
+            "speed": 2.0997408394114183,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 8.445467171000004,
+          "player": {
+            "x": -7.000000237050541,
+            "z": 10.058081973519272,
+            "speed": 2.099987097154058,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 8.652475862000003,
+          "player": {
+            "x": -7.000000237050541,
+            "z": 10.058081973519272,
+            "speed": 2.099987097154058,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 8.857391214999993,
+          "player": {
+            "x": -7.000000237050541,
+            "z": 10.058081973519272,
+            "speed": 2.099987097154058,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 9.062920121000005,
+          "player": {
+            "x": -7.000000301137341,
+            "z": 9.533082896456518,
+            "speed": 2.099999357605127,
+            "animation": "Walk"
+          }
+        }
+      ],
+      "observedExpectedAnimation": true,
+      "endReceivedSeconds": 9.263913192000004,
+      "receivedFramesInPhaseWindow": 4
+    },
+    {
+      "input": "run",
+      "beginReceivedSeconds": 9.278542827999999,
+      "direction": "w",
+      "running": true,
+      "observations": [
+        {
+          "receivedSeconds": 9.288657708000002,
+          "player": {
+            "x": -7.000000301137341,
+            "z": 9.533082896456518,
+            "speed": 2.099999357605127,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 9.494688538000005,
+          "player": {
+            "x": -7.000000417510457,
+            "z": 8.579754323473349,
+            "speed": 4.380511003934168,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 9.707707768000006,
+          "player": {
+            "x": -7.000000417510457,
+            "z": 8.579754323473349,
+            "speed": 4.380511003934168,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 9.911423579000001,
+          "player": {
+            "x": -7.000000417510457,
+            "z": 8.579754323473349,
+            "speed": 4.380511003934168,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 10.120643396000006,
+          "player": {
+            "x": -7.000000572088745,
+            "z": 7.313448980102953,
+            "speed": 4.496012261477006,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 10.331872141999995,
+          "player": {
+            "x": -7.000000572088745,
+            "z": 7.313448980102953,
+            "speed": 4.496012261477006,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 10.541543520000005,
+          "player": {
+            "x": -7.000000572088745,
+            "z": 7.313448980102953,
+            "speed": 4.496012261477006,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 10.751592119999998,
+          "player": {
+            "x": -7.000000572088745,
+            "z": 7.313448980102953,
+            "speed": 4.496012261477006,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 10.957218947000001,
+          "player": {
+            "x": -7.000000709383026,
+            "z": 6.188734222011116,
+            "speed": 4.499801462189522,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 11.167618880999996,
+          "player": {
+            "x": -7.000000709383026,
+            "z": 6.188734222011116,
+            "speed": 4.499801462189522,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 11.372804398,
+          "player": {
+            "x": -7.000000846710394,
+            "z": 5.063748423369509,
+            "speed": 4.499990115384455,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 11.579203797000005,
+          "player": {
+            "x": -7.000000846710394,
+            "z": 5.063748423369509,
+            "speed": 4.499990115384455,
+            "animation": "Run"
+          }
+        }
+      ],
+      "observedExpectedAnimation": true,
+      "endReceivedSeconds": 11.782782709000003,
+      "receivedFramesInPhaseWindow": 4
+    },
+    {
+      "input": "turn",
+      "beginReceivedSeconds": 11.796973877,
+      "direction": "s",
+      "running": false,
+      "observations": [
+        {
+          "receivedSeconds": 11.802530485999995,
+          "player": {
+            "x": -7.000000846710394,
+            "z": 5.063748423369509,
+            "speed": 4.499990115384455,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 12.007674961999996,
+          "player": {
+            "x": -7.000000846710394,
+            "z": 5.063748423369509,
+            "speed": 4.499990115384455,
+            "animation": "Run"
+          }
+        },
+        {
+          "receivedSeconds": 12.213029727999995,
+          "player": {
+            "x": -7.000000840252337,
+            "z": 5.116652832480675,
+            "speed": 1.771405840898128,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 12.420198880000001,
+          "player": {
+            "x": -7.000000840252337,
+            "z": 5.116652832480675,
+            "speed": 1.771405840898128,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 12.628123970000004,
+          "player": {
+            "x": -7.000000779034594,
+            "z": 5.618148577020922,
+            "speed": 2.0836402601355144,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 12.836608659999996,
+          "player": {
+            "x": -7.000000779034594,
+            "z": 5.618148577020922,
+            "speed": 2.0836402601355144,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 13.041007217,
+          "player": {
+            "x": -7.000000779034594,
+            "z": 5.618148577020922,
+            "speed": 2.0836402601355144,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 13.249619005,
+          "player": {
+            "x": -7.000000715090527,
+            "z": 6.141978369047408,
+            "speed": 2.099185496512886,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 13.454550353000002,
+          "player": {
+            "x": -7.000000715090527,
+            "z": 6.141978369047408,
+            "speed": 2.099185496512886,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 13.661588601999995,
+          "player": {
+            "x": -7.000000715090527,
+            "z": 6.141978369047408,
+            "speed": 2.099185496512886,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 13.872445247000002,
+          "player": {
+            "x": -7.000000651010725,
+            "z": 6.666920107823021,
+            "speed": 2.0999594482592014,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 14.078319789999995,
+          "player": {
+            "x": -7.000000651010725,
+            "z": 6.666920107823021,
+            "speed": 2.0999594482592014,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 14.286177244000001,
+          "player": {
+            "x": -7.000000586924166,
+            "z": 7.191917207167456,
+            "speed": 2.0999979810477085,
+            "animation": "Walk"
+          }
+        }
+      ],
+      "observedExpectedAnimation": true,
+      "endReceivedSeconds": 14.487407926000003,
+      "receivedFramesInPhaseWindow": 5
+    },
+    {
+      "input": "stop",
+      "beginReceivedSeconds": 14.498299644,
+      "direction": null,
+      "running": false,
+      "observations": [
+        {
+          "receivedSeconds": 14.502331225999995,
+          "player": {
+            "x": -7.000000586924166,
+            "z": 7.191917207167456,
+            "speed": 2.0999979810477085,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 14.706329087,
+          "player": {
+            "x": -7.000000586924166,
+            "z": 7.191917207167456,
+            "speed": 2.0999979810477085,
+            "animation": "Walk"
+          }
+        },
+        {
+          "receivedSeconds": 14.912454456999996,
+          "player": {
+            "x": -7.000000573199907,
+            "z": 7.304346324036897,
+            "speed": 0.03846280468794067,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 15.117065620000005,
+          "player": {
+            "x": -7.000000573199907,
+            "z": 7.304346324036897,
+            "speed": 0.03846280468794067,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 15.326396388999996,
+          "player": {
+            "x": -7.000000572948538,
+            "z": 7.306405535142057,
+            "speed": 0.0007044708413122335,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 15.532472592999994,
+          "player": {
+            "x": -7.000000572948538,
+            "z": 7.306405535142057,
+            "speed": 0.0007044708413122335,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 15.739248684999993,
+          "player": {
+            "x": -7.000000572948538,
+            "z": 7.306405535142057,
+            "speed": 0.0007044708413122335,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 15.946604406000006,
+          "player": {
+            "x": -7.000000572943934,
+            "z": 7.306443250909054,
+            "speed": 1.290283353711762e-05,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 16.152374160999997,
+          "player": {
+            "x": -7.000000572943855,
+            "z": 7.306443890749604,
+            "speed": 1.1705186501213014e-06,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 16.357990123999997,
+          "player": {
+            "x": -7.000000572943855,
+            "z": 7.306443890749604,
+            "speed": 1.1705186501213014e-06,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 16.565281885999994,
+          "player": {
+            "x": -7.000000572943848,
+            "z": 7.306443953416512,
+            "speed": 2.143879690815034e-08,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 16.771743322999995,
+          "player": {
+            "x": -7.000000572943848,
+            "z": 7.306443953416512,
+            "speed": 2.143879690815034e-08,
+            "animation": "Idle"
+          }
+        },
+        {
+          "receivedSeconds": 16.977432111,
+          "player": {
+            "x": -7.000000572943848,
+            "z": 7.306443954564297,
+            "speed": 3.926652623785925e-10,
+            "animation": "Idle"
+          }
+        }
+      ],
+      "observedExpectedAnimation": true,
+      "endReceivedSeconds": 17.179432473000006,
+      "receivedFramesInPhaseWindow": 4
+    }
+  ],
+  "errors": [],
+  "physicalAndroidValidated": false,
+  "stage": "pass",
+  "entrySha256": "6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe",
+  "version": "151.0.7922.34",
+  "route": {
+    "method": "Real camera drag and W/S key events on x=-7 sidewalk",
+    "alignedCamera": {
+      "yaw": 1.220703125109912e-07,
+      "pitch": 0.38,
+      "overview": false
+    },
+    "spawn": {
+      "x": -7,
+      "z": 12,
+      "speed": 0,
+      "animation": "Idle"
+    }
+  },
+  "warmup": {
+    "requiredActualFrames": 2,
+    "timeoutSeconds": 15,
+    "beginReceivedSeconds": 0,
+    "status": "ready",
+    "endReceivedSeconds": 4.4301911270000005,
+    "firstFrameReceivedSeconds": 3.8395537760000025,
+    "receivedActualFrames": 2
+  },
+  "stream": {
+    "frames": 24,
+    "seconds": 13.081700072000004,
+    "receivedFramesPerSecond": 1.7581812664570309,
+    "longestReceiptGapSeconds": 1.491993930999996
+  },
+  "usefulContinuousEvidence": true
+}

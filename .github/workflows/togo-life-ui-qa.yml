@@ -1,0 +1,109 @@
+name: TOGO LIFE browser QA
+on:
+  push:
+    branches: [feat/togo-life-interface-jeu]
+    paths: ['togo-life-3d/src/**', 'togo-life-3d/assets/**', 'togo-life-3d/vendor/**', 'togo-life-3d/scripts/**', 'togo-life-3d/tests/**', 'togo-life-3d/index.html', 'togo-life-3d/life.css', 'togo-life-3d/*.html', 'togo-life-3d/package*.json', '.github/workflows/togo-life-ui-qa.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: togo-life-qa-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TOGO_PREVIEW_URL: https://togo-life-preview.vercel.app
+      TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+    defaults:
+      run:
+        working-directory: togo-life-3d
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Logic tests and static build
+        run: |
+          rm -f artifacts/browser-results.json
+          npm test
+          npm run build
+      - name: Install pinned Playwright and Chromium
+        run: |
+          python3 -m pip install playwright==1.62.0
+          python3 -m playwright install --with-deps chromium firefox
+          sudo apt-get install -y ffmpeg
+      - name: Independent Chromium render probe
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine chromium
+      - name: Independent Firefox render probe
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine firefox
+      - name: Store independent render evidence early
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-render-probes
+          path: |
+            togo-life-3d/artifacts/probe-*.json
+            togo-life-3d/artifacts/probe-*.png
+            togo-life-3d/artifacts/control-*.png
+          retention-days: 7
+      - name: Independent real mobile controls and camera
+        continue-on-error: true
+        run: timeout 180s python3 -u scripts/mobile_probe.py
+      - name: Store independent mobile evidence early
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-mobile-probe
+          path: |
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/mobile-probe-*.png
+          retention-days: 7
+      - name: Real browser interactions and captures
+        run: python3 scripts/ci_browser.py --transport offline
+      - name: Real locomotion sequence
+        if: always()
+        continue-on-error: true
+        run: timeout 60s python3 -u scripts/capture_motion.py
+      - name: Verify public preview delivery
+        if: always()
+        continue-on-error: true
+        env:
+          TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 scripts/public_preview.py
+      - name: Real public deployment browser probe
+        if: always()
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine chromium --prefix live --url "$TOGO_PREVIEW_URL"
+      - name: Fetch exact reference images for study
+        if: always()
+        run: python3 scripts/capture-reference-images.py
+      - name: Store real test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-browser-evidence
+          path: |
+            togo-life-3d/artifacts/browser-results.json
+            togo-life-3d/artifacts/server-preflight.json
+            togo-life-3d/artifacts/probe-*.json
+            togo-life-3d/artifacts/public-preview.json
+            togo-life-3d/artifacts/live-*.json
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/*.png
+            togo-life-3d/artifacts/motion/*.webm
+            togo-life-3d/artifacts/motion/*.json
+            togo-life-3d/artifacts/motion/frame-*.png
+          retention-days: 7
+      - name: Store reference study separately
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: interface-reference-study
+          path: togo-life-3d/artifacts/references/
+          retention-days: 7

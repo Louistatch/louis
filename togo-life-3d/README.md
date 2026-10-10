@@ -1,59 +1,50 @@
-# TOGO LIFE 3D — simulateur de vie togolais (MVP)
+# TOGO LIFE — Montagne Aimant (tranche solo en développement)
 
-Jeu de simulation solo en 3D, jouable sur navigateur. Personnage jouable, animation de marche, caméra suiveuse, villes générées, circulation automobile, PNJ animés, métiers, marchés, finance et microentreprise, besoins vitaux et trajets nationaux.
+Nouvelle architecture isolée de BAD/Bryq : Three.js local, avatar humain original glTF à 22 os et clips Idle/Walk/Run, quartier stylisé de Lomé, caméra troisième personne, collisions cinématiques, huit habitants à horaires, taxis et motos, marché, commerce et logement.
 
-**Le jeu n'utilise aucun fichier distant ni aucune librairie propriétaire.** Le rendu principal est construit en WebGL, standard ouvert ; une projection 3D via Canvas 2D est disponible si WebGL n'est pas disponible. Les modèles 3D sont créés de façon procédurale. Le code du jeu est sous licence MIT. Le projet peut ensuite migrer vers Three.js (MIT) ou Godot (MIT) si le besoin de simulation s'étend.
+**État exact : build et 14 tests Node réussis. La validation navigateur est bloquée par les restrictions de sockets Chromium de l'environnement. Aucun FPS, capture réelle, qualité graphique finale ou fonctionnement tactile n'est certifié. Cette branche n'est pas une livraison commerciale validée.**
 
-## Jouer sur GitHub Pages
+## Lancer
 
-Lancer le jeu depuis **https://louistatch.github.io/louis/togo-life-3d/**, sans modifier la plateforme BAD/Bryq située à la racine du dépôt `louis`.
+```sh
+cd togo-life-3d
+npm run build
+python3 -m http.server 8000
+```
 
-## Jouer immédiatement
+Ouvrir `http://localhost:8000/dist/`. Aucun téléchargement npm ni API payante n'est requis. Le build copie les modules et vérifie leurs imports locaux.
 
-- Ouvrir **TOGO_LIFE_3D.html** (fichier autonome livré à la racine du ZIP) dans Chrome ou Firefox avec WebGL activé. Internet et serveur ne sont pas nécessaires.
-- Sinon, depuis le dossier des sources : `python -m http.server 8000`, puis ouvrir `http://localhost:8000`.
-- Ordinateur : **ZQSD/WASD/flèches** pour marcher, **E** pour interagir, **Shift** pour courir, **glisser la souris** pour faire tourner la caméra.
-- Mobile : **joystick tactile**, **ACTION**, **COURIR**, bouton **Explorer le Togo**.
-- **Finir la journée** accélère le temps. Partie de 14 jours, avec un loyer exigible à chaque septième jour du jeu.
-- Le navigateur peut garder la progression localement via `localStorage`. Aucune donnée n'est transmise à un serveur.
+`TOGO_LIFE_MONTAGNE.html` contient aussi le jeu, ses modules, CSS et glTF : ouvrir dans un navigateur moderne acceptant les import maps. Ce mode a été généré, mais reste à tester dans un vrai navigateur.
 
-## Géographie
+PC : ZQSD/WASD/flèches, Maj courir, E interagir, glisser pour orienter la caméra. Contrôles tactiles implémentés : joystick, course, action et glisser caméra, avec libération/cancel des pointeurs. Les dialogues mettent la simulation en pause.
 
-5 régions (Maritime, Plateaux, Centrale, Kara, Savanes) et 40 préfectures sélectionnables.
+## Première vie
 
-- Contours simplifiés des régions : [geoBoundaries](https://github.com/wmgeolab/geoBoundaries), représentation dérivée de [robit-man/tiny-atlas](https://github.com/robit-man/tiny-atlas/blob/master/elevation_model/geojson/ADM1/TGO.geojson), attribution ODbL 1.0 selon métadonnées de l'ADM1.
-- Préfectures et centres géographiques : [open-admin-data/togo-administrative-divisions](https://github.com/open-admin-data/togo-administrative-divisions), **CC BY 4.0** ; noms localisés pour l'affichage, données du dépôt public.
-- **Important :** les quartiers 3D sont **fictifs et stylisés**. Ce ne sont pas des restitutions cartographiques 3D authentiques de chaque préfecture. Les distances sont à vol d'oiseau et les frais de voyage sont fictifs. La cartographie de terrain et le réseau routier nécessiteront OpenStreetMap, avec vérification de sa licence ODbL, pour les versions ultérieures.
+1. Choisir prénom, tenue et peau ; créer ou reprendre la sauvegarde locale.
+2. Aller au marché au nord du point de départ. Accepter un colis et le porter à l'atelier, ou acheter les produits (350 F par unité).
+3. Au comptoir, au sud du marché, investir 9 000 F puis déposer le sac (12 unités maximum).
+4. Choisir un prix. À 450 F la demande est forte ; elle baisse à 650/850 F et devient nulle à 1 100 F. Les ventes utilisent du stock pendant les heures d'ouverture.
+5. Payer le loyer et aménager la cour accessible. La faim et l'énergie influencent le déplacement.
 
-## Gameplay
+La monnaie est virtuelle. Une livraison par jour, échéance de contrat, coût du stock, demande et loyer limitent les gains. Les règles sont dans `src/simulation.js` et séparées du rendu. Ce n'est pas une économie multijoueur sécurisée.
 
-- Niveaux : 25 000 F fictifs au départ, formation, contrats numériques, vente au marché, microcrédit avec dette, boutique ouverte pour 28 000 F fictifs.
-- Besoins : énergie, alimentation, moral ; revenus et coût de la vie fictifs modulés par région.
-- Simulation : cycles de jours, événements, revenus passifs du commerce, dépenses/loyer, score de fin de saison.
-- Interactions : proximité spatiale de bâtiments et PNJ. Animations procédurales de marche, voitures et caméra amortie.
+## Géographie et assets
 
-## Structure
+Le quartier est une **interprétation artistique originale**, sans relevé OSM chargé. Cinq régions et un annuaire historique de 40 entrées sont disponibles ; aucun voyage, 40 scènes ni seconde ville n'est annoncé. L'annuaire historique inclut Lomé avec un statut différent des préfectures ; une mise à jour administrative sourcée est nécessaire avant expansion.
 
-- `index.html` : interface et modales.
-- `style.css` : design responsive / HUD mobile.
-- `game.js` : moteur WebGL et secours Canvas, scènes, personnages, carte, contrôles, économie.
-- `.claude/skills/togo-life-3d/SKILL.md` : skill de développement Claude spécialisé pour continuer ce projet.
-- `AGENTS.md` : rôles et standards de l'équipe IA.
-- `docs/OPEN_SOURCE.md` : composants, sources et licences.
-- `TOGO_LIFE_3D.html` : distribution monofichier.
+Three.js r160 et addons : MIT, licence jointe dans `vendor/LICENSE`. Version figée disponible par GitHub durant la panne de proxy ; mise à niveau à valider séparément. Géométries, textures procédurales, avatar et clips : création originale du projet, MIT. `assets/avatar.gltf` est produit par `node scripts/export-avatar.mjs`, sans Blender, mocap, générateur payant ou modèle tiers. Les animations utilisent AnimationMixer et crossfade, sans IK de pied. Les PNJ gardent le rig procédural original pour cette tranche.
 
-## Skills GitHub étudiés et appliqués
+## Préservation
 
-- [alton47/threejs-skills](https://github.com/alton47/threejs-skills) — `threejs-core`, `threejs-animation`, `threejs-camera`, `threejs-performance` (licence MIT). Ils guident la structure des scènes, les animations procédurales, les réglages de caméra et la stratégie de performance. **Le MVP implémente son propre moteur WebGL**, il ne charge pas encore la librairie Three.js ; il ne faut pas présenter ces skills comme des packages installés à l'exécution.
-- [anthropics/skills/frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) — principes d'interface distinctive.
-- [anthropics/skills/webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) — procédure de QA avec Playwright.
+`legacy.html`, `game.js`, `style.css` et `TOGO_LIFE_3D.html` conservent le prototype. Le mode de compatibilité pointe vers celui-ci si WebGL échoue. Aucun fichier BAD/Bryq ni document racine n'a été modifié. Aucune fusion ou production effectuée.
 
-Pour installer les skills 3D dans une configuration Claude/Codex compatible : `npx skills add https://github.com/alton47/threejs-skills`. Installation non réalisée dans le compte du joueur.
+## Vérification et preuves
 
-## Validation
+```sh
+node --test --test-isolation=none tests/*.test.mjs
+python3 tests/browser.py --url http://127.0.0.1:8000/dist/
+```
 
-Test sous Chromium automatisé : chargement, 40 préfectures, marche clavier, interaction marché, ouverture d'un kiosque, voyage Lomé → Kara, passage des 14 jours, rendu mobile et absence d'erreurs JavaScript. Le navigateur d'essai ne fournissait pas de contexte WebGL matériel ; le mode Canvas 2D de secours a été rendu et testé graphiquement. Tester la branche GPU WebGL directement sur les appareils cibles reste nécessaire avant tout lancement public.
+La seconde commande nécessite un environnement permettant Chromium. Voir [rapport final](artifacts/final-evidence.md), [skills](docs/SKILLS_EXECUTION_REPORT.md), [recherche Lagos Life](docs/LAGOS_LIFE_RESEARCH.md), [revue indépendante](docs/INDEPENDENT_REVIEW.md) et [évaluation critique](docs/LAGOS_LIFE_EVALUATION.md).
 
-## Ce qui reste avant un produit commercial
-
-Multijoueur et comptes sécurisés, monde persistant hébergé, carte de rues réelles, avatars 3D animés par squelettes, moteurs physiques, trafic routier réaliste, comportement intelligent des habitants, son 3D, accessibilité, gestion du consentement et infrastructure scalable. Les gains dans le jeu n'ont aucune valeur monétaire.
+Restent avant commercialisation : validation graphique et animation en captures/vidéo, performance Android réelle, locomotion IK et finition humaine, Rapier/navmesh/traffic robuste, vrais quartiers géographiques, métiers supplémentaires, événements, véhicules possédés, seconde ville distincte et backend multijoueur autoritaire.

@@ -18,3 +18,13 @@ Ces responsabilités sont des casquettes d'agents IA (instructions pour assistan
 - Toute monétisation réelle exige consentement et séparation stricte entre monnaie virtuelle et monnaie réelle.
 - Ne pas prétendre qu'une localité ou un bâtiment stylisé correspond à un relevé exact du terrain.
 - Préserver un moteur de rendu de secours lorsque WebGL n'est pas disponible.
+
+## Studio de simulation autonome
+
+Les instructions projet sont installées dans `.agents/skills/togo-life-studio/`, `togo-life-economy/`, `togo-life-npc-ai/`, `togo-life-world-map/` et `togo-life-quality/`. Leur provenance MIT est documentée dans `docs/AUTONOMOUS_MARKET_SKILLS_AUDIT.md` ; elles complètent les compétences Three.js déjà installées.
+
+- L'autorité économique appartient à `simulation.js` et `society.js`, jamais au rendu ou à un dialogue.
+- Une vente exige un client identifié, son arrivée physique, un débit de son portefeuille et un transfert de stock. Les minuteurs de vente arbitraires sont interdits.
+- Préserver la clé de sauvegarde historique ; migrations et validation restent pures, versions futures rejetées, secours conservé avant écriture primaire.
+- Les scripts navigateur utilisent les contrôles normaux du joueur et les diagnostics en lecture seule. Consigner séparément tests locaux, CI, aperçu HTTPS et matériel physique.
+- Ne pas modifier `togo-life-3d-preview/` ou BAD/Bryq pour livrer le jeu de ce dossier.

@@ -1,0 +1,542 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-10",
+  "scope": "Selected instructions and tooling for TOGO LIFE autonomous-market work; not a gameplay validation.",
+  "installation": {
+    "agent": "codex",
+    "location": "togo-life-3d/.agents/skills/",
+    "method": "Pinned GitHub connector fetch and exact project-local manual folder copy; documented upstream docs/INSTALLATION.md.",
+    "networkInstallerExecutedThisAudit": false,
+    "reason": "Existing prior installation report records npx EPERM; this audit uses the upstream-supported manual method and does not repeat a known blocked download.",
+    "overwroteExistingFiles": false
+  },
+  "sources": [
+    {
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "context": "PR #8 feat/codex-togo-life-studio",
+      "license": "MIT",
+      "licensePath": "togo-life-3d/LICENSE",
+      "licenseGitBlobSha": "72d4e014e9aa8759e2a414eed7181f802215ce06",
+      "skills": [
+        "togo-life-studio",
+        "togo-life-economy",
+        "togo-life-npc-ai",
+        "togo-life-world-map",
+        "togo-life-quality"
+      ],
+      "licenseHashMatchesPinnedSource": true
+    },
+    {
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "license": "Apache-2.0",
+      "licensePath": ".agents/skills/LICENSE.gamedev-skills",
+      "licenseGitBlobSha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44",
+      "installationDocumentationPath": "docs/INSTALLATION.md",
+      "installationDocumentationGitBlobSha": "8277627057c1ceb8a893d919591d1b83183701c6",
+      "skills": [
+        "save-systems",
+        "create-game-assets"
+      ],
+      "licenseHashMatchesPinnedSource": true
+    }
+  ],
+  "files": [
+    {
+      "path": ".agents/skills/togo-life-economy/SKILL.md",
+      "upstreamPath": "togo-life-3d/.agents/skills/togo-life-economy/SKILL.md",
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "gitBlobSha": "b700199122d17a4e25f8877400f569f2c5026cc8",
+      "upstreamMode": "100644",
+      "bytes": 1907,
+      "sha256": "cf1dd32ec4d00e4574261338695c2b57af051aa443b30843e7733a31aa0d7046",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/togo-life-npc-ai/SKILL.md",
+      "upstreamPath": "togo-life-3d/.agents/skills/togo-life-npc-ai/SKILL.md",
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "gitBlobSha": "cc004fb8446afc973c4bebf58280dcd30dc34b34",
+      "upstreamMode": "100644",
+      "bytes": 1771,
+      "sha256": "63f002febfd4f24683340f66e73a38a2ab30949aaeafd387bb332663a69810d4",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/togo-life-quality/SKILL.md",
+      "upstreamPath": "togo-life-3d/.agents/skills/togo-life-quality/SKILL.md",
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "gitBlobSha": "788bb034971f7214bb4b3c85594219032306176b",
+      "upstreamMode": "100644",
+      "bytes": 1587,
+      "sha256": "0dd7a8b4ee743b384269ac381e7beb1b7e76495018a55c36030ae78c9a08d294",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/togo-life-studio/SKILL.md",
+      "upstreamPath": "togo-life-3d/.agents/skills/togo-life-studio/SKILL.md",
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "gitBlobSha": "021cc20ac26118906bbc850965e806958780096b",
+      "upstreamMode": "100644",
+      "bytes": 2539,
+      "sha256": "9cb45d8af04084049cacd88a282c773d1aab9947df5274452dd329515afd1d1b",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/togo-life-world-map/SKILL.md",
+      "upstreamPath": "togo-life-3d/.agents/skills/togo-life-world-map/SKILL.md",
+      "repository": "Louistatch/louis",
+      "commit": "308e9dfbed69e6efa62aaaac68031147a7b6c6ca",
+      "gitBlobSha": "6e16b640266a2b119458d28cf83cf22ca6a0a540",
+      "upstreamMode": "100644",
+      "bytes": 1850,
+      "sha256": "c08278a77bb1299a42649a3b9a58f139f0e5a676e272806f20d9f6c17066dcc6",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/SKILL.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/SKILL.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "44fed75da429247eff03a33f0f4987c020aa4be6",
+      "upstreamMode": "100644",
+      "bytes": 7979,
+      "sha256": "c178cde20316f7d326f2a853a76522b375b325346b5b8797ef52aa98740aff18",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/agents/openai.yaml",
+      "upstreamPath": "skills/disciplines/create-game-assets/agents/openai.yaml",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "cba4fa772706ab7d0dac58426d47dc22d969926e",
+      "upstreamMode": "100644",
+      "bytes": 231,
+      "sha256": "b5ff9e75ab8a845324d28745aa97af0a3cd4fccc56067a6494947e12e40f1990",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/assets/art-direction-brief.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/assets/art-direction-brief.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "faf39aea6196fcc9e97c6ea249da57f1149cd8eb",
+      "upstreamMode": "100644",
+      "bytes": 858,
+      "sha256": "6d5dc4f9f5fcb24300bab9ce7dbd56d5c948ba41da3cca2d3b3d235fee5fb72c",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/assets/asset-manifest.json",
+      "upstreamPath": "skills/disciplines/create-game-assets/assets/asset-manifest.json",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "548ee4867df3f4a9d49a5134e18b0759d046fd7c",
+      "upstreamMode": "100644",
+      "bytes": 969,
+      "sha256": "6cce05638c11b80eb5c8f776cf187f479a2579f1a1729b0970b1cc8e5fab4c8e",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/references/art-direction.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/references/art-direction.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "3cc0543a7f5d58805ff03d133a3881a66e67b21b",
+      "upstreamMode": "100644",
+      "bytes": 3876,
+      "sha256": "19b2ccb827eae0c6c4cd3648ab7febb82e44706bef8515f2e8912de23dec0a5c",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/references/provenance.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/references/provenance.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "7285acb349e83370b0152f1f0414d4f419af23f1",
+      "upstreamMode": "100644",
+      "bytes": 2198,
+      "sha256": "2c2b30c69dec5c006c91ecbf506fce2ae3f857b5cc82bda9a10ddb5b769c7586",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/references/raster-pipeline.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/references/raster-pipeline.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "76cc48a55ef246f69486e86dafb9aaf40cadf60a",
+      "upstreamMode": "100644",
+      "bytes": 3909,
+      "sha256": "834ecaeb35e61fc50ed5fbd518942f767f0717d1ab641822234a1f9cbe5eeb6f",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/references/three-d-pipeline.md",
+      "upstreamPath": "skills/disciplines/create-game-assets/references/three-d-pipeline.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "378ac41c499a099c8173dc62636e7e91ed2a8d4c",
+      "upstreamMode": "100644",
+      "bytes": 3146,
+      "sha256": "8278baa203b7cd560d9fc5688c33489a9c478275c1795def119b7e024b27d03e",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/scripts/asset_report.py",
+      "upstreamPath": "skills/disciplines/create-game-assets/scripts/asset_report.py",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "6eb94d625ee1574356019181dc6168855343f9dd",
+      "upstreamMode": "100755",
+      "bytes": 4702,
+      "sha256": "93e364f095261b44f6fd0345f7132019af1af93e81ebd84d91fe2a5049918203",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o755"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/scripts/build_preview_sheet.py",
+      "upstreamPath": "skills/disciplines/create-game-assets/scripts/build_preview_sheet.py",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "87a656c9dd69791a2aad0a3fd689abbbee670753",
+      "upstreamMode": "100755",
+      "bytes": 3353,
+      "sha256": "002a550a7b5fac6d8815078a72afc249dd828c40d975b2323223fc770118c64b",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o755"
+    },
+    {
+      "path": ".agents/skills/create-game-assets/scripts/requirements.txt",
+      "upstreamPath": "skills/disciplines/create-game-assets/scripts/requirements.txt",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "0f00984858108717cca519f581649778a1ebc9ed",
+      "upstreamMode": "100644",
+      "bytes": 15,
+      "sha256": "1954ca940740c612a12e7abf0a307b7394715964d66dc8037d503fdd5c1b6424",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/save-systems/SKILL.md",
+      "upstreamPath": "skills/disciplines/save-systems/SKILL.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "1218ea11fdfa92de39dfc8c3c7f1c9ee43bff907",
+      "upstreamMode": "100644",
+      "bytes": 7337,
+      "sha256": "bf9184965b3eb4bc0b20be00681d08ef1af63fd85ca5b7afb7453ca09e80e490",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    },
+    {
+      "path": ".agents/skills/save-systems/references/versioning-and-migration.md",
+      "upstreamPath": "skills/disciplines/save-systems/references/versioning-and-migration.md",
+      "repository": "gamedev-skills/awesome-gamedev-agent-skills",
+      "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+      "gitBlobSha": "f39064e62f6a2b17ec551664b0fd7a19c86e4c7f",
+      "upstreamMode": "100644",
+      "bytes": 4068,
+      "sha256": "a0127a2443049a801f01f950ec6f0581ca3d74f6b20e309af4e5095b162175ae",
+      "hashMatchesUpstream": true,
+      "installedMode": "0o644"
+    }
+  ],
+  "scriptAudit": {
+    "pythonScripts": [
+      ".agents/skills/create-game-assets/scripts/asset_report.py",
+      ".agents/skills/create-game-assets/scripts/build_preview_sheet.py"
+    ],
+    "imports": [
+      "argparse",
+      "json",
+      "math",
+      "pathlib",
+      "typing",
+      "PIL"
+    ],
+    "networkCalls": false,
+    "shellCalls": false,
+    "subprocessCalls": false,
+    "scope": "Read local raster inputs; preview-sheet script writes only the explicit output path. No installation hooks, API credentials, hosted generators, or paid services.",
+    "requirements": "Pillow>=10,<13",
+    "installedPillowVersion": "12.3.0",
+    "dependencyInstallationExecuted": false,
+    "syntaxCheck": "PASS (ast.parse, both original Python scripts)",
+    "templateManifestJsonCheck": "PASS"
+  },
+  "limits": [
+    "Instruction installation is not evidence that game features are implemented.",
+    "Raster capture inspection is not a model/rig/material or commercial-quality approval.",
+    "Preview sheet is derived only from already archived genuine CI9 screenshots; it is not a new browser capture or a concept image.",
+    "No Blender, paid asset generator, hosted LLM, game server, or new browser session was run by this audit.",
+    "The upstream general router is not installed in this selected-folder audit; togo-life-studio is the explicitly invoked local director.",
+    "Local files may be discovered in the project's native .agents/skills directory; session-level installed skill listings were not refreshed or claimed."
+  ],
+  "validation": {
+    "script": ".agents/skills-tools/validate-skills.py",
+    "function": "validate_file",
+    "scope": "Seven newly installed SKILL.md files; not the entire upstream catalog.",
+    "results": [
+      {
+        "skill": "togo-life-studio",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "togo-life-economy",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "togo-life-npc-ai",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "togo-life-world-map",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "togo-life-quality",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "save-systems",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      },
+      {
+        "skill": "create-game-assets",
+        "errors": [],
+        "warnings": [],
+        "status": "PASS"
+      }
+    ],
+    "status": "PASS"
+  },
+  "execution": {
+    "helpCommands": [
+      {
+        "script": ".agents/skills/create-game-assets/scripts/asset_report.py",
+        "returncode": 0
+      },
+      {
+        "script": ".agents/skills/create-game-assets/scripts/build_preview_sheet.py",
+        "returncode": 0
+      }
+    ],
+    "initialConstraintProbe": [
+      {
+        "path": "docs/captures/2026-10-10/mobile-portrait.png",
+        "expectedPhysicalPixels": [
+          390,
+          844
+        ],
+        "actualPhysicalPixels": [
+          585,
+          1266
+        ],
+        "status": "FAIL"
+      },
+      {
+        "path": "docs/captures/2026-10-10/mobile-landscape.png",
+        "expectedPhysicalPixels": [
+          844,
+          390
+        ],
+        "actualPhysicalPixels": [
+          1266,
+          585
+        ],
+        "status": "FAIL"
+      }
+    ],
+    "correction": "CSS viewport dimensions differ from screenshot physical pixels at emulated deviceScaleFactor 1.5. Source screenshots were not resized.",
+    "correctedAssetReportRuns": [
+      {
+        "args": [
+          ".agents/skills/create-game-assets/scripts/asset_report.py",
+          "docs/captures/2026-10-10/mobile-portrait.png",
+          "--expect-size",
+          "585x1266",
+          "--json"
+        ],
+        "returncode": 0,
+        "report": {
+          "ok": true,
+          "assets": [
+            {
+              "path": "docs/captures/2026-10-10/mobile-portrait.png",
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 585,
+              "height": 1266,
+              "bytes": 295908,
+              "color_count": 39809,
+              "has_alpha": false,
+              "alpha_min": 255,
+              "alpha_max": 255,
+              "transparent_pixels": 0,
+              "content_bounds": [
+                0,
+                0,
+                585,
+                1266
+              ],
+              "problems": []
+            }
+          ]
+        },
+        "stderr": ""
+      },
+      {
+        "args": [
+          ".agents/skills/create-game-assets/scripts/asset_report.py",
+          "docs/captures/2026-10-10/mobile-landscape.png",
+          "--expect-size",
+          "1266x585",
+          "--json"
+        ],
+        "returncode": 0,
+        "report": {
+          "ok": true,
+          "assets": [
+            {
+              "path": "docs/captures/2026-10-10/mobile-landscape.png",
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 1266,
+              "height": 585,
+              "bytes": 487685,
+              "color_count": 45295,
+              "has_alpha": false,
+              "alpha_min": 255,
+              "alpha_max": 255,
+              "transparent_pixels": 0,
+              "content_bounds": [
+                0,
+                0,
+                1266,
+                585
+              ],
+              "problems": []
+            }
+          ]
+        },
+        "stderr": ""
+      },
+      {
+        "args": [
+          ".agents/skills/create-game-assets/scripts/asset_report.py",
+          "docs/captures/2026-10-10/desktop-https.png",
+          "--expect-size",
+          "1440x900",
+          "--json"
+        ],
+        "returncode": 0,
+        "report": {
+          "ok": true,
+          "assets": [
+            {
+              "path": "docs/captures/2026-10-10/desktop-https.png",
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 1440,
+              "height": 900,
+              "bytes": 916667,
+              "color_count": 49088,
+              "has_alpha": false,
+              "alpha_min": 255,
+              "alpha_max": 255,
+              "transparent_pixels": 0,
+              "content_bounds": [
+                0,
+                0,
+                1440,
+                900
+              ],
+              "problems": []
+            }
+          ]
+        },
+        "stderr": ""
+      }
+    ],
+    "previewSheet": {
+      "script": ".agents/skills/create-game-assets/scripts/build_preview_sheet.py",
+      "command": "python3 .agents/skills/create-game-assets/scripts/build_preview_sheet.py docs/captures/2026-10-10/mobile-portrait.png docs/captures/2026-10-10/mobile-landscape.png docs/captures/2026-10-10/desktop-https.png --out /tmp/togo-life-market-skills-preview.jpg --columns 3 --cell-size 192",
+      "returncode": 0,
+      "output": "/tmp/togo-life-market-skills-preview.jpg",
+      "inputCount": 3,
+      "outputSize": [
+        648,
+        240
+      ],
+      "visuallyViewed": true,
+      "committed": false
+    }
+  },
+  "existingDisciplineSkills": {
+    "reinstalled": false,
+    "instructionsReadThisAudit": true,
+    "validationResults": [
+      {
+        "skill": "ai-behavior-trees-utility-ai",
+        "status": "PASS",
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "skill": "game-ai",
+        "status": "PASS",
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "skill": "procedural-gen",
+        "status": "PASS",
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "skill": "dialogue-systems",
+        "status": "PASS",
+        "errors": [],
+        "warnings": []
+      },
+      {
+        "skill": "performance-optimization",
+        "status": "PASS",
+        "errors": [],
+        "warnings": []
+      }
+    ]
+  }
+}

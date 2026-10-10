@@ -5,14 +5,16 @@ from playwright.sync_api import sync_playwright
 
 p=argparse.ArgumentParser()
 p.add_argument('--engine', choices=['chromium','firefox'], required=True)
+p.add_argument('--url',default=None,help='Public deployment URL; omitted for the actual offline build')
+p.add_argument('--prefix',default='probe',choices=['probe','live'])
 args=p.parse_args()
 game=Path(__file__).resolve().parents[1]
 out=game/'artifacts'
 out.mkdir(exist_ok=True)
-report={'engine':args.engine,'status':'running','errors':[],'captures':[],'sourceSha':os.environ.get('TOGO_SOURCE_SHA')}
+report={'engine':args.engine,'status':'running','errors':[],'captures':[],'sourceSha':os.environ.get('TOGO_SOURCE_SHA'),'transport':'https' if args.url else 'offline-file'}
 def stage(label):
     report['stage']=label
-    (out/f'probe-{args.engine}.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
+    (out/f'{args.prefix}-{args.engine}.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))
     print('PROBE',args.engine,label,flush=True)
 
 try:
@@ -33,29 +35,30 @@ try:
         report['controlPassed']=True
         stage('navigate real offline game')
         started=time.monotonic()
-        page.goto((game/'dist/TOGO_LIFE_MONTAGNE.html').as_uri()+'?qa=1',wait_until='commit',timeout=20000)
+        report['entryUrl']=(args.url or (game/'dist/TOGO_LIFE_MONTAGNE.html').as_uri())+'?qa=1'
+        page.goto(report['entryUrl'],wait_until='commit',timeout=20000)
         stage('wait real onboarding and animated avatar')
         page.wait_for_selector('#start[open]',timeout=20000)
         page.wait_for_function('document.getElementById("previewStatus").textContent.includes("aperçu en direct")',timeout=20000)
         report['onboardingSeconds']=time.monotonic()-started
-        name=f'probe-{args.engine}-start.png'
+        name=f'{args.prefix}-{args.engine}-start.png'
         page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         stage('enter actual world')
         page.click('#startBtn')
         page.wait_for_selector('#start[open]',state='hidden')
         page.wait_for_timeout(1000)
-        name=f'probe-{args.engine}-active.png'
+        name=f'{args.prefix}-{args.engine}-active.png'
         page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         report['activeState']=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
         page.click('#cameraBtn')
         page.wait_for_timeout(500)
-        name=f'probe-{args.engine}-overview.png'
+        name=f'{args.prefix}-{args.engine}-overview.png'
         page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         page.click('#businessBtn')
-        name=f'probe-{args.engine}-commerce.png'
+        name=f'{args.prefix}-{args.engine}-commerce.png'
         page.screenshot(path=str(out/name),timeout=30000)
         report['captures'].append(name)
         report['state']=page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')

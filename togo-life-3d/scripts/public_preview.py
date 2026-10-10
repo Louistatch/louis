@@ -6,7 +6,7 @@ game=Path(__file__).resolve().parents[1]
 revision=os.environ.get('TOGO_SOURCE_SHA','feat/togo-life-interface-jeu')
 expected=hashlib.sha256((game/'dist/TOGO_LIFE_MONTAGNE.html').read_bytes()).hexdigest()
 report={'expectedSha256':expected,'checks':[],'browserValidated':False}
-urls=[f'https://raw.githack.com/Louistatch/louis/{revision}/togo-life-3d/TOGO_LIFE_MONTAGNE.html',
+urls=([os.environ['TOGO_PREVIEW_URL']] if os.environ.get('TOGO_PREVIEW_URL') else [])+[f'https://raw.githack.com/Louistatch/louis/{revision}/togo-life-3d/TOGO_LIFE_MONTAGNE.html',
       f'https://rawcdn.githack.com/Louistatch/louis/{revision}/togo-life-3d/TOGO_LIFE_MONTAGNE.html']
 for url in urls:
     row={'url':url}

@@ -14,8 +14,9 @@ concurrency:
 jobs:
   browser:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 15
     env:
+      TOGO_PREVIEW_URL: https://togo-life-preview.vercel.app
       TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     defaults:
       run:
@@ -53,6 +54,18 @@ jobs:
             togo-life-3d/artifacts/probe-*.png
             togo-life-3d/artifacts/control-*.png
           retention-days: 7
+      - name: Independent real mobile controls and camera
+        continue-on-error: true
+        run: timeout 180s python3 -u scripts/mobile_probe.py
+      - name: Store independent mobile evidence early
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-mobile-probe
+          path: |
+            togo-life-3d/artifacts/mobile-probe.json
+            togo-life-3d/artifacts/mobile-probe-*.png
+          retention-days: 7
       - name: Real browser interactions and captures
         run: python3 scripts/ci_browser.py --transport offline
       - name: Real locomotion sequence
@@ -65,6 +78,10 @@ jobs:
         env:
           TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: python3 scripts/public_preview.py
+      - name: Real public deployment browser probe
+        if: always()
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine chromium --prefix live --url "$TOGO_PREVIEW_URL"
       - name: Fetch exact reference images for study
         if: always()
         run: python3 scripts/capture-reference-images.py
@@ -78,6 +95,8 @@ jobs:
             togo-life-3d/artifacts/server-preflight.json
             togo-life-3d/artifacts/probe-*.json
             togo-life-3d/artifacts/public-preview.json
+            togo-life-3d/artifacts/live-*.json
+            togo-life-3d/artifacts/mobile-probe.json
             togo-life-3d/artifacts/*.png
             togo-life-3d/artifacts/motion/*.webm
             togo-life-3d/artifacts/motion/*.json

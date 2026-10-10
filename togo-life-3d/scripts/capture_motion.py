@@ -15,8 +15,9 @@ try:
         page.wait_for_selector('#start[open]');page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden')
         started=time.monotonic()
         for phase,duration in [('walk',2),('run',2),('turn',1.2),('stop',1.8)]:
-            for key in ['w','a','Shift']:page.keyboard.up(key)
-            if phase in ['walk','run']:page.keyboard.down('w')
+            for key in ['w','a','d','Shift']:page.keyboard.up(key)
+            if phase=='walk':page.keyboard.down('w')
+            if phase=='run':page.keyboard.down('d')
             if phase=='run':page.keyboard.down('Shift')
             if phase=='turn':page.keyboard.down('a')
             phase_started=time.monotonic()

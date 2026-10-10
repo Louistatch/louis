@@ -45,7 +45,7 @@ export function buildWorld(scene,{city='lome',quality='high'}={}) {
   sign('MARCHÉ • PRODUITS LOCAUX',-17,3.7,3.3,10,'#77412e');
   function palm(x,z,height=8){colliders.push({x,z,w:.4,d:.4,height});part(cylG,wood,x,height/2,z,.17,height,.24,0,.035);for(let i=0;i<10;i++)part(frondG,leaf,x,height,z,1,i%2?.85:1,1,i*Math.PI/5);for(let i=0;i<9;i++)part(cylG,wood,x,height*.14+i*height*.087,z,.205,.045,.245);part(sphereG,leaf,x,height-.15,z,.36,.55,.36);}
 
-  for(const [x,z] of [[-8,9],[8,-6],[-8,-19],[8,27],[-24,23],[25,5],[-26,-15],[26,-28]])palm(x,z,kara?6.5:8);
+  for(const [x,z] of [[-10.5,10.5],[8,-6],[-8,-19],[8,27],[-24,23],[25,5],[-26,-15],[26,-28]])palm(x,z,kara?6.5:8);
   // Street furniture and drainage give the streets human scale.
   for(let z=-40;z<41;z+=16){for(const x of [-7.6,7.6]){part(cylG,steel,x,3,z,.065,6,.065);box(steel,x+Math.sign(x)*-.55,5.9,z,1.2,.09,.12);box(white,x+Math.sign(x)*-.9,5.8,z,.6,.1,.28);}for(const x of [-5.5,5.5])for(let k=0;k<4;k++)box(dark,x,.242,z+k*.17,.8,.014,.055);}
   for(const x of [-9,9]){colliders.push({x,z:10,w:1.8,d:.6,height:1.3});box(wood,x,.6,10,1.8,.14,.5);box(wood,x,.95,10.25,1.8,.6,.1);for(const dx of [-.65,.65])box(steel,x+dx,.32,10,.07,.6,.4);}

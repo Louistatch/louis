@@ -102,10 +102,11 @@ try:
    initial=state()['player'];page.keyboard.down('w');page.wait_for_timeout(1400);page.keyboard.up('w');moved=state()['player'];check('walk changes position',math.hypot(initial['x']-moved['x'],initial['z']-moved['z'])>1)
    page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run');page.keyboard.up('w');page.keyboard.up('Shift');page.wait_for_timeout(500);check('progressive stop',state()['player']['speed']<.1)
    def walk_to(x,z):
-    page.keyboard.down('Shift')
     end=time.monotonic()+40
     while time.monotonic()<end:
      pos=state()['player'];dx=x-pos['x'];dz=z-pos['z'];dist=math.hypot(dx,dz)
+     if dist>3:page.keyboard.down('Shift')
+     else:page.keyboard.up('Shift')
      if dist<.65:
       page.keyboard.up('Shift');return
      ix=dx*math.cos(.2)-dz*math.sin(.2);iz=dx*math.sin(.2)+dz*math.cos(.2)

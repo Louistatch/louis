@@ -6,6 +6,7 @@ import json
 import subprocess
 import sys
 import threading
+import urllib.request
 from pathlib import Path
 
 parser = argparse.ArgumentParser()
@@ -22,8 +23,8 @@ if report_path.exists():
     report_path.unlink()  # Do not reuse the outcome of a previous execution.
 
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
-    def log_message(self, *_):
-        pass
+    def log_message(self, fmt, *values):
+        print("HTTP", self.address_string(), fmt % values, flush=True)
 
 server = None
 code = 1
@@ -33,8 +34,19 @@ try:
     server.daemon_threads = True
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
+    base_url = f'http://127.0.0.1:{server.server_port}/dist/'
+    with urllib.request.urlopen(base_url + '?qa=1', timeout=10) as response:
+        preflight = {'url': response.url, 'status': response.status,
+                     'mime': response.headers.get('Content-Type'),
+                     'contentLength': response.headers.get('Content-Length'),
+                     'headers': dict(response.headers),
+                     'first80': response.read(80).decode('utf-8', errors='replace')}
+    (output / 'server-preflight.json').write_text(json.dumps(preflight, indent=2))
+    print('PREFLIGHT', json.dumps(preflight), flush=True)
+    if preflight['status'] != 200 or 'text/html' not in preflight['mime']:
+        raise RuntimeError('Built game entry did not serve HTTP 200 text/html')
     command = [sys.executable, str(game / 'tests/browser.py'), '--url',
-               f'http://127.0.0.1:{server.server_port}/dist/', '--output-dir', str(output)]
+               base_url, '--output-dir', str(output)]
     if args.browser:
         command.extend(['--browser', args.browser])
     code = subprocess.run(command, cwd=game, timeout=240, check=False).returncode

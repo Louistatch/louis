@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: togo-life-qa-${{ github.ref }}
+  group: togo-life-qa-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   browser:
@@ -27,6 +27,7 @@ jobs:
           node-version: '24'
       - name: Logic tests and static build
         run: |
+          rm -f artifacts/browser-results.json
           npm test
           npm run build
       - name: Install pinned Playwright and Chromium
@@ -35,6 +36,9 @@ jobs:
           python3 -m playwright install --with-deps chromium
       - name: Real browser interactions and captures
         run: python3 scripts/ci_browser.py
+      - name: Fetch exact reference images for study
+        if: always()
+        run: python3 scripts/capture-reference-images.py
       - name: Store real test evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -42,6 +46,14 @@ jobs:
           name: togo-life-browser-evidence
           path: |
             togo-life-3d/artifacts/browser-results.json
+            togo-life-3d/artifacts/server-preflight.json
             togo-life-3d/artifacts/*.png
             togo-life-3d/artifacts/motion/*.webm
+          retention-days: 7
+      - name: Store reference study separately
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: interface-reference-study
+          path: togo-life-3d/artifacts/references/
           retention-days: 7

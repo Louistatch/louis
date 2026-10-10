@@ -2,7 +2,9 @@
 
 Nouvelle architecture isolée de BAD/Bryq : Three.js local, avatar humain original glTF à 22 os et clips Idle/Walk/Run, quartier stylisé de Lomé, caméra troisième personne, collisions cinématiques, huit habitants à horaires, taxis et motos, marché, commerce et logement.
 
-**État exact : build et 14 tests Node réussis. La validation navigateur est bloquée par les restrictions de sockets Chromium de l'environnement. Aucun FPS, capture réelle, qualité graphique finale ou fonctionnement tactile n'est certifié. Cette branche n'est pas une livraison commerciale validée.**
+**État exact : build et 24 tests Node réussis. La refonte UI est sur une branche dédiée et dans la [PR #6](https://github.com/Louistatch/louis/pull/6). Chromium local reste bloqué ; un workflow GitHub autonome exerce le parcours réel. Voir son rapport avant de considérer le jeu validé. Cette tranche n'est pas une livraison commerciale validée.**
+
+Interface : aperçu animé de l'avatar, mini-plan local, objectifs avec distance, vue quartier, journal et bilan du comptoir. Recherches [Townsmen 5](docs/TOWNSMEN_INTERFACE_RESEARCH.md) et [Lagos Life](docs/LAGOS_INTERFACE_RESEARCH.md), avec niveaux de preuve et limites. La carte et la gestion orientent le joueur ; les transactions exigent de se rendre au lieu.
 
 ## Lancer
 
@@ -16,7 +18,7 @@ Ouvrir `http://localhost:8000/dist/`. Aucun téléchargement npm ni API payante 
 
 `TOGO_LIFE_MONTAGNE.html` contient aussi le jeu, ses modules, CSS et glTF : ouvrir dans un navigateur moderne acceptant les import maps. Ce mode a été généré, mais reste à tester dans un vrai navigateur.
 
-PC : ZQSD/WASD/flèches, Maj courir, E interagir, glisser pour orienter la caméra. Contrôles tactiles implémentés : joystick, course, action et glisser caméra, avec libération/cancel des pointeurs. Les dialogues mettent la simulation en pause.
+PC : ZQSD/WASD/flèches, Maj courir, E interagir, M plan, J Ma vie, C vue quartier, glisser pour orienter la caméra. Contrôles tactiles implémentés : joystick, course, action et glisser caméra, avec libération/cancel des pointeurs. Les dialogues mettent la simulation en pause.
 
 ## Première vie
 
@@ -36,7 +38,7 @@ Three.js r160 et addons : MIT, licence jointe dans `vendor/LICENSE`. Version fig
 
 ## Préservation
 
-`legacy.html`, `game.js`, `style.css` et `TOGO_LIFE_3D.html` conservent le prototype. Le mode de compatibilité pointe vers celui-ci si WebGL échoue. Aucun fichier BAD/Bryq ni document racine n'a été modifié. Aucune fusion ou production effectuée.
+`legacy.html`, `game.js`, `style.css` et `TOGO_LIFE_3D.html` conservent le prototype. Le mode de compatibilité pointe vers celui-ci si WebGL échoue. Aucun fichier BAD/Bryq ni document racine n'a été modifié. La tranche initiale a été publiée sur Pages après la PR #5. La refonte UI reste isolée dans la PR #6. Le nouveau workflow ne teste que ce jeu, avec permissions en lecture et sans déploiement.
 
 ## Vérification et preuves
 

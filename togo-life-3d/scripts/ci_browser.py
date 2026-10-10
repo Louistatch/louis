@@ -12,7 +12,7 @@ from pathlib import Path
 parser = argparse.ArgumentParser()
 parser.add_argument('--output-dir', default='artifacts')
 parser.add_argument('--browser', default=None)
-parser.add_argument('--transport', choices=['http','fixture'], default='http')
+parser.add_argument('--transport', choices=['http','fixture','offline'], default='http')
 args = parser.parse_args()
 game = Path(__file__).resolve().parents[1]
 output = Path(args.output_dir)
@@ -46,16 +46,20 @@ try:
     print('PREFLIGHT', json.dumps(preflight), flush=True)
     if preflight['status'] != 200 or 'text/html' not in preflight['mime']:
         raise RuntimeError('Built game entry did not serve HTTP 200 text/html')
-    command = [sys.executable, str(game / 'tests/browser.py'), '--url',
+    command = [sys.executable, '-u', str(game / 'tests/browser.py'), '--url',
                base_url, '--output-dir', str(output)]
     if args.transport == 'fixture':
         command.extend(['--static-root', str(game / 'dist')])
+    elif args.transport == 'offline':
+        command.extend(['--entry-file', str(game / 'dist/TOGO_LIFE_MONTAGNE.html')])
     if args.browser:
         command.extend(['--browser', args.browser])
-    code = subprocess.run(command, cwd=game, timeout=240, check=False).returncode
+    code = subprocess.run(command, cwd=game, timeout=300, check=False).returncode
 except Exception as error:
-    report_path.write_text(json.dumps({'status': 'failed', 'checks': [], 'captures': [],
-                                      'errors': [str(error)]}, indent=2))
+    partial = json.loads(report_path.read_text()) if report_path.exists() else {'checks': [], 'captures': [], 'errors': []}
+    partial.update(status='failed')
+    partial.setdefault('errors', []).append(str(error))
+    report_path.write_text(json.dumps(partial, indent=2))
 finally:
     if server:
         server.shutdown()

@@ -6,16 +6,21 @@ import argparse,json,time,math,traceback,mimetypes,os
 from urllib.parse import urlsplit,unquote
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);parser.add_argument('--static-root',default=None,help='Serve real built assets through an explicit Playwright fixture');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);parser.add_argument('--entry-file',default=None,help='Exercise the real generated offline monofile');parser.add_argument('--static-root',default=None,help='Serve real built assets through an explicit Playwright fixture');args=parser.parse_args()
 output=Path(args.output_dir).resolve() if args.output_dir else Path(__file__).resolve().parents[1]/'artifacts';output.mkdir(parents=True,exist_ok=True)
 report={'status':'running','checks':[],'captures':[],'errors':[], 'network':[], 'browserEvents':[]}
-report['transport']='playwright-static-fixture' if args.static_root else 'http'
+report['transport']='offline-file' if args.entry_file else 'playwright-static-fixture' if args.static_root else 'http'
+if args.entry_file:args.url=Path(args.entry_file).resolve().as_uri()
 report['headSha']=os.environ.get('GITHUB_SHA')
 fixture_root=Path(args.static_root).resolve() if args.static_root else None
 if fixture_root:args.url='http://togo-life.test/'
 report['entryUrl']=args.url
 report['fixtureRequests']=[]
 page=None
+def checkpoint(stage):
+ report['stage']=stage
+ (output/'browser-results.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
+ print('BROWSER_STAGE',stage,flush=True)
 def install_transport(context):
  if fixture_root is None:return
  def serve(route):
@@ -39,21 +44,28 @@ def observe_page(page):
  page.on('pageerror',lambda error:report['errors'].append(str(error)))
  page.on('console',lambda message:report['errors'].append(message.text) if message.type=='error' else None)
 def goto_game(page):
- page.goto(args.url+'?qa=1',wait_until='domcontentloaded',timeout=60000)
- page.wait_for_selector('#start[open]',timeout=60000)
- page.wait_for_function('!!window.__THREE_GAME_DIAGNOSTICS__',timeout=60000)
+ checkpoint('navigate '+args.url)
+ page.goto(args.url+'?qa=1',wait_until='domcontentloaded',timeout=20000)
+ checkpoint('wait onboarding')
+ page.wait_for_selector('#start[open]',timeout=20000)
+ checkpoint('wait diagnostic module')
+ page.wait_for_function('!!window.__THREE_GAME_DIAGNOSTICS__',timeout=20000)
+ checkpoint('game loaded')
 def check(name,condition):
  report['checks'].append({'name':name,'pass':bool(condition)})
+ checkpoint(name)
  if not condition:raise AssertionError(name)
 try:
  with sync_playwright() as p:
   try:
+   checkpoint('launch Chromium')
    browser_path=args.browser or ('/usr/bin/chromium' if Path('/usr/bin/chromium').is_file() else None)
    browser=p.chromium.launch(executable_path=browser_path,headless=True,args=['--no-sandbox','--disable-crashpad-for-testing','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+   checkpoint('Chromium launched')
    browser.on('disconnected',lambda:report['browserEvents'].append('browser disconnected'))
    context=browser.new_context(viewport={'width':1440,'height':900},record_video_dir=str(output/'motion'))
    install_transport(context)
-   page=context.new_page();observe_page(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
+   page=context.new_page();page.set_default_timeout(15000);observe_page(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
    start=time.monotonic();goto_game(page);report['loadSeconds']=time.monotonic()-start
    preview=page.locator('#start canvas, #start [data-avatar-preview]').first
    check('avatar preview visible before start',preview.is_visible())
@@ -109,9 +121,9 @@ try:
    page.click('#pauseBtn');before=state()['simulation'];page.wait_for_timeout(1000);check('pause freezes economy',state()['simulation']==before);page.get_by_role('button',name='Reprendre',exact=True).click()
    page.click('#lifeBtn');page.click('#shareBtn');page.wait_for_selector('#share[open]');check('share excludes personal name',state()['simulation']['name'] not in page.locator('#whatsapp').get_attribute('href'));page.screenshot(path=str(output/'share-card.png'));report['captures'].append('share-card.png');page.locator('#share [data-close]').first.click()
    report['desktop']=state();report['renderer']=page.evaluate('({calls:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.calls,triangles:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.triangles,memory:window.__THREE_GAME_DIAGNOSTICS__.renderer.memory})')
-   saved=state()['simulation'];page.reload(wait_until='domcontentloaded',timeout=60000);page.wait_for_selector('#start[open]',timeout=60000);page.click('#continueBtn');page.wait_for_selector('#start[open]',state='hidden');check('save restores appearance',state()['simulation']['appearance']==saved['appearance']);check('save restores business',state()['simulation']['biz']==True)
+   saved=state()['simulation'];page.reload(wait_until='domcontentloaded',timeout=20000);page.wait_for_selector('#start[open]',timeout=60000);page.click('#continueBtn');page.wait_for_selector('#start[open]',state='hidden');check('save restores appearance',state()['simulation']['appearance']==saved['appearance']);check('save restores business',state()['simulation']['biz']==True)
    check('no console/page errors',not errors);report['errors']=errors;context.close()
-   mobile=browser.new_context(viewport={'width':390,'height':844},device_scale_factor=1.5,is_mobile=True,has_touch=True);install_transport(mobile);page=mobile.new_page();observe_page(page);goto_game(page);page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(600);initial=state()['player']
+   mobile=browser.new_context(viewport={'width':390,'height':844},device_scale_factor=1.5,is_mobile=True,has_touch=True);install_transport(mobile);page=mobile.new_page();page.set_default_timeout(15000);observe_page(page);goto_game(page);page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(600);initial=state()['player']
    sizes=page.locator('nav button, #interactBtn, #runBtn').evaluate_all('bs=>bs.filter(b=>b.getBoundingClientRect().width).map(b=>({id:b.id,w:b.getBoundingClientRect().width,h:b.getBoundingClientRect().height}))')
    report['mobileControlSizes']=sizes;check('mobile controls have 48px touch targets',all(b['w']>=48 and b['h']>=48 for b in sizes))
    check('center of world remains unobstructed by HUD',page.evaluate('()=>{const x=innerWidth/2,y=innerHeight*.48;return ![...document.querySelectorAll("header,nav,#objectiveBtn,#radar,#cameraBtn,#status,#context,#joystick,#runBtn")].some(e=>{const r=e.getBoundingClientRect();return r.width&&x>r.left&&x<r.right&&y>r.top&&y<r.bottom})}'))
@@ -123,6 +135,7 @@ try:
    check('landscape controls do not overlap dock',page.evaluate('()=>{const dock=document.querySelector("nav").getBoundingClientRect();return ["joystick","runBtn"].every(id=>{const r=document.getElementById(id).getBoundingClientRect();return !(r.left<dock.right&&r.right>dock.left&&r.top<dock.bottom&&r.bottom>dock.top)})}'))
    page.screenshot(path=str(output/'mobile-landscape.png'));report['captures'].append('mobile-landscape.png');report['status']='pass';mobile.close();browser.close()
   except Exception:
+   checkpoint('capture failure')
    if page is not None:
     try:
      report['failurePage']={'url':page.url,'closed':page.is_closed()}

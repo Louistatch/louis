@@ -1,5 +1,5 @@
 """Independent renderer diagnostic using the actual generated game, never a mock."""
-import argparse, json, time, traceback
+import argparse, json, os, time, traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -9,7 +9,7 @@ args=p.parse_args()
 game=Path(__file__).resolve().parents[1]
 out=game/'artifacts'
 out.mkdir(exist_ok=True)
-report={'engine':args.engine,'status':'running','errors':[],'captures':[]}
+report={'engine':args.engine,'status':'running','errors':[],'captures':[],'sourceSha':os.environ.get('TOGO_SOURCE_SHA')}
 def stage(label):
     report['stage']=label
     (out/f'probe-{args.engine}.json').write_text(json.dumps(report,ensure_ascii=False,indent=2))

@@ -1,6 +1,6 @@
 # Instrumentation de validation de l’interface
 
-`tests/browser.py` a été enrichi le 10 octobre 2026. Validation réalisée à ce stade : compilation Python uniquement (`python3 -m py_compile tests/browser.py`). Le navigateur n’a pas été lancé pour cette refonte en attente du build final. Les checks ci-dessous sont programmés, pas déclarés réussis.
+`tests/browser.py` a été enrichi le 10 octobre 2026. Validation réalisée à ce stade : compilation Python uniquement (`python3 -m py_compile tests/browser.py`). Des exécutions Chromium ont ensuite été lancées sur GitHub. Le résultat courant est consigné séparément ; les checks ci-dessous décrivent le protocole et ne constituent pas une déclaration de réussite.
 
 - Aperçu avatar visible avant le démarrage, choix de tenue/peau réellement conservé dans le domaine.
 - Mini-plan visible, carte locale et destination `[data-target]` : sélection sans téléportation du personnage.

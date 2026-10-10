@@ -145,7 +145,7 @@ export function drawNeighborhoodMap(canvas, {
     circle(p.x, p.y, compact ? 1.3 : 2.2, '#396b65', '#f4e7ca', .6);
   }
   const markers = [];
-  const radius = compact ? 5 : Math.min(10, Math.max(7, g.scale * 2.1));
+  const radius = compact ? 6 : Math.min(10, Math.max(7, g.scale * 2.1));
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
   for (const place of places) {
     if (![place.x, place.z].every(Number.isFinite)) continue;
@@ -156,7 +156,7 @@ export function drawNeighborhoodMap(canvas, {
     const symbol = SYMBOLS[place.id] ?? { letter: '?', label: place.name ?? '', color: '#60746f' };
     if (place.id === targetId) circle(p.x, p.y, radius + 4, null, '#f4c35a', compact ? 2 : 3);
     circle(p.x, p.y, radius, symbol.color, '#f9efd5', 1.1);
-    ctx.fillStyle = '#fff9e8'; ctx.font = `700 ${compact ? 8 : 11}px Arial, sans-serif`;
+    ctx.fillStyle = '#fff9e8'; ctx.font = `700 ${compact ? 9 : 11}px Arial, sans-serif`;
     ctx.fillText(symbol.letter, p.x, p.y + .5);
     if (!compact) {
       const right = place.x >= 0;

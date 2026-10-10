@@ -14,3 +14,9 @@ dialog{color:inherit;background:var(--panel);border:1px solid #77919390;border-t
 @media(max-width:600px){.restore-goal{left:12px;top:282px;font-size:9px;padding:8px 10px}}
 @media(max-height:600px) and (orientation:landscape){.restore-goal{top:247px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+@media(min-width:901px){#hint{font-size:12px;background:#192c32df;padding:5px 10px;border-radius:4px;bottom:94px}.wallet small{font-size:10px}}
+
+#life-business[data-open=false] .life-ledger>div:nth-child(2),#life-business[data-open=false] .life-ledger>div:nth-child(3),#life-business[data-open=false] .life-ledger>div:nth-child(4){display:none}#life-business[data-open=false] #businessAdvice{padding:13px;border:1px solid #79c29e55;border-left:3px solid var(--green);color:#eef5ef;background:#213c3d}
+
+.identity{background:#192c32d9;border:1px solid var(--line);padding:8px 10px;border-radius:6px}@media(max-width:600px){.identity{padding:7px 8px}}

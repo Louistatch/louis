@@ -7,11 +7,19 @@ const adjacency=nodes.map(()=>[]);for(const [a,b]of links){adjacency[a].push(b);
 function path(from,to){const queue=[[from]],seen=new Set([from]);while(queue.length){const p=queue.shift(),last=p.at(-1);if(last===to)return p;for(const next of adjacency[last])if(!seen.has(next)){seen.add(next);queue.push([...p,next]);}}return [from];}
 function nearestNode(pos){let best=0,d=Infinity;nodes.forEach(([x,z],i)=>{const n=(x-pos.x)**2+(z-pos.z)**2;if(n<d){d=n;best=i;}});return best;}
 export function createResidents(scene){const names=['Ama','Kodjo','Abla','Sena','Koffi','Yawa','Mensah','Akossiwa'];
- const people=names.map((name,i)=>{const c=createCharacter({shirt:['#b9563e','#247c7a','#d5ac57','#dbcdb5'][i%4],skin:i%2?'#936044':'#633f2e',trousers:i%2?'#4b4546':'#223f45',scale:i%2?.96:1});scene.add(c.group);const start=nodes[(i*2)%nodes.length];c.group.position.set(start[0],.24,start[1]);return {id:'resident-'+i,name,character:c,index:i,route:[],purpose:null,state:'idle',speed:1+(i%3)*.15,visits:0,job:i%4===0?'vendeuse':i%4===1?'artisan':i%4===2?'commerçante':'étudiant'};});
- function update(dt,time){for(const p of people){const h=(time+p.index*.12)%24,purpose=h<7||h>=19?'home':h<10?'buy':h<16?'work':h<18?'waitTaxi':'talk';const target=purpose==='home'?(p.index%2?8:5):purpose==='buy'?3:purpose==='work'?(p.index%2?10:1):purpose==='waitTaxi'?9:4;
+ const starts=[0,1,2,3,5,6,8,10];
+ const people=names.map((name,i)=>{const c=createCharacter({shirt:['#b9563e','#247c7a','#d5ac57','#dbcdb5'][i%4],skin:i%2?'#936044':'#633f2e',trousers:i%2?'#4b4546':'#223f45',scale:i%2?.96:1});scene.add(c.group);const start=nodes[starts[i]];c.group.position.set(start[0],.24,start[1]);return {id:'resident-'+i,name,character:c,index:i,route:[],purpose:null,state:'idle',speed:1+(i%3)*.15,visits:0,job:i%4===0?'vendeuse':i%4===1?'artisan':i%4===2?'commerçante':'étudiant'};});
+ function update(dt,time,playerPosition=null){for(const p of people){const h=(time+p.index*.12)%24,purpose=h<7||h>=19?'home':h<10?'buy':h<16?'work':h<18?'waitTaxi':'talk';const target=purpose==='home'?(p.index%2?8:5):purpose==='buy'?3:purpose==='work'?(p.index%2?10:1):purpose==='waitTaxi'?9:4;
  if(p.purpose!==purpose){p.purpose=purpose;p.route=path(nearestNode(p.character.group.position),target);p.state='walk';}
  const pos=p.character.group.position,node=p.route[0];if(node===undefined){p.state=purpose;p.character.update(dt,0);continue;}
- const [x,z]=nodes[node],dx=x-pos.x,dz=z-pos.z,d=Math.hypot(dx,dz);if(d<.10){p.route.shift();if(!p.route.length){p.state=purpose;p.visits++;}p.character.update(dt,0);continue;}
+ const base=nodes[node],last=p.route.length===1;
+ const x=base[0]+(last?(p.index%4-1.5)*.6:(p.index%2?-.32:.32)),z=base[1]+(last?(Math.floor(p.index/4)-.5)*.7:0),dx=x-pos.x,dz=z-pos.z,d=Math.hypot(dx,dz);if(d<.10){p.route.shift();if(!p.route.length){p.state=purpose;p.visits++;}p.character.update(dt,0);continue;}
  p.state='walk';const step=Math.min(d,p.speed*dt);pos.x+=dx/d*step;pos.z+=dz/d*step;p.character.group.rotation.y=angleTowards(p.character.group.rotation.y,Math.atan2(dx,dz),dt);p.character.update(dt,p.speed);
- }}return {people,update,dispose(){people.forEach(p=>{scene.remove(p.character.group);p.character.dispose();});}};
+ }
+ // Small continuous steering corrections prevent bodies occupying the same spot.
+ for(let i=0;i<people.length;i++){const a=people[i].character.group.position;
+  for(let j=i+1;j<people.length;j++){const b=people[j].character.group.position,dx=a.x-b.x,dz=a.z-b.z,d=Math.hypot(dx,dz);if(d<.62){const force=Math.min(.03,(.62-d)*dt*3),nx=d>.001?dx/d:1,nz=d>.001?dz/d:0;a.x+=nx*force;a.z+=nz*force;b.x-=nx*force;b.z-=nz*force;}}
+  if(playerPosition){const dx=a.x-playerPosition.x,dz=a.z-playerPosition.z,d=Math.hypot(dx,dz);if(d<.8){const force=Math.min(.04,(.8-d)*dt*4);a.x+=(d>.001?dx/d:1)*force;a.z+=(d>.001?dz/d:0)*force;}}
+ }
+ }return {people,update,dispose(){people.forEach(p=>{scene.remove(p.character.group);p.character.dispose();});}};
 }

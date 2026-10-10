@@ -6,12 +6,13 @@ import argparse,json,time,math,traceback,mimetypes,os
 from urllib.parse import urlsplit,unquote
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);parser.add_argument('--entry-file',default=None,help='Exercise the real generated offline monofile');parser.add_argument('--static-root',default=None,help='Serve real built assets through an explicit Playwright fixture');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--url',default='http://127.0.0.1:8000/dist/');parser.add_argument('--browser',default=None,help='Optional Chromium executable path');parser.add_argument('--output-dir',default=None);parser.add_argument('--record-video',action='store_true',help='Opt-in motion evidence on compatible executors');parser.add_argument('--entry-file',default=None,help='Exercise the real generated offline monofile');parser.add_argument('--static-root',default=None,help='Serve real built assets through an explicit Playwright fixture');args=parser.parse_args()
 output=Path(args.output_dir).resolve() if args.output_dir else Path(__file__).resolve().parents[1]/'artifacts';output.mkdir(parents=True,exist_ok=True)
 report={'status':'running','checks':[],'captures':[],'errors':[], 'network':[], 'browserEvents':[]}
 report['transport']='offline-file' if args.entry_file else 'playwright-static-fixture' if args.static_root else 'http'
 if args.entry_file:args.url=Path(args.entry_file).resolve().as_uri()
 report['headSha']=os.environ.get('GITHUB_SHA')
+report['sourceSha']=os.environ.get('TOGO_SOURCE_SHA')
 fixture_root=Path(args.static_root).resolve() if args.static_root else None
 if fixture_root:args.url='http://togo-life.test/'
 report['entryUrl']=args.url
@@ -59,13 +60,17 @@ try:
  with sync_playwright() as p:
   try:
    checkpoint('launch Chromium')
-   browser_path=args.browser or ('/usr/bin/chromium' if Path('/usr/bin/chromium').is_file() else None)
-   browser=p.chromium.launch(executable_path=browser_path,headless=True,args=['--no-sandbox','--disable-crashpad-for-testing','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+   browser_path=args.browser
+   browser=p.chromium.launch(executable_path=browser_path,headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+   report['browserVersion']=browser.version
    checkpoint('Chromium launched')
    browser.on('disconnected',lambda:report['browserEvents'].append('browser disconnected'))
-   context=browser.new_context(viewport={'width':1440,'height':900},record_video_dir=str(output/'motion'))
+   context_options={'viewport':{'width':1440,'height':900}}
+   if args.record_video:context_options['record_video_dir']=str(output/'motion')
+   context=browser.new_context(**context_options)
+   checkpoint('desktop context created')
    install_transport(context)
-   page=context.new_page();page.set_default_timeout(15000);observe_page(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
+   page=context.new_page();checkpoint('desktop page created');page.set_default_timeout(15000);observe_page(page);errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.on('console',lambda m:errors.append(m.text) if m.type=='error' else None)
    start=time.monotonic();goto_game(page);report['loadSeconds']=time.monotonic()-start
    preview=page.locator('#start canvas, #start [data-avatar-preview]').first
    check('avatar preview visible before start',preview.is_visible())
@@ -74,6 +79,7 @@ try:
    page.select_option('#shirt','#217d7b');page.select_option('#skin','#936044');page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(500)
    def state():return page.evaluate('window.__THREE_GAME_DIAGNOSTICS__.state')
    check('start preserves selected avatar appearance',state()['simulation']['appearance']=={'shirt':'#217d7b','skin':'#936044'})
+   before_npcs=state()['npcs'];page.wait_for_timeout(1500);after_npcs=state()['npcs'];check('NPC routines move during the morning trip',any(math.hypot(a['x']-b['x'],a['z']-b['z'])>.1 for a,b in zip(before_npcs,after_npcs)))
    def same_position(a,b):return math.hypot(a['x']-b['x'],a['z']-b['z'])<.02
    def target_without_teleport():
     before=state()['player'];buttons=page.locator('[data-target]:visible');check('map has local destination controls',buttons.count()>0);buttons.first.click();page.wait_for_timeout(200);check('destination sets orientation without teleport',same_position(before,state()['player']))
@@ -96,10 +102,12 @@ try:
    initial=state()['player'];page.keyboard.down('w');page.wait_for_timeout(1400);page.keyboard.up('w');moved=state()['player'];check('walk changes position',math.hypot(initial['x']-moved['x'],initial['z']-moved['z'])>1)
    page.keyboard.down('Shift');page.keyboard.down('w');page.wait_for_timeout(1000);check('run state',state()['player']['animation']=='Run');page.keyboard.up('w');page.keyboard.up('Shift');page.wait_for_timeout(500);check('progressive stop',state()['player']['speed']<.1)
    def walk_to(x,z):
+    page.keyboard.down('Shift')
     end=time.monotonic()+40
     while time.monotonic()<end:
      pos=state()['player'];dx=x-pos['x'];dz=z-pos['z'];dist=math.hypot(dx,dz)
-     if dist<.65:return
+     if dist<.65:
+      page.keyboard.up('Shift');return
      ix=dx*math.cos(.2)-dz*math.sin(.2);iz=dx*math.sin(.2)+dz*math.cos(.2)
      chosen=[]
      if abs(ix)>.35*dist:chosen.append('d' if ix>0 else 'a')
@@ -107,6 +115,7 @@ try:
      for key in chosen:page.keyboard.down(key)
      page.wait_for_timeout(160)
      for key in chosen:page.keyboard.up(key)
+    page.keyboard.up('Shift')
     raise AssertionError('real-input route blocked')
    walk_to(-7,0);walk_to(-15,0);page.keyboard.press('e')
    disabled=page.locator('#choices button:disabled')
@@ -117,10 +126,11 @@ try:
    check('unavailable commerce actions explain reason',disabled.evaluate_all('bs=>bs.every(b=>{const r=b.querySelector(".reason");return r&&r.textContent.trim()&&getComputedStyle(r).display!=="none"})'))
    page.get_by_role('button',name='Ouvrir mon comptoir').click();page.keyboard.press('e');page.get_by_role('button',name='Déposer mon sac').click();check('physical delivery stocks kiosk',state()['simulation']['stock']==4)
    page.wait_for_function('window.__THREE_GAME_DIAGNOSTICS__.state.simulation.sales > 0',timeout=60000);check('demand makes sales',state()['simulation']['sales']>0)
-   page.screenshot(path=str(output/'desktop-active.png'));report['captures'].append('desktop-active.png');before=state()['npcs'];page.wait_for_timeout(2000);after=state()['npcs'];check('NPC routines move',any(abs(a['z']-b['z'])>.1 for a,b in zip(before,after)))
+   page.screenshot(path=str(output/'desktop-active.png'));report['captures'].append('desktop-active.png');check('NPCs reach scheduled destinations',any(p['visits']>0 for p in state()['npcs']))
+   before_wall=state()['player'];page.keyboard.down('w');page.wait_for_timeout(2500);page.keyboard.up('w');page.wait_for_timeout(400);wall_pos=state()['player'];check('building collision prevents entry through its wall',wall_pos['z']>=22.8 and wall_pos['z']<before_wall['z']-.5);walk_to(-13,25)
    page.click('#pauseBtn');before=state()['simulation'];page.wait_for_timeout(1000);check('pause freezes economy',state()['simulation']==before);page.get_by_role('button',name='Reprendre',exact=True).click()
    page.click('#lifeBtn');page.click('#shareBtn');page.wait_for_selector('#share[open]');check('share excludes personal name',state()['simulation']['name'] not in page.locator('#whatsapp').get_attribute('href'));page.screenshot(path=str(output/'share-card.png'));report['captures'].append('share-card.png');page.locator('#share [data-close]').first.click()
-   report['desktop']=state();report['renderer']=page.evaluate('({calls:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.calls,triangles:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.triangles,memory:window.__THREE_GAME_DIAGNOSTICS__.renderer.memory})')
+   page.wait_for_timeout(10000);report['desktop']=state();report['performanceMethod']='Rolling mean of up to 180 active requestAnimationFrame intervals (0<dt<2s), software CI renderer; mobile is an emulated viewport, not physical Android.';report['renderer']=page.evaluate('({calls:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.calls,triangles:window.__THREE_GAME_DIAGNOSTICS__.renderer.render.triangles,memory:window.__THREE_GAME_DIAGNOSTICS__.renderer.memory})')
    saved=state()['simulation'];page.reload(wait_until='domcontentloaded',timeout=20000);page.wait_for_selector('#start[open]',timeout=60000);page.click('#continueBtn');page.wait_for_selector('#start[open]',state='hidden');check('save restores appearance',state()['simulation']['appearance']==saved['appearance']);check('save restores business',state()['simulation']['biz']==True)
    check('no console/page errors',not errors);report['errors']=errors;context.close()
    mobile=browser.new_context(viewport={'width':390,'height':844},device_scale_factor=1.5,is_mobile=True,has_touch=True);install_transport(mobile);page=mobile.new_page();page.set_default_timeout(15000);observe_page(page);goto_game(page);page.click('#startBtn');page.wait_for_selector('#start[open]',state='hidden');page.wait_for_timeout(600);initial=state()['player']
@@ -130,7 +140,7 @@ try:
    joy=page.locator('#joystick').bounding_box();check('mobile joystick has 48px target',joy is not None and joy['width']>=48 and joy['height']>=48)
    touch=mobile.new_cdp_session(page);touch.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':joy['x']+joy['width']/2,'y':joy['y']+18,'id':7}]});page.wait_for_timeout(1200);touch.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});page.wait_for_timeout(500)
    check('mobile joystick changes position',math.hypot(initial['x']-state()['player']['x'],initial['z']-state()['player']['z'])>.5);check('pointercancel stops movement',state()['player']['speed']<.1);check('responsive width',page.evaluate('document.documentElement.scrollWidth<=innerWidth'))
-   page.screenshot(path=str(output/'mobile-active.png'));report['captures'].append('mobile-active.png');report['mobile']=state();check('no mobile console/page errors',not report['errors']);page.set_viewport_size({'width':844,'height':390});page.wait_for_timeout(400)
+   page.wait_for_timeout(10000);page.screenshot(path=str(output/'mobile-active.png'));report['captures'].append('mobile-active.png');report['mobile']=state();check('no mobile console/page errors',not report['errors']);page.set_viewport_size({'width':844,'height':390});page.wait_for_timeout(400)
    check('landscape joystick and run visible',page.locator('#joystick').is_visible() and page.locator('#runBtn').is_visible())
    check('landscape controls do not overlap dock',page.evaluate('()=>{const dock=document.querySelector("nav").getBoundingClientRect();return ["joystick","runBtn"].every(id=>{const r=document.getElementById(id).getBoundingClientRect();return !(r.left<dock.right&&r.right>dock.left&&r.top<dock.bottom&&r.bottom>dock.top)})}'))
    page.screenshot(path=str(output/'mobile-landscape.png'));report['captures'].append('mobile-landscape.png');report['status']='pass';mobile.close();browser.close()
@@ -140,7 +150,6 @@ try:
     try:
      report['failurePage']={'url':page.url,'closed':page.is_closed()}
      if not page.is_closed():
-      report['failurePage'].update(page.evaluate('({contentType:document.contentType,title:document.title,body:document.body?.innerText?.slice(0,1500)})'))
       page.screenshot(path=str(output/'failure.png'),timeout=10000);report['captures'].append('failure.png')
     except Exception as diagnostic_error:report['failureCaptureError']=str(diagnostic_error)
    raise

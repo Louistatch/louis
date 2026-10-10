@@ -1,3 +1,14 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {GLTFLoader} from '../vendor/loaders/GLTFLoader.js';import {fromGLTF} from '../src/avatar-loader.js';
 globalThis.ProgressEvent??=class {constructor(type,options){Object.assign(this,{type},options);}};
+test('glTF skin weights remain normalized and blend joints across limb bends',async()=>{
+  const gltf=await new GLTFLoader().parseAsync(fs.readFileSync(new URL('../assets/avatar.gltf',import.meta.url),'utf8'),'');
+  const avatar=fromGLTF(gltf,{}),weights=avatar.mesh.geometry.getAttribute('skinWeight');let blended=0;
+  for(let i=0;i<weights.count;i++){
+    const row=[weights.getX(i),weights.getY(i),weights.getZ(i),weights.getW(i)];
+    assert.ok(row.every(w=>Number.isFinite(w)&&w>=0&&w<=1));
+    assert.ok(Math.abs(row.reduce((a,b)=>a+b,0)-1)<1e-5);
+    if(row.filter(w=>w>0&&w<1).length>=2)blended++;
+  }
+  assert.ok(blended>0,'joint transitions must use multiple bone weights');avatar.dispose();
+});
 test('original glTF parses with 22 bones and Idle Walk Run clips; mixer animates actual skeleton',async()=>{const raw=fs.readFileSync(new URL('../assets/avatar.gltf',import.meta.url),'utf8');const gltf=await new GLTFLoader().parseAsync(raw,'');assert.deepEqual(gltf.animations.map(x=>x.name),['Idle','Walk','Run']);const avatar=fromGLTF(gltf,{shirt:'#217d7b',skin:'#936044'});assert.equal(avatar.mesh.isSkinnedMesh,true);assert.equal(avatar.skeleton.bones.length,22);const hip=avatar.skeleton.bones.find(x=>x.name==='leftHip');avatar.update(.05,2.1);const before=hip.quaternion.clone();avatar.update(.05,2.1);assert.ok(before.angleTo(hip.quaternion)>.01);avatar.update(.05,4.5);assert.equal(avatar.animationState,'Run');for(let i=0;i<20;i++)avatar.update(.05,0);assert.equal(avatar.animationState,'Idle');assert.ok(avatar.skeleton.bones.every(b=>b.matrixWorld.elements.every(Number.isFinite)));avatar.dispose();});

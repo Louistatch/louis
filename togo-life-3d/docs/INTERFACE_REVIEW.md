@@ -24,3 +24,7 @@ Ces éléments répondent directement au défaut antérieur de gestion opaque. I
 Le joystick emploie désormais CDP touchStart/touchCancel : le précédent dispatch_event pointerdown ne créait pas de pointeur actif, incompatible avec setPointerCapture. Les contrôles indisponibles du kiosque sont vérifiés explicitement pour éviter une assertion qui réussirait sur une liste vide.
 
 `scripts/ci_browser.py` sert le jeu sur un port local libre, exécute QA avec limite de 240 secondes, émet un résumé même en échec et arrête le serveur. `python3 -m py_compile` passe pour les deux scripts. Aucun résultat navigateur n’est revendiqué avant réception des artefacts CI. Les captures partielles ne doivent pas être confondues avec réussite complète du parcours.
+
+## Corrections du responsable après revue
+
+P1 paysage : règles pointer coarse ajoutées. P2 repère : bouton direct « Reprendre mon objectif ». P2 contexte : verbes Marché/Gérer/Livrer/Entrer/Plan/Discuter. Le journal persiste maintenant dans les sauvegardes, avec migration atomique des anciennes versions, quatre tests dédiés et limite de huit événements. Les tests Chromium ont été effectivement lancés sur GitHub ; leurs résultats et limites appartiennent au nouveau rapport de validation. La limite du processus QA est désormais de 300 secondes, avec checkpoints pour conserver une preuve partielle en cas de délai dépassé. Aucun de ces correctifs statiques ne suffit à affirmer la validation mobile.

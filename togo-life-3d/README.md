@@ -2,7 +2,7 @@
 
 Nouvelle architecture isolée de BAD/Bryq : Three.js local, avatar humain original glTF à 22 os et clips Idle/Walk/Run, quartier stylisé de Lomé, caméra troisième personne, collisions cinématiques, huit habitants à horaires, taxis et motos, marché, commerce et logement.
 
-**État exact : build et 24 tests Node réussis. La refonte UI est sur une branche dédiée et dans la [PR #6](https://github.com/Louistatch/louis/pull/6). Chromium local reste bloqué ; un workflow GitHub autonome exerce le parcours réel. Voir son rapport avant de considérer le jeu validé. Cette tranche n'est pas une livraison commerciale validée.**
+**État exact : build et 30 tests Node réussis. La refonte UI est sur une branche dédiée et dans la [PR #6](https://github.com/Louistatch/louis/pull/6). Chromium a produit quatre captures réelles du monofichier dans le run 38020941245. Leur revue a conduit à remplacer l’avatar et optimiser le décor : cette révision doit encore être contrôlée. Le parcours complet et le mobile restent à valider. Cette tranche n'est pas une livraison commerciale validée.**
 
 Interface : aperçu animé de l'avatar, mini-plan local, objectifs avec distance, vue quartier, journal et bilan du comptoir. Recherches [Townsmen 5](docs/TOWNSMEN_INTERFACE_RESEARCH.md) et [Lagos Life](docs/LAGOS_INTERFACE_RESEARCH.md), avec niveaux de preuve et limites. La carte et la gestion orientent le joueur ; les transactions exigent de se rendre au lieu.
 

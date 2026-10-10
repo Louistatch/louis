@@ -15,6 +15,8 @@ jobs:
   browser:
     runs-on: ubuntu-latest
     timeout-minutes: 12
+    env:
+      TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
     defaults:
       run:
         working-directory: togo-life-3d
@@ -40,8 +42,28 @@ jobs:
       - name: Independent Firefox render probe
         continue-on-error: true
         run: timeout 90s python3 -u scripts/visual_probe.py --engine firefox
+      - name: Store independent render evidence early
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-render-probes
+          path: |
+            togo-life-3d/artifacts/probe-*.json
+            togo-life-3d/artifacts/probe-*.png
+            togo-life-3d/artifacts/control-*.png
+          retention-days: 7
       - name: Real browser interactions and captures
         run: python3 scripts/ci_browser.py --transport offline
+      - name: Real locomotion sequence
+        if: always()
+        continue-on-error: true
+        run: timeout 60s python3 -u scripts/capture_motion.py
+      - name: Verify public preview delivery
+        if: always()
+        continue-on-error: true
+        env:
+          TOGO_SOURCE_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 scripts/public_preview.py
       - name: Fetch exact reference images for study
         if: always()
         run: python3 scripts/capture-reference-images.py
@@ -54,8 +76,11 @@ jobs:
             togo-life-3d/artifacts/browser-results.json
             togo-life-3d/artifacts/server-preflight.json
             togo-life-3d/artifacts/probe-*.json
+            togo-life-3d/artifacts/public-preview.json
             togo-life-3d/artifacts/*.png
             togo-life-3d/artifacts/motion/*.webm
+            togo-life-3d/artifacts/motion/*.json
+            togo-life-3d/artifacts/motion/frame-*.png
           retention-days: 7
       - name: Store reference study separately
         if: always()

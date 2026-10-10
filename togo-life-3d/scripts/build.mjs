@@ -1,5 +1,5 @@
-import {mkdir,cp,readFile,writeFile,readdir} from 'node:fs/promises';import path from 'node:path';
-const root=path.resolve(new URL('..',import.meta.url).pathname),out=path.join(root,'dist');await mkdir(out,{recursive:true});
+import {mkdir,cp,readFile,writeFile,readdir,rm} from 'node:fs/promises';import path from 'node:path';
+const root=path.resolve(new URL('..',import.meta.url).pathname),out=path.join(root,'dist');await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});
 for(const name of ['index.html','life.css','src','vendor','assets','legacy.html','style.css','game.js'])await cp(path.join(root,name),path.join(out,name),{recursive:true});
 // Validate all relative ES imports in production files. No package installation required.
 let bytes=0,files=0;async function inspect(dir){for(const item of await readdir(dir,{withFileTypes:true})){const full=path.join(dir,item.name);if(item.isDirectory())await inspect(full);else{const data=await readFile(full);bytes+=data.length;files++;if(full.endsWith('.js'))for(const match of data.toString().matchAll(/(?:from\s*|import\s*)['"]([^'"]+)['"]/g)){if(match[1].startsWith('.'))await readFile(path.resolve(path.dirname(full),match[1]));}}}}

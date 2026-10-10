@@ -13,6 +13,8 @@ concurrency:
   cancel-in-progress: true
 jobs:
   browser:
+    # This dedicated branch is covered on push; avoid a second identical PR run.
+    if: github.event_name != 'pull_request' || github.head_ref != 'feat/togo-life-interface-jeu'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:

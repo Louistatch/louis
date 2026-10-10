@@ -30,6 +30,7 @@ jobs:
         run: |
           npm test
           npm run build
+          node scripts/society_profile.mjs
       - name: Install pinned browser tooling
         run: |
           python3 -m pip install playwright==1.62.0
@@ -41,11 +42,11 @@ jobs:
       - name: Full autonomous market through real player inputs
         run: timeout 450s python3 -u scripts/society_browser.py --entry-file dist/TOGO_LIFE_MONTAGNE.html --output-dir artifacts/society --client-timeout 90
       - name: Public preview delivery hash
-        if: always()
+        if: ${{ !cancelled() }}
         continue-on-error: true
         run: python3 scripts/public_preview.py
       - name: Public HTTPS autonomous market
-        if: always()
+        if: ${{ !cancelled() }}
         continue-on-error: true
         run: timeout 450s python3 -u scripts/society_browser.py --url "$TOGO_PREVIEW_URL" --output-dir artifacts/society-live --client-timeout 90
       - name: Archive actual test evidence
@@ -58,6 +59,7 @@ jobs:
             togo-life-3d/artifacts/server-preflight.json
             togo-life-3d/artifacts/mobile-probe.json
             togo-life-3d/artifacts/public-preview.json
+            togo-life-3d/artifacts/society-profile.json
             togo-life-3d/artifacts/*.png
             togo-life-3d/artifacts/society/
             togo-life-3d/artifacts/society-live/

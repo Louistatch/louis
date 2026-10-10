@@ -154,6 +154,28 @@ class Probe:
         self.report["captures"].append(filename)
         self.checkpoint("captured " + filename)
 
+    def show_customer_decisions(self, stage):
+        """Scroll the normal Commerce panel; diagnostics are never altered."""
+        customers = self.page.locator("#customers")
+        customers.scroll_into_view_if_needed()
+        text = customers.inner_text()
+        compact = "".join(text.split()).lower()
+        layout = customers.evaluate("""list => {
+          const dialog=list.closest('dialog').getBoundingClientRect();
+          return [...list.querySelectorAll('li')].map(li=>{
+            const r=li.getBoundingClientRect();
+            return {text:li.innerText,x:r.x,y:r.y,width:r.width,height:r.height,
+              insideViewport:r.left>=-1&&r.right<=innerWidth+1&&r.top>=-1&&r.bottom<=innerHeight+1,
+              insideDialog:r.top>=dialog.top-1&&r.bottom<=dialog.bottom+1};
+          });
+        }""")
+        self.check(stage + " shows all seven client decision cards",
+                   len(layout) == 7 and all(item["width"] > 0 and item["height"] > 0
+                                          and item["insideViewport"] and item["insideDialog"]
+                                          for item in layout), layout)
+        self.check(stage + " visibly remembers the refused 1100 F price",
+                   "dernierprixrefusé:1100f" in compact, {"normalInterfaceText": text})
+
 
 def distance(a, b):
     return math.hypot(a["x"] - b["x"], a["z"] - b["z"])
@@ -346,6 +368,7 @@ def market_scenario(probe, client_timeout):
                 rival_trade["playerMoneyBefore"] == rival_trade["playerMoneyAfter"], rival_trade)
     page.locator("#businessBtn").click()
     page.wait_for_selector("#life[open]")
+    probe.show_customer_decisions("competition result")
     probe.capture("autonomous-price-refusal.png")
     page.locator('#life [data-close="life"]').first.click()
 
@@ -392,6 +415,11 @@ def market_scenario(probe, client_timeout):
                 restored["simulation"]["biz"] == stored["biz"]
                 and restored["simulation"]["stock"] == stored["stock"])
     page.get_by_role("button", name="Reprendre", exact=True).click()
+    page.locator("#businessBtn").click()
+    page.wait_for_selector("#life[open]")
+    probe.show_customer_decisions("restored decisions")
+    probe.capture("autonomous-restored-decisions.png")
+    page.locator('#life [data-close="life"]').first.click()
     page.wait_for_timeout(700)
     probe.check("resumed autonomous world is active before final capture",
                 page.evaluate("!document.querySelector('dialog[open]')"))

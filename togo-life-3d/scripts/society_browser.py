@@ -291,15 +291,19 @@ def market_scenario(probe, client_timeout):
                 {"before": before_delivery["simulation"], "after": delivered["simulation"],
                  "salesCompletedBetweenClicks": concurrent_sales})
     probe.open_action("comptoir")
+    # Capture the observation window before the normal price button fires.
+    # A genuine client may settle in the first frame after the dialog closes.
+    before_accessible = probe.snapshot("before accessible price action")
+    prior_ids = {t["id"] for t in trades(before_accessible)}
     probe.click_action("price", price=450)
     accessible = probe.snapshot("accessible retail price")
     probe.check("retail price changes only through the on-site action", accessible["simulation"]["price"] == 450)
-    prior_ids = {t["id"] for t in trades(accessible)}
     sold = probe.wait_state("client arrives and buys at the kiosk",
-                            lambda s: latest_new_trade(s, prior_ids, "kiosk") is not None, client_timeout)
-    retail = latest_new_trade(sold, prior_ids, "kiosk")
+                            lambda s: any(t["id"] not in prior_ids and t["unitPrice"] == 450
+                                          for t in trades(s, "kiosk")), client_timeout)
+    retail = next(t for t in reversed(trades(sold, "kiosk")) if t["id"] not in prior_ids and t["unitPrice"] == 450)
     buyer = actor(sold, retail["actorId"])
-    before_buyer = actor(accessible, retail["actorId"])
+    before_buyer = actor(before_accessible, retail["actorId"])
     probe.check("sale debits the real client's own budget",
                 retail["actorWalletBefore"] - retail["actorWalletAfter"] == retail["total"]
                 and retail["unitPrice"] == 450 and retail["total"] == retail["quantity"] * 450, retail)
@@ -318,10 +322,11 @@ def market_scenario(probe, client_timeout):
     # This preserves the observed 450 F state without freezing through a hook.
     probe.open_action("comptoir")
     probe.capture("autonomous-kiosk-sale.png")
+    before_expensive = probe.snapshot("before high price action")
+    prior_ids = {t["id"] for t in trades(before_expensive)}
     probe.click_action("price", price=1100)
     expensive = probe.snapshot("high price offered")
     probe.check("player's high price is genuinely applied", expensive["simulation"]["price"] == 1100)
-    prior_ids = {t["id"] for t in trades(expensive)}
     competitor_state = probe.wait_state("price refusal leads to competing trader purchase",
         lambda s: any(t["id"] not in prior_ids and actor(s, t["actorId"])["memory"].get("refusedPrice") == 1100
                       for t in trades(s, "competitor")), client_timeout)

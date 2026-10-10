@@ -33,7 +33,13 @@ jobs:
       - name: Install pinned Playwright and Chromium
         run: |
           python3 -m pip install playwright==1.62.0
-          python3 -m playwright install --with-deps chromium
+          python3 -m playwright install --with-deps chromium firefox
+      - name: Independent Chromium render probe
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine chromium
+      - name: Independent Firefox render probe
+        continue-on-error: true
+        run: timeout 90s python3 -u scripts/visual_probe.py --engine firefox
       - name: Real browser interactions and captures
         run: python3 scripts/ci_browser.py --transport offline
       - name: Fetch exact reference images for study
@@ -47,6 +53,7 @@ jobs:
           path: |
             togo-life-3d/artifacts/browser-results.json
             togo-life-3d/artifacts/server-preflight.json
+            togo-life-3d/artifacts/probe-*.json
             togo-life-3d/artifacts/*.png
             togo-life-3d/artifacts/motion/*.webm
           retention-days: 7

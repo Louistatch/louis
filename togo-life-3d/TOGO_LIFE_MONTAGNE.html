@@ -35,6 +35,13 @@ dialog{color:inherit;background:var(--panel);border:1px solid #77919390;border-t
 
 /* Visible persistent decisions, using the same compact ledger typography. */
 .life-events{list-style:none;padding:0;margin:12px 0 18px}.life-events li{border:1px solid var(--line);border-left:3px solid var(--green);border-radius:5px;padding:10px 12px;margin:8px 0;background:#213c3d}.life-events strong{display:block;font-size:12px;line-height:1.5}.life-events small{margin:4px 0 0;font-size:10px;overflow-wrap:anywhere}#life-business>h3{margin-top:24px}
+
+/* Keep the normal close control reachable while reading the long ledger. */
+#life{--life-header-inset:24px;scroll-padding-top:80px}
+#life>.dialog-heading{position:sticky;top:calc(-1 * var(--life-header-inset));z-index:2;background:var(--panel);padding-block:8px;margin-bottom:10px;border-bottom:1px solid var(--line)}
+#life>.dialog-heading h2{font-size:18px}
+#life>.dialog-heading>.icon-button{width:48px;min-width:48px;min-height:48px;flex-shrink:0}
+@media(max-width:600px){#life{--life-header-inset:20px}}
 </style></head>
 <body>
 <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>

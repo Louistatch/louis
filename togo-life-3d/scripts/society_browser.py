@@ -175,6 +175,27 @@ class Probe:
                                           for item in layout), layout)
         self.check(stage + " visibly remembers the refused 1100 F price",
                    "dernierprixrefusé:1100f" in compact, {"normalInterfaceText": text})
+        dismissal = self.page.locator("#life").evaluate("""dialog => {
+          const header=dialog.querySelector(':scope > .dialog-heading');
+          const close=header.querySelector('[data-close="life"]');
+          const first=dialog.querySelector('#customers > li');
+          const d=dialog.getBoundingClientRect(),h=header.getBoundingClientRect();
+          const c=close.getBoundingClientRect(),f=first.getBoundingClientRect();
+          const x=c.left+c.width/2,y=c.top+c.height/2,hit=document.elementFromPoint(x,y);
+          const rect=r=>({left:r.left,top:r.top,right:r.right,bottom:r.bottom,width:r.width,height:r.height});
+          return {dialog:rect(d),header:rect(h),close:rect(c),firstCard:rect(f),
+            insideViewport:c.left>=-1&&c.right<=innerWidth+1&&c.top>=-1&&c.bottom<=innerHeight+1,
+            insideDialog:c.left>=d.left-1&&c.right<=d.right+1&&c.top>=d.top-1&&c.bottom<=d.bottom+1,
+            centerTargetsClose:!!hit&&(hit===close||close.contains(hit)),
+            centerHit:hit?{tag:hit.tagName,id:hit.id}:null,
+            firstCardBelowHeader:f.top>=h.bottom-1};
+        }""")
+        self.check(stage + " keeps the close button visible and unobstructed after scrolling",
+                   dismissal["close"]["width"] > 0 and dismissal["close"]["height"] > 0
+                   and dismissal["insideViewport"] and dismissal["insideDialog"]
+                   and dismissal["centerTargetsClose"], dismissal)
+        self.check(stage + " keeps the first client card below the visible header",
+                   dismissal["firstCardBelowHeader"], dismissal)
 
 
 def distance(a, b):

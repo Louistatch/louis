@@ -8,11 +8,11 @@ for v in "${!NAME[@]}"; do
   n=${NAME[$v]}
   ffmpeg -v error -y -i "${v}_silent.mp4" -i "${v}_audio.wav" -map 0:v -map 1:a \
     -c:v libx264 -preset slow -crf 18 -profile:v high -level 4.1 -pix_fmt yuv420p -r 30 -g 60 \
-    -c:a aac -b:a 192k -ar 48000 -shortest -bsf:v filter_units=remove_types=6 tmp.mp4
+    -c:a aac -b:a 192k -ar 48000 -shortest -flags:v +bitexact -flags:a +bitexact -fflags +bitexact -bsf:v filter_units=remove_types=6 tmp.mp4
   ffmpeg -v error -y -i tmp.mp4 -map 0 -c copy -map_metadata -1 -fflags bitexact -flags bitexact -movflags +faststart "${n}_TikTok_1080x1920.mp4"
   ffmpeg -v error -y -i "${v}_silent.mp4" -i "${v}_audio.wav" -map 0:v -map 1:a -vf scale=720:1280:flags=lanczos \
     -c:v libx264 -preset slow -crf 21 -maxrate 3000k -bufsize 6000k -profile:v high -level 3.1 -pix_fmt yuv420p -r 30 -g 60 \
-    -c:a aac -b:a 128k -ar 44100 -shortest -bsf:v filter_units=remove_types=6 tmp.mp4
+    -c:a aac -b:a 128k -ar 44100 -shortest -flags:v +bitexact -flags:a +bitexact -fflags +bitexact -bsf:v filter_units=remove_types=6 tmp.mp4
   ffmpeg -v error -y -i tmp.mp4 -map 0 -c copy -map_metadata -1 -fflags bitexact -flags bitexact -movflags +faststart "${n}_WhatsApp_720x1280.mp4"
   rm -f tmp.mp4
 done

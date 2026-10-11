@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>FaîtiereHub — Carte et PIN (V2)</title>
+<link rel="stylesheet" href="common.css">
+<style>
+:root{--acc:#34d399}
+.vf{background:radial-gradient(120% 60% at 50% 0%,#123524,#08140d 70%);color:#fff}
+.glass{position:absolute;left:26px;right:26px;border-radius:28px;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1)}
+/* S1 */
+#a1{left:40px;top:640px;width:420px}
+#t1{left:470px;right:50px;top:640px;text-align:left;font-size:62px}
+#noemail{left:500px;top:1000px;width:440px;height:150px;border-radius:30px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);display:flex;align-items:center;gap:24px;padding:0 30px;font-size:40px;font-weight:700}
+#noemail svg{width:80px;height:80px;flex:none}
+#nb{left:500px;top:1190px;font-size:52px;font-weight:800;color:var(--gold)}
+/* S2 */
+#t2{top:250px;font-size:62px}
+#mcard{left:70px;top:540px;width:520px;height:330px;border-radius:30px;background:linear-gradient(145deg,#1d7a39,#0b3a1b);border:3px solid rgba(242,182,49,.6);box-shadow:0 30px 60px rgba(0,0,0,.45);padding:28px;transform:rotate(-8deg)}
+#mcard .h{display:flex;align-items:center;gap:12px;font-size:28px}
+#mcard .h svg{width:50px;height:50px}
+#mcard .nm{font-size:34px;font-weight:700;margin-top:26px}
+#mcard .no{font-size:22px;color:#cfe3d5;font-family:monospace;margin-top:6px}
+#mcard .qr{position:absolute;right:26px;bottom:26px;width:150px;height:150px;border-radius:14px;background:#fff;padding:10px}
+#ph2{left:470px;top:560px}
+#cam2{background:radial-gradient(circle at 50% 45%,#2a3a30,#0d1410)}
+#cam2 .qrb{position:absolute;left:118px;top:300px;width:300px;height:300px;background:#fff;border-radius:16px;padding:18px}
+.corner{position:absolute;width:60px;height:60px;border:8px solid var(--lime)}
+#sl2{position:absolute;left:100px;width:336px;height:6px;border-radius:3px;background:var(--lime);box-shadow:0 0 24px 6px rgba(127,209,75,.7);top:290px}
+#idb{top:110px;height:190px;display:flex;align-items:center;gap:20px;padding:0 22px}
+#idb .av{width:110px;height:110px;border-radius:24px;overflow:hidden;background:#e9d7a8;flex:none}
+#idb .av img{width:200%;margin:-6px 0 0 -48%}
+#idb b{display:block;font-size:30px;line-height:1.1}#idb span{display:block;font-size:20px;color:rgba(255,255,255,.5)}#idb code{font-size:18px;color:rgba(255,255,255,.35)}
+#valid{position:absolute;right:20px;bottom:16px;padding:8px 14px;border-radius:999px;background:rgba(52,211,153,.15);color:var(--acc);font-weight:800;font-size:19px;border:2px solid rgba(52,211,153,.35)}
+/* S3-S5 : panneau privé */
+#a3{left:0;top:760px;width:320px}
+#a5{left:0;top:760px;width:300px}
+#ph3{left:440px;top:440px}
+#lock{top:310px;padding:26px}
+#lock .hd{display:flex;align-items:center;gap:18px}
+#lock .li{width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.07);display:grid;place-items:center;flex:none}
+#lock b{display:block;font-size:26px}#lock span{font-size:20px;color:rgba(255,255,255,.5)}
+.pin{display:flex;gap:12px;justify-content:center;margin:26px 0 14px}
+.pin i{width:62px;height:76px;border-radius:14px;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.15);display:grid;place-items:center;font-style:normal;font-size:40px;font-weight:800}
+.pin i.on{border-color:var(--acc)}
+#lock .ft{display:flex;justify-content:space-between;align-items:center;font-size:17px;white-space:nowrap;margin-top:10px}
+#lost{color:var(--acc);font-weight:700}#hasacc{color:rgba(255,255,255,.5);text-decoration:underline}
+#vstat{font-size:20px;color:rgba(255,255,255,.6);text-align:center;height:30px}
+#auto{left:50%;top:1600px;transform:translateX(-50%);padding:14px 28px;border-radius:999px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);font-size:30px;font-weight:600;white-space:nowrap}
+#t3{top:250px;font-size:58px}
+#strip{top:310px;height:120px;display:flex;align-items:center;justify-content:space-around;text-align:center}
+#strip small{display:block;font-size:17px;color:rgba(255,255,255,.5)}#strip b{font-size:30px}
+.tile{position:absolute;width:236px;height:170px;border-radius:24px;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:22px;font-size:24px;font-weight:600}
+.tile .ti{font-size:40px;display:block;margin-bottom:12px}
+#codep{top:310px;padding:26px}
+#codep b{font-size:26px}#codep p{font-size:20px;color:rgba(255,255,255,.5);margin-top:6px}
+#resend{text-align:center;font-size:19px;color:rgba(255,255,255,.45);margin-top:8px}
+#sms{position:absolute;left:18px;right:18px;top:72px;height:130px;border-radius:26px;background:rgba(245,247,244,.97);color:var(--ink);padding:18px 22px;z-index:25;box-shadow:0 16px 40px rgba(0,0,0,.4)}
+#sms small{font-size:17px;color:var(--muted);display:flex;justify-content:space-between}#sms div{font-size:22px;margin-top:6px;line-height:1.3}
+#t5{top:250px;font-size:60px}
+#valid10{left:50%;top:1600px;transform:translateX(-50%);padding:14px 28px;border-radius:999px;background:rgba(242,182,49,.18);border:2px solid rgba(242,182,49,.5);color:var(--gold);font-size:30px;font-weight:700;white-space:nowrap}
+/* S6 */
+#shield{left:340px;top:330px;width:400px;height:460px}
+.rule{position:absolute;left:100px;right:100px;height:160px;border-radius:30px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);
+  display:flex;align-items:center;gap:28px;padding:0 34px;font-size:36px;font-weight:600;line-height:1.2}
+.rule .ri{width:84px;height:84px;border-radius:22px;background:rgba(242,182,49,.18);display:grid;place-items:center;flex:none;font-size:42px}
+/* S7 */
+#em7{left:400px;top:400px;width:280px;height:280px;filter:drop-shadow(0 30px 50px rgba(0,0,0,.35))}
+.w3{position:absolute;left:0;right:0;text-align:center;font-size:84px;font-weight:800}
+#wm7{top:1160px;font-size:84px}
+#a7{left:760px;top:1050px;width:250px}
+#sub7{top:1290px;font-size:34px;color:#cfe8d6}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="bgDull"></div><div class="layer" id="bgGreen" style="opacity:1"></div>
+  <div class="abs" id="glow" style="opacity:1"></div><div id="leaves"></div>
+  <svg class="layer" id="grain" width="1080" height="1920"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+
+  <!-- S1 : Afi -->
+  <section class="scene" id="s1">
+    <div class="char" id="a1" data-idle><img src="assets/afi_1.png"></div>
+    <div class="title" id="t1">Afi est <span class="gold">productrice.</span></div>
+    <div class="abs" id="noemail"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/><path id="strk" d="M2 2l20 20" stroke="#e8563f" stroke-width="2.6"/></svg>Pas d’email ?</div>
+    <div class="abs" id="nb">Pas besoin.</div>
+  </section>
+
+  <!-- S2 : scanner la carte -->
+  <section class="scene" id="s2">
+    <div class="title" id="t2">Elle scanne <span class="gold">sa carte</span></div>
+    <div class="abs" id="mcard"><div class="h"><svg class="logo"></svg>${WM}</div><div class="nm">Afi LAWSON</div><div class="no">FH-2026-04718</div><div class="qr"><svg viewBox="0 0 25 25" class="qrsvg" width="130" height="130" shape-rendering="crispEdges"></svg></div></div>
+    <div class="phone" id="ph2"><div class="notch"></div>
+      <div class="scr" id="cam2"><div class="qrb"><svg viewBox="0 0 25 25" class="qrsvg" width="264" height="264" shape-rendering="crispEdges"></svg></div>
+        <div class="corner" style="left:96px;top:278px;border-right:0;border-bottom:0;border-radius:16px 0 0 0"></div><div class="corner" style="left:380px;top:278px;border-left:0;border-bottom:0;border-radius:0 16px 0 0"></div>
+        <div class="corner" style="left:96px;top:562px;border-right:0;border-top:0;border-radius:0 0 0 16px"></div><div class="corner" style="left:380px;top:562px;border-left:0;border-top:0;border-radius:0 0 16px 0"></div>
+        <div id="sl2"></div></div>
+      <div class="scr vf" id="pub2"><div class="sb"><span>9:12</span><span>●●● 4G</span></div>
+        <div class="glass" id="idb"><div class="av"><img src="assets/afi_1.png"></div><div><b>Afi LAWSON</b><span>Coop. Alliance Agricole</span><code>FH-2026-04718</code></div><div id="valid">✓ VALIDE</div></div>
+        <div class="glass" id="pubLock" style="top:330px;height:130px;display:flex;align-items:center;gap:18px;padding:0 24px"><span style="font-size:34px">🔒</span><div><b style="display:block;font-size:24px">Informations privées</b><span style="font-size:19px;color:rgba(255,255,255,.5)">Réservées au titulaire de la carte</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- S3-S5 : le téléphone de l'espace privé -->
+  <section class="scene" id="s3"><div class="title" id="t3">Le <span class="gold">PIN</span> remis<br>avec la carte</div><div class="abs" id="auto">✨ Validation automatique au 6ᵉ chiffre</div></section>
+  <section class="scene" id="s4"><div class="title" style="top:250px;font-size:66px">Son espace <span class="lime">s’ouvre.</span></div></section>
+  <section class="scene" id="s5"><div class="title" id="t5">PIN <span class="gold">perdu ?</span></div><div class="abs" id="valid10">⏱ Code valable 10 minutes</div></section>
+  <div id="priv" class="layer" style="visibility:hidden">
+    <div class="char" id="a3" data-idle><img src="assets/afi_3.png"></div>
+    <div class="char" id="a4" data-idle style="left:0;top:740px;width:330px;opacity:0"><img src="assets/afi_4.png"></div>
+    <div class="char" id="a5" data-idle style="opacity:0"><img src="assets/afi_2.png"></div>
+    <div class="phone" id="ph3"><div class="notch"></div>
+      <div class="scr vf"><div class="sb"><span>9:12</span><span>●●● 4G</span></div>
+        <div class="glass" id="idb3" style="top:110px;height:170px;display:flex;align-items:center;gap:20px;padding:0 22px"><div class="av" style="width:110px;height:110px;border-radius:24px;overflow:hidden;background:#e9d7a8;flex:none"><img src="assets/afi_1.png" style="width:200%;margin:-6px 0 0 -48%"></div><div><b style="display:block;font-size:30px">Afi LAWSON</b><span style="font-size:20px;color:rgba(255,255,255,.5)">Coop. Alliance Agricole</span></div></div>
+        <div class="glass" id="lock"><div class="hd"><div class="li"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path id="shk3" d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div><b>Informations privées</b><span>Entrez le PIN remis avec votre carte.</span></div></div>
+          <div class="pin" id="pinrow"><i></i><i></i><i></i><i></i><i></i><i></i></div><div id="vstat"></div>
+          <div class="ft"><span id="lost">💬 PIN perdu ? Code par SMS</span><span id="hasacc">J’ai un compte</span></div></div>
+        <div class="glass" id="strip" style="opacity:0"><div><small>Cotisation</small><b style="color:#34d399">À jour</b></div><div><small>Hectares</small><b>1.5</b></div><div><small>Intrants</small><b>3</b></div></div>
+        <div id="tiles" style="opacity:0"><div class="tile" style="left:26px;top:460px"><span class="ti">🌱</span>Parcelles</div><div class="tile" style="left:274px;top:460px"><span class="ti">💳</span>Cotisation</div>
+          <div class="tile" style="left:26px;top:650px"><span class="ti">🪪</span>Ma carte</div><div class="tile" style="left:274px;top:650px"><span class="ti">🌦️</span>Météo</div></div>
+        <div class="glass" id="codep" style="opacity:0"><b>Entrez le code reçu par SMS</b><p>6 chiffres. Il est valable 10 minutes.</p><div class="pin" id="coderow"><i></i><i></i><i></i><i></i><i></i><i></i></div><div id="resend">Renvoyer le code (45 s)</div></div>
+      </div>
+      <div id="sms"><small><span>💬 Messages · FaîtiereHub</span><span>maintenant</span></small><div>Votre code de connexion : <b>482915</b></div></div>
+      <div class="tapfx" id="tapP"></div><div class="finger" id="fgP"></div>
+    </div>
+  </div>
+
+  <!-- S6 : secret -->
+  <section class="scene" id="s6">
+    <svg class="abs" id="shield" viewBox="0 0 100 115"><path d="M50 4 L92 20 V52 C92 82 72 102 50 110 C28 102 8 82 8 52 V20 Z" fill="rgba(127,209,75,.15)" stroke="#7fd14b" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="34" y="52" width="32" height="26" rx="5" fill="#f2b631"/><path id="shk6" d="M40 52 V44 a10 10 0 0 1 20 0 V52" fill="none" stroke="#f2b631" stroke-width="5"/></svg>
+    <div class="rule" id="r1" style="top:900px"><div class="ri">🤫</div>Votre PIN est secret : ne le donnez à personne</div>
+    <div class="rule" id="r2" style="top:1090px"><div class="ri">⛔</div>Trop d’essais : la carte se ferme un moment</div>
+  </section>
+
+  <!-- S7 : appel -->
+  <section class="scene" id="s7">
+    <svg class="logo abs" id="em7"></svg>
+    <div class="w3" id="w1" style="top:760px">Votre <span class="lime">carte.</span></div>
+    <div class="w3" id="w2" style="top:880px">Votre <span class="gold">code.</span></div>
+    <div class="w3" id="w3" style="top:1000px">Votre <span class="lime">espace.</span></div>
+    <div class="title" id="wm7"></div>
+    <div class="title" id="sub7">Scannez votre carte membre · faitierehub.com</div>
+  </section>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="common.js"></script>
+<script>
+$('#mcard .h').innerHTML = '<svg class="logo"></svg>' + WORDMARK();
+$('#wm7').innerHTML = WORDMARK();
+$$('.finger').forEach(f => f.innerHTML = FINGER);
+(function(){ let seed = 11; const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647; let r = '';
+  const f = (x,y) => `<rect x="${x}" y="${y}" width="7" height="7"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3"/>`;
+  const inF = (x,y) => (x<8&&y<8)||(x>16&&y<8)||(x<8&&y>16);
+  for (let y=0;y<25;y++) for (let x=0;x<25;x++) if (!inF(x,y) && rnd()>.52) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  r += f(0,0)+f(18,0)+f(0,18); $$('.qrsvg').forEach(s => s.innerHTML = `<g fill="#0b3219">${r}</g>`); })();
+
+boot('v2', (S) => {
+  const a = id => S[id].start;
+  GREEN_AT = -2;
+  ['s1','s2','s3','s4','s5','s6','s7'].forEach((id,i,arr) => sceneBox('#'+id, S[id], i === arr.length-1));
+
+  /* S1 — Afi, pas d'email, pas besoin */
+  let t = a('s1');
+  charIn('#a1', t+.05);
+  enter('#t1', t+.4, {x:40, y:0});
+  tl.from('#noemail', {x:60, opacity:0, duration:.6, ease:EIN}, t+2.0);
+  tl.set('#strk', {strokeDasharray:30, strokeDashoffset:30}, 0);
+  tl.to('#strk', {strokeDashoffset:0, duration:.4, ease:'power2.out'}, t+2.5);
+  tl.from('#nb', {scale:.4, opacity:0, duration:.55, ease:POP, transformOrigin:'0% 50%'}, t+3.5);
+  tl.to('#a1', {y:-12, duration:.3, ease:'sine.inOut', yoyo:true, repeat:1}, t+3.6);
+
+  /* S2 — scan de la carte, fiche publique « VALIDE » */
+  t = a('s2');
+  enter('#t2', t+.05);
+  tl.from('#mcard', {x:-300, rotation:-25, opacity:0, duration:.8, ease:EIN}, t+.1);
+  tl.from('#ph2', {y:320, opacity:0, duration:.8, ease:EIN}, t+.3);
+  tl.fromTo('#sl2', {top:290}, {top:580, duration:.7, ease:'sine.inOut', yoyo:true, repeat:1}, t+.9);
+  tl.set('#pub2', {xPercent:100}, 0);
+  tl.to('#pub2', {xPercent:0, duration:.55, ease:'power3.inOut'}, t+2.4);
+  tl.from('#idb', {y:30, opacity:0, duration:.45, ease:EIN}, t+2.8);
+  tl.from('#valid', {scale:0, duration:.45, ease:POP}, t+3.2);
+  tl.from('#pubLock', {y:30, opacity:0, duration:.45, ease:EIN}, t+3.4);
+  tl.to('#mcard', {x:-40, opacity:.6, duration:.6, ease:'sine.inOut'}, t+2.6);
+
+  /* S3 — PIN à 6 chiffres, validation automatique */
+  t = a('s3');
+  enter('#t3', t+.05);
+  tl.set('#priv', {visibility:'visible'}, t);
+  tl.from('#ph3', {y:300, opacity:0, duration:.8, ease:EIN}, t+.1);
+  charIn('#a3', t+.3);
+  tl.from(['#idb3','#lock'], {y:30, opacity:0, duration:.5, ease:EIN, stagger:.12}, t+.6);
+  const cells = $$('#pinrow i');
+  cells.forEach((c, i) => {
+    const at = t + 1.7 + i*.42;
+    tl.call(() => { c.textContent = '•'; c.classList.add('on'); }, null, at);
+    tl.fromTo(c, {scale:1.25}, {scale:1, duration:.3, ease:POP}, at);
+  });
+  tl.from('#auto', {y:40, opacity:0, duration:.5, ease:EIN}, t+3.0);
+  setText('#vstat', '⏳ Vérification…', t+1.7+5*.42+.25);
+
+  /* S4 — l'espace s'ouvre */
+  t = a('s4');
+  tl.to('#shk3', {y:-5, duration:.3, ease:POP}, t);
+  tl.to('#lock', {opacity:0, y:-20, duration:.35, ease:EOUT}, t+.25);
+  tl.to('#strip', {opacity:1, duration:.4}, t+.5);
+  tl.from('#strip', {y:30, duration:.5, ease:EIN}, t+.5);
+  tl.to('#tiles', {opacity:1, duration:.3}, t+.7);
+  tl.from('.tile', {y:40, opacity:0, scale:.9, duration:.45, ease:EIN, stagger:.08}, t+.7);
+  tl.to('#a3', {opacity:0, duration:.25}, t+.15);
+  tl.to('#a4', {opacity:1, duration:.3}, t+.2);
+  tl.from('#a4', {y:60, duration:.6, ease:POP}, t+.2);
+
+  /* S5 — PIN perdu : code par SMS, valable 10 minutes */
+  t = a('s5');
+  enter('#t5', t+.05);
+  tl.to('#a4', {opacity:0, duration:.25}, t);
+  tl.to('#a5', {opacity:1, duration:.3}, t+.1);
+  tl.to(['#strip','#tiles'], {opacity:0, duration:.3}, t);
+  tl.call(() => { $$('#pinrow i').forEach(c => { c.textContent = ''; c.classList.remove('on'); }); $('#vstat').textContent = ''; }, null, t+.1);
+  tl.to('#lock', {opacity:1, y:0, duration:.4, ease:EIN}, t+.2);
+  tl.fromTo('#fgP', {left:300, top:900, opacity:0}, {left:150, top:620, opacity:1, duration:.5, ease:'power3.out'}, t+.6);
+  tap('#tapP', 150, 620, t+1.15);
+  tl.to('#fgP', {opacity:0, duration:.3}, t+1.35);
+  tl.to('#lock', {opacity:0, duration:.3}, t+1.4);
+  tl.to('#codep', {opacity:1, duration:.4}, t+1.5);
+  tl.set('#sms', {yPercent:-180}, 0);
+  tl.to('#sms', {yPercent:0, duration:.55, ease:POP}, t+2.1);
+  $$('#coderow i').forEach((c, i) => tl.call(() => { c.textContent = '482915'[i]; c.classList.add('on'); }, null, t+3.0 + i*.07));
+  tl.to('#sms', {yPercent:-180, duration:.4, ease:EOUT}, t+3.6);
+  tl.from('#valid10', {y:40, opacity:0, duration:.5, ease:EIN}, t+2.6);
+  tl.set('#priv', {visibility:'hidden'}, a('s6'));
+  tl.to('#priv', {opacity:0, duration:.35, ease:EOUT}, a('s6')-.35);
+
+  /* S6 — secret */
+  t = a('s6');
+  tl.from('#shield', {scale:.4, opacity:0, duration:.7, ease:POP}, t+.05);
+  tl.from('#shk6', {y:-14, duration:.35, ease:'power2.in'}, t+.75);
+  tl.from(['#r1','#r2'], {x:-80, opacity:0, duration:.55, ease:EIN, stagger:.3}, t+.9);
+
+  /* S7 — appel */
+  t = a('s7');
+  tl.from('#em7', {scale:0, rotation:-30, opacity:0, duration:.8, ease:POP}, t+.05);
+  ['#w1','#w2','#w3'].forEach((w, i) => tl.from(w, {y:50, opacity:0, duration:.5, ease:EIN}, t+.6+i*.7));
+  tl.from('#wm7', {clipPath:'inset(0 100% 0 0)', x:-30, duration:.8, ease:'power3.out'}, t+2.9);
+  tl.set('#wm7', {clipPath:'none'}, t+3.75);
+  enter('#sub7', t+3.4, {y:20});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>FaîtiereHub — De la faîtière au producteur (V3)</title>
+<link rel="stylesheet" href="common.css">
+<style>
+.step{position:absolute;left:50%;top:230px;transform:translateX(-50%);padding:10px 26px;border-radius:999px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.22);font-size:24px;font-weight:700;letter-spacing:.1em;white-space:nowrap}
+.step b{color:var(--gold)}
+.tt{top:300px;font-size:58px}
+.mc{position:absolute;width:440px;height:280px;border-radius:26px;background:linear-gradient(145deg,#1d7a39,#0b3a1b);border:3px solid rgba(242,182,49,.6);box-shadow:0 26px 50px rgba(0,0,0,.45);padding:24px;color:#fff}
+.mc .h{display:flex;align-items:center;gap:10px;font-size:24px}.mc .h svg{width:42px;height:42px}
+.mc .k{font-size:15px;letter-spacing:.2em;color:#bfe7c4;margin-top:16px}
+.mc .nm{font-size:30px;font-weight:700;margin-top:4px}.mc .no{font-size:20px;color:#cfe3d5;font-family:monospace}
+.mc .qr{position:absolute;right:22px;bottom:22px;width:118px;height:118px;border-radius:12px;background:#fff;padding:8px}
+.mc .lv{position:absolute;left:24px;bottom:22px;padding:4px 12px;border-radius:8px;background:#c98a4b;color:#fff;font-size:14px;font-weight:800;letter-spacing:.08em}
+.card{position:absolute;border-radius:26px;background:#fff;color:var(--ink);box-shadow:0 26px 60px rgba(0,0,0,.35)}
+.lbl2{font-size:20px;font-weight:600;color:var(--ink);margin:16px 0 8px}
+.in2{height:62px;border-radius:12px;border:2px solid #dfe5dc;display:flex;align-items:center;padding:0 18px;font-size:22px;background:#fff}
+.seg{display:flex;gap:10px}.seg span{flex:1;height:56px;border-radius:12px;border:2px solid #dfe5dc;display:grid;place-items:center;font-size:20px;font-weight:600;color:var(--muted)}
+.seg span.on{border-color:var(--brand);background:rgba(23,138,58,.1);color:var(--brand)}
+.btn2{height:66px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:23px;font-weight:600;margin-top:22px}
+.toast{position:absolute;left:24px;right:24px;border-radius:18px;background:#dff3d4;color:var(--g700);padding:16px 20px;font-size:21px;font-weight:600;line-height:1.3;box-shadow:0 14px 30px rgba(0,0,0,.2)}
+.toast b{display:block;font-size:23px}
+/* S1 */
+#k1{left:40px;top:640px;width:400px}
+#st1{left:470px;top:700px;display:flex;flex-direction:column;gap:22px}
+.chipb{padding:20px 28px;border-radius:26px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.18);font-size:40px;font-weight:700;white-space:nowrap}
+.chipb b{color:var(--gold);font-size:52px;margin-right:12px}
+#q1{left:470px;top:1260px;font-size:56px;font-weight:800;color:var(--gold)}
+/* S2 */
+#req{left:110px;top:430px;width:860px;padding:40px 44px 44px}
+#req h4{font-size:38px}#req p{font-size:21px;color:var(--muted);margin-top:6px}
+#toast2{top:1180px;left:110px;right:110px}
+/* S3 */
+#mail{left:110px;top:440px;width:860px;height:260px;padding:30px 36px;display:flex;gap:26px;align-items:center}
+#mail .ic{width:110px;height:110px;border-radius:26px;background:#fdecc8;display:grid;place-items:center;font-size:58px;flex:none}
+#mail b{font-size:30px;display:block}#mail span{font-size:22px;color:var(--muted)}
+#mail .go{margin-top:14px;display:inline-block;padding:12px 22px;border-radius:12px;background:var(--brand);color:#fff;font-size:20px;font-weight:600}
+#k3{left:0;top:780px;width:320px}
+#dash3{left:350px;top:760px;width:680px;height:780px;overflow:hidden;background:var(--paper)}
+#dash3 .top{height:190px;background:linear-gradient(160deg,#1c8a3f,#0c4d22);color:#fff;padding:34px 32px}
+#dash3 .top small{font-size:20px;color:#bfe7c4}#dash3 .top h5{font-size:40px;margin-top:4px}
+.kp{position:absolute;top:150px;width:196px;height:130px;border-radius:20px;background:#fff;box-shadow:0 10px 26px rgba(0,0,0,.1);padding:16px}
+.kp small{font-size:16px;color:var(--muted);display:block}.kp b{font-size:40px;font-weight:800;color:var(--g700)}
+.qa{position:absolute;left:28px;right:28px;height:84px;border-radius:18px;border:2px solid var(--line);background:#fff;display:flex;align-items:center;gap:16px;padding:0 20px;font-size:24px;font-weight:600}
+.qa i{font-style:normal;font-size:32px}
+/* S4 */
+#y4{left:40px;top:640px;width:400px}
+#badge4{left:470px;top:640px;width:560px;padding:30px}
+#badge4 .tp{display:flex;align-items:center;gap:16px}
+#badge4 .tp .ok{width:70px;height:70px;border-radius:50%;background:var(--brand);display:grid;place-items:center;color:#fff;font-size:38px;flex:none}
+#badge4 b{font-size:30px;display:block}#badge4 span{font-size:20px;color:var(--muted)}
+.scope{display:inline-block;margin:10px 8px 0 0;padding:8px 14px;border-radius:999px;background:rgba(23,138,58,.1);color:var(--brand);font-size:19px;font-weight:600}
+/* S5 */
+#y5{left:20px;top:640px;width:400px}
+.opt{position:absolute;left:450px;width:580px;height:250px;border-radius:30px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);padding:28px}
+.opt b{display:block;font-size:34px}.opt span{font-size:24px;color:#cfe8d6}
+.agents{display:flex;gap:14px;margin-top:20px}
+.agents i{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:30px}
+#or5{left:700px;top:965px;font-size:34px;font-weight:800;color:var(--gold)}
+/* S6-S7 */
+#y6{left:0;top:700px;width:330px}
+#tab{left:340px;top:520px;width:700px;height:960px;border-radius:44px;background:#151917;border:14px solid #222724;overflow:hidden}
+#tab .scr2{position:absolute;inset:0;background:#fff;color:var(--ink)}
+#tab .hd{height:110px;background:#1e4fa0;color:#fff;display:flex;align-items:center;gap:16px;padding:0 28px;font-size:26px;font-weight:700}
+#tab .hd small{display:block;font-size:17px;font-weight:500;opacity:.8}
+.sct{position:absolute;left:24px;right:24px;height:74px;border-radius:14px;border:2px solid #e3e8f0;display:flex;align-items:center;gap:14px;padding:0 18px;font-size:22px}
+.sct .c{width:34px;height:34px;border-radius:50%;border:3px solid #c9d2e0;display:grid;place-items:center;font-size:18px;color:#fff;flex:none}
+.sct em{margin-left:auto;font-style:normal;color:#5a6b85;font-size:20px}
+#send6{position:absolute;left:24px;right:24px;bottom:30px;height:76px;border-radius:14px;background:#1e4fa0;color:#fff;display:grid;place-items:center;font-size:26px;font-weight:700}
+#cloud{left:420px;top:600px;width:240px;height:240px}
+#mc7{left:320px;top:980px}
+.made{position:absolute;padding:12px 20px;border-radius:999px;background:#fff;color:var(--g700);font-size:24px;font-weight:700;white-space:nowrap;box-shadow:0 14px 30px rgba(0,0,0,.25)}
+.dot{position:absolute;width:16px;height:16px;margin:-8px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px 4px rgba(242,182,49,.6)}
+/* S8 */
+#pin8{left:140px;top:560px;width:800px;padding:40px;text-align:center}
+#pin8 h4{font-size:34px}#pin8 p{font-size:21px;color:var(--muted);margin-top:10px;line-height:1.4}
+#pin8 .dg{display:flex;justify-content:center;gap:14px;margin:30px 0 10px}
+#pin8 .dg span{width:80px;height:100px;border-radius:16px;background:#f1f5ef;display:grid;place-items:center;font-size:52px;font-weight:800;color:var(--g700)}
+/* S9 */
+#y9{left:10px;top:640px;width:390px}
+#queue{left:420px;top:520px;width:620px;padding:30px}
+#queue h4{font-size:32px}#queue p{font-size:19px;color:var(--muted)}
+.qrow{margin-top:18px;border-radius:18px;border:2px solid var(--line);padding:18px 20px}
+.qrow b{font-size:24px;display:block}.qrow span{font-size:19px;color:var(--muted)}
+.qbtn{margin-top:12px;height:56px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:21px;font-weight:600}
+.qst{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;background:#dff3d4;color:var(--g700);font-size:18px;font-weight:700}
+#truck{left:-200px;top:1420px;font-size:110px}
+/* S10 */
+#a10{left:120px;top:600px;width:440px}
+#mc10{left:560px;top:820px;transform:rotate(-6deg)}
+/* S11 */
+#k11{left:0;top:760px;width:330px}
+#dash11{left:330px;top:440px;width:710px;height:1080px;background:var(--paper);overflow:hidden}
+#dash11 .hdr{padding:30px 30px 10px}#dash11 .hdr h4{font-size:34px}#dash11 .hdr p{font-size:19px;color:var(--muted)}
+.crow{position:absolute;left:24px;right:24px;height:96px;border-radius:18px;background:#fff;border:2px solid var(--line);display:flex;align-items:center;gap:16px;padding:0 20px}
+.crow i{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-style:normal;font-weight:800;color:#fff;flex:none}
+.crow b{font-size:23px}.crow span{margin-left:auto;font-size:21px;font-weight:700;color:var(--g700)}
+.ck{position:absolute;top:640px;width:318px;height:150px;border-radius:20px;background:#fff;border:2px solid var(--line);padding:18px}
+.ck small{display:block;font-size:17px;color:var(--muted)}.ck b{font-size:34px;font-weight:800}
+/* S12 */
+.flow{position:absolute;top:470px;width:200px;text-align:center;font-size:24px;font-weight:700}
+.flow i{display:grid;place-items:center;width:130px;height:130px;margin:0 auto 14px;border-radius:36px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.22);font-style:normal;font-size:60px}
+#fl{left:140px;top:535px;width:800px;height:6px;border-radius:3px;background:var(--gold);transform-origin:0 50%}
+#em12{left:420px;top:830px;width:240px;height:240px}
+#wm12{top:1100px;font-size:92px}
+#tag12{top:1240px;font-size:46px}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="layer" id="bgDull"></div><div class="layer" id="bgGreen"></div>
+  <div class="abs" id="glow"></div><div id="leaves"></div>
+  <svg class="layer" id="grain" width="1080" height="1920"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+
+  <section class="scene" id="s1">
+    <div class="char" id="k1" data-idle><img src="assets/kossi_1.png"></div>
+    <div class="abs" id="st1"><div class="chipb"><b>1</b>faîtière</div><div class="chipb"><b>12</b>coopératives</div><div class="chipb"><b>2 000</b>producteurs</div></div>
+    <div class="abs" id="q1">Par où<br>commencer ?</div>
+  </section>
+
+  <section class="scene" id="s2">
+    <div class="step"><b>1</b> · DEMANDE D’ACCÈS</div>
+    <div class="card" id="req"><h4>Demande d’accès organisationnel</h4><p>Pour une coopérative, une union ou une faîtière.</p>
+      <div class="lbl2">Nom de l’organisation *</div><div class="in2"><span id="orgn"></span></div>
+      <div class="lbl2">Niveau *</div><div class="seg"><span>Coopérative</span><span>Union</span><span id="lvF">Faîtière</span></div>
+      <div class="lbl2">Téléphone *</div><div class="in2" id="tel">+228 90 •• •• ••</div>
+      <div class="btn2" id="send2">Envoyer la demande</div></div>
+    <div class="toast" id="toast2"><b>✓ Demande envoyée</b>Notre équipe vous recontacte sous 48 h.</div>
+  </section>
+
+  <section class="scene" id="s3">
+    <div class="step"><b>2</b> · ORGANISATION CRÉÉE</div>
+    <div class="card" id="mail"><div class="ic">✉️</div><div><b>Votre organisation est prête</b><span>Faîtière des Producteurs de la Kara</span><br><span class="go" id="go3">Définir mon mot de passe</span></div></div>
+    <div class="char" id="k3" data-idle><img src="assets/kossi_3.png"></div>
+    <div class="card" id="dash3"><div class="top"><small>Faîtière des Producteurs de la Kara</small><h5>Bienvenue, Kossi</h5></div>
+      <div class="kp" style="left:28px;top:220px"><small>Total membres</small><b>0</b></div><div class="kp" style="left:242px;top:220px"><small>Cartes actives</small><b>0</b></div><div class="kp" style="left:456px;top:220px"><small>Scans aujourd’hui</small><b>0</b></div>
+      <div style="position:absolute;left:28px;top:384px;font-size:22px;font-weight:700">Actions rapides</div>
+      <div class="qa" style="top:428px"><i>👥</i>Ajouter un membre</div><div class="qa" style="top:528px"><i>🪪</i>Générer des cartes membres</div><div class="qa" style="top:628px"><i>🛒</i>Publier une offre AgriMarket</div></div>
+  </section>
+
+  <section class="scene" id="s4">
+    <div class="step"><b>3</b> · OPÉRATEUR DE ZONE</div>
+    <div class="title tt" style="top:310px">Yao, <span class="gold">opérateur certifié</span></div>
+    <div class="char" id="y4" data-idle><img src="assets/yao_4.png"></div>
+    <div class="card" id="badge4"><div class="tp"><div class="ok">✓</div><div><b>Opérateur actif</b><span>Certifié FaîtiereHub</span></div></div>
+      <div style="margin-top:24px;font-size:20px;color:var(--muted)">Mandat</div><div style="font-size:26px;font-weight:700">Faîtière des Producteurs de la Kara</div>
+      <div style="margin-top:14px"><span class="scope">Gestion KoboCollect</span><span class="scope">Gestion cartes</span><span class="scope">Impression cartes physiques</span></div></div>
+  </section>
+
+  <section class="scene" id="s5">
+    <div class="title tt" style="top:280px">Ses agents,<br><span class="gold">ou ceux de la faîtière</span></div>
+    <div class="char" id="y5" data-idle><img src="assets/yao_1.png"></div>
+    <div class="opt" id="o1" style="top:640px"><b>Ses agents collecteurs</b><span>Une équipe déjà formée</span><div class="agents"><i style="background:#2a9a45">👤</i><i style="background:#2a9a45">👤</i><i style="background:#2a9a45">👤</i></div></div>
+    <div class="abs" id="or5">ou</div>
+    <div class="opt" id="o2" style="top:1030px"><b>Les agents de la faîtière</b><span>Formés par Yao</span><div class="agents"><i style="background:#f2b631">🎓</i><i style="background:#f2b631">👤</i><i style="background:#f2b631">👤</i></div></div>
+  </section>
+
+  <section class="scene" id="s6">
+    <div class="step"><b>4</b> · COLLECTE SUR LE TERRAIN</div>
+    <div class="title tt" style="top:310px;font-size:54px">Fiche <span class="gold">KoboCollect</span></div>
+    <div class="char" id="y6" data-idle><img src="assets/yao_2.png"></div>
+    <div class="abs" id="tab"><div class="scr2"><div class="hd">📋<div>Recensement des membres<small>KoboCollect · Faîtière des Producteurs de la Kara</small></div></div>
+      <div class="sct" style="top:140px"><div class="c">✓</div>S1 · Identité<em>Afi LAWSON</em></div>
+      <div class="sct" style="top:228px"><div class="c">✓</div>S2 · Photo<em>📷</em></div>
+      <div class="sct" style="top:316px"><div class="c">✓</div>S3 · Localisation<em>Pya, Kozah</em></div>
+      <div class="sct" style="top:404px"><div class="c">✓</div>S4 · Coopérative<em>Alliance Agricole</em></div>
+      <div class="sct" style="top:492px"><div class="c">✓</div>S5 · Parcelles<em>1,5 ha</em></div>
+      <div class="sct" style="top:580px"><div class="c">✓</div>S6 · Productions<em>Maïs, soja</em></div>
+      <div class="sct" style="top:668px"><div class="c">✓</div>S7 · Validation<em>Agent : K. Essô</em></div>
+      <div id="send6">Envoyer</div></div></div>
+  </section>
+
+  <section class="scene" id="s7">
+    <div class="step"><b>5</b> · MEMBRE ET CARTE CRÉÉS</div>
+    <svg class="logo abs" id="cloud"></svg>
+    <div id="dots"></div>
+    <div class="mc" id="mc7"><div class="h"><svg class="logo"></svg><span class="wmx"></span></div><div class="k">CARTE DE MEMBRE</div><div class="nm">Afi LAWSON</div><div class="no">FH-04718</div><div class="lv">NIVEAU BRONZE</div><div class="qr"><svg viewBox="0 0 25 25" class="qrsvg" width="102" height="102" shape-rendering="crispEdges"></svg></div></div>
+    <div class="made" id="m1" style="left:90px;top:900px">✓ Membre créé</div>
+    <div class="made" id="m2" style="left:640px;top:880px">✓ N° FH-04718</div>
+    <div class="made" id="m3" style="left:380px;top:1310px">✓ Carte + QR code</div>
+  </section>
+
+  <section class="scene" id="s8">
+    <div class="title tt" style="top:330px">Un <span class="gold">PIN secret</span></div>
+    <div class="card" id="pin8"><h4>PIN de la carte FH-04718</h4><p>Le PIN s’affiche une seule fois :<br>remettez-le au titulaire avec la carte.</p>
+      <div class="dg"><span>3</span><span>7</span><span>1</span><span>9</span><span>0</span><span>6</span></div>
+      <div class="btn2" id="gave">J’ai remis le PIN</div></div>
+  </section>
+
+  <section class="scene" id="s9">
+    <div class="step"><b>6</b> · IMPRESSION ET LIVRAISON</div>
+    <div class="char" id="y9" data-idle><img src="assets/yao_3.png"></div>
+    <div class="card" id="queue"><h4>File d’impression</h4><p>Espace Opérateur</p>
+      <div class="qrow"><b>Coop. Alliance Agricole</b><span>24 carte(s) — 48 000 FCFA</span><div class="qbtn" id="qb">Marquer imprimée</div><span class="qst" id="qs" style="display:none"></span></div>
+      <div class="qrow"><b>Coop. Pya Espoir</b><span>18 carte(s) — 36 000 FCFA</span></div></div>
+    <div class="abs" id="truck">🛵</div>
+  </section>
+
+  <section class="scene" id="s10">
+    <div class="title tt" style="top:330px">Afi reçoit <span class="gold">sa carte</span></div>
+    <div class="char" id="a10" data-idle><img src="assets/afi_4.png"></div>
+    <div class="mc" id="mc10"><div class="h"><svg class="logo"></svg><span class="wmx"></span></div><div class="k">CARTE DE MEMBRE</div><div class="nm">Afi LAWSON</div><div class="no">FH-04718</div><div class="lv">NIVEAU BRONZE</div><div class="qr"><svg viewBox="0 0 25 25" class="qrsvg" width="102" height="102" shape-rendering="crispEdges"></svg></div></div>
+  </section>
+
+  <section class="scene" id="s11">
+    <div class="step"><b>7</b> · SUIVI PAR LA FAÎTIÈRE</div>
+    <div class="char" id="k11" data-idle><img src="assets/kossi_4.png"></div>
+    <div class="card" id="dash11"><div class="hdr"><h4>Coopératives membres</h4><p>Les coopératives rattachées à la Faîtière des Producteurs de la Kara</p></div>
+      <div class="crow" style="top:150px"><i style="background:#2a9a45">AA</i><b>Alliance Agricole</b><span id="c1">0 membres</span></div>
+      <div class="crow" style="top:262px"><i style="background:#f08a3a">LT</i><b>Lama-Tessi</b><span id="c2">0 membres</span></div>
+      <div class="crow" style="top:374px"><i style="background:#c9a227">PE</i><b>Pya Espoir</b><span id="c3">0 membres</span></div>
+      <div class="crow" style="top:486px"><i style="background:#1f6fb2">KS</i><b>Kémérida Solidaire</b><span id="c4">0 membres</span></div>
+      <div style="position:absolute;left:24px;top:604px;font-size:22px;font-weight:700">Cotisations</div>
+      <div class="ck" style="left:24px;top:644px"><small>Total encaissé</small><b style="color:#178a3a"><span id="cot">0</span> F</b></div>
+      <div class="ck" style="left:366px;top:644px"><small>En retard</small><b style="color:#e8563f" id="late">0</b></div>
+      <div class="ck" style="left:24px;top:812px"><small>Cartes actives</small><b id="cact">0</b></div>
+      <div class="ck" style="left:366px;top:812px"><small>Scans aujourd’hui</small><b id="scn">0</b></div></div>
+  </section>
+
+  <section class="scene" id="s12">
+    <div class="abs" id="fl"></div>
+    <div class="flow" style="left:40px"><i>📨</i>Demande</div><div class="flow" style="left:300px"><i>📋</i>Collecte</div>
+    <div class="flow" style="left:560px"><i>🪪</i>Carte</div><div class="flow" style="left:820px"><i>📊</i>Suivi</div>
+    <svg class="logo abs" id="em12"></svg>
+    <div class="title" id="wm12"></div>
+    <div class="title" id="tag12">De la faîtière <span class="gold">au producteur.</span></div>
+  </section>
+</div>
+
+<script src="node_modules/gsap/dist/gsap.min.js"></script>
+<script src="common.js"></script>
+<script>
+$('#wm12').innerHTML = WORDMARK();
+$$('.wmx').forEach(e => e.innerHTML = WORDMARK());
+(function(){ let seed = 11; const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647; let r = '';
+  const f = (x,y) => `<rect x="${x}" y="${y}" width="7" height="7"/><rect x="${x+1}" y="${y+1}" width="5" height="5" fill="#fff"/><rect x="${x+2}" y="${y+2}" width="3" height="3"/>`;
+  const inF = (x,y) => (x<8&&y<8)||(x>16&&y<8)||(x<8&&y>16);
+  for (let y=0;y<25;y++) for (let x=0;x<25;x++) if (!inF(x,y) && rnd()>.52) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  r += f(0,0)+f(18,0)+f(0,18); $$('.qrsvg').forEach(s => s.innerHTML = `<g fill="#0b3219">${r}</g>`); })();
+for (let i = 0; i < 8; i++) { const d = document.createElement('div'); d.className = 'dot'; $('#dots').appendChild(d); }
+
+boot('v3', (S) => {
+  const a = id => S[id].start;
+  ['s1','s2','s3','s4','s5','s6','s7','s8','s9','s10','s11','s12'].forEach((id,i,arr) => sceneBox('#'+id, S[id], i === arr.length-1));
+
+  /* S1 — l'ampleur de la tâche (fond terne) */
+  let t = a('s1');
+  charIn('#k1', t+.05);
+  tl.from('#st1 .chipb', {x:80, opacity:0, duration:.6, ease:EIN, stagger:.35}, t+.4);
+  tl.from('#q1', {scale:.5, opacity:0, duration:.6, ease:POP, transformOrigin:'0% 50%'}, t+2.6);
+
+  /* S2 — demande d'accès (bascule au vert) */
+  t = a('s2'); GREEN_AT = t;
+  tl.to('#bgGreen', {opacity:1, duration:.8, ease:'sine.inOut'}, t); tl.to('#glow', {opacity:1, duration:1}, t+.2);
+  enter('#s2 .step', t+.05, {y:-20});
+  tl.from('#req', {y:200, opacity:0, duration:.8, ease:EIN}, t+.2);
+  typeText($('#orgn'), 'Faîtière des Producteurs de la Kara', t+.8, 24);
+  tl.to('#lvF', {borderColor:'#178a3a', backgroundColor:'rgba(23,138,58,.1)', color:'#178a3a', scale:1.05, duration:.3, ease:POP}, t+2.4);
+  tl.to('#send2', {scale:.95, duration:.1, yoyo:true, repeat:1}, t+3.1);
+  tl.from('#toast2', {y:60, opacity:0, duration:.5, ease:POP}, t+3.4);
+
+  /* S3 — organisation créée, tableau de bord */
+  t = a('s3');
+  enter('#s3 .step', t+.05, {y:-20});
+  tl.from('#mail', {y:-120, opacity:0, duration:.6, ease:EIN}, t+.2);
+  tl.to('#go3', {scale:.92, duration:.1, yoyo:true, repeat:1}, t+1.3);
+  charIn('#k3', t+1.5);
+  tl.from('#dash3', {y:300, opacity:0, duration:.8, ease:EIN}, t+1.7);
+  tl.from(['#dash3 .kp','#dash3 .qa'], {y:30, opacity:0, duration:.4, ease:EIN, stagger:.08}, t+2.3);
+
+  /* S4 — opérateur de zone */
+  t = a('s4');
+  enter('#s4 .step', t+.05, {y:-20}); enter('#s4 .title', t+.2);
+  charIn('#y4', t+.3);
+  tl.from('#badge4', {x:200, opacity:0, duration:.7, ease:EIN}, t+.9);
+  tl.from('#badge4 .ok', {scale:0, duration:.5, ease:POP}, t+1.4);
+  tl.from('#badge4 .scope', {y:20, opacity:0, duration:.4, ease:EIN, stagger:.15}, t+1.8);
+
+  /* S5 — ses agents ou ceux de la faîtière */
+  t = a('s5');
+  enter('#s5 .title', t+.05);
+  charIn('#y5', t+.1);
+  tl.from('#o1', {x:200, opacity:0, duration:.6, ease:EIN}, t+.6);
+  tl.from('#o1 .agents i', {scale:0, duration:.35, ease:POP, stagger:.08}, t+1.0);
+  tl.from('#or5', {scale:0, duration:.4, ease:POP}, t+1.6);
+  tl.from('#o2', {x:200, opacity:0, duration:.6, ease:EIN}, t+1.9);
+  tl.from('#o2 .agents i', {scale:0, duration:.35, ease:POP, stagger:.08}, t+2.3);
+
+  /* S6 — fiche KoboCollect */
+  t = a('s6');
+  enter('#s6 .step', t+.05, {y:-20}); enter('#s6 .title', t+.15);
+  charIn('#y6', t+.1);
+  tl.from('#tab', {y:300, opacity:0, duration:.7, ease:EIN}, t+.3);
+  $$('#tab .sct').forEach((r, i) => {
+    tl.from(r, {x:40, opacity:0, duration:.3, ease:EIN}, t+.8+i*.32);
+    tl.to(r.querySelector('.c'), {backgroundColor:'#2a9a45', borderColor:'#2a9a45', duration:.2}, t+1.0+i*.32);
+  });
+  tl.from('#send6', {y:30, opacity:0, duration:.4, ease:EIN}, t+3.3);
+  tl.to('#send6', {scale:.95, duration:.1, yoyo:true, repeat:1}, t+4.1);
+
+  /* S7 — le système crée le membre et la carte */
+  t = a('s7');
+  enter('#s7 .step', t+.05, {y:-20});
+  tl.from('#cloud', {scale:0, opacity:0, duration:.6, ease:POP}, t+.1);
+  $$('.dot').forEach((d, i) => tl.fromTo(d, {left:150 + (i%4)*40, top:1500, opacity:0}, {left:540, top:720, opacity:1, duration:.7, ease:'power2.in'}, t+.2+i*.08));
+  tl.to('.dot', {opacity:0, duration:.1}, t+1.2);
+  tl.to('#cloud', {scale:1.12, duration:.15, yoyo:true, repeat:1}, t+1.1);
+  tl.from('#mc7', {y:-200, scale:.4, opacity:0, duration:.8, ease:EIN}, t+1.4);
+  tl.from('#mc7 .qr', {clipPath:'inset(0 0 100% 0)', duration:.6, ease:'power2.out'}, t+2.0);
+  tl.from(['#m1','#m2','#m3'], {scale:0, opacity:0, duration:.45, ease:POP, stagger:.3}, t+2.4);
+
+  /* S8 — PIN */
+  t = a('s8');
+  enter('#s8 .title', t+.05);
+  tl.from('#pin8', {y:120, opacity:0, duration:.6, ease:EIN}, t+.2);
+  tl.from('#pin8 .dg span', {y:30, opacity:0, duration:.35, ease:POP, stagger:.08}, t+.7);
+  tl.to('#gave', {scale:.95, duration:.1, yoyo:true, repeat:1}, t+2.6);
+  setText('#gave', '✓ PIN remis', t+2.7);
+
+  /* S9 — impression et livraison */
+  t = a('s9');
+  enter('#s9 .step', t+.05, {y:-20});
+  charIn('#y9', t+.1);
+  tl.from('#queue', {x:200, opacity:0, duration:.7, ease:EIN}, t+.3);
+  tl.to('#qb', {scale:.94, duration:.1, yoyo:true, repeat:1}, t+1.4);
+  setText('#qb', 'Marquer livrée', t+1.55);
+  tl.call(() => { $('#qs').style.display = 'inline-block'; $('#qs').textContent = '✓ Imprimée'; }, null, t+1.55);
+  tl.from('#qs', {scale:0, duration:.4, ease:POP}, t+1.55);
+  tl.to('#qb', {scale:.94, duration:.1, yoyo:true, repeat:1}, t+2.8);
+  setText('#qs', '✓ Livrée');
+  tl.call(() => { $('#qs').textContent = '✓ Livrée'; $('#qb').style.display = 'none'; }, null, t+2.95);
+  tl.to('#truck', {left:1200, duration:2.2, ease:'power1.inOut'}, t+2.5);
+
+  /* S10 — Afi reçoit sa carte */
+  t = a('s10');
+  enter('#s10 .title', t+.05);
+  tl.from('#a10', {y:120, opacity:0, duration:.7, ease:EIN}, t+.1);
+  tl.from('#mc10', {x:300, rotation:20, opacity:0, duration:.7, ease:POP}, t+.5);
+
+  /* S11 — la faîtière suit tout */
+  t = a('s11');
+  enter('#s11 .step', t+.05, {y:-20});
+  charIn('#k11', t+.1);
+  tl.from('#dash11', {y:300, opacity:0, duration:.8, ease:EIN}, t+.2);
+  tl.from('#dash11 .crow', {x:40, opacity:0, duration:.4, ease:EIN, stagger:.1}, t+.8);
+  [['#c1',612],['#c2',486],['#c3',498],['#c4',404]].forEach(([s,n],i) => { const o={v:0}; tl.to(o,{v:n,duration:1,ease:'power2.out',onUpdate(){ $(s).textContent = fmt(o.v)+' membres'; }}, t+1.0+i*.1); });
+  tl.from('#dash11 .ck', {y:30, opacity:0, duration:.4, ease:EIN, stagger:.08}, t+1.8);
+  count($('#cot'), t+2.0, 1.2, 4860000); count($('#late'), t+2.05, 1.0, 37); count($('#cact'), t+2.1, 1.0, 1934); count($('#scn'), t+2.15, 1.0, 126);
+
+  /* S12 — appel */
+  t = a('s12');
+  tl.from('.flow', {y:40, opacity:0, duration:.45, ease:EIN, stagger:.25}, t+.1);
+  tl.from('#fl', {scaleX:0, duration:1.2, ease:'power2.inOut'}, t+.2);
+  tl.from('#em12', {scale:0, rotation:-30, opacity:0, duration:.7, ease:POP}, t+1.3);
+  tl.from('#wm12', {clipPath:'inset(0 100% 0 0)', x:-30, duration:.7, ease:'power3.out'}, t+1.6);
+  tl.set('#wm12', {clipPath:'none'}, t+2.35);
+  enter('#tag12', t+2.0, {y:30});
+});
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 # Assemble image + son pour v1 et v2, exporte TikTok (1080p) et Statut WhatsApp (720p), sans aucune métadonnée.
 set -euo pipefail
 cd "$(dirname "$0")/out"
-declare -A NAME=([v1]=FaitiereHub_Connexion_Gestionnaires [v2]=FaitiereHub_Connexion_Carte_PIN)
+declare -A NAME=([v1]=FaitiereHub_1_Identifier_les_producteurs [v2]=FaitiereHub_2_Carte_et_PIN_membre [v3]=FaitiereHub_3_De_la_faitiere_au_producteur)
 for v in "${!NAME[@]}"; do
   [ -f "${v}_silent.mp4" ] || continue
   n=${NAME[$v]}
@@ -16,7 +16,7 @@ for v in "${!NAME[@]}"; do
   ffmpeg -v error -y -i tmp.mp4 -map 0 -c copy -map_metadata -1 -fflags bitexact -flags bitexact -movflags +faststart "${n}_WhatsApp_720x1280.mp4"
   rm -f tmp.mp4
 done
-for f in FaitiereHub_Connexion_*.mp4; do
+for f in FaitiereHub_[123]_*.mp4; do
   printf '%s  %s s  %s Mo  traces:%s\n' "$f" "$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$f")" \
     "$(( $(stat -c %s "$f") / 1048576 ))" "$(strings "$f" | grep -ciE 'x264|lavf|lavc' || true)"
 done

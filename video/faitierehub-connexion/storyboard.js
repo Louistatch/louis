@@ -32,24 +32,25 @@ const fmtT = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2
 // Couverture
 pres.addSection({ title: 'Ouverture' });
 let s = pres.addSlide({ masterName: 'TITRE', sectionTitle: 'Ouverture' });
-s.addText('Se connecter à FaîtiereHub', { placeholder: 'title' });
-s.addText('Storyboard de deux vidéos motion design · WhatsApp Statut et TikTok · 9:16', { placeholder: 'body' });
+s.addText('FaîtiereHub en vidéo', { placeholder: 'title' });
+s.addText('Storyboard de trois vidéos motion design · WhatsApp Statut et TikTok · 9:16', { placeholder: 'body' });
 
 // Vue d'ensemble : deux cartes chiffrées
 s = pres.addSlide({ masterName: 'CONTENU', sectionTitle: 'Ouverture' });
-s.addText('Deux vidéos, deux publics', { placeholder: 'title' });
-[['v1', 'Gestionnaires', 'Email + mot de passe, redirection vers le bon espace, mot de passe oublié', 'Kossi'],
- ['v2', 'Membres producteurs', 'Carte + PIN à 6 chiffres, code SMS de secours, sans compte', 'Afi']].forEach(([v, who, what, hero], i) => {
-  const x = .6 + i * 4.5;
-  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.35, w: 4.2, h: 3.55, rectRadius: .12, fill: { color: C.background2 }, line: { color: C.background2 }, objectName: `carte-${v}` });
-  s.addText(`${Math.round(timing[v].total)} s`, { x: x + .3, y: 1.55, w: 3.6, h: .95, fontSize: 54, bold: true, color: C.accent1, fontFace: 'Arial', margin: 0, isTextBox: true });
-  s.addText(`${timing[v].scenes.length} scènes · ${who}`, { x: x + .3, y: 2.5, w: 3.6, h: .4, fontSize: 16, bold: true, color: C.text2, margin: 0, isTextBox: true });
-  s.addText(what, { x: x + .3, y: 2.95, w: 3.6, h: .9, fontSize: 14, color: C.text1, margin: 0, valign: 'top', isTextBox: true });
-  s.addText(`Personnage : ${hero}`, { x: x + .3, y: 4.25, w: 3.6, h: .4, fontSize: 13, italic: true, color: C.accent6, margin: 0, isTextBox: true });
+s.addText('Trois vidéos, trois publics', { placeholder: 'title' });
+[['v1', 'Gestionnaires', 'Scanner les cartes d’une file de producteurs et les identifier', 'Kossi'],
+ ['v2', 'Membres', 'Carte + PIN à 6 chiffres, code SMS de secours, sans compte', 'Afi'],
+ ['v3', 'Organisation', 'Demande d’accès, opérateur de zone, collecte, cartes, suivi', 'Yao']].forEach(([v, who, what, hero], i) => {
+  const x = .6 + i * 3.0;
+  s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y: 1.35, w: 2.8, h: 3.55, rectRadius: .12, fill: { color: C.background2 }, line: { color: C.background2 }, objectName: `carte-${v}` });
+  s.addText(`${Math.round(timing[v].total)} s`, { x: x + .3, y: 1.55, w: 2.3, h: .95, fontSize: 48, bold: true, color: C.accent1, fontFace: 'Arial', margin: 0, isTextBox: true });
+  s.addText(`${timing[v].scenes.length} scènes · ${who}`, { x: x + .3, y: 2.5, w: 2.3, h: .4, fontSize: 16, bold: true, color: C.text2, margin: 0, isTextBox: true });
+  s.addText(what, { x: x + .3, y: 2.95, w: 2.3, h: 1.1, fontSize: 14, color: C.text1, margin: 0, valign: 'top', isTextBox: true });
+  s.addText(`Personnage : ${hero}`, { x: x + .3, y: 4.25, w: 2.3, h: .4, fontSize: 13, italic: true, color: C.accent6, margin: 0, isTextBox: true });
 });
 
-for (const v of ['v1', 'v2']) {
-  const sec = v === 'v1' ? 'Vidéo 1 — Gestionnaires' : 'Vidéo 2 — Membres';
+for (const v of ['v1', 'v2', 'v3']) {
+  const sec = { v1: 'Vidéo 1 — Gestionnaires', v2: 'Vidéo 2 — Membres', v3: 'Vidéo 3 — Organisation' }[v];
   pres.addSection({ title: sec });
   s = pres.addSlide({ masterName: 'TITRE', sectionTitle: sec });
   s.addText(board[v].title, { placeholder: 'title' });
@@ -92,7 +93,7 @@ s.addText('Fabrication et diffusion', { placeholder: 'title' });
 });
 
 (async () => {
-  await pres.writeFile({ fileName: 'out/FaitiereHub_Storyboard_Connexion.pptx' });
-  await applyTheme('out/FaitiereHub_Storyboard_Connexion.pptx', THEME);
+  await pres.writeFile({ fileName: 'out/FaitiereHub_Storyboard_Videos.pptx' });
+  await applyTheme('out/FaitiereHub_Storyboard_Videos.pptx', THEME);
   console.log('ok');
 })();

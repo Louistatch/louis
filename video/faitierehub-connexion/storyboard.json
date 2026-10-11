@@ -1,31 +1,162 @@
 {
  "v1": {
-  "title": "Vidéo 1 — « Lundi, 7 h 30 » · Gestionnaires",
+  "title": "Vidéo 1 — « Qui est vraiment membre ? » · Gestionnaires",
   "scenes": {
-   "s1": ["La tension", "Horloge 7:29 → 7:30 (bascule), notification « Distribution d’intrants », la file de producteurs s’allonge.", "Tic-tac, pad mineur"],
-   "s2": ["Kossi entre en scène", "Kossi entre par la gauche avec son cahier, « ? » qui flotte ; « Tout est sur » + emblème qui pivote.", "Whoosh, pop"],
-   "s3": ["Ouvrir le site", "Téléphone qui monte ; l’adresse s’écrit lettre par lettre ; la page d’accueil se construit ; le doigt touche « Se connecter ».", "Frappe clavier, pop"],
-   "s4": ["Bascule au vert", "Cercle vert qui envahit l’écran, feuilles ; l’écran de connexion réel (« Bon retour ») se construit couche par couche.", "Montée + impact, accord majeur"],
-   "s5": ["① Adresse email", "Le champ s’allume (anneau vert), l’email se tape, coche verte qui rebondit.", "Frappe, pop"],
-   "s6": ["② Mot de passe", "Points ••••••••, le doigt touche l’œil : le mot de passe apparaît 1 s puis se masque ; coche.", "Clic œil"],
-   "s7": ["③ Se connecter", "Bouton écrasé à la pression ; « Authentification… » puis « Redirection… » (textes réels du site).", "Tic de chargement"],
-   "s8": ["Le bon espace", "Trois portes (Tableau de bord, Haroo, Opérateur) ; la bonne s’ouvre en 3D sur le tableau de bord (248 membres).", "Porte, compteur"],
-   "s9": ["Mot de passe oublié", "Rembobinage ; « Envoyer le lien » ; l’enveloppe s’envole ; « Lien envoyé » puis « Mot de passe mis à jour ».", "Rembobinage, enveloppe"],
-   "s10": ["Sécurité", "Bouclier, cadenas qui se ferme, trois règles en cascade.", "Verrou"],
-   "s11": ["7:58, prêt", "Horloge dorée, Kossi pouce levé, badge « Membre vérifié ».", "Carillon"],
-   "s12": ["Appel", "Emblème, logotype, faitierehub.com, bouton jaune qui pulse.", "Accord final"]
+   "s1": [
+    "La foule",
+    "Jour de distribution : des dizaines de producteurs attendent, carte en main. Fond terne, la question monte.",
+    "Pad mineur, tic-tac"
+   ],
+   "s2": [
+    "Pas de registre",
+    "Kossi, téléphone en main ; « Pas de registre » barré ; les cartes de plusieurs producteurs arrivent en éventail.",
+    "Whoosh, pop"
+   ],
+   "s3": [
+    "Deux façons de scanner",
+    "Bascule au vert. À gauche le scanner FaîtiereHub (« Vérification instantanée ») ; à droite l’appareil photo / Google Lens qui propose le lien faitierehub.com/verify/….",
+    "Impact, accord majeur"
+   ],
+   "s4": [
+    "Carte détectée",
+    "La carte entre dans le cadre ; coins verts qui pulsent ; « Carte détectée ✓ ».",
+    "Bip, carillon court"
+   ],
+   "s5": [
+    "Statut VALIDE",
+    "Fiche publique : photo, nom, coopérative, numéro ; pastille « VALIDE » ; grille de tuiles (Conseiller, Marchés, Météo…).",
+    "Carillon"
+   ],
+   "s6": [
+    "Bien membre",
+    "Vue « Ma carte » : Membre vérifié, Producteur, Localisation (Région, Préfecture, Village), Organisation (Coopérative, Faîtière, Membre depuis).",
+    "Whoosh"
+   ],
+   "s7": [
+    "Cotisation",
+    "Kossi connecté en gestionnaire : bandeau Cotisation « À jour », Hectares, Intrants.",
+    "Pop"
+   ],
+   "s8": [
+    "Carte non trouvée",
+    "Écran rouge « Carte Non Trouvée » pour une carte révoquée ou inconnue ; le téléphone tremble.",
+    "Grave, buzz"
+   ],
+   "s9": [
+    "La file avance",
+    "Les fiches de plusieurs producteurs défilent (VALIDE à chaque fois) ; compteur « Scans aujourd’hui » jusqu’à 48 ; la foule avance.",
+    "Bips en série"
+   ],
+   "s10": [
+    "Appel",
+    "Emblème, logotype, « Scannez. Vérifiez. Servez. », faitierehub.com/scan.",
+    "Accord final"
+   ]
   }
  },
  "v2": {
   "title": "Vidéo 2 — « Pas d’email, pas besoin » · Membres",
   "scenes": {
-   "s1": ["Afi", "Afi montre sa carte ; « Pas d’email ? » barré ; « Pas besoin. »", "Whoosh, pop"],
-   "s2": ["Scanner la carte", "Carte membre + scanner QR ; la fiche publique glisse : nom, coopérative, badge « VALIDE ».", "Bips scanner, carillon"],
-   "s3": ["Le PIN", "Panneau « Informations privées » ; 6 cases se remplissent ; « Vérification… » sans bouton (validation au 6ᵉ chiffre).", "Touches"],
-   "s4": ["L’espace s’ouvre", "Cadenas qui s’ouvre ; Cotisation À jour, hectares, intrants ; tuiles Parcelles, Cotisation, Ma carte, Météo ; Afi ravie.", "Carillon"],
-   "s5": ["PIN perdu", "« PIN perdu ? Code par SMS » ; notification SMS ; le code se remplit tout seul ; « valable 10 minutes ».", "Notification SMS"],
-   "s6": ["Secret", "Bouclier ; « ne le donnez à personne » ; « trop d’essais : la carte se ferme un moment ».", "Verrou"],
-   "s7": ["Appel", "Votre carte. Votre code. Votre espace. + logotype.", "Accord final"]
+   "s1": [
+    "Afi",
+    "Afi montre sa carte ; « Pas d’email ? » barré ; « Pas besoin. »",
+    "Whoosh, pop"
+   ],
+   "s2": [
+    "Scanner la carte",
+    "Carte membre + scanner QR ; la fiche publique glisse : nom, coopérative, badge « VALIDE ».",
+    "Bips scanner, carillon"
+   ],
+   "s3": [
+    "Le PIN",
+    "Panneau « Informations privées » ; 6 cases se remplissent ; « Vérification… » sans bouton (validation au 6ᵉ chiffre).",
+    "Touches"
+   ],
+   "s4": [
+    "L’espace s’ouvre",
+    "Cadenas qui s’ouvre ; Cotisation À jour, hectares, intrants ; tuiles Parcelles, Cotisation, Ma carte, Météo ; Afi ravie.",
+    "Carillon"
+   ],
+   "s5": [
+    "PIN perdu",
+    "« PIN perdu ? Code par SMS » ; notification SMS ; le code se remplit tout seul ; « valable 10 minutes ».",
+    "Notification SMS"
+   ],
+   "s6": [
+    "Secret",
+    "Bouclier ; « ne le donnez à personne » ; « trop d’essais : la carte se ferme un moment ».",
+    "Verrou"
+   ],
+   "s7": [
+    "Appel",
+    "Votre carte. Votre code. Votre espace. + logotype.",
+    "Accord final"
+   ]
+  }
+ },
+ "v3": {
+  "title": "Vidéo 3 — « De la faîtière au producteur » · Organisation",
+  "scenes": {
+   "s1": [
+    "L’ampleur",
+    "Kossi devant 1 faîtière, 12 coopératives, 2 000 producteurs : « Par où commencer ? »",
+    "Pad mineur"
+   ],
+   "s2": [
+    "Demande d’accès",
+    "Formulaire « Demande d’accès organisationnel » : nom, niveau Faîtière, téléphone ; « Demande envoyée — recontact sous 48 h ».",
+    "Frappe, carillon"
+   ],
+   "s3": [
+    "Organisation créée",
+    "E-mail « Définir mon mot de passe » ; tableau de bord « Bienvenue, Kossi » avec Actions rapides.",
+    "Whoosh"
+   ],
+   "s4": [
+    "Opérateur de zone",
+    "Yao, badge « Opérateur actif », mandat de la faîtière, périmètres (KoboCollect, cartes, impression).",
+    "Carillon"
+   ],
+   "s5": [
+    "Les agents",
+    "Deux options : ses agents collecteurs, ou les agents de la faîtière formés par Yao.",
+    "Pop"
+   ],
+   "s6": [
+    "Collecte KoboCollect",
+    "Tablette : sections S1 Identité → S7 Validation se cochent ; « Envoyer ».",
+    "Pops en série"
+   ],
+   "s7": [
+    "Membre et carte créés",
+    "Les données remontent vers FaîtiereHub ; la carte FH-04718 se construit (QR, niveau Bronze) ; Membre créé, N°, Carte + QR.",
+    "Carillon"
+   ],
+   "s8": [
+    "PIN secret",
+    "« PIN de la carte FH-04718 », affiché une seule fois ; « J’ai remis le PIN ».",
+    "Touches"
+   ],
+   "s9": [
+    "Impression et livraison",
+    "File d’impression de l’Espace Opérateur : « Marquer imprimée » → Imprimée → Livrée ; Yao avec les cartes.",
+    "Clics, moto"
+   ],
+   "s10": [
+    "Afi reçoit sa carte",
+    "Afi ravie, la carte arrive à côté d’elle.",
+    "Carillon"
+   ],
+   "s11": [
+    "Suivi",
+    "« Coopératives membres » avec leurs effectifs ; cotisations encaissées et en retard ; cartes actives ; scans du jour.",
+    "Compteurs"
+   ],
+   "s12": [
+    "Appel",
+    "Frise Demande → Collecte → Carte → Suivi ; logotype ; « De la faîtière au producteur. »",
+    "Accord final"
+   ]
   }
  }
 }

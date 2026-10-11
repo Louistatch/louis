@@ -1,25 +1,124 @@
 {
  "v1": [
-  ["s1", "Lundi, sept heures trente. La distribution commence dans trente minutes."],
-  ["s2", "Kossi doit vérifier qui est membre de sa coopérative. Tout est sur FaîtièreHub."],
-  ["s3", "Il ouvre faitierehub point com, puis touche : Se connecter."],
-  ["s4", "Trois gestes. Trente secondes."],
-  ["s5", "Un : son adresse email."],
-  ["s6", "Deux : son mot de passe. L'œil permet de vérifier ce qu'il tape."],
-  ["s7", "Trois : Se connecter."],
-  ["s8", "FaîtièreHub reconnaît son profil, et ouvre directement le bon espace."],
-  ["s9", "Mot de passe oublié ? Un lien arrive par email, et c'est réglé."],
-  ["s10", "Votre accès est personnel. Ne le partagez jamais."],
-  ["s11", "Sept heures cinquante-huit. Kossi est prêt."],
-  ["s12", "Connectez-vous. Le terrain vous attend."]
+  [
+   "s1",
+   "Jour de distribution. Des dizaines de producteurs attendent, carte en main. Qui est vraiment membre ?"
+  ],
+  [
+   "s2",
+   "Kossi, le gestionnaire, n'ouvre pas le registre : il scanne chaque carte."
+  ],
+  [
+   "s3",
+   "Avec le scanner FaîtièreHub, l'appareil photo du téléphone, ou Google Lens."
+  ],
+  [
+   "s4",
+   "Il vise le QR code : carte détectée."
+  ],
+  [
+   "s5",
+   "La page s'ouvre : photo, nom, coopérative. Statut : valide."
+  ],
+  [
+   "s6",
+   "Village, coopérative, faîtière : la productrice est bien membre."
+  ],
+  [
+   "s7",
+   "Connecté en gestionnaire, Kossi voit aussi si la cotisation est à jour."
+  ],
+  [
+   "s8",
+   "Carte révoquée ou inconnue ? La page l'affiche aussitôt."
+  ],
+  [
+   "s9",
+   "Carte après carte, la file avance. Chaque producteur est identifié en quelques secondes."
+  ],
+  [
+   "s10",
+   "FaîtièreHub. Scannez, vérifiez, servez."
+  ]
  ],
  "v2": [
-  ["s1", "Afi est productrice. Elle n'a pas d'adresse email. Et elle n'en a pas besoin."],
-  ["s2", "Elle scanne le QR code de sa carte de membre. Sa fiche s'affiche."],
-  ["s3", "Pour ses informations privées, elle tape le code PIN à six chiffres remis avec sa carte. Ça valide tout seul."],
-  ["s4", "Et voilà : son espace s'ouvre."],
-  ["s5", "PIN perdu ? Elle reçoit un code par SMS, valable dix minutes."],
-  ["s6", "Votre PIN est secret. Ne le donnez à personne."],
-  ["s7", "Votre carte. Votre code. Votre espace. FaîtièreHub."]
+  [
+   "s1",
+   "Afi est productrice. Elle n'a pas d'adresse email. Et elle n'en a pas besoin."
+  ],
+  [
+   "s2",
+   "Elle scanne le QR code de sa carte de membre. Sa fiche s'affiche."
+  ],
+  [
+   "s3",
+   "Pour ses informations privées, elle tape le code PIN à six chiffres remis avec sa carte. Ça valide tout seul."
+  ],
+  [
+   "s4",
+   "Et voilà : son espace s'ouvre."
+  ],
+  [
+   "s5",
+   "PIN perdu ? Elle reçoit un code par SMS, valable dix minutes."
+  ],
+  [
+   "s6",
+   "Votre PIN est secret. Ne le donnez à personne."
+  ],
+  [
+   "s7",
+   "Votre carte. Votre code. Votre espace. FaîtièreHub."
+  ]
+ ],
+ "v3": [
+  [
+   "s1",
+   "Une faîtière, des coopératives, des milliers de producteurs. Par où commencer ?"
+  ],
+  [
+   "s2",
+   "La faîtière envoie sa demande d'accès. FaîtièreHub la rappelle sous quarante-huit heures."
+  ],
+  [
+   "s3",
+   "L'organisation est créée. Kossi définit son mot de passe : son tableau de bord est prêt."
+  ],
+  [
+   "s4",
+   "Sur le terrain, elle s'appuie sur Yao, opérateur de zone certifié."
+  ],
+  [
+   "s5",
+   "Yao vient avec ses agents collecteurs, ou forme ceux de la faîtière."
+  ],
+  [
+   "s6",
+   "Chez chaque producteur, l'agent remplit la fiche KoboCollect."
+  ],
+  [
+   "s7",
+   "À l'envoi, le membre, son numéro et sa carte QR sont créés."
+  ],
+  [
+   "s8",
+   "Un PIN secret est remis avec la carte."
+  ],
+  [
+   "s9",
+   "Yao imprime les cartes, puis les livre aux coopératives."
+  ],
+  [
+   "s10",
+   "Afi reçoit sa carte."
+  ],
+  [
+   "s11",
+   "La faîtière suit tout : coopératives, membres, cotisations."
+  ],
+  [
+   "s12",
+   "FaîtièreHub. De la faîtière au producteur."
+  ]
  ]
 }

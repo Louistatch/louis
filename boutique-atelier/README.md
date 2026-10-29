@@ -22,7 +22,7 @@ Les mots de passe et clés serveur ne vont pas dans ce dépôt. Le projet Supaba
 Import photos JPG/PNG/WebP/AVIF, compression WebP, galerie réelle. Option vidéo MP4/WebM de rotation ou atlas WebP profil→face. Pas de dos inventé et pas de génération IA automatique. Les maquettes 3D restent limitées au mode démonstration.
 
 ## Vérification
-- `node tests/api.test.mjs` : six contrôles du client HTTP, accès admin, liens médias et sauvegarde atomique (HTTP simulé).
+- `node tests/api.test.mjs` : huit contrôles du client HTTP, accès admin, liens médias et sauvegarde atomique (HTTP simulé).
 - `python tests/browser_check.py` : parcours boutique/admin dans Chromium installé, sur ordinateur et viewport mobile, backend HTTP simulé. Prérequis déjà disponibles dans l'environnement de travail : Playwright et Pillow. Les captures et le rapport restent dans `qa/` hors des fichiers publics.
 - Contrôles de syntaxe Node des modules.
 

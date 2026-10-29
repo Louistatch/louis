@@ -1,4 +1,5 @@
 import test from 'node:test';
+import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {mkdtemp,copyFile,writeFile,readFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
@@ -15,3 +16,7 @@ test('les liens de stockage conservent le préfixe storage/v1 et sont mis en cac
 test('un lien média hors du domaine configuré est refusé',async()=>{let c=await client(async()=>ok({signedURL:'https://untrusted.example/image'}));try{await assert.rejects(()=>c.api.mediaUrl({path:'owner/a.webp'}),/inattendue/)}finally{await c.cleanup()}});
 test('la sauvegarde transmet produit et variantes dans une seule transaction RPC',async()=>{let body;let c=await client(async(u,o)=>{if(u.includes('grant_type=password'))return ok({access_token:'access',refresh_token:'refresh',user:{id:'owner'}});if(u.endsWith('/auth/v1/user'))return ok({id:'owner'});if(u.includes('atelier_admins'))return ok([{user_id:'owner'}]);if(u.includes('atelier_save_product')){body=JSON.parse(o.body);return ok({id:'p1'})}return ok({})});try{await c.api.signIn('owner@example.com','example-password');await c.api.saveProduct({name:'Chemise',status:'draft'},[{size:'M',color:'Bleu',stock:2}],'2026-01-01T00:00:00Z');assert.equal(body.p_product.name,'Chemise');assert.equal(body.p_variants[0].stock,2);assert.equal(body.p_expected_updated_at,'2026-01-01T00:00:00Z')}finally{await c.cleanup()}});
 test('le schéma active RLS, interdit l’auto-attribution admin et ne confie aucune écriture au public',async()=>{let sql=await readFile(path.join(root,'backend/setup.sql'),'utf8');for(let name of ['atelier_admins','atelier_products','atelier_variants','atelier_settings'])assert.match(sql,new RegExp('alter table public\\.'+name+' enable row level security','i'));assert.doesNotMatch(sql,/grant\s+(?:all|insert|update|delete)[^;]*\bto\s+anon/i);assert.doesNotMatch(sql,/create policy\s+\w+\s+on public\.atelier_admins\s+for\s+(insert|update|all)/i);assert.match(sql,/security invoker/);assert.doesNotMatch(sql,/security definer/)});
+
+test('tous les modules sont syntaxiquement valides avant exécution navigateur',async()=>{for(const name of ['app','admin','api','backend-config','demo-renderer']){let code=await readFile(path.join(dist,name+'.js'),'utf8');code=code.replace(/^import .*;$/mg,'').replace(/^export /mg,'');assert.doesNotThrow(()=>new vm.Script(code,{filename:name+'.js'}))}});
+
+test('le formulaire de connexion ne peut pas envoyer un mot de passe dans une URL sans JavaScript',async()=>{let html=await readFile(path.join(dist,'admin.html'),'utf8');assert.match(html,/<form id="login-form" method="post">/);assert.match(html,/<button[^>]*id="login-button"[^>]*disabled/);assert.match(html,/<input[^>]*type="password"[^>]*autocomplete="current-password"[^>]*disabled/)});

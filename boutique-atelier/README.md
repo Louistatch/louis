@@ -1,21 +1,31 @@
-# ATELIER — Démonstration de boutique
+# ATELIER : boutique et administration
 
-## Lancer
-Depuis ce dossier : `python -m http.server 8080 --directory .`, puis ouvrir http://localhost:8080.
-Aucun paquet à installer. Le site est composé de HTML, CSS et JavaScript natif.
+## Ouvrir
+Boutique : https://louistatch.github.io/louis/boutique-atelier/
+Administration : https://louistatch.github.io/louis/boutique-atelier/admin.html
 
-## Fonctionnement
-Trois vêtements fictifs sur un portant. Vraie géométrie extrudée en 3D, projection en perspective et faces ombrées, calculées sur Canvas. Ce n'est pas une photo écrasée par CSS. Survol réversible, navigation clavier, swipe et centrage mobile, manipulation de la vue détail. Aucun dos réel n'est inventé : les modèles sont des maquettes fictives. La préférence de mouvement réduit est respectée.
-Catalogue filtré, variantes de tailles, stock fictif, panier et modifications, formulaire, récapitulatif non envoyé/non payé, copie et lien WhatsApp si un numéro réel est configuré. Aucun SMS ni paiement automatique. Cliquer WhatsApp ouvre une conversation et ne prouve pas l'envoi.
-Les données restent dans localStorage sur l'appareil. L'administration locale n'est pas sécurisée et ne doit pas être utilisée pour une vraie boutique. Aucun stock n'est réservé lors d'une demande. La boutique doit confirmer disponibilité et livraison.
+## État
+L'interface admin est implémentée : authentification Supabase, produits, images, variantes/stocks, brouillon/publication/archivage, aperçu, paramètres de marque et WhatsApp. Son activation réelle nécessite un projet Supabase choisi et configuré; `backend-config.js` reste vide tant que ce projet n'est pas confirmé. Aucun compte ou mot de passe de démonstration n'accorde l'administration.
 
-## À fournir avant ouverture des ventes
-- Nom de marque, logo et textes légaux/conditions, politique livraison, remboursement et confidentialité.
-- Trois premiers produits : références, descriptions vérifiées, vrais prix, taille/couleur/stock, guide de mesures.
-- Photos produit autorisées. Pour les rotations photographiques : atlas WebP transparent de ~30 images profil→face, métadonnées de grille et point de suspension commun. Pour un vrai 360° : fichiers GLB/GLTF optimisés et textures autorisées. Le moteur de la démo doit alors être adapté à ces médias ; il ne prétend pas les importer automatiquement.
-- Numéro WhatsApp professionnel avec indicatif, lieu de retrait et zones/tarifs de livraison.
-- Backend commandes/stocks partagé, authentification de l'administration, contrôle des accès et sauvegardes. Ne jamais exposer des secrets dans le navigateur.
-- Compte marchand et intégration FedaPay ou prestataire réellement disponible au Togo : paiement serveur, notifications signées et rapprochement. Statuts distincts : demande créée, commande reçue, paiement confirmé. Aucun paiement n'est connecté à cette démo.
+Le catalogue affiche les vrais produits publiés quand le backend est connecté. Sans configuration, il reste explicitement en mode démonstration avec trois maquettes. Les paiements ne sont pas connectés; WhatsApp ouvre une demande à confirmer, sans réservation de stock.
 
-## Vérifications
-`node --check dist/app.js` valide la syntaxe JavaScript. Les interactions doivent également être testées sur téléphones physiques avant ouverture. Polices Google optionnelles, avec repli système ; aucune dépendance JavaScript externe. Les médias produits sont dessinés localement sans téléchargement.
+## Lancement local
+`python -m http.server 8080 --directory .`, puis ouvrir http://localhost:8080.
+Aucune dépendance JavaScript externe, aucun paquet à installer pour le site.
+
+## Activation
+Lire `dist/ADMIN_GUIDE.md` (ou `ADMIN_GUIDE.md` dans le dossier GitHub publié). Le schéma est dans `backend/setup.sql`. RLS protège produits, variantes, paramètres et stockage. La clé publique seule ne permet aucune écriture. Les administrateurs sont attribués côté serveur, jamais par inscription libre.
+
+Les mots de passe et clés serveur ne vont pas dans ce dépôt. Le projet Supabase ne doit pas être choisi implicitement parmi d'autres applications existantes.
+
+## Vrais médias
+Import photos JPG/PNG/WebP/AVIF, compression WebP, galerie réelle. Option vidéo MP4/WebM de rotation ou atlas WebP profil→face. Pas de dos inventé et pas de génération IA automatique. Les maquettes 3D restent limitées au mode démonstration.
+
+## Vérification
+- `node tests/api.test.mjs` : six contrôles du client HTTP, accès admin, liens médias et sauvegarde atomique (HTTP simulé).
+- `python tests/browser_check.py` : parcours boutique/admin dans Chromium installé, sur ordinateur et viewport mobile, backend HTTP simulé. Prérequis déjà disponibles dans l'environnement de travail : Playwright et Pillow. Les captures et le rapport restent dans `qa/` hors des fichiers publics.
+- Contrôles de syntaxe Node des modules.
+
+Tests réels Supabase requis après activation : visiteur refusé en écriture, non-admin refusé, brouillon non lisible au public, upload autorisé uniquement au propriétaire, publication visible sur un autre appareil, retrait de publication et conflits de modifications.
+
+Le code ajouté dans Louistatch/louis est limité au dossier boutique-atelier; aucun fichier YPP n'est écrasé. La version HTML autonome et l'archive seront mises à jour pour rester des copies de démonstration, sans accès administrateur hors HTTP(S).

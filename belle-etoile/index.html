@@ -108,14 +108,14 @@
   </header>
   <section id="intro" aria-labelledby="introTitle">
     <div class="intro-body">
-      <div class="eyebrow">Une surprise pour toi, Justine</div>
-      <h1 id="introTitle">Justine, j'ai une surprise <em>rien que pour toi.</em></h1>
-      <p>Tu dis que je ne t'ai jamais vraiment draguée. Alors aujourd'hui, j'essaie ! Pas avec un long discours : avec ce petit monde que j'ai créé pour te faire sourire.</p>
+      <div class="eyebrow">Une surprise juste pour toi ❤️</div>
+      <h1 id="introTitle">Justine, cette fois, <em>je te drague !</em></h1>
+      <p>Tu m'as dit : « Tu ne m'as jamais vraiment draguée ! » 😄 Alors j'ai préparé cette surprise. Suis les étoiles, je vais te dire ce que j'ai sur le cœur.</p>
       <div class="intro-actions">
-        <button id="enterBtn" class="cta">Entre, j'ai une surprise &nbsp; ✨</button>
+        <button id="enterBtn" class="cta">C'est parti ! &nbsp; ❤️</button>
         <button class="ghost" id="introMapBtn">Voir les étapes</button>
       </div>
-      <div class="small-note">Une petite surprise à découvrir sur ton téléphone · aucune obligation · prends ton temps.</div>
+      <div class="small-note">Quelques petites étapes. Tu peux avancer à ton rythme.</div>
     </div>
   </section>
   <main id="journey" aria-label="Parcours interactif">
@@ -144,15 +144,15 @@
   </div>
   <script type="module">
   const story = [
-    {tag:"La surprise", title:"Justine, j'ai quelque chose à te montrer 😄", text:"Tu m'as dit que je ne t'avais jamais vraiment draguée. J'ai pris ça comme un défi. Alors voilà ma façon à moi de te faire sourire.", type:"star"},
-    {tag:"01 · Premier sourire", title:"Tout a commencé par un message", text:"Au départ, on parlait simplement. Puis j'ai commencé à aimer nos petites discussions. Et j'avoue, elles me font sourire.", type:"message"},
-    {tag:"02 · Ton défi", title:"Attentionné… mais pas romantique ? 😅", text:"D'accord, j'ai compris ! Tu veux plus que de jolies paroles : tu veux voir des efforts. Alors j'ai créé cette surprise pour toi.", type:"book", extras:["Te faire rire", "Te surprendre", "Te montrer mes efforts"]},
-    {tag:"03 · Mes intentions", title:"Les petites choses comptent ❤️", text:"T'écouter, te faire rire et tenir mes promesses. Pour moi, c'est comme ça qu'on montre à quelqu'un qu'il compte.", type:"garden", extras:["T'écouter", "Te faire sourire", "Être sincère"]},
-    {tag:"04 · Notre rendez-vous", title:"Et si je t'invitais à sortir ? 😊", text:"Pas besoin d'un grand programme. Juste toi, moi et un bon moment. Qu'est-ce qui te ferait plaisir ?", type:"bridge", extras:["Une balade", "Un jus ensemble", "Un dîner tranquille"]},
-    {tag:"05 · Tes projets", title:"Je veux te voir avancer", text:"Tu as tes rêves, et j'ai les miens. Si on est ensemble, j'aimerais qu'on s'encourage et qu'on se soutienne.", type:"horizon"},
-    {tag:"06 · Ce qui compte", title:"Pas de jeu avec les sentiments", text:"Je veux une relation où on se dit la vérité, où on se respecte et où les actes comptent plus que les belles phrases.", type:"compass", extras:["La vérité", "Le respect", "La confiance"]},
-    {tag:"07 · Notre avenir", title:"Et pourquoi pas nous, en 2027 ? ✨", text:"Je ne vais pas te promettre un mariage aujourd'hui. Mais si on est bien ensemble, pourquoi ne pas rêver plus loin, peut-être en 2027 ?", type:"future"},
-    {tag:"08 · Ma question", title:"Justine, tu me plais ❤️", text:"J'aimerais mieux te connaître et construire quelque chose de sérieux avec toi, doucement, à notre rythme. Est-ce que tu veux qu'on essaie tous les deux ?", type:"final"}
+    {tag:"La surprise", title:"Tu voulais que je te drague ? 😄", text:"Défi accepté ! J'ai créé cette surprise juste pour toi. À chaque étoile, je te confie une petite chose.", type:"star"},
+    {tag:"01 · Nos messages", title:"J'aime parler avec toi 😊", text:"Au début, c'était juste des messages. Maintenant, j'aime nos discussions. Tu me fais sourire, même de loin.", type:"message"},
+    {tag:"02 · Ton défi", title:"Pas assez romantique ? 😅", text:"Tu m'as dit que je suis attentionné, mais pas romantique. J'ai bien entendu ! Alors regarde ce que j'ai préparé.", type:"book", extras:["Te faire rire", "Te surprendre", "Faire des efforts"]},
+    {tag:"03 · Mes intentions", title:"Ce que j'aimerais faire pour toi ❤️", text:"T'écouter quand tu parles. Te faire rire quand tu en as besoin. Et tenir mes promesses. Les actes comptent plus que les mots.", type:"garden", extras:["T'écouter", "Te faire sourire", "Tenir parole"]},
+    {tag:"04 · Un rendez-vous", title:"Tu acceptes une sortie avec moi ? 😊", text:"J'aimerais passer un vrai moment avec toi. Juste discuter, rigoler et mieux se connaître. Tu choisirais quoi ?", type:"bridge", extras:["Une balade", "Un jus ensemble", "Un petit dîner"]},
+    {tag:"05 · Tes rêves", title:"Tes projets sont importants ✨", text:"Tu as tes projets, j'ai les miens. J'aimerais qu'on s'encourage et qu'on soit fiers l'un de l'autre.", type:"horizon"},
+    {tag:"06 · Pour nous deux", title:"Pas de jeu avec les sentiments ❤️", text:"Si on essaie, je veux qu'on se parle franchement, qu'on se respecte et qu'on se fasse confiance.", type:"compass", extras:["La vérité", "Le respect", "La confiance"]},
+    {tag:"07 · Et demain ?", title:"Et si notre histoire allait loin ? ✨", text:"Je rêve d'une vraie histoire, qui pourrait aller jusqu'au mariage, peut-être en 2027. Mais d'abord, apprenons à nous connaître. On verra ensemble.", type:"future"},
+    {tag:"08 · Ma question", title:"Justine, tu me plais ❤️", text:"J'aimerais t'inviter à sortir, mieux te connaître et voir si on peut former un couple. Est-ce que tu veux essayer avec moi ?", type:"final"}
   ];
   const TOTAL = story.length;
   const state = {index:0, highest:0, entered:false, map:false, choice:null, extras:{}, reduced:window.matchMedia("(prefers-reduced-motion: reduce)").matches};
@@ -182,9 +182,9 @@
         const no=document.createElement("button");no.className="ghost";no.textContent="Je préfère dire non";no.onclick=()=>choose("no");choices.append(no);
       } else {
         const box=document.createElement("div");box.className="choice-result";
-        if(state.choice==="yes"){box.innerHTML="<strong>Tu viens de me faire sourire ! ✨</strong><p>Merci de me laisser une chance. Alors, on se fait ce premier rendez-vous ? On avance doucement, ensemble.</p><span>Et qui sait… peut-être un jour, si on le décide tous les deux : Mme TATCHIDA ✦</span>";}
-        if(state.choice==="talk"){box.innerHTML="<strong>On peut en parler 💬</strong><p>Bien sûr. J'aimerais connaître ce que tu penses, sans te presser.</p>";}
-        if(state.choice==="no"){box.innerHTML="<strong>Merci d'avoir regardé ❤️</strong><p>Je comprends et je respecte ta réponse. Merci d'avoir pris le temps de découvrir ma surprise.</p>";}
+        if(state.choice==="yes"){box.innerHTML="<strong>Tu viens de me faire sourire ! ✨</strong><p>Merci pour ton oui ❤️ On commence par un joli rendez-vous ? Je veux te découvrir pour de vrai.</p><span>Et qui sait… un jour, si on en a tous les deux envie : Mme TATCHIDA ✦</span>";}
+        if(state.choice==="talk"){box.innerHTML="<strong>On peut en parler 💬</strong><p>Bien sûr. Dis-moi ce que tu en penses. On a le temps.</p>";}
+        if(state.choice==="no"){box.innerHTML="<strong>Merci d'avoir regardé ❤️</strong><p>Je respecte ton choix. Merci d'avoir regardé ma surprise ❤️</p>";}
         choices.append(box);
         const reset=document.createElement("button");reset.className="ghost";reset.textContent="Revoir les étapes";reset.onclick=()=>{state.choice=null;render();openMap()};choices.append(reset);
       }

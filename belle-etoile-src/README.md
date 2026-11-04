@@ -2,16 +2,18 @@
 
 Expérience Web 3D interactive, mobile-first (Android en portrait), en 8 étapes reliées par une carte-constellation, qui se termine par une question ouverte et trois réponses libres.
 
-Le projet est isolé dans `belle-etoile/` : il ne touche ni au site racine du dépôt ni aux dossiers `togo-life-3d*`.
+**En ligne :** https://louistatch.github.io/louis/belle-etoile/
+
+Le code source est dans `belle-etoile-src/`. Le site compilé, publié par GitHub Pages depuis `main`, est dans `belle-etoile/`. Le projet ne touche ni au site racine du dépôt ni aux dossiers `togo-life-3d*`.
 
 ## Démarrer
 
 ```bash
-cd belle-etoile
+cd belle-etoile-src
 npm install
 npm run dev        # http://localhost:5173 (accessible depuis le téléphone sur le même Wi-Fi)
-npm run build      # TypeScript + build de production dans dist/
-npm run preview    # sert dist/ sur http://localhost:4173
+npm run build      # TypeScript + build de production dans ../belle-etoile/ (à committer pour publier)
+npm run preview    # sert ../belle-etoile/ sur http://localhost:4173
 npm test           # tests unitaires de la progression (Vitest)
 npm run e2e        # parcours complet sur émulation Pixel 7 (Playwright, après npm run build)
 ```
@@ -20,10 +22,11 @@ Pour Playwright, le Chromium utilisé est `/opt/pw-browsers/chromium-1194/...`. 
 
 ## Partager en privé
 
-Le build (`dist/`) est un site statique sans serveur, sans compte et sans traceur. Il fonctionne dans n'importe quel sous-dossier (`base: './'`).
+Le build (`../belle-etoile/`) est un site statique sans serveur, sans compte et sans traceur. Il fonctionne dans n'importe quel sous-dossier (`base: './'`).
 
-- **Recommandé :** Netlify ou Vercel (glisser-déposer `dist/`) avec une protection par mot de passe, puis envoyer le lien à la main.
-- **GitHub Pages :** copier `dist/` dans un dossier au nom difficile à deviner. Attention : un dépôt public reste lisible par tous. Les balises `noindex` et `robots.txt` évitent l'indexation par les moteurs de recherche, mais **n'empêchent pas** une personne qui a le lien d'ouvrir la page.
+- **Actuellement :** GitHub Pages, à l'adresse ci-dessus. Pour mettre à jour : `npm run build`, puis commit et merge sur `main`.
+- **Plus privé :** Netlify ou Vercel (glisser-déposer `../belle-etoile/`) avec une protection par mot de passe, puis envoyer le lien à la main.
+- **Attention :** un dépôt public reste lisible par tous. Les balises `noindex` et `robots.txt` évitent l'indexation par les moteurs de recherche, mais **n'empêchent pas** une personne qui a le lien d'ouvrir la page.
 
 ## Architecture
 
@@ -73,7 +76,7 @@ Les trois boutons ont le même style et la même taille. Il n'y a ni minuteur, n
 
 - Aucune requête réseau après le chargement : pas de statistiques, pas de police distante, pas d'API.
 - Seule la **progression** (étapes visitées et éléments révélés) est gardée dans le `localStorage` du téléphone, pour pouvoir reprendre. La **réponse finale n'est jamais enregistrée** : elle reste à l'écran le temps de la session (vérifié par les tests). Le bouton « Recommencer » efface tout.
-- L'archive `Discussion_WhatsApp_avec_Belle_Etoile__.zip` n'a pas été ouverte : les citations déjà validées dans le cahier des charges suffisaient. Elle est exclue de Git via `.gitignore` (à la racine du dépôt et dans `belle-etoile/`).
+- L'archive `Discussion_WhatsApp_avec_Belle_Etoile__.zip` n'a pas été ouverte : les citations déjà validées dans le cahier des charges suffisaient. Elle est exclue de Git via `.gitignore` (à la racine du dépôt et dans `belle-etoile-src/`).
 - Aucune photo, voix ou représentation de Justine. Les personnages sont des silhouettes anonymes.
 
 ## Personnaliser

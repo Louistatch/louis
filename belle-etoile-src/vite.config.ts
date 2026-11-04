@@ -8,6 +8,9 @@ export default defineConfig({
   plugins: [react()],
   build: {
     target: 'es2020',
+    // Sortie dans ../belle-etoile/ : servi par GitHub Pages à /louis/belle-etoile/
+    outDir: '../belle-etoile',
+    emptyOutDir: true,
     sourcemap: false,
     chunkSizeWarningLimit: 900,
     rollupOptions: {

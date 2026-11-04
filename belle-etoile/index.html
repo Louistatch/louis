@@ -70,6 +70,15 @@
     .map-item:hover,.map-item.current{border-color:var(--gold);background:rgba(242,209,147,.1)}
     .map-item strong{color:var(--gold);font-size:12px}.map-item span{font-size:13px;line-height:1.4}
     .map-item:disabled{cursor:not-allowed;opacity:.43}
+    [hidden]{display:none!important}
+    .music-dock{position:fixed;top:76px;right:15px;z-index:7;width:238px;padding:8px;background:rgba(11,15,37,.95);border:1px solid rgba(239,206,144,.45);border-radius:16px;box-shadow:0 15px 55px rgba(0,0,0,.5);backdrop-filter:blur(18px)}
+    .music-head{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:3px 3px 8px}
+    .music-head strong{color:var(--gold2);font-size:11px}
+    .music-stop{min-height:33px;white-space:nowrap;padding:5px 9px;border-radius:100px;border:1px solid var(--edge);background:#20243d;color:#fff4e0;font-size:11px}
+    #ytSlot iframe{display:block;width:100%;height:200px;border:0;border-radius:9px;background:#050812}
+    .music-note{color:#b9bad0;font-size:10px;line-height:1.45;padding:8px 2px 2px}
+    .music-note a{color:var(--gold2);text-decoration:underline}
+    @media(max-width:800px){.music-dock{top:65px;right:9px;width:216px;padding:7px}.music-note{font-size:9px}}
     .footer-strip{position:fixed;z-index:4;bottom:14px;right:22px;color:#9fa5be;font-size:10px;letter-spacing:.02em;pointer-events:none}
     #choice{display:flex;flex-direction:column;gap:9px;margin-top:17px}
     #choice button{width:100%;text-align:center;min-height:45px}
@@ -102,10 +111,15 @@
   <header class="topbar">
     <div class="brand"><span class="brandstar" aria-hidden="true">✦</span><span>Une surprise pour toi</span></div>
     <div class="top-actions">
-      <button class="glass-btn" id="soundBtn" aria-label="Activer l'ambiance sonore" title="Ambiance sonore">♪ Off</button>
+      <button class="glass-btn" id="soundBtn" aria-label="Lancer la chanson de Justine sur YouTube" title="Lancer ou arrêter la chanson">♪ Chanson</button>
       <button class="glass-btn" id="mapBtn" title="Ouvrir la constellation">✧ Carte</button>
     </div>
   </header>
+  <aside class="music-dock" id="musicDock" aria-label="Lecteur de musique YouTube" hidden>
+    <div class="music-head"><strong>♪ Notre chanson ❤️</strong><button class="music-stop" id="stopMusicBtn" aria-label="Arrêter la chanson">■ Stop</button></div>
+    <div id="ytSlot" aria-label="Vidéo musicale officielle YouTube"></div>
+    <div class="music-note">Si le son ne démarre pas, touche ▶ dans la vidéo. <a href="https://youtu.be/PSZTZwoIJEc" target="_blank" rel="noopener noreferrer">Ouvrir sur YouTube</a>.</div>
+  </aside>
   <section id="intro" aria-labelledby="introTitle">
     <div class="intro-body">
       <div class="eyebrow">Une surprise juste pour toi ❤️</div>
@@ -158,7 +172,31 @@
   const state = {index:0, highest:0, entered:false, map:false, choice:null, extras:{}, reduced:window.matchMedia("(prefers-reduced-motion: reduce)").matches};
   const el = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-  let scene3d = null, audio = null;
+  let scene3d = null;
+  let musicPlaying = false;
+  // Use an official visible video player; do not extract or hide YouTube audio.
+  function setMusic(playing){
+    const slot=el("ytSlot");
+    const dock=el("musicDock");
+    if(!playing){
+      slot.replaceChildren();
+      dock.hidden=true;musicPlaying=false;
+      el("soundBtn").textContent="♪ Chanson";
+      el("soundBtn").setAttribute("aria-label","Lancer la chanson");
+      return;
+    }
+    if(musicPlaying)return;
+    dock.hidden=false;musicPlaying=true;
+    const iframe=document.createElement("iframe");
+    iframe.title="Notre chanson — vidéo YouTube";
+    iframe.src="https://www.youtube-nocookie.com/embed/PSZTZwoIJEc?autoplay=1&loop=1&playlist=PSZTZwoIJEc&playsinline=1&controls=1&rel=0";
+    iframe.setAttribute("allow","autoplay; encrypted-media; picture-in-picture; fullscreen");
+    iframe.setAttribute("allowfullscreen","");
+    iframe.referrerPolicy="strict-origin-when-cross-origin";
+    slot.replaceChildren(iframe);
+    el("soundBtn").textContent="♪ Stop";
+    el("soundBtn").setAttribute("aria-label","Arrêter la chanson");
+  }
   function render(){
     const step = story[state.index];
     el("chapter").textContent=step.tag; el("count").textContent=String(state.index+1).padStart(2,"0")+" / "+String(TOTAL).padStart(2,"0");
@@ -205,19 +243,14 @@
   }
   function openMap(){el("mapDialog").classList.add("open");el("mapBtn").setAttribute("aria-expanded","true");renderMap();el("closeMap").focus()}
   function closeMap(){el("mapDialog").classList.remove("open");el("mapBtn").setAttribute("aria-expanded","false")}
-  el("enterBtn").onclick=()=>go(1);el("introMapBtn").onclick=openMap;el("mapBtn").onclick=openMap;el("closeMap").onclick=closeMap;
+  el("enterBtn").onclick=()=>{setMusic(true);go(1)};el("introMapBtn").onclick=openMap;el("mapBtn").onclick=openMap;el("closeMap").onclick=closeMap;
   el("mapDialog").onclick=e=>{if(e.target===el("mapDialog"))closeMap()};
   el("backBtn").onclick=()=>go(state.index-1);el("nextSmall").onclick=()=>go(state.index+1);el("nextBtn").onclick=()=>go(state.index+1);
   window.addEventListener("keydown",e=>{if(e.key==="Escape")closeMap();if(!state.map && e.key==="ArrowRight" && state.entered)go(state.index+1);if(!state.map && e.key==="ArrowLeft" && state.entered)go(state.index-1)});
-  el("soundBtn").onclick=()=>{
-    try{
-      if(!audio){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C();const gain=ctx.createGain();gain.gain.value=0.011;gain.connect(ctx.destination);const oscs=[196,293.66,392].map(freq=>{const o=ctx.createOscillator();o.type="sine";o.frequency.value=freq;o.connect(gain);o.start();return o});audio={ctx,gain,oscs,on:true}}
-      else{audio.on=!audio.on;audio.gain.gain.setTargetAtTime(audio.on?.011:0,audio.ctx.currentTime,.24);audio.ctx.resume()}
-      el("soundBtn").textContent=audio.on?"♪ On":"♪ Off";
-    }catch(err){el("soundBtn").textContent="♪ Indispo."}
-  };
+  el("soundBtn").onclick=()=>setMusic(!musicPlaying);
+  el("stopMusicBtn").onclick=()=>setMusic(false);
   function fallback(){el("fallbackStars").style.display="block";document.querySelector(".sidehint").textContent="Mode léger activé · tout le parcours reste accessible"}
-  // No chat archive, geolocation, analytics, network telemetry or response collection is used.
+  // No archive, geolocation or response collection is used; YouTube may collect playback data.
   async function boot3D(){
     try{
       if(!document.createElement("canvas").getContext("webgl2"))throw Error("No WebGL2");
@@ -316,7 +349,7 @@
       function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio||1,(innerWidth<700||low)?1.45:2));focus(state.index)}
       addEventListener("resize",resize,{passive:true});
       scene3d={focus,celebrate:celebrateMode};focus(0);tick();
-      document.addEventListener("visibilitychange",()=>{if(document.hidden&&audio&&audio.on)audio.ctx.suspend();else if(audio&&audio.on)audio.ctx.resume()});
+      // YouTube is responsible for its playback lifecycle.
     }catch(err){console.warn("3D unavailable; using accessible 2D view",err);fallback()}
   }
   render();boot3D();

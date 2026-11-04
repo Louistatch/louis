@@ -201,3 +201,18 @@ button.reveal-item:disabled { opacity: .45; cursor: default; }
   .intro-message { font-size: 16px; margin-bottom: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .card, .fade-in, .reveal { animation: none; transition: none; } }
+
+/* lecteur de la chanson : vidéo YouTube visible, compacte, en haut à gauche (zone de ciel) */
+.song-dock {
+  position: absolute; z-index: 6; left: 12px; top: calc(max(10px, env(safe-area-inset-top)) + 54px);
+  width: 176px; padding: 8px; border-radius: 16px;
+  background: rgba(11, 15, 37, .94); border: 1px solid var(--line);
+  box-shadow: 0 14px 40px rgba(0,0,0,.5); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+}
+.song-head { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 0 2px 6px; }
+.song-head strong { color: var(--gold); font-size: 12.5px; }
+.song-stop { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--line); background: #20243d; cursor: pointer; font-size: 13px; }
+.song-dock iframe { display: block; width: 160px; height: 90px; border: 0; border-radius: 10px; background: #050812; }
+.song-note { margin: 6px 2px 0; font-size: 11px; line-height: 1.4; color: var(--muted); }
+.song-note a { color: var(--gold); }
+.mode-intro .song-dock { display: none; }

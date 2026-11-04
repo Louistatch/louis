@@ -9,10 +9,12 @@ const snap = async (page: Page, name: string) => {
 };
 
 async function enter(page: Page) {
+  // pas de réseau YouTube pendant les tests : l'iframe reste vide
+  await page.route(/youtube/, (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<html></html>' }));
   await page.goto('/');
   await page.evaluate(() => localStorage.clear());
   await page.reload();
-  await expect(page.getByRole('heading', { name: /Opération Belle Étoile/ })).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Belle Étoile/ })).toBeVisible();
   await snap(page, '00-intro');
   await page.getByTestId('skip-intro').click();
   await page.getByTestId('enter').click();
@@ -53,9 +55,9 @@ test('un tap sur la bulle 3D allume la première étoile', async ({ page }) => {
   // la bulle est dans la moitié haute ; on balaie quelques points
   for (const fy of [0.3, 0.25, 0.35, 0.2, 0.4]) {
     await page.touchscreen.tap(box.x + box.width / 2, box.y + box.height * fy);
-    if (await page.getByText('Elle porte ton nom').count()) break;
+    if (await page.getByText('Comme toi').count()) break;
   }
-  await expect(page.getByText('Elle porte ton nom')).toBeVisible();
+  await expect(page.getByText('Comme toi')).toBeVisible();
 });
 
 for (const answer of ['yes', 'talk', 'no'] as const) {
@@ -65,21 +67,33 @@ for (const answer of ['yes', 'talk', 'no'] as const) {
     await page.getByTestId(`answer-${answer}`).tap();
     await expect(page.getByTestId(`outcome-${answer}`)).toBeVisible();
     if (answer === 'yes') {
-      await expect(page.getByText('Alors commençons par un vrai rendez-vous.')).toBeVisible();
+      await expect(page.getByText('Merci pour ton oui ❤️')).toBeVisible();
       await page.getByTestId('show-postscript').tap();
       await expect(page.getByTestId('postscript')).toContainText('Mme TATCHIDA');
     }
-    if (answer === 'talk') await expect(page.getByText('Aucune réponse n’est urgente.')).toBeVisible();
-    if (answer === 'no') await expect(page.getByText('Je respecte entièrement ton choix.')).toBeVisible();
+    if (answer === 'talk') await expect(page.getByText('On a le temps, rien ne presse.')).toBeVisible();
+    if (answer === 'no') await expect(page.getByText('Je respecte ton choix.')).toBeVisible();
     await snap(page, `10-outcome-${answer}`);
     // la réponse n'est jamais écrite dans le stockage local
     const stored = await page.evaluate(() => JSON.stringify(localStorage));
     expect(stored).not.toContain(answer === 'yes' ? '"answer"' : answer);
     await page.getByTestId('outcome-action').tap();
-    if (answer === 'no') await expect(page.getByText('Fin du parcours')).toBeVisible();
+    if (answer === 'no') await expect(page.getByText('C’est la fin')).toBeVisible();
     else await expect(page.getByTestId('map')).toBeVisible();
   });
 }
+
+test('la chanson YouTube démarre au toucher « C’est parti » et peut être arrêtée', async ({ page }) => {
+  await enter(page);
+  const frame = page.locator('[data-testid="song-dock"] iframe');
+  await expect(frame).toHaveAttribute('src', /youtube-nocookie\.com\/embed\/PSZTZwoIJEc\?autoplay=1&loop=1/);
+  await expect(frame).toHaveAttribute('allow', /autoplay/);
+  await page.getByTestId('sound').tap();
+  await expect(page.getByTestId('sound')).toContainText('Chanson');
+  await expect(page.getByTestId('song-dock')).toHaveCount(0);
+  await page.getByTestId('sound').tap(); // relance
+  await expect(page.getByTestId('song-dock')).toHaveCount(1);
+});
 
 test('carte : retour sur une étape visitée, étapes futures verrouillées', async ({ page }) => {
   await enter(page);
@@ -101,6 +115,7 @@ test('progression reprise après rechargement, sans la réponse', async ({ page 
 });
 
 test('version sans WebGL : même parcours, mêmes choix', async ({ page }) => {
+  await page.route(/youtube/, (r) => r.fulfill({ status: 200, contentType: 'text/html', body: '<html></html>' }));
   await page.goto('/?nowebgl');
   await page.evaluate(() => localStorage.clear());
   await page.reload();

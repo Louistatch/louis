@@ -70,11 +70,11 @@ Les trois boutons ont le même style et la même taille. Il n'y a ni minuteur, n
 - Les fréquences n'ont pas été mesurées sur un vrai téléphone Android. Les tests tournent dans Chromium avec un rendu WebGL logiciel (SwiftShader), qui ne dit rien des performances réelles. À vérifier sur l'appareil cible, avec Réglages pour lire la fréquence.
 - three.js reste la plus grosse dépendance (environ 175 Ko gzip).
 - Pas de PWA ni de mode hors ligne.
-- Le son est entièrement synthétisé (WebAudio), donc original et libre de droits. C'est une nappe et des carillons, pas une vraie musique.
+- **Chanson :** la vidéo YouTube `PSZTZwoIJEc` (modifiable via `SONG_ID` dans `story.fr.ts`) est créée au toucher de « C'est parti ». Ce geste autorise la lecture automatique avec le son sur la plupart des Android. Sur iPhone, ou si le navigateur bloque, il faut toucher ▶ dans la vidéo. Le bouton « ■ Stop / ♪ Chanson » en haut l'arrête ou la relance. Elle tourne en boucle.
 
 ## Confidentialité
 
-- Aucune requête réseau après le chargement : pas de statistiques, pas de police distante, pas d'API.
+- Pas de statistiques, pas de police distante, pas d'API. **Seule exception : la chanson**, lue par le lecteur YouTube officiel (`youtube-nocookie.com`), visible en haut à gauche. YouTube peut collecter des données de lecture.
 - Seule la **progression** (étapes visitées et éléments révélés) est gardée dans le `localStorage` du téléphone, pour pouvoir reprendre. La **réponse finale n'est jamais enregistrée** : elle reste à l'écran le temps de la session (vérifié par les tests). Le bouton « Recommencer » efface tout.
 - L'archive `Discussion_WhatsApp_avec_Belle_Etoile__.zip` n'a pas été ouverte : les citations déjà validées dans le cahier des charges suffisaient. Elle est exclue de Git via `.gitignore` (à la racine du dépôt et dans `belle-etoile-src/`).
 - Aucune photo, voix ou représentation de Justine. Les personnages sont des silhouettes anonymes.
@@ -90,4 +90,4 @@ Les trois boutons ont le même style et la même taille. Il n'y a ni minuteur, n
 
 ![Intro](docs/intro.png) ![Livre](docs/cp2-livre.png) ![Pont](docs/cp4-pont.png) ![Boussole](docs/cp6-boussole.png) ![Oui](docs/oui.png)
 
-![Paysage](docs/paysage-cp3.png)
+

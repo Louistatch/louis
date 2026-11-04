@@ -4,13 +4,14 @@ export type Quality = 'low' | 'medium' | 'high';
 export type QualityChoice = Quality | 'auto';
 
 interface Settings {
-  sound: boolean;
+  /** Chanson YouTube en cours (déclenchée par le toucher « C'est parti »). */
+  song: boolean;
   reduceMotion: boolean;
   quality: QualityChoice;
   /** Niveau effectif (auto peut descendre si le téléphone peine). */
   effective: Quality;
   explore: boolean;
-  setSound: (v: boolean) => void;
+  setSong: (v: boolean) => void;
   setReduceMotion: (v: boolean) => void;
   setQuality: (v: QualityChoice) => void;
   setEffective: (v: Quality) => void;
@@ -51,13 +52,12 @@ const saved = loadPrefs();
 const q0: QualityChoice = saved.quality ?? 'auto';
 
 export const useSettings = create<Settings>((set, get) => ({
-  // Son toujours désactivé au chargement.
-  sound: false,
+  song: false,
   reduceMotion: saved.reduceMotion ?? !!prefersReduced,
   quality: q0,
   effective: q0 === 'auto' ? detectQuality() : q0,
   explore: false,
-  setSound: (sound) => set({ sound }),
+  setSong: (song) => set({ song }),
   setReduceMotion: (reduceMotion) => {
     set({ reduceMotion });
     savePrefs({ reduceMotion, quality: get().quality });

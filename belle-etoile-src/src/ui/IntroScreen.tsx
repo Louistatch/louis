@@ -10,6 +10,12 @@ export default function IntroScreen() {
   const start = useJourney((s) => s.start);
   const hasSaved = useJourney((s) => s.hasSaved);
   const restart = useJourney((s) => s.restart);
+  const setSong = useSettings((s) => s.setSong);
+  // Le toucher lance aussi la chanson : c'est ce geste qui autorise la lecture automatique.
+  const go = () => {
+    setSong(true);
+    start();
+  };
   useEffect(() => {
     if (step >= 4) return;
     const t = setTimeout(() => setStep((s) => s + 1), step === 0 ? 900 : 1700);
@@ -24,11 +30,11 @@ export default function IntroScreen() {
       </h1>
       <p className={`intro-message reveal ${step >= 2 ? 'on' : ''}`}>{intro.message}</p>
       <div className={`intro-actions reveal ${step >= 3 ? 'on' : ''}`}>
-        <button className="btn primary big" onClick={start} data-testid="enter">
+        <button className="btn primary big" onClick={go} data-testid="enter">
           {hasSaved ? intro.resume : intro.enter}
         </button>
         {hasSaved && (
-          <button className="btn ghost" onClick={() => { restart(); setTimeout(() => useJourney.getState().start(), 0); }}>
+          <button className="btn ghost" onClick={() => { restart(); setSong(true); setTimeout(() => useJourney.getState().start(), 0); }}>
             Recommencer depuis le début
           </button>
         )}

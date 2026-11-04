@@ -3,14 +3,13 @@ import { checkpoints, ui } from '../content/story.fr';
 import { isUnlocked } from '../state/journey';
 import { useJourney } from '../state/journeyStore';
 import { useSettings, type QualityChoice } from '../state/settings';
-import { setSound } from './audio';
 
 export function TopBar({ onSettings }: { onSettings: () => void }) {
   const mode = useJourney((s) => s.mode);
   const visited = useJourney((s) => s.visited.length);
   const openMap = useJourney((s) => s.openMap);
-  const sound = useSettings((s) => s.sound);
-  const toggle = useSettings((s) => s.setSound);
+  const song = useSettings((s) => s.song);
+  const setSong = useSettings((s) => s.setSong);
   return (
     <header className="topbar">
       <button className="pill" onClick={openMap} disabled={mode === 'map'} data-testid="open-map" aria-label="Ouvrir la carte de la constellation">
@@ -18,16 +17,13 @@ export function TopBar({ onSettings }: { onSettings: () => void }) {
       </button>
       <div className="row">
         <button
-          className="pill icon"
-          onClick={() => {
-            toggle(!sound);
-            setSound(!sound);
-          }}
-          aria-pressed={sound}
-          aria-label={sound ? 'Couper le son' : 'Activer le son'}
+          className="pill"
+          onClick={() => setSong(!song)}
+          aria-pressed={song}
+          aria-label={song ? 'Arrêter la chanson' : 'Lancer la chanson'}
           data-testid="sound"
         >
-          {sound ? '🔊' : '🔇'}
+          {song ? '■ Stop' : ui.song.play}
         </button>
         <button className="pill icon" onClick={onSettings} aria-label={ui.settings} data-testid="open-settings">
           ⚙︎

@@ -3,11 +3,11 @@ import { ui } from './content/story.fr';
 import { useJourney } from './state/journeyStore';
 import { useSettings } from './state/settings';
 import { MapPanel, SettingsSheet, TopBar } from './ui/AccessibleControls';
-import { celebrate, chime } from './ui/audio';
 import { ChoicePanel, FinalLetter } from './ui/FinalChoice';
 import IntroScreen from './ui/IntroScreen';
 import NarrativeOverlay from './ui/NarrativeOverlay';
 import Outcome from './ui/Outcome';
+import SongDock from './ui/SongDock';
 import { useSwipe } from './ui/useSwipe';
 import WebGLFallback, { hasWebGL } from './ui/WebGLFallback';
 
@@ -53,18 +53,6 @@ export default function ExperienceShell() {
   const onRight = useCallback(() => (mode === 'scene' || mode === 'choice') && prev(), [mode, prev]);
   useSwipe(stageEl, onLeft, onRight, !explore);
 
-  // carillon discret à chaque révélation, accord doux pour « oui » (si le son est activé)
-  useEffect(
-    () =>
-      useJourney.subscribe((s, p) => {
-        const n = Object.values(s.revealed).flat().length;
-        const o = Object.values(p.revealed).flat().length;
-        if (n > o) chime();
-        if (s.answer === 'yes' && p.answer !== 'yes') celebrate();
-      }),
-    [],
-  );
-
   // contexte WebGL perdu → bascule sur la version légère
   useEffect(() => {
     const onLost = () => setWebgl(false);
@@ -98,6 +86,7 @@ export default function ExperienceShell() {
         {mode === 'outcome' && answer && <Outcome />}
         {mode === 'map' && <MapPanel />}
       </main>
+      <SongDock />
       {settings && <SettingsSheet webgl={webgl} onClose={() => setSettings(false)} />}
     </div>
   );

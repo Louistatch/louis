@@ -1,0 +1,69 @@
+name: TOGO LIFE render and skill audit
+on:
+  push:
+    branches: [feat/togo-life-interface-jeu]
+    paths: ['togo-life-3d/scripts/performance_profiles.py', '.github/workflows/togo-life-render-audit.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: togo-life-render-audit-${{ github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      TOGO_PREVIEW_URL: https://togo-life-preview.vercel.app
+      TOGO_SOURCE_SHA: ${{ github.sha }}
+    defaults:
+      run:
+        working-directory: togo-life-3d
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Build exact game and install inspected test-only dependencies
+        run: |
+          npm run build
+          python3 -m pip install playwright==1.62.0
+          python3 -m playwright install --with-deps chromium
+          npm install --no-save --package-lock=false --ignore-scripts @playwright/test@1.62.0 pngjs@7.0.0
+      - name: Measure actual active quality profiles through product controls
+        run: timeout 90s python3 -u scripts/performance_profiles.py
+      - name: Verify public preview bytes
+        if: always()
+        run: python3 scripts/public_preview.py
+      - name: Execute installed original QA inspector on public onboarding
+        if: always()
+        continue-on-error: true
+        run: |
+          timeout 90s node .claude/skills/threejs-qa-release/scripts/inspect-threejs-canvas.mjs --url "$TOGO_PREVIEW_URL?qa=1" --out artifacts/original-inspector --run-id "ci-${GITHUB_RUN_ID}" --wait 1000
+      - name: Execute installed original director evidence checker
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 - <<'PY'
+          import json,os
+          from pathlib import Path
+          manifest={'version':1,'runId':'ci-'+os.environ['GITHUB_RUN_ID'],
+                    'captures':[{'mode':'desktop','state':None,'report':'artifacts/original-inspector/desktop.json'}],
+                    'artifacts':['artifacts/performance-profiles.json','artifacts/public-preview.json','assets/avatar.gltf']}
+          Path('artifacts/director-manifest.json').write_text(json.dumps(manifest,indent=2))
+          PY
+          python3 .claude/skills/threejs-game-director/scripts/check_evidence.py . --manifest artifacts/director-manifest.json > artifacts/director-check.txt 2>&1
+      - name: Store unmodified audit outputs including failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-render-skill-audit
+          path: |
+            togo-life-3d/artifacts/performance-profiles.json
+            togo-life-3d/artifacts/public-preview.json
+            togo-life-3d/artifacts/original-inspector/
+            togo-life-3d/artifacts/director-manifest.json
+            togo-life-3d/artifacts/director-check.txt
+          retention-days: 7

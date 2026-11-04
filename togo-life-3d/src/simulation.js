@@ -51,6 +51,7 @@ export class Simulation {
       if(input.lastContractDay!==undefined){if(!Number.isInteger(input.lastContractDay)||input.lastContractDay<0||input.lastContractDay>s.day)return false;s.lastContractDay=input.lastContractDay;}
       s.biz=input.biz;s.home=input.home;s.name=input.name.slice(0,24);s.city=input.city;
       if(!Array.isArray(input.conversations)||input.conversations.length>100||input.conversations.some(x=>typeof x!=='string'||x.length>64))return false;s.conversations=[...input.conversations];
+      if(input.events!==undefined){if(!Array.isArray(input.events)||input.events.length>8)return false;const events=[...input.events];if(events.some(x=>typeof x!=='string'||x.length>240))return false;s.events=events;}
       if(input.contract!==null){const c=input.contract;if(!c||c.origin!=='market'||c.destination!=='studio'||c.reward!==1200||!Number.isInteger(c.deadline)||c.deadline<s.day||c.deadline>s.day+1)return false;s.contract={...c};}
       this.state=s;return true;
     }catch{return false;}

@@ -1,6 +1,6 @@
 {
-  "files": 21,
-  "bytes": 3373203,
+  "files": 23,
+  "bytes": 1548535,
   "method": "Static ES module build; validated local import paths; no Vite/npm download",
   "entry": "dist/index.html"
 }

@@ -1,0 +1,39 @@
+name: TOGO LIFE compositor motion proof
+on:
+  push:
+    branches: [feat/togo-life-interface-jeu]
+    paths: ['togo-life-3d/qa/**', '.github/workflows/togo-life-motion-proof.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  motion:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      TOGO_SOURCE_SHA: ${{ github.sha }}
+    defaults:
+      run:
+        working-directory: togo-life-3d
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - name: Build exact unchanged game and prepare recording tools
+        run: |
+          npm run build
+          python3 -m pip install playwright==1.62.0
+          python3 -m playwright install --with-deps chromium
+          sudo apt-get install -y ffmpeg
+      - name: Record actual compositor frames and real keyboard actions
+        run: timeout 75s python3 -u qa/capture_screencast.py --entry-file dist/TOGO_LIFE_MONTAGNE.html --output-dir artifacts/screencast
+      - name: Preserve actual stream and report including partial failures
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: togo-life-compositor-motion
+          path: togo-life-3d/artifacts/screencast/
+          retention-days: 7

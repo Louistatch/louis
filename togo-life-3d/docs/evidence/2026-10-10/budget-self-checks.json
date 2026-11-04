@@ -1,0 +1,25 @@
+{
+  "status": "pass",
+  "checks": [
+    {
+      "name": "missing counters remain unknown",
+      "pass": true
+    },
+    {
+      "name": "booleans and negative counters are invalid",
+      "pass": true
+    },
+    {
+      "name": "exceeding real budget fails",
+      "pass": true
+    },
+    {
+      "name": "known zero count is distinct from missing",
+      "pass": true
+    },
+    {
+      "name": "failed browser input cannot produce successful review",
+      "pass": true
+    }
+  ]
+}

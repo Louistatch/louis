@@ -1,0 +1,89 @@
+{
+  "repository": "https://github.com/gamedev-skills/awesome-gamedev-agent-skills",
+  "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+  "license": "Apache-2.0",
+  "method": "project-local manual copy documented in docs/INSTALLATION.md; npx failed EPERM before package download",
+  "agent": "codex",
+  "skills": [
+    "ai-behavior-trees-utility-ai",
+    "dialogue-systems",
+    "game-ai",
+    "performance-optimization",
+    "procedural-gen"
+  ],
+  "files": [
+    {
+      "path": ".agents/skills/ai-behavior-trees-utility-ai/SKILL.md",
+      "gitBlobSha": "475a03edeeb9f18b785a11d85d6b696920f6d72d"
+    },
+    {
+      "path": ".agents/skills/ai-behavior-trees-utility-ai/references/behavior-tree-core.md",
+      "gitBlobSha": "e42abec76875ca5c2bebade9da6025689ce1cda0"
+    },
+    {
+      "path": ".agents/skills/ai-behavior-trees-utility-ai/references/best-practices-and-pitfalls.md",
+      "gitBlobSha": "e95f44acb0b8ba1d0226ae327b9157ccc12b9104"
+    },
+    {
+      "path": ".agents/skills/ai-behavior-trees-utility-ai/references/practical-examples.md",
+      "gitBlobSha": "38b1223d610e1d3356c38fdeb257e2e454fa98ca"
+    },
+    {
+      "path": ".agents/skills/ai-behavior-trees-utility-ai/references/utility-ai-system.md",
+      "gitBlobSha": "0a04b5514047aa32ad743f298fe0e6ee46216dc3"
+    },
+    {
+      "path": ".agents/skills/dialogue-systems/SKILL.md",
+      "gitBlobSha": "04066b23c7718cffc30ce51e7ac703a0e42e0118"
+    },
+    {
+      "path": ".agents/skills/dialogue-systems/references/ink-and-yarn.md",
+      "gitBlobSha": "140777deed59ca58d87f2a31e1adedf2f6483ae1"
+    },
+    {
+      "path": ".agents/skills/dialogue-systems/references/runner.md",
+      "gitBlobSha": "fe9bdd1cafef05e232859ce83b1dd13a89926461"
+    },
+    {
+      "path": ".agents/skills/game-ai/SKILL.md",
+      "gitBlobSha": "7a77e9eaffb6ff607c0072528ebda2c629d728e2"
+    },
+    {
+      "path": ".agents/skills/game-ai/references/behavior-trees.md",
+      "gitBlobSha": "bb3ddd6ee7c3b5716ef2f1ca0a51911055541925"
+    },
+    {
+      "path": ".agents/skills/game-ai/references/pathfinding.md",
+      "gitBlobSha": "5b942559d2e13a19dd5ec2da5b2e6bb3c76386bd"
+    },
+    {
+      "path": ".agents/skills/performance-optimization/SKILL.md",
+      "gitBlobSha": "37d589a9d6fbfee04be44c759f0683131b116af9"
+    },
+    {
+      "path": ".agents/skills/performance-optimization/references/profiling-and-budgets.md",
+      "gitBlobSha": "17025f4ffa801f81067d0bbcc981d253d8f84d57"
+    },
+    {
+      "path": ".agents/skills/procedural-gen/SKILL.md",
+      "gitBlobSha": "4f635f994401783ed0388cba2e4d2c199dca61b4"
+    },
+    {
+      "path": ".agents/skills/procedural-gen/references/dungeon-generation.md",
+      "gitBlobSha": "dd9cd598866fdc778fd7aa11f51685d116abb2ee"
+    },
+    {
+      "path": ".agents/skills/procedural-gen/references/noise.md",
+      "gitBlobSha": "4f87481397542720beaa64547fe99f781be25084"
+    },
+    {
+      "path": ".agents/skills/LICENSE.gamedev-skills",
+      "gitBlobSha": "c7fc0c6d59cb8129a0e30fe13f5a6118f3933c44"
+    }
+  ],
+  "validator": {
+    "path": ".agents/skills-tools/validate-skills.py",
+    "source": "scripts/validate-skills.py",
+    "gitBlobSha": "cf7dd6295dcbf341917ec57c398ff5ed3694b274"
+  }
+}

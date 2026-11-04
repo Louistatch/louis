@@ -1,0 +1,38 @@
+{
+  "status": "pass",
+  "method": "Unmodified upstream validate_file and validate_unique_names functions; repository-wide catalog/plugin checks do not apply to a subset install",
+  "commit": "0a70cfc64672d512c5b5b6006b5dcb5cf90dbdbd",
+  "checks": [
+    {
+      "skill": "ai-behavior-trees-utility-ai",
+      "status": "pass",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "skill": "dialogue-systems",
+      "status": "pass",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "skill": "game-ai",
+      "status": "pass",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "skill": "performance-optimization",
+      "status": "pass",
+      "errors": [],
+      "warnings": []
+    },
+    {
+      "skill": "procedural-gen",
+      "status": "pass",
+      "errors": [],
+      "warnings": []
+    }
+  ],
+  "uniqueNameErrors": []
+}

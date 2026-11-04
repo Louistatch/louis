@@ -1,0 +1,6 @@
+  ok    /home/runner/work/louis/louis/togo-life-3d/artifacts/original-inspector/desktop.json (desktop/default) non-blank, colorEntropyBits=3.90
+  ok    artifacts/performance-profiles.json (16,400 bytes)
+  ok    artifacts/public-preview.json (786 bytes)
+  ok    assets/avatar.gltf (478,163 bytes)
+
+Evidence check passed: 4 artifact(s) confirmed.

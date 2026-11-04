@@ -1,0 +1,98 @@
+{
+  "status": "review_complete",
+  "sourceSha": "6740be8f053944bf027c4497c96786e13d0dc762",
+  "entrySha256": "6f97f6457696e37ad504ab4c0a24cd79f59744175379ea810594ac8262d1cfbe",
+  "profiles": {
+    "balanced": {
+      "counts": {
+        "calls": {
+          "observed": 58,
+          "maximum": 150,
+          "status": "pass"
+        },
+        "triangles": {
+          "observed": 89752,
+          "maximum": 300000,
+          "status": "pass"
+        },
+        "textures": {
+          "observed": 18,
+          "maximum": 40,
+          "status": "pass"
+        }
+      },
+      "renderCountBudget": "pass",
+      "measuredFPS": 4.623163030434182,
+      "reportedFrameMs": 216.30212765957455,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "softwareRenderer": true,
+      "observed30FPS": false,
+      "observed60FPS": false,
+      "targetHardwareValidation": "not_validated",
+      "cpuGpuBottleneck": "unknown: no subsystem CPU/GPU timing in this input"
+    },
+    "low": {
+      "counts": {
+        "calls": {
+          "observed": 51,
+          "maximum": 150,
+          "status": "pass"
+        },
+        "triangles": {
+          "observed": 89256,
+          "maximum": 300000,
+          "status": "pass"
+        },
+        "textures": {
+          "observed": 17,
+          "maximum": 40,
+          "status": "pass"
+        }
+      },
+      "renderCountBudget": "pass",
+      "measuredFPS": 3.8192490150357803,
+      "reportedFrameMs": 261.8315789473684,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "softwareRenderer": true,
+      "observed30FPS": false,
+      "observed60FPS": false,
+      "targetHardwareValidation": "not_validated",
+      "cpuGpuBottleneck": "unknown: no subsystem CPU/GPU timing in this input"
+    },
+    "high": {
+      "counts": {
+        "calls": {
+          "observed": 51,
+          "maximum": 150,
+          "status": "pass"
+        },
+        "triangles": {
+          "observed": 89256,
+          "maximum": 300000,
+          "status": "pass"
+        },
+        "textures": {
+          "observed": 18,
+          "maximum": 40,
+          "status": "pass"
+        }
+      },
+      "renderCountBudget": "pass",
+      "measuredFPS": 3.829950210647261,
+      "reportedFrameMs": 261.1,
+      "gpu": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+      "softwareRenderer": true,
+      "observed30FPS": false,
+      "observed60FPS": false,
+      "targetHardwareValidation": "not_validated",
+      "cpuGpuBottleneck": "unknown: no subsystem CPU/GPU timing in this input"
+    }
+  },
+  "limitations": [
+    "Counts within budget do not prove smooth gameplay or absence of memory leaks.",
+    "No physical Android or hardware-GPU target is certified by these reports.",
+    "Sequential samples with evolving NPCs do not establish a ranking of quality profiles.",
+    "This analysis reuses archived measurements; it does not capture new frames."
+  ],
+  "inputSha256": "7abd6eb2107aad8d14f51769bc732d0894afb6219f282a0d4f7cfcdd930cbc50"
+}

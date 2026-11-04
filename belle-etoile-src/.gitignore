@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+# Archive privée : ne jamais versionner
+Discussion_WhatsApp_avec_Belle_Etoile__.zip
+*WhatsApp*.zip
+*WhatsApp*.txt

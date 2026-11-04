@@ -1,10 +1,12 @@
 # BELLE ÉTOILE ✦ — Le chemin vers nous
 
+> **Ancienne version (fichier unique).** La version prioritaire est désormais publiée à https://louistatch.github.io/louis/belle-etoile/ (sources : `belle-etoile-src/`). Celle-ci reste consultable à https://louistatch.github.io/louis/belle-etoile-v1/.
+
 Une petite aventure romantique en **3D WebGL**, adaptée au mobile, avec une **constellation de 9 moments** (une introduction et huit étapes) et une question finale ouverte.
 
 ## Ouvrir l'expérience
 
-Une fois GitHub Pages à jour : **https://louistatch.github.io/louis/belle-etoile/**
+Une fois GitHub Pages à jour : **https://louistatch.github.io/louis/belle-etoile-v1/**
 
 Le projet vit uniquement dans le sous-dossier `belle-etoile/`. Il ne modifie **aucun fichier** de la plateforme YPP à la racine du dépôt.
 

@@ -1,0 +1,6 @@
+# Archive privée Belle Étoile : ne jamais versionner
+Discussion_WhatsApp_avec_Belle_Etoile__.zip
+*WhatsApp*.zip
+belle-etoile-src/node_modules/
+belle-etoile-src/test-results/
+belle-etoile-src/playwright-report/

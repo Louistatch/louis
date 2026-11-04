@@ -1,0 +1,32 @@
+{
+  "name": "belle-etoile",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Opération Belle Étoile — Le chemin vers nous : expérience 3D mobile-first",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host --port 4173",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@react-three/fiber": "8.17.10",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "three": "0.169.0",
+    "zustand": "4.5.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@types/three": "0.169.0",
+    "@vitejs/plugin-react": "4.3.3",
+    "typescript": "5.6.3",
+    "vite": "5.4.10",
+    "vitest": "2.1.4"
+  }
+}

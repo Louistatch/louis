@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b1027">
+  <meta name="description" content="Une constellation de petits moments à explorer. Une invitation sincère, sans pression.">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>Belle Étoile — Le chemin vers nous</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#f9f2e7;--soft:#b6b9d5;--gold:#efce90;--gold2:#fff1cb;--bg:#090e22;--edge:rgba(238,219,181,.19);--panel:rgba(12,18,43,.81)}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:"DM Sans",Arial,sans-serif;overscroll-behavior:none}
+    body{overflow:hidden}button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid #ffdf9f;outline-offset:3px}
+    .backdrop{position:fixed;inset:0;background:radial-gradient(ellipse 65% 75% at 75% 22%,#26305f 0%,transparent 72%),radial-gradient(ellipse at 25% 83%,#241735,transparent 62%),#090d20}
+    .backdrop:before{content:"";position:absolute;inset:0;opacity:.32;background-image:radial-gradient(1.2px 1.2px at 22% 17%,#fff 95%,transparent),radial-gradient(1px 1px at 65% 36%,#fff 95%,transparent),radial-gradient(1px 1px at 82% 80%,#fff 95%,transparent);background-size:193px 173px,219px 197px,273px 213px}
+    canvas{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:pan-y}
+    #fallbackStars{position:fixed;inset:0;display:none;pointer-events:none;background:radial-gradient(circle at 52% 38%,rgba(254,219,151,.17),transparent 24%),radial-gradient(circle at 25% 73%,rgba(180,180,243,.12),transparent 30%)}
+    #fallbackStars:after{content:"✦";position:absolute;left:50%;top:30%;transform:translateX(-50%);font-size:clamp(100px,35vw,220px);color:#efd2a0;text-shadow:0 0 45px #d7a75f,0 0 100px #ba91c4}
+    .veil{position:fixed;inset:0;background:linear-gradient(90deg,rgba(5,9,25,.64),transparent 65%),linear-gradient(0deg,rgba(5,8,20,.88),transparent 50%);pointer-events:none}
+    .topbar{position:fixed;left:0;right:0;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:max(20px,env(safe-area-inset-top)) max(21px,env(safe-area-inset-right));gap:14px}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;font-size:11px;font-weight:700;white-space:nowrap}
+    .brandstar{font-size:24px;text-shadow:0 0 24px #fdc16d}
+    .top-actions{display:flex;gap:8px}
+    .glass-btn{min-height:43px;min-width:43px;border:1px solid var(--edge);border-radius:100px;color:var(--ink);background:rgba(19,23,49,.65);backdrop-filter:blur(16px);padding:10px 15px;font-size:12px;font-weight:600}
+    .glass-btn:hover,.ghost:hover{background:rgba(234,201,157,.13)}
+    #intro{position:fixed;inset:0;z-index:6;display:flex;align-items:center;padding:8vw max(8vw,24px);transition:opacity .8s,visibility .8s}
+    #intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    .intro-body{position:relative;max-width:670px;margin-top:-3vh}
+    .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.27em;text-transform:uppercase;font-weight:700}
+    h1,h2,h3,p{margin-top:0}h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:500}
+    h1{font-size:clamp(52px,8vw,105px);line-height:1.045;letter-spacing:-.055em;margin:22px 0 24px}
+    h1 em{color:var(--gold);font-weight:400;font-style:italic}
+    .intro-body p{font-size:clamp(14px,1.4vw,17px);line-height:1.85;max-width:480px;color:#d6d7e5}
+    .cta{border:1px solid #f4dcae;background:linear-gradient(135deg,#f7e3bf,#dbb779);border-radius:100px;color:#201832;padding:15px 23px;font-weight:700;min-height:49px;box-shadow:0 13px 36px rgba(181,124,55,.19)}
+    .cta:hover{filter:brightness(1.07);transform:translateY(-1px)}
+    .intro-actions{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:34px}
+    .ghost{border:1px solid var(--edge);background:transparent;color:#f9f2e7;border-radius:100px;padding:14px 20px;min-height:48px}
+    .small-note{color:#9ca1be;font-size:11px;line-height:1.6;margin-top:28px}
+    #journey{position:fixed;inset:0;z-index:4;pointer-events:none;opacity:0;transition:opacity .6s}
+    #journey.active{opacity:1}
+    #journey button,#journey #mapDialog{pointer-events:auto}
+    .scene-info{position:absolute;bottom:max(26px,env(safe-area-inset-bottom));left:max(5vw,20px);width:min(500px,calc(100vw - 40px));border:1px solid rgba(234,215,183,.15);background:var(--panel);backdrop-filter:blur(22px);border-radius:23px;padding:25px 27px 22px;box-shadow:0 30px 80px rgba(0,0,0,.22)}
+    .scene-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:11px}
+    .progress-label{letter-spacing:.2em;color:var(--gold);font-size:10px;text-transform:uppercase;font-weight:700}
+    .fraction{font-size:12px;color:#c3bfd1;font-variant-numeric:tabular-nums}
+    .scene-info h2{font-size:clamp(27px,3vw,39px);line-height:1.14;letter-spacing:-.028em;margin:7px 0 14px}
+    .scene-info p{color:#d5d3e0;line-height:1.7;font-size:14px;margin:0}
+    #interaction{display:flex;flex-wrap:wrap;gap:9px;margin-top:15px}
+    .micro{border:1px solid rgba(239,206,144,.39);border-radius:100px;background:rgba(235,203,156,.09);color:#ffecd0;min-height:36px;padding:8px 12px;font-size:12px}
+    .micro.done{background:rgba(239,206,144,.3);border-color:#f8d799}
+    .scene-controls{display:flex;gap:10px;align-items:center;margin-top:22px}
+    .scene-controls .cta{margin-left:auto;min-height:43px;padding:11px 18px;font-size:13px}
+    .nav{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.045);color:var(--ink);border-radius:50%;height:43px;width:43px;font-size:19px}
+    .nav:disabled{opacity:.25;cursor:not-allowed}
+    #dots{position:absolute;bottom:max(39px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center}
+    .dot{border:1px solid rgba(255,240,214,.5);background:rgba(255,255,255,.2);width:8px;height:8px;padding:0;border-radius:50%}
+    .dot.active{width:29px;border-radius:100px;background:var(--gold)}
+    .dot.visited:not(.active){background:#eacb91}
+    .sidehint{position:absolute;right:5vw;bottom:9vh;color:#aab0c8;font-size:11px;text-transform:uppercase;letter-spacing:.16em;text-align:right}
+    #mapDialog{position:fixed;z-index:8;inset:0;display:none;align-items:center;justify-content:center;background:rgba(5,8,20,.82);backdrop-filter:blur(20px);padding:20px;pointer-events:auto}
+    #mapDialog.open{display:flex}
+    .map-card{width:min(720px,100%);max-height:min(800px,90vh);overflow:auto;border:1px solid var(--edge);background:linear-gradient(160deg,#1b2146,#0c1129);border-radius:26px;padding:clamp(24px,4vw,42px)}
+    .map-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+    .map-head h2{font-size:clamp(29px,5vw,46px);margin:10px 0 24px}
+    .map-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .map-item{border:1px solid var(--edge);color:#e9e5ed;background:rgba(255,255,255,.03);min-height:120px;border-radius:14px;padding:17px 12px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;gap:12px}
+    .map-item:hover,.map-item.current{border-color:var(--gold);background:rgba(242,209,147,.1)}
+    .map-item strong{color:var(--gold);font-size:12px}.map-item span{font-size:13px;line-height:1.4}
+    .map-item:disabled{cursor:not-allowed;opacity:.43}
+    .footer-strip{position:fixed;z-index:4;bottom:14px;right:22px;color:#9fa5be;font-size:10px;letter-spacing:.02em;pointer-events:none}
+    #choice{display:flex;flex-direction:column;gap:9px;margin-top:17px}
+    #choice button{width:100%;text-align:center;min-height:45px}
+    #choice .ghost{text-align:center;font-size:12px;padding:10px 13px}
+    .final-text{font-family:"Playfair Display",Georgia,serif;font-size:20px!important;color:var(--gold2)!important;line-height:1.52!important}
+    .choice-result{background:rgba(244,212,162,.08);border:1px solid var(--edge);padding:19px;border-radius:15px;margin-top:16px;color:#efe5dc;font-size:14px;line-height:1.8}
+    .choice-result strong{font-family:"Playfair Display",Georgia,serif;font-size:28px;color:var(--gold);font-weight:500}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media (max-width:800px){
+      .topbar{padding:14px 16px}.brand{letter-spacing:.12em;font-size:9px}.brandstar{font-size:19px}
+      .glass-btn{padding:10px 12px;min-height:40px;min-width:40px}.top-actions{gap:5px}
+      #intro{padding:20px;align-items:flex-end;padding-bottom:max(12vh,55px)}
+      .intro-body{margin:0;max-width:550px}
+      h1{font-size:clamp(49px,13vw,79px);margin:17px 0}
+      .intro-body p{font-size:14px;line-height:1.72}
+      .intro-actions{margin-top:24px}.small-note{margin-top:18px}
+      .scene-info{bottom:max(36px,env(safe-area-inset-bottom));padding:20px 19px 18px;left:12px;width:calc(100vw - 24px);border-radius:19px}
+      .scene-info h2{font-size:29px;margin:4px 0 11px}.scene-info p{font-size:13px;line-height:1.57}
+      .scene-controls{margin-top:16px}.sidehint,#dots,.footer-strip{display:none}
+      .map-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.map-item{min-height:99px;padding:12px}
+    }
+    @media(max-height:660px){.scene-info{padding:14px 17px}.scene-info h2{font-size:24px;margin:3px 0 7px}.scene-controls{margin-top:10px}.scene-info p{font-size:12px}.eyebrow{font-size:9px}.small-note{margin-top:9px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+  <div id="fallbackStars" aria-hidden="true"></div>
+  <div class="veil" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand"><span class="brandstar" aria-hidden="true">✦</span><span>Le chemin vers nous</span></div>
+    <div class="top-actions">
+      <button class="glass-btn" id="soundBtn" aria-label="Activer l'ambiance sonore" title="Ambiance sonore">♪ Off</button>
+      <button class="glass-btn" id="mapBtn" title="Ouvrir la constellation">✧ Carte</button>
+    </div>
+  </header>
+  <section id="intro" aria-labelledby="introTitle">
+    <div class="intro-body">
+      <div class="eyebrow">Une invitation, rien que pour Belle Étoile</div>
+      <h1 id="introTitle">Il existe des rencontres qui <em>changent le ciel.</em></h1>
+      <p>Tu m'as lancé un défi : être un peu plus romantique. Alors j'ai créé ce petit univers, non pas pour faire de grands discours, mais pour te montrer ce que j'aimerais construire, à notre rythme.</p>
+      <div class="intro-actions">
+        <button id="enterBtn" class="cta">Découvrir notre constellation &nbsp; ✦</button>
+        <button class="ghost" id="introMapBtn">Voir le parcours</button>
+      </div>
+      <div class="small-note">Une promenade interactive de quelques minutes · sans compte · sans pression · tu es libre à chaque étape.</div>
+    </div>
+  </section>
+  <main id="journey" aria-label="Parcours interactif">
+    <section class="scene-info" aria-live="polite">
+      <div class="scene-head"><span id="chapter" class="progress-label"></span><span id="count" class="fraction"></span></div>
+      <h2 id="sceneTitle"></h2>
+      <p id="sceneText"></p>
+      <div id="interaction"></div>
+      <div id="choice"></div>
+      <div class="scene-controls" id="controls">
+        <button class="nav" id="backBtn" title="Étape précédente" aria-label="Étape précédente">←</button>
+        <button class="nav" id="nextSmall" title="Étape suivante" aria-label="Étape suivante">→</button>
+        <button class="cta" id="nextBtn">Continuer &nbsp; ✦</button>
+      </div>
+    </section>
+    <div id="dots" aria-label="Progression"></div>
+    <div class="sidehint">Touchez les étoiles<br>ou explorez la carte ✦</div>
+  </main>
+  <div class="footer-strip">Une histoire à deux, jamais une décision à sens unique.</div>
+  <div id="mapDialog" role="dialog" aria-modal="true" aria-labelledby="mapTitle">
+    <div class="map-card">
+      <div class="map-head"><div><span class="eyebrow">Notre carte mentale</span><h2 id="mapTitle">La constellation des possibles</h2></div><button class="glass-btn" id="closeMap" aria-label="Fermer la carte">✕</button></div>
+      <div class="map-grid" id="mapGrid"></div>
+      <p class="small-note">Chaque étoile ouvre une petite scène. L'avenir reste ouvert.</p>
+    </div>
+  </div>
+  <script type="module">
+  const story = [
+    {tag:"Le commencement", title:"Une étoile à découvrir", text:"Parfois, une simple rencontre donne envie de regarder les choses autrement. Celle-ci m'a donné envie d'être plus audacieux, et surtout plus sincère.", type:"star"},
+    {tag:"01 · Le premier éclat", title:"Un simple bonjour", text:"On commence toujours quelque part : un message, une plaisanterie, une curiosité. J'aime les histoires qui prennent le temps de devenir belles.", type:"message"},
+    {tag:"02 · Le défi", title:"Mon livre de romantisme", text:"Tu as raison : l'attention est importante, mais il faut aussi savoir surprendre. Alors voici ma première tentative... et promis, ce livre n'a pas encore toutes ses pages.", type:"book", extras:["Chapitre I : oser", "Chapitre II : t'écouter", "Chapitre III : inventer la suite"]},
+    {tag:"03 · Les attentions", title:"Le jardin des petits gestes", text:"Les belles paroles passent. Les gestes, eux, restent. Voici trois intentions que je voudrais réellement mettre en pratique.", type:"garden", extras:["Écouter vraiment", "Être présent par mes actes", "Toujours parler avec honnêteté"]},
+    {tag:"04 · La rencontre", title:"Le pont des retrouvailles", text:"Des villes et des kilomètres peuvent séparer deux emplois du temps. Mais j'aimerais trouver du temps pour un vrai rendez-vous : rire, marcher, et parler de ce qui compte.", type:"bridge"},
+    {tag:"05 · Nos horizons", title:"Tes rêves ont leur place", text:"Tes projets t'appartiennent. Je ne veux pas les rétrécir ; j'aimerais découvrir les tiens, partager les miens et voir comment deux trajectoires pourraient se respecter.", type:"horizon"},
+    {tag:"06 · L'essentiel", title:"Notre boussole", text:"Je ne cherche pas une histoire parfaite. Je rêve d'une histoire vraie, dans laquelle on choisit chaque jour ce qui compte.", type:"compass", extras:["Confiance", "Respect", "Dialogue", "Fidélité"]},
+    {tag:"07 · L'avenir", title:"Et si 2027 nous souriait ?", text:"J'ai un rêve un peu fou : si le temps, nos actes et nos choix nous y conduisent tous les deux, pourquoi ne pas envisager un jour le mariage ? Rien n'est écrit d'avance.", type:"future"},
+    {tag:"08 · La question", title:"Alors, Belle Étoile...", text:"Je ne veux pas décider pour nous deux. J'aimerais apprendre à te séduire avec de l'attention, de la constance et des moments qui nous ressemblent. Accepterais-tu de commencer avec moi une relation sincère, sérieuse, à notre rythme ?", type:"final"}
+  ];
+  const TOTAL = story.length;
+  const state = {index:0, highest:0, entered:false, map:false, choice:null, extras:{}, reduced:window.matchMedia("(prefers-reduced-motion: reduce)").matches};
+  const el = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  let scene3d = null, audio = null;
+  function render(){
+    const step = story[state.index];
+    el("chapter").textContent=step.tag; el("count").textContent=String(state.index+1).padStart(2,"0")+" / "+String(TOTAL).padStart(2,"0");
+    el("sceneTitle").textContent=step.title; el("sceneText").textContent=step.text;
+    el("sceneText").classList.toggle("final-text",step.type==="final");
+    el("backBtn").disabled=state.index===0; el("nextSmall").disabled=state.index===TOTAL-1;
+    el("controls").style.display=step.type==="final"?"none":"flex";
+    el("nextBtn").textContent=state.index===TOTAL-2?"La question finale ✦":"Continuer ✦";
+    const dots=el("dots"); dots.innerHTML="";
+    story.forEach((s,i)=>{const d=document.createElement("button"); d.className="dot"+(i===state.index?" active":"")+(i<=state.highest?" visited":"");d.setAttribute("aria-label","Étape "+(i+1)+" : "+s.title);d.title=s.title;d.onclick=()=>go(i);dots.append(d)});
+    const extras=el("interaction"); extras.innerHTML="";
+    if(step.extras){
+      const selected=state.extras[state.index]||new Set();
+      step.extras.forEach((name,i)=>{const b=document.createElement("button");b.className="micro"+(selected.has(i)?" done":"");b.textContent=(selected.has(i)?"✓ ":"✦ ")+name;b.onclick=()=>{const list=state.extras[state.index]||(state.extras[state.index]=new Set());list.has(i)?list.delete(i):list.add(i);render()};extras.append(b)});
+    }
+    const choices=el("choice");choices.innerHTML="";
+    if(step.type==="final"){
+      if(!state.choice){
+        const primary=document.createElement("button");primary.className="cta";primary.textContent="Oui, j'accepte ❤️";primary.onclick=()=>choose("yes");choices.append(primary);
+        const talk=document.createElement("button");talk.className="ghost";talk.textContent="J'aimerais qu'on en parle 💬";talk.onclick=()=>choose("talk");choices.append(talk);
+        const no=document.createElement("button");no.className="ghost";no.textContent="Je préfère ne pas m'engager";no.onclick=()=>choose("no");choices.append(no);
+      } else {
+        const box=document.createElement("div");box.className="choice-result";
+        if(state.choice==="yes"){box.innerHTML="<strong>Notre première vraie page ✨</strong><p>Merci de m'accorder cette chance. Commençons par un rendez-vous, et laissons le temps nous découvrir.</p><span>Et peut-être un jour, si nous le choisissons ensemble… Mme TATCHIDA ✦</span>";}
+        if(state.choice==="talk"){box.innerHTML="<strong>Prenons le temps 💬</strong><p>J'aimerais t'écouter. Aucune réponse n'est urgente et nous pouvons simplement en parler.</p>";}
+        if(state.choice==="no"){box.innerHTML="<strong>Merci, Belle Étoile.</strong><p>Je respecte ton choix, entièrement. Merci d'avoir traversé cette constellation.</p>";}
+        choices.append(box);
+        const reset=document.createElement("button");reset.className="ghost";reset.textContent="Revoir la constellation";reset.onclick=()=>{state.choice=null;render();openMap()};choices.append(reset);
+      }
+    }
+    if(scene3d)scene3d.focus(state.index);
+    renderMap();
+  }
+  function go(index){
+    if(index<0||index>=TOTAL)return;
+    state.index=index;state.highest=Math.max(state.highest,index);
+    if(!state.entered){state.entered=true;el("intro").classList.add("hidden");el("journey").classList.add("active")}
+    closeMap();render();
+  }
+  function choose(choice){state.choice=choice;render();if(scene3d)scene3d.celebrate(choice==="yes")}
+  function renderMap(){
+    const grid=el("mapGrid");grid.innerHTML="";
+    story.forEach((step,i)=>{const b=document.createElement("button");b.className="map-item"+(i===state.index?" current":"");b.disabled=i>state.highest+1;b.innerHTML="<strong>"+String(i).padStart(2,"0")+(i<=state.highest?" · ✦":" · ◌")+"</strong><span>"+esc(step.title)+"</span>";b.onclick=()=>go(i);grid.append(b)});
+  }
+  function openMap(){el("mapDialog").classList.add("open");el("mapBtn").setAttribute("aria-expanded","true");renderMap();el("closeMap").focus()}
+  function closeMap(){el("mapDialog").classList.remove("open");el("mapBtn").setAttribute("aria-expanded","false")}
+  el("enterBtn").onclick=()=>go(1);el("introMapBtn").onclick=openMap;el("mapBtn").onclick=openMap;el("closeMap").onclick=closeMap;
+  el("mapDialog").onclick=e=>{if(e.target===el("mapDialog"))closeMap()};
+  el("backBtn").onclick=()=>go(state.index-1);el("nextSmall").onclick=()=>go(state.index+1);el("nextBtn").onclick=()=>go(state.index+1);
+  window.addEventListener("keydown",e=>{if(e.key==="Escape")closeMap();if(!state.map && e.key==="ArrowRight" && state.entered)go(state.index+1);if(!state.map && e.key==="ArrowLeft" && state.entered)go(state.index-1)});
+  el("soundBtn").onclick=()=>{
+    try{
+      if(!audio){const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ctx=new C();const gain=ctx.createGain();gain.gain.value=0.011;gain.connect(ctx.destination);const oscs=[196,293.66,392].map(freq=>{const o=ctx.createOscillator();o.type="sine";o.frequency.value=freq;o.connect(gain);o.start();return o});audio={ctx,gain,oscs,on:true}}
+      else{audio.on=!audio.on;audio.gain.gain.setTargetAtTime(audio.on?.011:0,audio.ctx.currentTime,.24);audio.ctx.resume()}
+      el("soundBtn").textContent=audio.on?"♪ On":"♪ Off";
+    }catch(err){el("soundBtn").textContent="♪ Indispo."}
+  };
+  function fallback(){el("fallbackStars").style.display="block";document.querySelector(".sidehint").textContent="Mode léger activé · tout le parcours reste accessible"}
+  // No chat archive, geolocation, analytics, network telemetry or response collection is used.
+  async function boot3D(){
+    try{
+      if(!document.createElement("canvas").getContext("webgl2"))throw Error("No WebGL2");
+      const T = await import("https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js");
+      const scene=new T.Scene();scene.fog=new T.FogExp2(0x090d21,.018);
+      const renderer=new T.WebGLRenderer({antialias:true,alpha:true,powerPreference:"low-power"});
+      const low=window.innerWidth<700||((navigator.deviceMemory||4)<=4);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,low?1.45:2));
+      renderer.setSize(innerWidth,innerHeight);renderer.outputColorSpace=T.SRGBColorSpace;
+      renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.5;
+      renderer.domElement.setAttribute("aria-label","Scène 3D de la constellation. Utilisez les boutons de navigation pour une expérience accessible.");
+      renderer.domElement.style.touchAction="pan-y";
+      document.body.insertBefore(renderer.domElement,document.querySelector(".veil"));
+      const camera=new T.PerspectiveCamera(43,innerWidth/innerHeight,.1,250);
+      const ambient=new T.HemisphereLight(0xc1c9ff,0x1c1835,2.2);scene.add(ambient);
+      const key=new T.DirectionalLight(0xffe0ac,2.2);key.position.set(-7,13,10);scene.add(key);
+      const lamp=new T.PointLight(0xf7b76c,50,23,2);scene.add(lamp);
+      const gold=new T.MeshStandardMaterial({color:0xe9be80,metalness:.72,roughness:.24,emissive:0x67491e,emissiveIntensity:.55});
+      const pearl=new T.MeshStandardMaterial({color:0xf3e4cd,metalness:.24,roughness:.34});
+      const night=new T.MeshStandardMaterial({color:0x25345b,metalness:.42,roughness:.36});
+      const blue=new T.MeshStandardMaterial({color:0x879ae1,metalness:.38,roughness:.35,emissive:0x1a255b,emissiveIntensity:.3});
+      const glow=new T.MeshBasicMaterial({color:0xffd79b});
+      const dark=new T.MeshStandardMaterial({color:0x151a33,metalness:.4,roughness:.55});
+      const create=(geo,mat,parent,pos,rot)=>{const mesh=new T.Mesh(geo,mat);if(pos)mesh.position.set(...pos);if(rot)mesh.rotation.set(...rot);parent.add(mesh);return mesh};
+      const ball=(r,mat,parent,pos)=>create(new T.SphereGeometry(r,18,12),mat,parent,pos);
+      const box=(s,mat,parent,pos,rot)=>create(new T.BoxGeometry(...s),mat,parent,pos,rot);
+      const ring=(r,t,mat,parent,pos,rot)=>create(new T.TorusGeometry(r,t,9,54),mat,parent,pos,rot);
+      const cyl=(rt,rb,h,mat,parent,pos,n=32)=>create(new T.CylinderGeometry(rt,rb,h,n),mat,parent,pos);
+      const cone=(r,h,mat,parent,pos)=>create(new T.ConeGeometry(r,h,7),mat,parent,pos);
+      const rng=(()=>{let n=2171;return()=>((n=(n*16807)%2147483647)-1)/2147483646})();
+      const stars=[];for(let i=0;i<(low?600:1100);i++)stars.push((rng()-.5)*110,rng()*60-5,(rng()-.5)*85-25);
+      const starGeometry=new T.BufferGeometry();starGeometry.setAttribute("position",new T.Float32BufferAttribute(stars,3));
+      const particles=new T.Points(starGeometry,new T.PointsMaterial({color:0xf9e8d6,size:low?.075:.09,transparent:true,opacity:.76,sizeAttenuation:true,depthWrite:false}));
+      scene.add(particles);
+      // Subtle astronomical halo, plus a winding constellation map in real 3D space.
+      ring(16,.015,new T.MeshBasicMaterial({color:0x555b89,transparent:true,opacity:.3}),scene,[0,4,-19]);
+      const positions=story.map((s,i)=>new T.Vector3((i-4)*5.4,0,Math.sin(i*.91)*3));
+      const nodes=[];const targets=[];const clicks=[];
+      const pathPoints=positions.map(p=>new T.Vector3(p.x,.55,p.z));
+      const curve=new T.CatmullRomCurve3(pathPoints);
+      const path=new T.Mesh(new T.TubeGeometry(curve,170,.028,6,false),new T.MeshBasicMaterial({color:0x977857,transparent:true,opacity:.55}));scene.add(path);
+      function sculpt(type,g){
+        if(type==="star"){ring(1.3,.055,gold,g,[0,2.05,0]);ring(1,.055,glow,g,[0,2.05,0],[0,Math.PI/4,0]);ball(.37,glow,g,[0,2.05,0])}
+        if(type==="message"){box([2,1.23,.22],pearl,g,[0,2.2,0]);cone(.21,.46,pearl,g,[-.75,1.36,0]);for(let q=0;q<3;q++)ball(.13,gold,g,[-.52+q*.52,2.2,.15])}
+        if(type==="book"){box([2.5,.19,1.7],night,g,[0,1.55,0]);box([1.18,.08,1.51],pearl,g,[-.62,1.68,0],[0,0,-.1]);box([1.18,.08,1.51],pearl,g,[.62,1.68,0],[0,0,.1]);box([.16,.19,1.72],gold,g,[0,1.6,0]);for(let q=0;q<5;q++)box([.5,.018,.02],gold,g,[-.77,1.735,-.5+q*.19])}
+        if(type==="garden"){for(let q=-1;q<=1;q++){cyl(.08,.11,1,night,g,[q*.9,1.45,.25]);box([.35,.45,.35],glow,g,[q*.9,2.1,.25]);cone(.3,.26,gold,g,[q*.9,2.43,.25]);cone(.46,1.6,blue,g,[q*1.3,1.68,-.8])}}
+        if(type==="bridge"){cyl(.92,1.05,.34,night,g,[-1.27,.85,0]);cyl(.92,1.05,.34,night,g,[1.27,.85,0]);box([2.45,.14,.65],gold,g,[0,1.18,0]);for(let q=-1;q<=1;q+=2){cyl(.085,.11,.7,pearl,g,[q*1.25,1.55,.38]);ball(.2,glow,g,[q*1.25,1.97,.38])}}
+        if(type==="horizon"){ring(1.28,.15,gold,g,[0,2,0]);ring(.95,.04,blue,g,[0,2,.05]);box([1.1,.68,.52],night,g,[0,1.17,.55]);box([.32,.2,.09],gold,g,[0,1.61,.55])}
+        if(type==="compass"){cyl(1.36,1.36,.18,night,g,[0,1.45,0]);ring(1.2,.09,gold,g,[0,1.56,0],[Math.PI/2,0,0]);cone(.42,1.1,glow,g,[0,1.75,.05]);cone(.42,1.1,blue,g,[0,1.75,-.05],[Math.PI,0,0]);ball(.23,gold,g,[0,1.65,0])}
+        if(type==="future"){for(let q=-1;q<=1;q+=2){cyl(.16,.19,2.9,pearl,g,[q*1.15,1.87,0]);ball(.17,gold,g,[q*1.15,3.35,0])}ring(1.18,.16,gold,g,[0,3.3,0],[Math.PI,0,0]);for(let q=-1;q<=1;q+=2){ball(.21,pearl,g,[q*.43,1.8,.7]);cyl(.14,.22,.58,night,g,[q*.43,1.36,.7])}}
+        if(type==="final"){for(let q=0;q<3;q++){ring(.8+q*.4,.027,q===1?blue:gold,g,[0,2,0],[q*.31,q*.57,q*.21])}ball(.66,glow,g,[0,2,0]);ball(.9,new T.MeshBasicMaterial({color:0xf4bd7c,transparent:true,opacity:.085,depthWrite:false}),g,[0,2,0])}
+      }
+      story.forEach((s,i)=>{
+        const p=positions[i],g=new T.Group();g.position.copy(p);scene.add(g);nodes.push(g);
+        const disk=cyl(2.05,2.26,.26,dark,g,[0,.45,0],46);
+        ring(1.9,.027,new T.MeshBasicMaterial({color:0x9b795c,transparent:true,opacity:.5}),g,[0,.62,0],[Math.PI/2,0,0]);
+        for(let q=0;q<9;q++){const a=q*2*Math.PI/9;ball(.035,gold,g,[Math.sin(a)*1.8,.66,Math.cos(a)*1.8])}
+        sculpt(s.type,g);
+        const orb=ball(.21,glow,g,[0,3.95,0]);orb.userData.index=i;clicks.push(orb);
+        ring(.38,.022,gold,g,[0,3.95,0]);
+        const glowBall=ball(.42,new T.MeshBasicMaterial({color:0xeeca95,transparent:true,opacity:.1,depthWrite:false}),g,[0,3.95,0]);
+        targets.push({orb,glowBall});
+      });
+      camera.position.set(0,5,18);camera.lookAt(0,1,0);
+      const lookAt=new T.Vector3(0,1.8,0),goalLook=new T.Vector3(0,1.8,0),goalPos=new T.Vector3(0,5,18);
+      const raycaster=new T.Raycaster(),pointer=new T.Vector2();
+      let startX=0,startY=0,dragged=false,dragDelta=0,touchStart=null,celebrate=false,frame=0,last=0;
+      renderer.domElement.addEventListener("pointerdown",e=>{startX=e.clientX;startY=e.clientY;dragged=false;touchStart=Date.now()},{passive:true});
+      renderer.domElement.addEventListener("pointermove",e=>{if(Math.abs(e.clientX-startX)>15||Math.abs(e.clientY-startY)>15)dragged=true},{passive:true});
+      renderer.domElement.addEventListener("pointerup",e=>{
+        if(!state.entered||el("mapDialog").classList.contains("open"))return;
+        if(dragged){if(Math.abs(e.clientX-startX)>90){go(state.index+(e.clientX<startX?1:-1))}return}
+        pointer.x=e.clientX/innerWidth*2-1;pointer.y=-(e.clientY/innerHeight)*2+1;raycaster.setFromCamera(pointer,camera);
+        const found=raycaster.intersectObjects(clicks);if(found.length){const i=found[0].object.userData.index;if(i<=state.highest+1)go(i)}
+      },{passive:true});
+      function focus(i){
+        const p=positions[i],mobile=innerWidth<800;
+        goalPos.set(p.x+(mobile?1.1:4),mobile?4.65:3.75,p.z+(mobile?14.1:10.3));
+        goalLook.set(p.x,mobile?2.4:1.85,p.z);
+        lamp.position.set(p.x+3,7,p.z+2);
+      }
+      function celebrateMode(on){celebrate=on}
+      const clock=new T.Clock();
+      function tick(){
+        requestAnimationFrame(tick);
+        const dt=Math.min(clock.getDelta(),.04);frame++;
+        const f=state.reduced?1:Math.min(1,dt*2.15);
+        camera.position.lerp(goalPos,f);lookAt.lerp(goalLook,f);camera.lookAt(lookAt);
+        if(!state.reduced){
+          nodes.forEach((g,i)=>{g.rotation.y=Math.sin(frame*.005+i*.8)*.026;targets[i].orb.position.y=3.95+Math.sin(frame*.025+i)*.12});
+          particles.rotation.y+=dt*.0009;
+          if(celebrate){targets[8].glowBall.scale.setScalar(1.7+Math.sin(frame*.04)*.24)}
+        }
+        renderer.render(scene,camera);
+      }
+      function resize(){camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio||1,(innerWidth<700||low)?1.45:2));focus(state.index)}
+      addEventListener("resize",resize,{passive:true});
+      scene3d={focus,celebrate:celebrateMode};focus(0);tick();
+      document.addEventListener("visibilitychange",()=>{if(document.hidden&&audio&&audio.on)audio.ctx.suspend();else if(audio&&audio.on)audio.ctx.resume()});
+    }catch(err){console.warn("3D unavailable; using accessible 2D view",err);fallback()}
+  }
+  render();boot3D();
+  </script>
+</body>
+</html>

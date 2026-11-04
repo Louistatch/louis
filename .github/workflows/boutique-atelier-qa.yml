@@ -1,0 +1,37 @@
+name: Boutique ATELIER QA
+on:
+  push:
+    paths:
+      - 'boutique-atelier/**'
+      - '.github/workflows/boutique-atelier-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  boutique:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Vérifier les modules et les règles du client
+        run: |
+          node --check boutique-atelier/app.js
+          node --check boutique-atelier/admin.js
+          node --check boutique-atelier/api.js
+          node boutique-atelier/tests/api.test.mjs
+      - name: Préparer le navigateur de test
+        run: |
+          python -m pip install --disable-pip-version-check -r boutique-atelier/tests/requirements-qa.txt
+          python -m playwright install --with-deps chromium
+      - name: Tester boutique et administration sur ordinateur et mobile
+        env:
+          ATELIER_CI_BROWSER: '1'
+        run: python boutique-atelier/tests/browser_check.py
+      - name: Conserver les captures et le rapport
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: atelier-captures-et-tests
+          path: boutique-atelier/qa/
+          if-no-files-found: ignore
+          retention-days: 7

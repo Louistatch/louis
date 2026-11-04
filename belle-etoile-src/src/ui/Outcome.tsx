@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { outcomes, ui } from '../content/story.fr';
+import { outcomes, ui, whatsappLink } from '../content/story.fr';
 import { useJourney } from '../state/journeyStore';
 
 export default function Outcome() {
@@ -32,6 +32,10 @@ export default function Outcome() {
               Un dernier petit mot (facultatif)…
             </button>
           ))}
+        <a className="btn whatsapp" href={whatsappLink(answer)} target="_blank" rel="noopener noreferrer" data-testid="whatsapp">
+          {ui.whatsapp}
+        </a>
+        <p className="muted small">{ui.whatsappNote}</p>
         {closed && <p className="muted">{ui.end}</p>}
         <p className="muted small">{ui.privacy}</p>
       </div>

@@ -51,6 +51,10 @@ export function FinalLetter() {
 export function ChoicePanel() {
   const choose = useJourney((s) => s.choose);
   const prev = useJourney((s) => s.prev);
+  const setNearYes = useSettings((s) => s.setNearYes);
+  useEffect(() => () => setNearYes(false), [setNearYes]);
+  // « Oui » est mis en valeur (lueur, étoile qui s'illumine) ; les trois restent cliquables.
+  const near = (on: boolean) => () => setNearYes(on);
   return (
     <section className="card choices" aria-labelledby="q-title" data-testid="choices">
       <h2 id="q-title" className="question">
@@ -59,7 +63,15 @@ export function ChoicePanel() {
       <p className="muted small">Toutes les réponses sont bienvenues. Prends ton temps.</p>
       <div className="choice-list">
         {answers.map((a) => (
-          <button key={a.id} className="btn choice" onClick={() => choose(a.id)} data-testid={`answer-${a.id}`}>
+          <button
+            key={a.id}
+            className={`btn choice ${a.id === 'yes' ? 'choice-yes' : ''}`}
+            onClick={() => choose(a.id)}
+            data-testid={`answer-${a.id}`}
+            {...(a.id === 'yes'
+              ? { onPointerEnter: near(true), onPointerLeave: near(false), onPointerDown: near(true), onFocus: near(true), onBlur: near(false) }
+              : {})}
+          >
             {a.label}
           </button>
         ))}

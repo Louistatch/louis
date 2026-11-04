@@ -233,7 +233,7 @@
   function go(index){
     if(index<0||index>=TOTAL)return;
     state.index=index;state.highest=Math.max(state.highest,index);
-    if(!state.entered){state.entered=true;el("intro").classList.add("hidden");el("journey").classList.add("active")}
+    if(!state.entered){setMusic(true);state.entered=true;el("intro").classList.add("hidden");el("journey").classList.add("active")}
     closeMap();render();
   }
   function choose(choice){state.choice=choice;render();if(scene3d)scene3d.celebrate(choice==="yes")}
@@ -243,7 +243,7 @@
   }
   function openMap(){el("mapDialog").classList.add("open");el("mapBtn").setAttribute("aria-expanded","true");renderMap();el("closeMap").focus()}
   function closeMap(){el("mapDialog").classList.remove("open");el("mapBtn").setAttribute("aria-expanded","false")}
-  el("enterBtn").onclick=()=>{setMusic(true);go(1)};el("introMapBtn").onclick=openMap;el("mapBtn").onclick=openMap;el("closeMap").onclick=closeMap;
+  el("enterBtn").onclick=()=>go(1);el("introMapBtn").onclick=openMap;el("mapBtn").onclick=openMap;el("closeMap").onclick=closeMap;
   el("mapDialog").onclick=e=>{if(e.target===el("mapDialog"))closeMap()};
   el("backBtn").onclick=()=>go(state.index-1);el("nextSmall").onclick=()=>go(state.index+1);el("nextBtn").onclick=()=>go(state.index+1);
   window.addEventListener("keydown",e=>{if(e.key==="Escape")closeMap();if(!state.map && e.key==="ArrowRight" && state.entered)go(state.index+1);if(!state.map && e.key==="ArrowLeft" && state.entered)go(state.index-1)});

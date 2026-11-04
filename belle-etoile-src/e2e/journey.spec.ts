@@ -73,6 +73,12 @@ for (const answer of ['yes', 'talk', 'no'] as const) {
     }
     if (answer === 'talk') await expect(page.getByText('On a le temps, rien ne presse.')).toBeVisible();
     if (answer === 'no') await expect(page.getByText('Je respecte ton choix.')).toBeVisible();
+    // le bouton WhatsApp ouvre la conversation avec Louis, message pré-rempli : rien n'est envoyé sans elle
+    const wa = page.getByTestId('whatsapp');
+    await expect(wa).toHaveAttribute('href', /^https:\/\/wa\.me\/22892548838\?text=/);
+    await expect(wa).toHaveAttribute('target', '_blank');
+    const text = decodeURIComponent((await wa.getAttribute('href'))!.split('text=')[1]);
+    expect(text).toContain({ yes: 'Oui, j’accepte', talk: 'qu’on en parle', no: 'Ma réponse est non' }[answer]);
     await snap(page, `10-outcome-${answer}`);
     // la réponse n'est jamais écrite dans le stockage local
     const stored = await page.evaluate(() => JSON.stringify(localStorage));

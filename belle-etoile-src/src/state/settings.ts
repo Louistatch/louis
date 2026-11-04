@@ -11,6 +11,9 @@ interface Settings {
   /** Niveau effectif (auto peut descendre si le téléphone peine). */
   effective: Quality;
   explore: boolean;
+  /** Le doigt ou la souris est sur « Oui » : l'étoile s'illumine (jamais persisté). */
+  nearYes: boolean;
+  setNearYes: (v: boolean) => void;
   setSong: (v: boolean) => void;
   setReduceMotion: (v: boolean) => void;
   setQuality: (v: QualityChoice) => void;
@@ -57,6 +60,8 @@ export const useSettings = create<Settings>((set, get) => ({
   quality: q0,
   effective: q0 === 'auto' ? detectQuality() : q0,
   explore: false,
+  nearYes: false,
+  setNearYes: (nearYes) => set({ nearYes }),
   setSong: (song) => set({ song }),
   setReduceMotion: (reduceMotion) => {
     set({ reduceMotion });

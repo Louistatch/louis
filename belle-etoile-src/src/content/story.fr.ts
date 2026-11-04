@@ -195,7 +195,9 @@ export const ui = {
   explore: 'Tourner autour de la scène (glisser)',
   locked: 'Bientôt…',
   noWebgl: 'Ton téléphone n’affiche pas la 3D : voici la version simple, avec les mêmes étapes.',
-  privacy: 'Ta réponse n’est ni enregistrée ni envoyée. Elle reste sur ton écran.',
+  privacy: 'Ta réponse n’est ni enregistrée ni envoyée automatiquement. Elle part seulement si tu choisis de l’envoyer sur WhatsApp.',
+  whatsapp: 'Envoyer ma réponse à Louis 💬',
+  whatsappNote: 'Ouvre WhatsApp avec le message déjà écrit : tu n’as plus qu’à appuyer sur Envoyer.',
   end: 'C’est la fin. Tu peux fermer la page quand tu veux.',
   song: {
     title: '♪ Notre chanson ❤️',
@@ -207,3 +209,16 @@ export const ui = {
 
 /** Chanson (vidéo YouTube officielle choisie par Louis). Lancée au toucher de « C'est parti ». */
 export const SONG_ID = 'PSZTZwoIJEc';
+
+/** Numéro WhatsApp de Louis (Togo, +228), sans « + » ni espaces. */
+export const WHATSAPP_NUMBER = '22892548838';
+
+/** Message pré-rempli selon la réponse : c'est elle qui décide de l'envoyer. */
+export const whatsappMessages: Record<Answer, string> = {
+  yes: 'Oui, j’accepte ❤️🌟 — Belle Étoile',
+  talk: 'J’ai vu ta surprise Belle Étoile 🌟 J’aimerais qu’on en parle 💬',
+  no: 'J’ai regardé ta surprise Belle Étoile 🌟 Ma réponse est non, mais merci.',
+};
+
+export const whatsappLink = (a: Answer) =>
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessages[a])}`;

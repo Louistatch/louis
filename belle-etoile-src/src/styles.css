@@ -216,3 +216,18 @@ button.reveal-item:disabled { opacity: .45; cursor: default; }
 .song-note { margin: 6px 2px 0; font-size: 11px; line-height: 1.4; color: var(--muted); }
 .song-note a { color: var(--gold); }
 .mode-intro .song-dock { display: none; }
+
+/* « Oui » mis en valeur : lueur douce, même taille que les autres choix */
+.btn.choice-yes {
+  border-color: rgba(242, 201, 125, .85);
+  background: linear-gradient(135deg, rgba(247,220,162,.22), rgba(232,165,180,.18));
+  animation: yesGlow 2.6s ease-in-out infinite;
+}
+.btn.choice-yes:hover, .btn.choice-yes:focus-visible { background: linear-gradient(135deg, rgba(247,220,162,.38), rgba(232,165,180,.3)); }
+@keyframes yesGlow { 50% { box-shadow: 0 0 22px rgba(242, 201, 125, .45); } }
+.reduce .btn.choice-yes { animation: none; }
+.btn.whatsapp {
+  display: flex; align-items: center; justify-content: center; text-decoration: none; margin: 14px 0 4px;
+  background: #1f8f4e; border-color: #2bb866; color: #fff;
+}
+.outcome .card-body p.small { font: 14px/1.45 var(--sans); }

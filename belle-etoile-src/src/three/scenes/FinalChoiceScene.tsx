@@ -45,10 +45,11 @@ function GoldenRise({ count = 60 }) {
 
 export default function FinalChoiceScene() {
   const answer = useJourney((s) => s.answer);
+  const nearYes = useSettings((s) => s.nearYes);
   const star = useRef<THREE.Group>(null);
   useFrame((_, dt) => {
     if (!star.current) return;
-    const target = answer === 'no' ? 0.7 : answer === 'yes' ? 1.25 : 1;
+    const target = answer === 'no' ? 0.7 : answer === 'yes' ? 1.25 : nearYes ? 1.35 : 1;
     star.current.scale.setScalar(damp(star.current.scale.x, target, 2, dt));
   });
   const constellation = useMemo(() => {
@@ -62,7 +63,8 @@ export default function FinalChoiceScene() {
     <group>
       <group ref={star} position={[0, 2.2, -2]}>
         <StarPoint size={3} color={answer === 'talk' ? '#bcd0ff' : COLORS.gold} pulse={answer === 'no' ? 0.02 : 0.06} lit />
-        <Glow size={9} opacity={answer === 'no' ? 0.1 : 0.22} color={answer === 'yes' ? COLORS.gold : '#9fb0ff'} />
+        <Glow size={nearYes && !answer ? 12 : 9} opacity={answer === 'no' ? 0.1 : nearYes ? 0.4 : 0.22} color={answer === 'yes' || nearYes ? COLORS.gold : '#9fb0ff'} />
+        {nearYes && !answer && <Glow size={4} opacity={0.6} color={COLORS.rose} pulse={0.12} />}
       </group>
       {answer === 'yes' && (
         <group position={[0, 1.8, -7]} scale={0.8}>

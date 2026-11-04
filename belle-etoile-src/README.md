@@ -56,7 +56,9 @@ Le build (`../belle-etoile/`) est un site statique sans serveur, sans compte et 
 - **« J'aimerais qu'on en parle 💬 »** : « J'aimerais t'écouter. Aucune réponse n'est urgente. », puis retour à la constellation.
 - **« Je préfère ne pas m'engager »** : « Merci… Je respecte entièrement ton choix. », puis fin du parcours.
 
-Les trois boutons ont le même style et la même taille. Il n'y a ni minuteur, ni bouton qui s'échappe, ni redirection vers « oui ».
+Les trois boutons ont la même taille et restent toujours cliquables. « Oui » est mis en valeur : une lueur douce, et l'étoile qui s'illumine quand le doigt s'en approche. Il n'y a ni minuteur, ni bouton qui s'échappe, ni redirection vers « oui ».
+
+Après chaque réponse, le bouton **« Envoyer ma réponse à Louis 💬 »** ouvre WhatsApp vers le +228 92 54 88 38 (`WHATSAPP_NUMBER` dans `story.fr.ts`), avec un message déjà écrit selon la réponse. **Rien n'est envoyé automatiquement :** c'est elle qui appuie sur Envoyer dans WhatsApp.
 
 ## Performance (mobile, réseau limité)
 

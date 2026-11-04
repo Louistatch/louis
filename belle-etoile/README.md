@@ -53,3 +53,14 @@ Les métadonnées `noindex` demandent aux moteurs de recherche de ne pas indexer
 - Aucun domaine ni hébergement privé supplémentaire n'a été configuré.
 
 Pour une évolution plus ambitieuse vers React Three Fiber, GLB optimisés et scènes plus réalistes, voir [CLAUDE.md](./CLAUDE.md).
+
+## Chanson de fond (YouTube)
+
+La vidéo demandée est intégrée via le **lecteur officiel YouTube** : [voir la chanson](https://youtu.be/PSZTZwoIJEc).
+
+- La lecture est demandée quand la visiteuse touche « C'est parti ! » ou entre pour la première fois dans une scène depuis la carte.
+- Elle est configurée pour **recommencer en boucle** (`loop=1`, `playlist=PSZTZwoIJEc`).
+- Le bouton **♪ Stop** arrête la vidéo, le bouton **♪ Chanson** la relance.
+- Sur certains Android, YouTube peut **bloquer le démarrage avec le son** : toucher ▶ sur la vidéo visible si nécessaire.
+- Le lecteur vidéo YouTube doit être visible (minimum 200 × 200 px) ; il ne s'agit pas d'un MP3 copié ni d'un iframe caché. La disponibilité et l'intégration dépendent des droits et restrictions de la vidéo.
+- Le chargement YouTube ne commence qu'à la première demande de lecture. La plateforme YouTube peut traiter certaines données lors de la lecture, même en mode `youtube-nocookie.com` ; aucune réponse au parcours n'est transmise à YouTube par le projet.
